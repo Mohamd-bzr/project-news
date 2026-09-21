@@ -27,4 +27,5 @@ __pycache__/
 # ── local user state (no secrets today, kept out so a future pasted
 #    Telegram token can never be committed by accident) ──
 settings.json
+backups/settings.json*
 backups/settings.json.bak*
