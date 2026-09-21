@@ -9,16 +9,16 @@
       {
         "title": "Solana — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Solana",
-        "asof": "2026-09-21 13:36 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۶",
+        "asof": "2026-09-21 13:52 Tehran",
+        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
         "symbol": "SOL",
         "name": "Solana",
         "fa_name": "Solana",
         "icon": "◎",
-        "price": 115.72,
-        "change_24h": 6.92,
+        "price": 115.79,
+        "change_24h": 7.21,
         "news_window_hours": 24.0,
-        "news_used": 7,
+        "news_used": 8,
         "sources_used": [
           {
             "name": "TechBullion",
@@ -30,10 +30,6 @@
           },
           {
             "name": "r/CryptoMarkets (شبکه اجتماعی)",
-            "count": 2
-          },
-          {
-            "name": "Pluang",
             "count": 2
           },
           {
@@ -49,11 +45,11 @@
             "count": 1
           },
           {
-            "name": "TradingPedia",
+            "name": "Pluang",
             "count": 1
           },
           {
-            "name": "Crypto Briefing",
+            "name": "TradingPedia",
             "count": 1
           },
           {
@@ -66,6 +62,10 @@
           },
           {
             "name": "CryptoSlate",
+            "count": 1
+          },
+          {
+            "name": "markets.businessinsider.com",
             "count": 1
           }
         ],
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Solana is changing hands near $115.72, +6.92% over the past 24 hours and +12.93% on a 7-day view. Spot trades above the 50-day average ($96.00) and above the 200-day average ($95.08), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+23.25%), suggesting the market is still repairing.",
+        "en": "Solana is changing hands near $115.79, +7.21% over the past 24 hours and +12.84% on a 7-day view. Spot trades above the 50-day average ($96.00) and above the 200-day average ($95.08), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+23.16%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -118,31 +118,6 @@
           {
             "index": 2,
             "index_fa": "۲",
-            "title_en": "0G expands wrapped token to Ethereum, Solana, Base, and Robinhood Chain",
-            "title_fa": "۰G توکن پیچیده شده را به اتریوم، سولانا، بیس و زنجیره رابینهود گسترش می‌دهد.",
-            "summary_fa": "گسترش توکن ۰G در سراسر شبکه‌های اصلی، قابلیت همکاری متقابل زنجیره‌ای را افزایش می‌دهد، و به طور بالقوه باعث تسریع یکپارچگی غیرمتمرکز AI و بلاک چین می‌شود.",
-            "source": "Crypto Briefing",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://cryptobriefing.com/0g-expands-ethereum-solana-base-robinhood/",
-            "published_ts": 1789974113.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۰:۳۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۰:۳۱",
-            "age_fa": "۳ ساعت پیش",
-            "credibility": 0.78,
-            "credibility_fa": "۷۸٪",
-            "topic_fa": "فناوری",
-            "assets": [
-              "ETH",
-              "SOL"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "index": 3,
-            "index_fa": "۳",
             "title_en": "Jupiter’s 15% rally – Tokenized stocks on Solana fuel JUP’s jump",
             "title_fa": "افزایش ۱۵ درصدی مشتری - توکنیزه شدن سهام سولانا به جهش JUP دامن زد",
             "summary_fa": "JUP ۱۱ درصد افزایش یافت، مقاومت ۰.۳ دلار را از بین برد و به بالاترین سطح ۱۰ ماهه ۰.۳۱ دلار رسید.",
@@ -154,10 +129,34 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۳:۳۰",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۰",
-            "age_fa": "۶ دقیقه پیش",
+            "age_fa": "۲۴ دقیقه پیش",
             "credibility": 0.75,
             "credibility_fa": "۷۵٪",
             "topic_fa": "تحلیل",
+            "assets": [
+              "SOL"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "Why Solana’s new 250ms speed boost could actually trigger network instability",
+            "title_fa": "چرا افزایش سرعت ۲۵۰ میلی‌ثانیه سولانا واقعاً می‌تواند باعث بی‌ثباتی شبکه شود",
+            "summary_fa": "داده‌های شبکه اصلی اولیه پایدار به نظر می‌رسند، اما مسیر ۲۰۰ میلی‌ثانیه ممکن است بیشتر به انتقال رهبر، توافق مشتری و تنوع زیرساخت بستگی داشته باشد تا توان عملیاتی سرفصل.",
+            "source": "CryptoSlate",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cryptoslate.com/solanas-250ms-slots-turn-validator-coordination-into-the-networks-next-security-test/",
+            "published_ts": 1789932038.0,
+            "date_fa": "۲۹ شهریور ۱۴۰۵",
+            "time_fa": "۲۲:۵۰",
+            "datetime_fa": "۲۹ شهریور ۱۴۰۵، ساعت ۲۲:۵۰",
+            "age_fa": "۱۵ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "فناوری",
             "assets": [
               "SOL"
             ],
@@ -177,7 +176,7 @@
     [
       "p",
       {
-        "en": "- Solana’s October setup: Record activity, ETF inflows, and a brewing breakout. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.",
+        "en": "- Solana’s October setup: Record activity, ETF inflows, and a brewing breakout. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.\n- Ripple (XRP) ETFs Hit 10-Week Green Streak, but Solana (SOL) Funds Go Even Further. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.",
         "fa": ""
       }
     ],
@@ -209,6 +208,31 @@
             ],
             "why_fa": "",
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana."
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Ripple (XRP) ETFs Hit 10-Week Green Streak, but Solana (SOL) Funds Go Even Further",
+            "title_fa": "ETF های Ripple (XRP) به رگه سبز ۱۰ هفته ای رسیدند، اما سرمایه Solana (SOL) حتی فراتر رفت",
+            "summary_fa": "ETF های Ripple (XRP) به رگه سبز ۱۰ هفته ای رسیدند، اما سرمایه Solana (SOL) حتی فراتر رفت",
+            "source": "CryptoPotato",
+            "source_kind": "search",
+            "via": "Google News · SOL",
+            "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNazVnd2JSbmZFMkxlbkNGOGMwWjl0TU9GZkNXaU5VXzRKTG9nN1hwcDlTcWFCS1BwY1lxblJGWUp6VmtnZVdkVkdySmlQdjN4UXVldzBsZFNIM3RVV3VjRFZ2SDNqdDBMZ0lINW1DaUEwN0E4QTM1N1JBblN4SEtRN3hwUm5XM0tTbDlpZDFGVm1FcjlCVnZfek5tUTd6bjdDWEE5V1hR?oc=5",
+            "published_ts": 1789915800.0,
+            "date_fa": "۲۹ شهریور ۱۴۰۵",
+            "time_fa": "۱۸:۲۰",
+            "datetime_fa": "۲۹ شهریور ۱۴۰۵، ساعت ۱۸:۲۰",
+            "age_fa": "۲۰ ساعت پیش",
+            "credibility": 0.691,
+            "credibility_fa": "۶۹٪",
+            "topic_fa": "ETF",
+            "assets": [
+              "SOL",
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana."
           }
         ]
       }
@@ -223,7 +247,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $68.0B (CoinGecko). Reported 24-hour spot volume is $4.56B with 7-day average turnover broadly normal versus the trailing month (1.07x) . Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "en": "Total market capitalization stands near $68.0B (CoinGecko). Reported 24-hour spot volume is $4.67B with 7-day average turnover broadly normal versus the trailing month (1.07x) . Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
         "fa": ""
       }
     ],
@@ -251,7 +275,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $115.75 versus EMA20 $103.99, EMA50 $96.00 and EMA200 $95.08 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $112.60 (recent swing low); the lower Bollinger band $93.98 as the 2σ downside envelope; upper band $113.72 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.712 implies a typical daily range of roughly 4.1 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 67.9 — neutral territory; MACD (12/26/9) sits above its signal line (4.397 vs 3.655, histogram +0.7415), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 68%; the 20-day band spans 19% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.07x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +23.25% over 30 days and +66.20% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+12.93%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $115.66 versus EMA20 $103.98, EMA50 $96.00 and EMA200 $95.08 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $112.60 (recent swing low); the lower Bollinger band $93.99 as the 2σ downside envelope; upper band $113.70 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.712 implies a typical daily range of roughly 4.1 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 67.9 — neutral territory; MACD (12/26/9) sits above its signal line (4.39 vs 3.654, histogram +0.7358), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 68%; the 20-day band spans 19% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.07x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +23.16% over 30 days and +66.07% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+12.84%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -274,7 +298,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۳:۳۰",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۰",
-            "age_fa": "۶ دقیقه پیش",
+            "age_fa": "۲۴ دقیقه پیش",
             "credibility": 0.75,
             "credibility_fa": "۷۵٪",
             "topic_fa": "تحلیل",
@@ -335,11 +359,11 @@
     [
       "p",
       {
-        "en": "Net take on Solana: spot $115.72 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+6.92%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Solana: spot $115.79 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+7.21%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:06:48.163640+00:00",
+  "generated_at": "2026-09-21T10:22:53.005028+00:00",
   "news_used": 3
 }

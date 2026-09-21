@@ -9,32 +9,44 @@
       {
         "title": "chainlink — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Chainlink",
-        "asof": "2026-09-21 13:36 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۶",
+        "asof": "2026-09-21 13:52 Tehran",
+        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
         "symbol": "LINK",
         "name": "chainlink",
         "fa_name": "Chainlink",
         "icon": "★",
-        "price": 12.961,
-        "change_24h": 3.58,
+        "price": 12.975,
+        "change_24h": 3.69,
         "news_window_hours": 24.0,
-        "news_used": 5,
+        "news_used": 7,
         "sources_used": [
           {
             "name": "r/Silverbugs (شبکه اجتماعی)",
             "count": 17
           },
           {
-            "name": "r/Bitcoin (شبکه اجتماعی)",
-            "count": 14
-          },
-          {
             "name": "r/Gold (شبکه اجتماعی)",
             "count": 13
           },
           {
+            "name": "r/Bitcoin (شبکه اجتماعی)",
+            "count": 12
+          },
+          {
             "name": "r/CryptoMarkets (شبکه اجتماعی)",
             "count": 8
+          },
+          {
+            "name": "r/dogecoin (شبکه اجتماعی)",
+            "count": 3
+          },
+          {
+            "name": "Bloomberg",
+            "count": 1
+          },
+          {
+            "name": "r/ethereum (شبکه اجتماعی)",
+            "count": 1
           },
           {
             "name": "CoinCu",
@@ -58,7 +70,7 @@
     [
       "p",
       {
-        "en": "chainlink is changing hands near $12.96, +3.58% over the past 24 hours and +12.60% on a 7-day view. Spot trades above the 50-day average ($10.93) and above the 200-day average ($10.33), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+11.19%), suggesting the market is still repairing.",
+        "en": "chainlink is changing hands near $12.97, +3.69% over the past 24 hours and +12.72% on a 7-day view. Spot trades above the 50-day average ($10.93) and above the 200-day average ($10.33), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+11.31%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -70,6 +82,30 @@
           {
             "index": 1,
             "index_fa": "۱",
+            "title_en": "ECB Launches Key Link Between Blockchain and Euro Payment System",
+            "title_fa": "بانک مرکزی اروپا پیوند کلیدی بین بلاک چین و سیستم پرداخت یورو را راه اندازی کرد",
+            "summary_fa": "بانک مرکزی اروپا روز دوشنبه به بانک‌ها اجازه داد تا معاملات عمده‌فروشی توکن شده با پول بانک مرکزی را تسویه کنند، در حالی که به تلاش‌ها برای توسعه یورو دیجیتال برای مصرف‌کنندگان تا پایان دهه ادامه می‌دهد.",
+            "source": "Bloomberg",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.bloomberg.com/news/articles/2026-09-21/ecb-launches-key-link-between-blockchain-and-euro-payment-system",
+            "published_ts": 1789984800.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۳:۳۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۰",
+            "age_fa": "۲۴ دقیقه پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "LINK"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "Anthropic Claude AI Predicts LINK to Blast +300% by 2027",
             "title_fa": "هوش مصنوعی Anthropic Claude پیش بینی می کند که تا سال ۲۰۲۷ LINK به انفجار + ۳۰۰٪ باشد",
             "summary_fa": "اگر شرایط بازار صعودی کامل را از هم‌اکنون تا پایان سال ۲۰۲۶ بازگردانیم، هوش مصنوعی آنتروپیک کلود پیش‌بینی می‌کند که Chainlink (LINK) تا ۱ ژانویه ۲۰۲۷ به ۳۵ دلار خواهد رسید. در حال حاضر، LINK حدود ۱۲ دلار معامله می‌شود، بنابراین حرکت به ۳۵ د",
@@ -92,8 +128,8 @@
             "why_en": ""
           },
           {
-            "index": 2,
-            "index_fa": "۲",
+            "index": 3,
+            "index_fa": "۳",
             "title_en": "U.S. Treasury Sanctions Iranian Exchange BitBank Over Reported IRGC Bitcoin Transfers",
             "title_fa": "وزارت خزانه داری آمریکا صرافی بیت بانک ایران را به دلیل نقل و انتقالات بیت کوین سپاه پاسداران تحریم کرد",
             "summary_fa": "اقدام اجرایی وزارت خزانه داری، بیت بانک را به عنوان موضوع تعیین نام می برد، و آن را به عنوان یک صرافی ایرانی با ارتباط عملیاتی ادعایی با سپاه پاسداران، نیروی نظامی و شبه نظامی اولیه ایران، که ایالات متحده آمریکا معرفی می کند، معرفی می کند.",
@@ -176,7 +212,7 @@
     [
       "p",
       {
-        "en": "- U.S. Treasury Sanctions Iranian Exchange BitBank Over Reported IRGC Bitcoin Transfers. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
+        "en": "- ECB Launches Key Link Between Blockchain and Euro Payment System. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for chainlink.\n- U.S. Treasury Sanctions Iranian Exchange BitBank Over Reported IRGC Bitcoin Transfers. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
         "fa": ""
       }
     ],
@@ -188,6 +224,30 @@
           {
             "index": 1,
             "index_fa": "۱",
+            "title_en": "ECB Launches Key Link Between Blockchain and Euro Payment System",
+            "title_fa": "بانک مرکزی اروپا پیوند کلیدی بین بلاک چین و سیستم پرداخت یورو را راه اندازی کرد",
+            "summary_fa": "بانک مرکزی اروپا روز دوشنبه به بانک‌ها اجازه داد تا معاملات عمده‌فروشی توکن شده با پول بانک مرکزی را تسویه کنند، در حالی که به تلاش‌ها برای توسعه یورو دیجیتال برای مصرف‌کنندگان تا پایان دهه ادامه می‌دهد.",
+            "source": "Bloomberg",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.bloomberg.com/news/articles/2026-09-21/ecb-launches-key-link-between-blockchain-and-euro-payment-system",
+            "published_ts": 1789984800.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۳:۳۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۰",
+            "age_fa": "۲۴ دقیقه پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "LINK"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for chainlink."
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "U.S. Treasury Sanctions Iranian Exchange BitBank Over Reported IRGC Bitcoin Transfers",
             "title_fa": "وزارت خزانه داری آمریکا صرافی بیت بانک ایران را به دلیل نقل و انتقالات بیت کوین سپاه پاسداران تحریم کرد",
             "summary_fa": "اقدام اجرایی وزارت خزانه داری، بیت بانک را به عنوان موضوع تعیین نام می برد، و آن را به عنوان یک صرافی ایرانی با ارتباط عملیاتی ادعایی با سپاه پاسداران، نیروی نظامی و شبه نظامی اولیه ایران، که ایالات متحده آمریکا معرفی می کند، معرفی می کند.",
@@ -223,7 +283,7 @@
     [
       "p",
       {
-        "en": "Seven-day average turnover runs at 1.06x the trailing-month norm. Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "en": "Seven-day average turnover runs at 1.07x the trailing-month norm. Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
         "fa": ""
       }
     ],
@@ -251,7 +311,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $12.96 versus EMA20 $11.79, EMA50 $10.93 and EMA200 $10.33 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $12.76 (recent swing low); the lower Bollinger band $10.57 as the 2σ downside envelope; first resistance at $13.22 (recent swing high); upper band $13.19 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.6090 implies a typical daily range of roughly 4.7 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 65.3 — neutral territory; MACD (12/26/9) sits above its signal line (0.3878 vs 0.3378, histogram +0.04993), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 69%; the 20-day band spans 22% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.06x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +11.19% over 30 days and +70.02% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+12.60%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $12.97 versus EMA20 $11.79, EMA50 $10.93 and EMA200 $10.33 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $12.76 (recent swing low); the lower Bollinger band $10.57 as the 2σ downside envelope; first resistance at $13.22 (recent swing high); upper band $13.20 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.6090 implies a typical daily range of roughly 4.7 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 65.4 — neutral territory; MACD (12/26/9) sits above its signal line (0.3889 vs 0.3381, histogram +0.05082), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 69%; the 20-day band spans 22% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.07x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +11.31% over 30 days and +70.20% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+12.72%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -311,11 +371,11 @@
     [
       "p",
       {
-        "en": "Net take on chainlink: spot $12.96 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+3.58%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on chainlink: spot $12.97 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+3.69%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:06:48.158635+00:00",
+  "generated_at": "2026-09-21T10:22:53.003074+00:00",
   "news_used": 4
 }

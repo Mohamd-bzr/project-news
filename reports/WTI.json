@@ -9,16 +9,16 @@
       {
         "title": "WTI Crude Oil — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار نفت WTI",
-        "asof": "2026-09-21 13:36 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۶",
+        "asof": "2026-09-21 13:52 Tehran",
+        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
         "symbol": "WTI",
         "name": "WTI Crude Oil",
         "fa_name": "نفت WTI",
         "icon": "🛢",
-        "price": 93.529999,
-        "change_24h": -6.75,
+        "price": 93.610001,
+        "change_24h": -6.67,
         "news_window_hours": 24.0,
-        "news_used": 12,
+        "news_used": 13,
         "sources_used": [
           {
             "name": "Reuters",
@@ -29,6 +29,10 @@
             "count": 5
           },
           {
+            "name": "Yahoo Finance",
+            "count": 4
+          },
+          {
             "name": "WSJ",
             "count": 3
           },
@@ -37,12 +41,16 @@
             "count": 3
           },
           {
-            "name": "Yahoo Finance",
+            "name": "OilPrice",
             "count": 3
           },
           {
-            "name": "OilPrice",
-            "count": 3
+            "name": "Financial Times News",
+            "count": 2
+          },
+          {
+            "name": "Crypto Briefing",
+            "count": 2
           },
           {
             "name": "Bloomberg.com",
@@ -53,19 +61,11 @@
             "count": 1
           },
           {
-            "name": "Financial Times News",
-            "count": 1
-          },
-          {
             "name": "Bloomberg",
             "count": 1
           },
           {
             "name": "Bloomberg Business",
-            "count": 1
-          },
-          {
-            "name": "Crypto Briefing",
             "count": 1
           }
         ],
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "WTI Crude Oil is changing hands near $93.53, -6.75% over the past 24 hours and -8.73% on a 7-day view. Spot trades above the 50-day average ($89.28) and above the 200-day average ($79.47), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+19.63%), suggesting the market is still repairing.",
+        "en": "WTI Crude Oil is changing hands near $93.61, -6.67% over the past 24 hours and -8.66% on a 7-day view. Spot trades above the 50-day average ($89.28) and above the 200-day average ($79.48), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+19.74%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -105,7 +105,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۳:۳۰",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۰",
-            "age_fa": "۶ دقیقه پیش",
+            "age_fa": "۲۴ دقیقه پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "عمومی",
@@ -129,7 +129,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۳:۲۲",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۲۲",
-            "age_fa": "۱۲ دقیقه پیش",
+            "age_fa": "۳۰ دقیقه پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "عمومی",
@@ -142,17 +142,17 @@
           {
             "index": 3,
             "index_fa": "۳",
-            "title_en": "COMMENTARY: Oil shock raises risk of metals shock as EV sales accelerate",
-            "title_fa": "تفسیر: شوک نفتی خطر شوک فلزات را افزایش می دهد زیرا فروش خودروهای الکتریکی شتاب می گیرد",
-            "summary_fa": "تفسیر: شوک نفتی خطر شوک فلزات را افزایش می دهد زیرا فروش خودروهای الکتریکی شتاب می گیرد",
+            "title_en": "COMMENTARY: Hormuz shuttles keep oil flowing, but at a high cost",
+            "title_fa": "تفسیر: شاتل های هرمز جریان نفت را حفظ می کنند، اما با هزینه بالا",
+            "summary_fa": "تفسیر: شاتل های هرمز جریان نفت را حفظ می کنند، اما با هزینه بالا",
             "source": "Reuters",
             "source_kind": "search",
             "via": "Google News · REUTERS wire",
-            "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPSHczWUtjYjdodWhSTDM4Z1g4Y0hBcmUxd2JRcUR2QXp4SVVCYU94XzkwOFhNeW5HNzVMTnEwaHdiWVNPWXBvMlByQ0pyNi1KSUdlWW1BM3lBdGRXSUNwUlhyY2d5X3hXazd6aFM0eHZlNU1KSGs3UDNVX0tKaTVPMVdseGlSTWdvdXFWRGRpeVhPal9EUVMtUzkyX0k3alp1S2R4b3dYVkRYT0xCRy1HWTIydHM0a2drRWhsSEdEN1o?oc=5",
-            "published_ts": 1789970556.0,
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPY1ZqYkdEeGVjVmotcmtLNWlndkR4bTgzYzlVVThwZ184TG9oX2U2a0ZhYXp1QXZKSnNiT0ZrTngzS1N3OUczT2ZSSFNYUjRPb0VuaEZTcnpDQ0JYTldvMXBlaVRXbU1laHpPUlpSanNXb0pNZnRPcktpVGFtc1h0WG9RMlhMSndOelVoQzBXQmZKbjd5SUZIZEl0ZEl1S0R3VEV4aUd6VlVqMmJQVjE3Wg?oc=5",
+            "published_ts": 1789970400.0,
             "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۹:۳۲",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۹:۳۲",
+            "time_fa": "۰۹:۳۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۹:۳۰",
             "age_fa": "۴ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
@@ -176,7 +176,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Emerging-Market Stocks, Currencies Gain After US-China Talks.\n- Oil prices slide on hopes of diplomacy in Iran war.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Emerging-Market Stocks, Currencies Gain After US-China Talks.\n- Oil prices slide to 11-day low on hopes of US-Iran diplomacy, Saudi exports.",
         "fa": ""
       }
     ],
@@ -213,9 +213,9 @@
           {
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Oil prices slide on hopes of diplomacy in Iran war",
-            "title_fa": "کاهش قیمت نفت به دلیل امید به دیپلماسی در جنگ ایران",
-            "summary_fa": "کاهش قیمت نفت به دلیل امید به دیپلماسی در جنگ ایران",
+            "title_en": "Oil prices slide to 11-day low on hopes of US-Iran diplomacy, Saudi exports",
+            "title_fa": "با امید به دیپلماسی ایران و آمریکا و صادرات عربستان، قیمت نفت به پایین‌ترین حد در ۱۱ روز گذشته رسید.",
+            "summary_fa": "با امید به دیپلماسی ایران و آمریکا و صادرات عربستان، قیمت نفت به پایین‌ترین حد در ۱۱ روز گذشته رسید.",
             "source": "Reuters",
             "source_kind": "search",
             "via": "Google News · REUTERS wire",
@@ -247,7 +247,7 @@
     [
       "p",
       {
-        "en": "- Indian rupee eyes portfolio flows, oil prices; bonds face liquidity drain. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- French diesel prices hit record €2.40 per litre amid Middle East tensions. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Oil Futures Pull Back From 4-Month Highs. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for WTI Crude Oil.",
+        "en": "- Indian rupee eyes portfolio flows, oil prices; bonds face liquidity drain. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- FirstFT: Bank exposure to trading firms scrutinised. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for WTI Crude Oil.\n- French diesel prices hit record €2.40 per litre amid Middle East tensions. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Oil Futures Pull Back From 4-Month Highs. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for WTI Crude Oil.",
         "fa": ""
       }
     ],
@@ -270,7 +270,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۰۵:۰۳",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۵:۰۳",
-            "age_fa": "۸ ساعت پیش",
+            "age_fa": "۹ ساعت پیش",
             "credibility": 0.912,
             "credibility_fa": "۹۱٪",
             "topic_fa": "امنیت",
@@ -283,6 +283,30 @@
           {
             "index": 2,
             "index_fa": "۲",
+            "title_en": "FirstFT: Bank exposure to trading firms scrutinised",
+            "title_fa": "FirstFT: قرار گرفتن بانک در معرض شرکت های تجاری مورد بررسی قرار گرفت",
+            "summary_fa": "همچنین در خبرنامه امروز: قیمت نفت کاهش می‌یابد و ایالات متحده و چین گفتگوهای هوش مصنوعی را آغاز می‌کنند",
+            "source": "Financial Times News",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.ft.com/content/2f2c4fa1-974f-46dd-9b99-beeee991969b?syn-25a6b1a6=1",
+            "published_ts": 1789986024.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۳:۵۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۰",
+            "age_fa": "۱ دقیقه پیش",
+            "credibility": 0.9,
+            "credibility_fa": "۹۰٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "WTI"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for WTI Crude Oil."
+          },
+          {
+            "index": 3,
+            "index_fa": "۳",
             "title_en": "French diesel prices hit record €2.40 per litre amid Middle East tensions",
             "title_fa": "قیمت گازوئیل فرانسه در بحبوحه تنش های خاورمیانه به رکورد ۲.۴۰ یورو در هر لیتر رسید",
             "summary_fa": "افزایش قیمت گازوئیل در فرانسه آسیب پذیری بازارهای جهانی نفت را در برابر تنش های ژئوپلیتیکی نشان می دهد که به طور بالقوه باعث تأثیرات اقتصادی گسترده تر می شود.",
@@ -294,7 +318,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۲:۵۲",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۵۲",
-            "age_fa": "۴۲ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.78,
             "credibility_fa": "۷۸٪",
             "topic_fa": "امنیت",
@@ -305,8 +329,8 @@
             "why_en": "Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first."
           },
           {
-            "index": 3,
-            "index_fa": "۳",
+            "index": 4,
+            "index_fa": "۴",
             "title_en": "investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell",
             "title_fa": "InvestingLive اخبار بازار آسیا و اقیانوسیه: قیمت نفت در بازه زمانی باز افزایش یافت اما به زودی سقوط کرد",
             "summary_fa": "ترامپ پس از تماس با ولیعهد عربستان، دو بار حملات هوایی حوثی‌ها را تغییر داد war-e",
@@ -318,7 +342,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۰۷:۱۸",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۱۸",
-            "age_fa": "۶ ساعت پیش",
+            "age_fa": "۷ ساعت پیش",
             "credibility": 0.71,
             "credibility_fa": "۷۱٪",
             "topic_fa": "مقررات",
@@ -330,8 +354,8 @@
             "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
           },
           {
-            "index": 4,
-            "index_fa": "۴",
+            "index": 5,
+            "index_fa": "۵",
             "title_en": "Oil Futures Pull Back From 4-Month Highs",
             "title_fa": "کاهش معاملات آتی نفت از بالاترین رقم ۴ ماهه",
             "summary_fa": "کاهش معاملات آتی نفت از بالاترین رقم ۴ ماهه",
@@ -366,7 +390,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $93.53 versus EMA20 $94.69, EMA50 $89.28 and EMA200 $79.47 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $93.03 (recent swing low); the lower Bollinger band $78.00 as the 2σ downside envelope; first resistance at $96.05 (recent swing high); upper band $108.33 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.449 implies a typical daily range of roughly 4.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 51.2 — neutral territory; MACD (12/26/9) sits above its signal line (4.376 vs 4.348, histogram +0.02807), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 53%; the 20-day band spans 33% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.17x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +19.63% over 30 days and -8.47% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (-8.73%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $93.61 versus EMA20 $94.69, EMA50 $89.28 and EMA200 $79.48 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $93.03 (recent swing low); the lower Bollinger band $78.01 as the 2σ downside envelope; first resistance at $96.05 (recent swing high); upper band $108.33 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.449 implies a typical daily range of roughly 4.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 51.3 — neutral territory; MACD (12/26/9) sits above its signal line (4.382 vs 4.349, histogram +0.03318), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 53%; the 20-day band spans 33% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.17x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +19.74% over 30 days and -8.39% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (-8.66%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -450,11 +474,11 @@
     [
       "p",
       {
-        "en": "Net take on WTI Crude Oil: spot $93.53 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-6.75%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on WTI Crude Oil: spot $93.61 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-6.67%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:06:51.333520+00:00",
+  "generated_at": "2026-09-21T10:22:56.141789+00:00",
   "news_used": 4
 }

@@ -9,8 +9,8 @@
       {
         "title": "S&P 500 — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار اس‌اند‌پی ۵۰۰",
-        "asof": "2026-09-21 13:36 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۶",
+        "asof": "2026-09-21 13:52 Tehran",
+        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
         "symbol": "SPX",
         "name": "S&P 500",
         "fa_name": "اس‌اند‌پی ۵۰۰",
@@ -18,30 +18,22 @@
         "price": 7650.5,
         "change_24h": 0.17,
         "news_window_hours": 24.0,
-        "news_used": 12,
+        "news_used": 11,
         "sources_used": [
           {
             "name": "Bloomberg Markets",
             "count": 5
           },
           {
-            "name": "Motley Fool Investing",
-            "count": 4
-          },
-          {
-            "name": "BeInCrypto",
-            "count": 2
-          },
-          {
             "name": "Financial Times Markets",
             "count": 2
           },
           {
-            "name": "Yahoo Finance",
+            "name": "MarketWatch",
             "count": 1
           },
           {
-            "name": "Bitcoin.com News",
+            "name": "Yahoo Finance",
             "count": 1
           },
           {
@@ -54,6 +46,10 @@
           },
           {
             "name": "ForexLive",
+            "count": 1
+          },
+          {
+            "name": "Motley Fool Investing",
             "count": 1
           },
           {
@@ -97,7 +93,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۳:۱۱",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۱۱",
-            "age_fa": "۲۴ دقیقه پیش",
+            "age_fa": "۴۲ دقیقه پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "عمومی",
@@ -121,7 +117,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۲:۴۸",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۸",
-            "age_fa": "۴۸ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -134,8 +130,8 @@
           {
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Dimon Heads to India as Wall Street Steps Up Fight For Deal Boom",
-            "title_fa": "دیمون در حالی که وال استریت مبارزه برای رونق معامله را افزایش می دهد به هند می رود",
+            "title_en": "Dimon Heads to India as Wall Street Steps Up Fight for Deal Boom",
+            "title_fa": "زمانی که وال استریت مبارزه برای رونق معامله را آغاز می کند، دیمون به هند می رود",
             "summary_fa": "جیمی دیمون از جی پی مورگان چیس و شرکت این هفته به هند می رود، دیداری که در حالی انجام می شود که غول وال استریت به سمت کشوری که انتظار رونق بیشتری در معاملات دارد، افزایش یافته است.",
             "source": "Bloomberg Markets",
             "source_kind": "macro",
@@ -168,7 +164,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Emerging-Market Stocks, Currencies Gain After US-China Talks.\n- Bloomberg Analyst Warns Crypto Faces a Lose-Lose Scenario.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Emerging-Market Stocks, Currencies Gain After US-China Talks.\n- investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell.",
         "fa": ""
       }
     ],
@@ -205,22 +201,23 @@
           {
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Bloomberg Analyst Warns Crypto Faces a Lose-Lose Scenario",
-            "title_fa": "تحلیلگر بلومبرگ هشدار داد که کریپتو با یک سناریوی باخت و باخت مواجه می شود",
-            "summary_fa": "مایک مک گلون تاکید کرد که از سال ۲۰۱۷، کریپتو با سطوح نوسان فزاینده بالا عملکرد ضعیفی داشته است و دلیل این رفتار را می توان به چرخش جنگ طلبانه توسط فدرال رزرو و افزایش بیش از حد ارزش گذاری شاخص SPX مرتبط دانست. مک گلون در مورد از بین رفتن ک",
-            "source": "Bitcoin.com News",
-            "source_kind": "crypto",
+            "title_en": "investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell",
+            "title_fa": "InvestingLive اخبار بازار آسیا و اقیانوسیه: قیمت نفت در بازه زمانی باز افزایش یافت اما به زودی سقوط کرد",
+            "summary_fa": "ترامپ پس از تماس با ولیعهد عربستان، دو بار حملات هوایی حوثی‌ها را تغییر داد war-e",
+            "source": "ForexLive",
+            "source_kind": "macro",
             "via": "",
-            "link": "https://news.bitcoin.com/price-predictions/bloomberg-analyst-warns-crypto-faces-a-lose-lose-scenario/",
-            "published_ts": 1789975802.0,
+            "link": "https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-gapped-higher-at-open-but-soon-fell/",
+            "published_ts": 1789962492.0,
             "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۱:۰۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۰۰",
-            "age_fa": "۳ ساعت پیش",
-            "credibility": 0.76,
-            "credibility_fa": "۷۶٪",
-            "topic_fa": "کلان",
+            "time_fa": "۰۷:۱۸",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۱۸",
+            "age_fa": "۷ ساعت پیش",
+            "credibility": 0.71,
+            "credibility_fa": "۷۱٪",
+            "topic_fa": "مقررات",
             "assets": [
+              "WTI",
               "SPX"
             ],
             "why_fa": "",
@@ -239,7 +236,7 @@
     [
       "p",
       {
-        "en": "- Goldman’s Bell Backs German Stocks Despite Rising Political Risk. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Dimon Heads to India as Wall Street Steps Up Fight For Deal Boom. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Morgan Stanley’s Wilson Says US Stocks Risk 7% Drop in Near Term. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- Why the world’s hottest stock market is a national liability. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
+        "en": "- Goldman’s Bell Backs German Stocks Despite Rising Political Risk. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Dimon Heads to India as Wall Street Steps Up Fight for Deal Boom. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Morgan Stanley’s Wilson Says US Stocks Risk 7% Drop in Near Term. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- Why the world’s hottest stock market is a national liability. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
         "fa": ""
       }
     ],
@@ -262,7 +259,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۱۲:۴۸",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۸",
-            "age_fa": "۴۸ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -275,8 +272,8 @@
           {
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Dimon Heads to India as Wall Street Steps Up Fight For Deal Boom",
-            "title_fa": "دیمون در حالی که وال استریت مبارزه برای رونق معامله را افزایش می دهد به هند می رود",
+            "title_en": "Dimon Heads to India as Wall Street Steps Up Fight for Deal Boom",
+            "title_fa": "زمانی که وال استریت مبارزه برای رونق معامله را آغاز می کند، دیمون به هند می رود",
             "summary_fa": "جیمی دیمون از جی پی مورگان چیس و شرکت این هفته به هند می رود، دیداری که در حالی انجام می شود که غول وال استریت به سمت کشوری که انتظار رونق بیشتری در معاملات دارد، افزایش یافته است.",
             "source": "Bloomberg Markets",
             "source_kind": "macro",
@@ -358,7 +355,7 @@
             "date_fa": "۳۰ شهریور ۱۴۰۵",
             "time_fa": "۰۷:۱۸",
             "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۱۸",
-            "age_fa": "۶ ساعت پیش",
+            "age_fa": "۷ ساعت پیش",
             "credibility": 0.71,
             "credibility_fa": "۷۱٪",
             "topic_fa": "مقررات",
@@ -472,6 +469,6 @@
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:06:51.330516+00:00",
+  "generated_at": "2026-09-21T10:22:56.139394+00:00",
   "news_used": 4
 }
