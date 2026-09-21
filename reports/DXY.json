@@ -1,0 +1,85 @@
+{
+  "symbol": "DXY",
+  "name": "US Dollar Index",
+  "fa_name": "دلار DXY",
+  "icon": "💵",
+  "sections": [
+    [
+      "meta",
+      {
+        "title": "US Dollar Index — Market Intelligence Report",
+        "title_fa": "گزارش تحلیل بازار دلار DXY",
+        "asof": "2026-09-21 13:36 Tehran",
+        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۶",
+        "symbol": "DXY",
+        "name": "US Dollar Index",
+        "fa_name": "دلار DXY",
+        "icon": "💵",
+        "price": 100.313004,
+        "change_24h": 0.09,
+        "news_window_hours": 24.0,
+        "news_used": 0,
+        "sources_used": [],
+        "market_stale": false
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "1. Market Overview",
+        "fa": "۱. مرور بازار"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "US Dollar Index is changing hands near $100.31, +0.09% over the past 24 hours and +1.23% on a 7-day view. Spot trades above the 50-day average ($99.75) and above the 200-day average ($99.30), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (+0.72%), suggesting the market is still rotating within a range.",
+        "fa": ""
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "7. Technical Analysis",
+        "fa": "۷. تحلیل تکنیکال"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $100.31 versus EMA20 $99.65, EMA50 $99.75 and EMA200 $99.30 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $100.31 (recent swing low); the lower Bollinger band $98.45 as the 2σ downside envelope; first resistance at $100.50 (recent swing high); upper band $100.42 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.4253 implies a typical daily range of roughly 0.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 61.6 — neutral territory; MACD (12/26/9) sits above its signal line (0.103 vs -0.07585, histogram +0.1789), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 6%; the 20-day band spans 2% of the mid — compressed, which often precedes a volatility expansion. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +0.72% over 30 days and +2.06% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.23%) is the shortest window the desk treats as signal rather than noise.",
+        "fa": ""
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "8. Scenario Analysis",
+        "fa": "۸. تحلیل سناریوها"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $100.50 on expanding turnover; continued holds of the 50-day average ($99.75); RSI holding above 60 (currently 62). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $100.31. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "fa": ""
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "9. Conclusion & Outlook",
+        "fa": "۹. جمع‌بندی و چشم‌انداز"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Net take on US Dollar Index: spot $100.31 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.09%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "fa": ""
+      }
+    ]
+  ],
+  "generated_at": "2026-09-21T10:06:51.332344+00:00",
+  "news_used": 0
+}

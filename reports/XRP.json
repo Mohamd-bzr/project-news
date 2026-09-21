@@ -1,0 +1,419 @@
+{
+  "symbol": "XRP",
+  "name": "XRP",
+  "fa_name": "XRP",
+  "icon": "✕",
+  "sections": [
+    [
+      "meta",
+      {
+        "title": "XRP — Market Intelligence Report",
+        "title_fa": "گزارش تحلیل بازار XRP",
+        "asof": "2026-09-21 13:36 Tehran",
+        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۶",
+        "symbol": "XRP",
+        "name": "XRP",
+        "fa_name": "XRP",
+        "icon": "✕",
+        "price": 1.47,
+        "change_24h": 6.51,
+        "news_window_hours": 24.0,
+        "news_used": 8,
+        "sources_used": [
+          {
+            "name": "The Crypto Basic",
+            "count": 4
+          },
+          {
+            "name": "U.Today",
+            "count": 4
+          },
+          {
+            "name": "Cryptonews",
+            "count": 2
+          },
+          {
+            "name": "Robinhood",
+            "count": 1
+          },
+          {
+            "name": "CoinGape",
+            "count": 1
+          },
+          {
+            "name": "Coinspeaker",
+            "count": 1
+          },
+          {
+            "name": "Pluang",
+            "count": 1
+          },
+          {
+            "name": "AMBCrypto",
+            "count": 1
+          },
+          {
+            "name": "OneSafe.io",
+            "count": 1
+          },
+          {
+            "name": "FXStreet",
+            "count": 1
+          },
+          {
+            "name": "Benzinga",
+            "count": 1
+          },
+          {
+            "name": "StreetInsider",
+            "count": 1
+          }
+        ],
+        "market_stale": false
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "1. Market Overview",
+        "fa": "۱. مرور بازار"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "XRP is changing hands near $1.470, +6.51% over the past 24 hours and +3.63% on a 7-day view. Spot trades above the 50-day average ($1.304) and above the 200-day average ($1.380), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (+0.61%), suggesting the market is still rotating within a range.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "177M XRP floods into Binance in 7 days – And it’s not a sell signal",
+            "title_fa": "۱۷۷ میلیون XRP در ۷ روز به بایننس سرازیر شد - و سیگنال فروش نیست",
+            "summary_fa": "XRP در حال بازیابی شتاب است زیرا خریداران از سطوح پایین تر دفاع می کنند و توکن را برای تست مقاومت دیگری قرار می دهند.",
+            "source": "AMBCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://ambcrypto.com/177m-xrp-floods-into-binance-in-7-days-and-its-not-a-sell-signal/",
+            "published_ts": 1789977658.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۱:۳۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۳۰",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.75,
+            "credibility_fa": "۷۵٪",
+            "topic_fa": "تحلیل",
+            "assets": [
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "XRP ETF Demand Holds Firm Through Vote Fallout and Fed Hike",
+            "title_fa": "تقاضای XRP ETF از طریق Vote Fallout و Fed Hike ثابت می ماند",
+            "summary_fa": "جریان ورودی XRP ETF در هفته به ۹.۵۶ میلیون دلار رسید که علیرغم رأی ناموفق سنا، افزایش فدرال رزرو و معاملات پرنوسان، دوره ۱۰ هفته ای را افزایش داد.",
+            "source": "Coinspeaker",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://www.coinspeaker.com/ripple-news-xrp-etf-inflows-market-volatility/",
+            "published_ts": 1789983305.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۳:۰۵",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۰۵",
+            "age_fa": "۳۰ دقیقه پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "ETF",
+            "assets": [
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "XRP Price Prediction: XRP Could Flip Ethereum as It Targets $3,000",
+            "title_fa": "پیش بینی قیمت XRP: XRP می تواند اتریوم را با هدف قرار دادن ۳۰۰۰ دلار برگرداند",
+            "summary_fa": "XRP نزدیک به ۱.۴۴ دلار معامله می شود زیرا پایان نامه وثیقه ۳۳۰۰ دلاری کشش می یابد. در اینجا تنظیمات فنی، مقایسه اتریوم و یک جایگزین در مراحل اولیه وجود دارد.",
+            "source": "Cryptonews",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cryptonews.com/news/xrp-price-prediction-flip-ethereum/",
+            "published_ts": 1789977232.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۱:۲۳",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۲۳",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "تحلیل",
+            "assets": [
+              "ETH",
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "2. Macro & Fundamental Drivers",
+        "fa": "۲. محرک‌های کلان و بنیادی"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Bitcoin Touches $82,000, Ethereum, XRP, Dogecoin Also Gain Amid Tokenization Push by SEC: Analyst Confirm.\n- XRP Price Prediction Shifts After CLARITY Act Falls Short as Remittix Targets a Major PayFi Breakout.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع این بخش",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "Bitcoin Touches $82,000, Ethereum, XRP, Dogecoin Also Gain Amid Tokenization Push by SEC: Analyst Confirm",
+            "title_fa": "تائید تحلیلگر: بیت کوین به ۸۲۰۰۰ دلار رسید، اتریوم، XRP و Dogecoin نیز در میان فشار توکن سازی توسط SEC افزایش یافتند",
+            "summary_fa": "تائید تحلیلگر: بیت کوین به ۸۲۰۰۰ دلار رسید، اتریوم، XRP و Dogecoin نیز در میان فشار توکن سازی توسط SEC افزایش یافتند",
+            "source": "Benzinga",
+            "source_kind": "search",
+            "via": "Google News · CRYPTO",
+            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNcGV3TU1wWmRUVzFOeF9BbU9XMk9Cem1QVXdVaE9hLXBuQXM4V2xTQUZ1M19IRG5BaG4tcFdtdmNnd2ZpMmx6WVVqWGRHSlhJSTJlekxOUzFONlRYT1VkVlNPbTVldjVBU2s1NVhzTlRkUU5JYzhlNnBCMnBxbUc2U09iQktJZ0Myc21QOHBhYUhoWmg5S1h4a3BPNVlRc00xaUM4VHJRLTdUV3lUVGVIZS01czZPZw?oc=5",
+            "published_ts": 1789956174.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۰۵:۳۲",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۵:۳۲",
+            "age_fa": "۸ ساعت پیش",
+            "credibility": 0.672,
+            "credibility_fa": "۶۷٪",
+            "topic_fa": "مقررات",
+            "assets": [
+              "BTC",
+              "ETH",
+              "XRP",
+              "DOGE"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "XRP Price Prediction Shifts After CLARITY Act Falls Short as Remittix Targets a Major PayFi Breakout",
+            "title_fa": "پیش‌بینی قیمت XRP پس از کوتاهی قانون CLARITY تغییر می‌کند زیرا Remittix یک شکست بزرگ PayFi را هدف قرار می‌دهد",
+            "summary_fa": "پیش‌بینی قیمت XRP پس از کوتاهی قانون CLARITY تغییر می‌کند زیرا Remittix یک شکست بزرگ PayFi را هدف قرار می‌دهد",
+            "source": "StreetInsider",
+            "source_kind": "search",
+            "via": "Google News · XRP",
+            "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxOU3FPLTBVdmRLTTh6eUR1MHViTThCYVN4cHZZRUxrRzdtR0FwX3ZwY01pWGt4dlZ4bjc0SVBFX3d0cV9ZYXhWUU5Xcl9zeGZpelZ5S3lnXzZ4NV9MMDNHN3lSYVY5ZWVRZ1d6NzJGYlRyRGVIUDlZejFfYk5BRnpQNGI3aDNja1U2T1VPejVyT2NwNkFaY1Y1NnJ1STlJUS0zNm9rMy1NeXpOaktrZVd6QWlHaTYxN0pSdkRjaXdBc0lJRWFPUnVfU1ZZeVlvWmRnUFFldE5hc1RkTWtaVDdNQVQ1U3RWU2VKSnF5VXE2OHlYZw?oc=5",
+            "published_ts": 1789955774.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۰۵:۲۶",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۵:۲۶",
+            "age_fa": "۸ ساعت پیش",
+            "credibility": 0.634,
+            "credibility_fa": "۶۳٪",
+            "topic_fa": "مقررات",
+            "assets": [
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "3. Market News Impact",
+        "fa": "۳. تأثیر اخبار مهم بازار"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "- XRP ETF Demand Holds Firm Through Vote Fallout and Fed Hike. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for XRP.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "XRP ETF Demand Holds Firm Through Vote Fallout and Fed Hike",
+            "title_fa": "تقاضای XRP ETF از طریق Vote Fallout و Fed Hike ثابت می ماند",
+            "summary_fa": "جریان ورودی XRP ETF در هفته به ۹.۵۶ میلیون دلار رسید که علیرغم رأی ناموفق سنا، افزایش فدرال رزرو و معاملات پرنوسان، دوره ۱۰ هفته ای را افزایش داد.",
+            "source": "Coinspeaker",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://www.coinspeaker.com/ripple-news-xrp-etf-inflows-market-volatility/",
+            "published_ts": 1789983305.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۳:۰۵",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۰۵",
+            "age_fa": "۳۰ دقیقه پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "ETF",
+            "assets": [
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for XRP."
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "4. Institutional Flows & Market Structure",
+        "fa": "۴. جریان‌های نهادی و ساختار بازار"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Total market capitalization stands near $92.6B (CoinGecko). Reported 24-hour spot volume is $3.49B with 7-day average turnover elevated versus the trailing month (1.28x) . Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "fa": ""
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "6. Derivatives & Positioning",
+        "fa": "۶. مشتقات و پوزیشن‌گیری"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "**Derivatives positioning.** The public Binance futures endpoints did not answer for this asset on this cycle, so rather than fabricate a view the desk flags it as a **data gap**: funding and open-interest extremes remain the standard trigger for squeeze dynamics in XRP.",
+        "fa": ""
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "7. Technical Analysis",
+        "fa": "۷. تحلیل تکنیکال"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $1.473 versus EMA20 $1.371, EMA50 $1.304 and EMA200 $1.380 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $1.464 (recent swing low); the lower Bollinger band $1.281 as the 2σ downside envelope; first resistance at $1.479 (recent swing high); upper band $1.482 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0727 implies a typical daily range of roughly 4.9 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 61.5 — neutral territory; MACD (12/26/9) sits above its signal line (0.0275 vs 0.02643, histogram +0.001075), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 69%; the 20-day band spans 15% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 1.28x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +0.61% over 30 days and +32.74% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+3.63%) is the shortest window the desk treats as signal rather than noise.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع خبری بخش تحلیل تکنیکال",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "177M XRP floods into Binance in 7 days – And it’s not a sell signal",
+            "title_fa": "۱۷۷ میلیون XRP در ۷ روز به بایننس سرازیر شد - و سیگنال فروش نیست",
+            "summary_fa": "XRP در حال بازیابی شتاب است زیرا خریداران از سطوح پایین تر دفاع می کنند و توکن را برای تست مقاومت دیگری قرار می دهند.",
+            "source": "AMBCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://ambcrypto.com/177m-xrp-floods-into-binance-in-7-days-and-its-not-a-sell-signal/",
+            "published_ts": 1789977658.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۱:۳۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۳۰",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.75,
+            "credibility_fa": "۷۵٪",
+            "topic_fa": "تحلیل",
+            "assets": [
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "XRP Price Prediction: XRP Could Flip Ethereum as It Targets $3,000",
+            "title_fa": "پیش بینی قیمت XRP: XRP می تواند اتریوم را با هدف قرار دادن ۳۰۰۰ دلار برگرداند",
+            "summary_fa": "XRP نزدیک به ۱.۴۴ دلار معامله می شود زیرا پایان نامه وثیقه ۳۳۰۰ دلاری کشش می یابد. در اینجا تنظیمات فنی، مقایسه اتریوم و یک جایگزین در مراحل اولیه وجود دارد.",
+            "source": "Cryptonews",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cryptonews.com/news/xrp-price-prediction-flip-ethereum/",
+            "published_ts": 1789977232.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۱:۲۳",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۲۳",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "تحلیل",
+            "assets": [
+              "ETH",
+              "XRP"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "8. Scenario Analysis",
+        "fa": "۸. تحلیل سناریوها"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $1.479 on expanding turnover; continued holds of the 50-day average ($1.304); RSI holding above 60 (currently 62). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $1.464. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "fa": ""
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "9. Conclusion & Outlook",
+        "fa": "۹. جمع‌بندی و چشم‌انداز"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Net take on XRP: spot $1.470 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+6.51%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "fa": ""
+      }
+    ]
+  ],
+  "generated_at": "2026-09-21T10:06:49.746658+00:00",
+  "news_used": 4
+}

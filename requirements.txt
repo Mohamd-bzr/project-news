@@ -1,0 +1,8 @@
+# MOHMD NEWS — runtime requirements (Windows-first, no build step)
+flask>=3.0
+feedparser>=6.0
+beautifulsoup4>=4.12
+requests>=2.31
+
+# optional: helps the paywall reader on Cloudflare-protected sites
+# cloudscraper>=1.2.71

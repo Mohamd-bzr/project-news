@@ -1,0 +1,438 @@
+{
+  "symbol": "XAU",
+  "name": "Gold",
+  "fa_name": "Gold",
+  "icon": "🥇",
+  "sections": [
+    [
+      "meta",
+      {
+        "title": "Gold — Market Intelligence Report",
+        "title_fa": "گزارش تحلیل بازار Gold",
+        "asof": "2026-09-21 13:36 Tehran",
+        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۳۶",
+        "symbol": "XAU",
+        "name": "Gold",
+        "fa_name": "Gold",
+        "icon": "🥇",
+        "price": 4384.700195,
+        "change_24h": -0.91,
+        "news_window_hours": 24.0,
+        "news_used": 10,
+        "sources_used": [
+          {
+            "name": "r/Gold (شبکه اجتماعی)",
+            "count": 11
+          },
+          {
+            "name": "r/Silverbugs (شبکه اجتماعی)",
+            "count": 3
+          },
+          {
+            "name": "صوت الإمارات",
+            "count": 1
+          },
+          {
+            "name": "Deccan Chronicle",
+            "count": 1
+          },
+          {
+            "name": "Bloomberg.com",
+            "count": 1
+          },
+          {
+            "name": "WSJ",
+            "count": 1
+          },
+          {
+            "name": "Azərtac",
+            "count": 1
+          },
+          {
+            "name": "Yahoo Finance UK",
+            "count": 1
+          },
+          {
+            "name": "Apa.az",
+            "count": 1
+          },
+          {
+            "name": "Financial Times Markets",
+            "count": 1
+          },
+          {
+            "name": "TechStock²",
+            "count": 1
+          },
+          {
+            "name": "The Economic Times",
+            "count": 1
+          }
+        ],
+        "market_stale": false
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "1. Market Overview",
+        "fa": "۱. مرور بازار"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Gold is changing hands near $4,385, -0.91% over the past 24 hours and -0.51% on a 7-day view. Spot trades below the 50-day average ($4,392) and below the 200-day average ($4,429), keeping the medium-term structure defensive. The 30-day tape reads as a consolidation phase (-0.34%), suggesting the market is still rotating within a range.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "Gold Falls as Focus Remains on Rate Outlook",
+            "title_fa": "با توجه به تمرکز بر چشم انداز نرخ، طلا سقوط می کند",
+            "summary_fa": "با توجه به تمرکز بر چشم انداز نرخ، طلا سقوط می کند",
+            "source": "WSJ",
+            "source_kind": "search",
+            "via": "Google News · WSJ wire",
+            "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOQ2d5V0pCbGJOZmFmejUycGt4dUgzT3k3d2ZrTUtGalJBbTVGcUtxWTAwREloem00MU9ueTVJQ284MkZmX0tqQkpqNTJTQ3huWEJDaVRlMnRtbWlyTnhSOHd6QTcxdEw4T2xUSE9NZlRXRGNfTWVwVWdzanRQQ09GbktzZ0pCeFFXQmpvRnQyNHF4cUk2bVdqMWhoOXYwSlpDM3dhaFZpd2o0bk1CMXFnMHl4SVRZS2U5TmpQZGdpdw?oc=5",
+            "published_ts": 1789975020.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۰:۴۷",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۰:۴۷",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.7,
+            "credibility_fa": "۷۰٪",
+            "topic_fa": "عمومی",
+            "assets": [
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Nepotism at Berkshire",
+            "title_fa": "خویشاوندی در برکشایر",
+            "summary_fa": "",
+            "source": "Financial Times Markets",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.ft.com/content/9f3fd7bc-ca51-4401-8f63-b6b25e88621f?syn-25a6b1a6=1",
+            "published_ts": 1789968608.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۰۹:۰۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۹:۰۰",
+            "age_fa": "۵ ساعت پیش",
+            "credibility": 0.7,
+            "credibility_fa": "۷۰٪",
+            "topic_fa": "عمومی",
+            "assets": [
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "Claude AI Predicts Bitcoin Could Outpace Gold if ETF Hedging Fades",
+            "title_fa": "کلود هوش مصنوعی پیش‌بینی می‌کند که اگر پوشش ETF محو شود، بیت کوین می‌تواند از طلا پیشی بگیرد",
+            "summary_fa": "بیت کوین بیشتر سال ۲۰۲۶ را در سایه طلا سپری کرده است. در حالی که این فلز گرانبها همچنان سرعت خود را تنظیم می کرد زیرا سرمایه گذاران به دنبال محافظت در برابر تورم و کاهش ارزش پول بودند، بیت کوین عقب ماند که توسط فدرال رزرو جنگجو و فروپاشی قا",
+            "source": "Coinspeaker",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://www.coinspeaker.com/claude-ai-predicts-bitcoin-could-outpace-gold-if-etf-hedging-fades/",
+            "published_ts": 1789901270.0,
+            "date_fa": "۲۹ شهریور ۱۴۰۵",
+            "time_fa": "۱۴:۱۷",
+            "datetime_fa": "۲۹ شهریور ۱۴۰۵، ساعت ۱۴:۱۷",
+            "age_fa": "۲۳ ساعت پیش",
+            "credibility": 0.691,
+            "credibility_fa": "۶۹٪",
+            "topic_fa": "ETF",
+            "assets": [
+              "BTC",
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "2. Macro & Fundamental Drivers",
+        "fa": "۲. محرک‌های کلان و بنیادی"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Gold Erases Weekly Gain as Traders Weigh Inflation and Fed Path.\n- Gold holds near $4,375 per ounce after the Fed’s first rate hike since 2023.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع این بخش",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "Gold Erases Weekly Gain as Traders Weigh Inflation and Fed Path",
+            "title_fa": "وقتی معامله گران تورم و مسیر فدرال رزرو را وزن می کنند، طلا سود هفتگی را پاک می کند",
+            "summary_fa": "وقتی معامله گران تورم و مسیر فدرال رزرو را وزن می کنند، طلا سود هفتگی را پاک می کند",
+            "source": "Bloomberg.com",
+            "source_kind": "search",
+            "via": "Google News · MACRO",
+            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPM2REa3hXVWU5cXFtbTZYS2xfaGUtc2lLVUEtdzdNNGdHT0lfRGpFZXRGYUhqZUh3ZGg4V29GdEswUUpaand5VG1ZSVE2aWV2OWdfeEgxRU5YVk9JUExZcXB5a2FQdWhmSUg3d0R2aW5qREVlYlFLX1VObE1BY2J2R1c0dmllU3NaLURKNDVHM09GbkcwWXJJTTRtcWdESmo2ckVyak1BZ1VPdThvdVhBOEJR?oc=5",
+            "published_ts": 1789975791.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۰:۵۹",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۰:۵۹",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "کلان",
+            "assets": [
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Gold holds near $4,375 per ounce after the Fed’s first rate hike since 2023",
+            "title_fa": "پس از اولین افزایش نرخ بهره فدرال رزرو از سال ۲۰۲۳، طلا نزدیک به ۴۳۷۵ دلار در هر اونس باقی می ماند.",
+            "summary_fa": "پس از اولین افزایش نرخ بهره فدرال رزرو از سال ۲۰۲۳، طلا نزدیک به ۴۳۷۵ دلار در هر اونس باقی می ماند.",
+            "source": "Українські Національні Новини (УНН)",
+            "source_kind": "search",
+            "via": "Google News · XAU",
+            "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPYVl3WVIxcHVqTzJBR09mZkFPQTBMU2xwSFAzOVBLN1c2Z1RxOHZ1UmNybFp2R0xJSlBDblJ4S2d1UmdBN2s4QmUtQ3N4Z1JjekZaVTJMZ1RHcXhoUFVLQlNDVUhzQzZkT2dmOWJBMDdqbWRWT2ZDLVNndXp6MVdoZTQxQ1k1akZpTGZiS2dFUDlfMDJVWlJacS1qMWo0cnNsaGlJ0gGiAUFVX3lxTE1WcU52dU1EVERubnh4NlNsVGNBUkZTTWFuZ2NMdUFFVDFvQnltd0xtSldCZFFDTFgwYmdkZS1EWUFNdlFRNFZoUTJrdlY5R1lWYkZnenEzZFNsU3B1TUR6WF8wNHdEZXhWdzd0N2R3UF85LWxVa05TVVVPNndKTE9ZeUdfV1JRUDd1bXdDV3k5ZDM3RkVneFJ0RDQ0RFJwNE5TZw?oc=5",
+            "published_ts": 1789960526.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۰۶:۴۵",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۶:۴۵",
+            "age_fa": "۷ ساعت پیش",
+            "credibility": 0.634,
+            "credibility_fa": "۶۳٪",
+            "topic_fa": "کلان",
+            "assets": [
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "3. Market News Impact",
+        "fa": "۳. تأثیر اخبار مهم بازار"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "- Claude AI Predicts Bitcoin Could Outpace Gold if ETF Hedging Fades. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Gold.\n- Gold prices fall amid Middle East tensions and anticipation of central bank interest rate decisions. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Gold.\n- Gold, Silver Prices Fall In Futures Trade. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Gold.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "Claude AI Predicts Bitcoin Could Outpace Gold if ETF Hedging Fades",
+            "title_fa": "کلود هوش مصنوعی پیش‌بینی می‌کند که اگر پوشش ETF محو شود، بیت کوین می‌تواند از طلا پیشی بگیرد",
+            "summary_fa": "بیت کوین بیشتر سال ۲۰۲۶ را در سایه طلا سپری کرده است. در حالی که این فلز گرانبها همچنان سرعت خود را تنظیم می کرد زیرا سرمایه گذاران به دنبال محافظت در برابر تورم و کاهش ارزش پول بودند، بیت کوین عقب ماند که توسط فدرال رزرو جنگجو و فروپاشی قا",
+            "source": "Coinspeaker",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://www.coinspeaker.com/claude-ai-predicts-bitcoin-could-outpace-gold-if-etf-hedging-fades/",
+            "published_ts": 1789901270.0,
+            "date_fa": "۲۹ شهریور ۱۴۰۵",
+            "time_fa": "۱۴:۱۷",
+            "datetime_fa": "۲۹ شهریور ۱۴۰۵، ساعت ۱۴:۱۷",
+            "age_fa": "۲۳ ساعت پیش",
+            "credibility": 0.691,
+            "credibility_fa": "۶۹٪",
+            "topic_fa": "ETF",
+            "assets": [
+              "BTC",
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Gold."
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Gold prices fall amid Middle East tensions and anticipation of central bank interest rate decisions",
+            "title_fa": "قیمت طلا در بحبوحه تنش های خاورمیانه و پیش بینی تصمیمات نرخ بهره بانک مرکزی کاهش می یابد",
+            "summary_fa": "قیمت طلا در بحبوحه تنش های خاورمیانه و پیش بینی تصمیمات نرخ بهره بانک مرکزی کاهش می یابد",
+            "source": "صوت الإمارات",
+            "source_kind": "search",
+            "via": "Google News · XAU",
+            "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxNcVlzRE9fRmZGandDUFU1MWRPUmhGVUtoUjRhaC1MMHlmV1dLZmEwWkF0dXZvdHl0MkdUV0RBQWpIYmVqcXhqVHZfcnNia0FFbHNJV2lfVF9YcmpvYmFwWUExeGM0UEoxUHAtWHV4bTY2RWJMMUxxS1NQdEp0bGRCc3diQWlTY2hldUhqaXhwX1FzSHcxQUZVQzd5cHhHSUVQcXl5SFdORXpQcGxiUVNFRU5Ea19Hdk4wXzlFUU9aeWhnTTFDNkl1Zk51dnY2Y1lFczh6ZW1aNWdScDVkY3A3Q0RhT0stYjJacElr?oc=5",
+            "published_ts": 1789983913.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۳:۱۵",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۱۵",
+            "age_fa": "۱۸ دقیقه پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Gold."
+          },
+          {
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "Gold, Silver Prices Fall In Futures Trade",
+            "title_fa": "کاهش قیمت طلا، نقره در معاملات آتی",
+            "summary_fa": "کاهش قیمت طلا، نقره در معاملات آتی",
+            "source": "Deccan Chronicle",
+            "source_kind": "search",
+            "via": "Google News · XAG",
+            "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdkNtaHhXY2hoSkp2OXo2WVJvUXFUSkt3UU0wS3ZaZEhoQmlTbmVtSmVtZmFQYm1LbWU4eWxlajRnNEk4NDFVU1RmcUkzbzZIMDlwZlhpbVNUSUlOektKbVV6aDZ0VE0yX3NEZEVyQkEwb2hNRjN0UmJNYWFNa2s1U1pDNjFZZUJFb0VVQmdLLTV4aGJBY0djX3M3MGY3OWlS0gGmAUFVX3lxTE8wRlVFYTEwa0RqbnM4NkFOdm93RjgzUkVxMmMydXNmb2pObks0SWE0OGZTdG82OWcwWE1hQndaSXVqTEdxbFAtQmJEOXlQZ21VZFdmRWJpMno4TE1NYkZ0SzYyVGlIcGxSdGtNZ2Q1VWYwd3VGdVFvdVhCSXhYaFZEWV85Yldoa0ZBbFVWSGRDUVBkTnVZN0VKRXFld0s4aHNYZXhoeVE?oc=5",
+            "published_ts": 1789978232.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۱:۴۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۴۰",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "بازار",
+            "assets": [
+              "XAU",
+              "XAG"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Gold."
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "7. Technical Analysis",
+        "fa": "۷. تحلیل تکنیکال"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $4,385 versus EMA20 $4,425, EMA50 $4,392 and EMA200 $4,429 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $4,352 (recent swing low); the lower Bollinger band $4,253 as the 2σ downside envelope; first resistance at $4,388 (recent swing high); upper band $4,702 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $104.30 implies a typical daily range of roughly 2.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 47.0 — neutral territory; MACD (12/26/9) sits below its signal line (-4.211 vs 14.72, histogram -18.94), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 25%; the 20-day band spans 10% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.93x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned -0.34% over 30 days and -6.44% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (-0.51%) is the shortest window the desk treats as signal rather than noise.",
+        "fa": ""
+      }
+    ],
+    [
+      "cites",
+      {
+        "title_fa": "منابع خبری بخش تحلیل تکنیکال",
+        "items": [
+          {
+            "index": 1,
+            "index_fa": "۱",
+            "title_en": "Gold, Silver Prices Fall In Futures Trade",
+            "title_fa": "کاهش قیمت طلا، نقره در معاملات آتی",
+            "summary_fa": "کاهش قیمت طلا، نقره در معاملات آتی",
+            "source": "Deccan Chronicle",
+            "source_kind": "search",
+            "via": "Google News · XAG",
+            "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdkNtaHhXY2hoSkp2OXo2WVJvUXFUSkt3UU0wS3ZaZEhoQmlTbmVtSmVtZmFQYm1LbWU4eWxlajRnNEk4NDFVU1RmcUkzbzZIMDlwZlhpbVNUSUlOektKbVV6aDZ0VE0yX3NEZEVyQkEwb2hNRjN0UmJNYWFNa2s1U1pDNjFZZUJFb0VVQmdLLTV4aGJBY0djX3M3MGY3OWlS0gGmAUFVX3lxTE8wRlVFYTEwa0RqbnM4NkFOdm93RjgzUkVxMmMydXNmb2pObks0SWE0OGZTdG82OWcwWE1hQndaSXVqTEdxbFAtQmJEOXlQZ21VZFdmRWJpMno4TE1NYkZ0SzYyVGlIcGxSdGtNZ2Q1VWYwd3VGdVFvdVhCSXhYaFZEWV85Yldoa0ZBbFVWSGRDUVBkTnVZN0VKRXFld0s4aHNYZXhoeVE?oc=5",
+            "published_ts": 1789978232.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۱۱:۴۰",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۴۰",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "بازار",
+            "assets": [
+              "XAU",
+              "XAG"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Resolute Mining Stock Drops 8.3% as Syama Cut Narrows Gold-Price Buffer",
+            "title_fa": "کاهش ۸.۳ درصدی سهام ماینینگ مصمم با کاهش بافر قیمت طلا توسط Syama",
+            "summary_fa": "کاهش ۸.۳ درصدی سهام ماینینگ مصمم با کاهش بافر قیمت طلا توسط Syama",
+            "source": "TechStock²",
+            "source_kind": "search",
+            "via": "Google News · XAU",
+            "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNSmxnV2lOS2NIMnpjOUxLaXRDWENRM3dGZWVaWGR1QllYTnRTZlpndTBoN3dWcXR0c1lKTGhrOTYxQnBVZGNBdU9WV3NVM2s3UVl3MVM0XzdLNS1Ia0JJNjhYZ0c0ZGJxYkswM3J4dmRqU3ZGUGNLZXFuNV9PWmpELV96ZUMwcG9vYU9VME5SZDhEUG1tMlE?oc=5",
+            "published_ts": 1789968484.0,
+            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "time_fa": "۰۸:۵۸",
+            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۸:۵۸",
+            "age_fa": "۵ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "بازار",
+            "assets": [
+              "XAU"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          }
+        ]
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "8. Scenario Analysis",
+        "fa": "۸. تحلیل سناریوها"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $4,388 on expanding turnover. Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $4,352; failed reclaims of the 50-day average ($4,392). In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "fa": ""
+      }
+    ],
+    [
+      "h",
+      {
+        "en": "9. Conclusion & Outlook",
+        "fa": "۹. جمع‌بندی و چشم‌انداز"
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Net take on Gold: spot $4,385 with the medium-term bias defensive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.91%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "fa": ""
+      }
+    ]
+  ],
+  "generated_at": "2026-09-21T10:06:49.743606+00:00",
+  "news_used": 4
+}

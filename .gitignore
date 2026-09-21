@@ -1,0 +1,30 @@
+# ── virtualenv ─────────────────────────────
+.venv/
+
+# ── local archives / snapshots (user-made) ─
+freebuff.rar
+freebuff.zip
+*.rar
+*.zip
+
+# ── runtime state & caches (regenerated) ───
+.mohmd_news.db
+.mohmd_news.db-journal
+.market_cache.json
+.translate_cache.json
+.feed_overrides.json
+
+# ── python build artefacts ─────────────────
+__pycache__/
+*.py[cod]
+
+# ── editor / agent scratch ─────────────────
+.freebuff/
+.cache/
+*.log
+*.log.err
+
+# ── local user state (no secrets today, kept out so a future pasted
+#    Telegram token can never be committed by accident) ──
+settings.json
+backups/settings.json.bak*
