@@ -108,10 +108,35 @@ def _stamp(a) -> str:
     return fa_datetime(ts) or "زمان نامشخص"
 
 
+def _cite_key(item: dict) -> str:
+    """Stable identity of one cited article (id when we have it)."""
+    return str(item.get("id") or item.get("link") or item.get("title_en") or "")
+
+
+def count_cited_news(sections) -> int:
+    """How many distinct articles a report actually cites.
+
+    The top-level number used to count `cites` *blocks* (two to four source
+    boxes) while the meta section summed seven candidate buckets, two of which
+    the prose never draws from — two different wrong answers for one concept,
+    both visible in the UI and in /api/data.
+    """
+    ids = set()
+    for kind, val in sections:
+        if kind != "cites":
+            continue
+        for item in (val or {}).get("items") or []:
+            key = _cite_key(item)
+            if key:
+                ids.add(key)
+    return len(ids)
+
+
 def _cite(a, why_fa="", why_en="", index=None) -> dict:
     ts = a.get("published_ts")
     cred = a.get("credibility") or 0
     return {
+        "id": a.get("id", ""),
         "index": index,
         "index_fa": fa_digits(index) if index else "",
         "title_en": a.get("title", ""),
@@ -256,7 +281,7 @@ def sec_macro(items, name):
     lines, cites = [], []
     for i, a in enumerate(items, 1):
         st = _stamp(a)
-        lines.append(f"- {a['title']}.")
+        lines.append(f"- {a.get('title', '')}.")
         cites.append(_cite(a, index=i))
     intro = ("Cross-asset drivers in today's wire matter for pricing risk in this market; "
              "the highest-credibility macro and policy headlines currently in circulation are:")
@@ -299,7 +324,9 @@ def sec_news_impact(strong, regulation, risk, name):
 # Both helpers degrade to {} on any failure so a report is never blocked by a
 # third-party endpoint being down, and both cache their answer (TTL) so a
 # 13-asset report run costs one network round-trip, not thirteen.
+import threading
 _DERIV_CACHE = {}
+_DERIV_LOCK = threading.Lock()
 _BINANCE_SYMBOL = {"BTC": "BTCUSDT", "ETH": "ETHUSDT", "SOL": "SOLUSDT",
                    "XRP": "XRPUSDT", "ADA": "ADAUSDT", "BNB": "BNBUSDT",
                    "DOGE": "DOGEUSDT"}
@@ -309,7 +336,8 @@ def _derivatives_context(sym, ttl=300.0):
     """Binance futures funding / open interest / long-short (public, key-less)."""
     import time as _t
     import requests
-    hit = _DERIV_CACHE.get(sym)
+    with _DERIV_LOCK:
+        hit = _DERIV_CACHE.get(sym)
     if hit and _t.time() - hit[0] < ttl:
         return hit[1]
     out = {}
@@ -338,25 +366,23 @@ def _derivatives_context(sym, ttl=300.0):
                 out["long_short"] = round(float(rows[-1]["longShortRatio"]), 2)
         except Exception:
             pass
-    _DERIV_CACHE[sym] = (_t.time(), out)
+    with _DERIV_LOCK:
+        _DERIV_CACHE[sym] = (_t.time(), out)
     return out
 
 
 def _flow_context():
-    """ETF net flows + Fear & Greed, from the already-cached market context."""
+    """Fear & Greed, from the already-cached market context.
+
+    The spot-BTC ETF net-flow series (Farside) was dropped together with the
+    ETF-flow panel, so this no longer carries an ETF figure.
+    """
     try:
         from calendar_data import market_context
         ctx = market_context() or {}
     except Exception:
         return {}
     out = {}
-    try:
-        rows = (ctx.get("etf") or {}).get("rows") or []
-        if rows:
-            out["etf_date"] = rows[-1].get("date")
-            out["etf_musd"] = rows[-1].get("total_musd")
-    except Exception:
-        pass
     try:
         fng = ctx.get("fng") or {}
         if fng.get("now") is not None:
@@ -385,18 +411,12 @@ def sec_flows(md, snap, sym, name, is_crypto=True):
     elif vr is not None:
         parts.append(f"Seven-day average turnover runs at {vr:.2f}x the trailing-month norm.")
     if is_crypto:
-        parts.append("Note: the ETF-flow and sentiment figures above are the public Farside and "
-                     "alternative.me series; proprietary on-chain datasets are still left out "
-                     "rather than estimated.")
+        parts.append("Note: the sentiment reading above is the public alternative.me series; "
+                     "proprietary on-chain datasets are still left out rather than estimated.")
     fx = _flow_context()
     if is_crypto and fx.get("fng") is not None:
         parts.append(f"The alternative.me Fear & Greed gauge prints {fx['fng']}"
                      + (f" ({fx['fng_label']})" if fx.get("fng_label") else "") + ".")
-    if sym == "BTC" and fx.get("etf_musd") is not None:
-        flow = float(fx["etf_musd"])
-        parts.append(f"Spot-BTC ETF net {'inflow' if flow >= 0 else 'outflow'} for "
-                     f"{fx.get('etf_date') or 'the latest session'} was "
-                     f"${abs(flow):,.1f}m (Farside).")
     if not parts:
         return None
     return " ".join(parts)
@@ -679,8 +699,9 @@ def build_report(sym, md, articles, now=None, name=None, fa_name=None,
         "symbol": sym, "name": name, "fa_name": fa_name or name, "icon": icon or "",
         "price": md.get("price"), "change_24h": md.get("change_24h"),
         "news_window_hours": max_age,
-        "news_used": len(overview_news) + len(strong) + len(analysis) + len(regulation)
-                     + len(macro) + len(risk) + len(technical_news),
+        # filled in below, once the cites blocks exist: the same number the
+        # report returns at the top level, so the UI and the API agree
+        "news_used": 0,
         "sources_used": [{"name": n, "count": c} for n, c in used_sources[:12]],
         "market_stale": bool(md.get("stale")),
     }))
@@ -734,6 +755,12 @@ def build_report(sym, md, articles, now=None, name=None, fa_name=None,
     head("conclusion")
     para(sec_conclusion(snap, md, name))
 
+    cited = count_cited_news(sections)
+    for kind, val in sections:          # one number, in both places it is read
+        if kind == "meta":
+            val["news_used"] = cited
+            break
+
     return {
         "symbol": sym,
         "name": name,
@@ -741,7 +768,7 @@ def build_report(sym, md, articles, now=None, name=None, fa_name=None,
         "icon": icon or "",
         "sections": sections,
         "generated_at": now.isoformat(),
-        "news_used": sum(1 for k, _ in sections if k == "cites"),
+        "news_used": cited,
     }
 
 

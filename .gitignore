@@ -11,8 +11,28 @@ freebuff.zip
 .mohmd_news.db
 .mohmd_news.db-journal
 .market_cache.json
+.market_lab_cache.json
+.content_studio_cache.json
 .translate_cache.json
 .feed_overrides.json
+.reddit_scores.json
+freebuff_tiers.db
+freebuff_tiers.db-journal
+# keystore holds the raw default API key
+data/api_keys.json
+.news_links.json
+correlation.json
+.mohmd_news.db-shm
+.mohmd_news.db-wal
+data/
+logs/
+.pytest_cache/
+
+# ── local backups & scratch (94 MB of pre-redesign copies never go to git) ──
+backups/
+*.bak
+.agents/skills/ui-ux-pro-max/
+.zcodeignore
 
 # ── python build artefacts ─────────────────
 __pycache__/

@@ -9,64 +9,64 @@
       {
         "title": "Ethereum — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Ethereum",
-        "asof": "2026-09-21 13:52 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
+        "asof": "2026-10-05 17:09 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
         "symbol": "ETH",
         "name": "Ethereum",
         "fa_name": "Ethereum",
         "icon": "Ξ",
-        "price": 2720.06,
-        "change_24h": 5.67,
+        "price": 2715.01,
+        "change_24h": 0.56,
         "news_window_hours": 24.0,
-        "news_used": 11,
+        "news_used": 9,
         "sources_used": [
           {
             "name": "Pluang",
-            "count": 4
+            "count": 8
           },
           {
-            "name": "TradingKey",
+            "name": "CoinPedia",
+            "count": 3
+          },
+          {
+            "name": "Coinpaper",
+            "count": 3
+          },
+          {
+            "name": "Coinfomania",
+            "count": 3
+          },
+          {
+            "name": "AMBCrypto",
+            "count": 3
+          },
+          {
+            "name": "CoinGape",
             "count": 2
           },
           {
-            "name": "Cryptonews",
+            "name": "CCN.com",
             "count": 2
           },
           {
-            "name": "Benzinga",
+            "name": "Crypto Briefing",
             "count": 2
           },
           {
-            "name": "StreetInsider",
+            "name": "Coin Tribune",
             "count": 2
           },
           {
-            "name": "The Defiant",
-            "count": 1
+            "name": "Binance",
+            "count": 2
           },
           {
-            "name": "incrypted",
-            "count": 1
+            "name": "Yahoo Finance",
+            "count": 2
           },
           {
-            "name": "investingLive",
-            "count": 1
-          },
-          {
-            "name": "U.Today",
-            "count": 1
-          },
-          {
-            "name": "The Cryptonomist",
-            "count": 1
-          },
-          {
-            "name": "TradingView",
-            "count": 1
-          },
-          {
-            "name": "r/ethereum (شبکه اجتماعی)",
-            "count": 1
+            "name": "FXStreet",
+            "count": 2
           }
         ],
         "market_stale": false
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Ethereum is changing hands near $2,720, +5.67% over the past 24 hours and +8.06% on a 7-day view. Spot trades above the 50-day average ($2,337) and above the 200-day average ($2,278), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+12.08%), suggesting the market is still repairing.",
+        "en": "Ethereum is changing hands near $2,715, +0.56% over the past 24 hours and +1.04% on a 7-day view. Spot trades above the 50-day average ($2,492) and above the 200-day average ($2,323), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+9.51%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -92,75 +92,78 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
+            "id": "9292548d5a36",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "BTC, ETH price news: Bitcoin above $81,000 as NEAR jumps 23% on ZEC swap traffic",
-            "title_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
-            "summary_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
+            "title_en": "Ethereum staking exit queue jumps fivefold as holders face a two-week wait",
+            "title_fa": "صف خروج از اتریوم پنج برابر می شود زیرا دارندگان انتظار دو هفته ای دارند",
+            "summary_fa": "صف خروج از اتریوم پنج برابر می شود زیرا دارندگان انتظار دو هفته ای دارند",
             "source": "CoinDesk",
             "source_kind": "search",
-            "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNdnNnLVlhd2RTSjV6b2JqS3hqb0dqb0plRXN6NDV3UTd4ckpzMDdqbFprMVVpUFZObWtqNVhzQkN5YUxYb2JxR3NsS091WkllMU4yTTFHSHUzUDg2dVdIQVhXZndfc1g4Z1FtU1NHVHo4WFItUnZ4bUoydlVFeW4tVkpnMGhJb3FfQTZOdjNZelVMMlZZTmNjUFFnX2ZCM2xfTHVVU2NwRDJmNGtCaXBiNzNfZ183dw?oc=5",
-            "published_ts": 1789963423.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۷:۳۳",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۳۳",
+            "via": "Google News · ETH",
+            "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQVjU0Vk5DdDB0Zm1pMXZkWDNiUHNubThLa2dyeXFnUlJoYjZCT2QwSG1Jd3NjOEJKSVpOUzYzdGwtc1h0QUQ5S3RZVmRKaUc2TTZUQXlBRFJ1TmJSMkNRTnFiaUxlXzQxZS1KNlJnaTdQeXBOLVFFRFpKRXRXZWUtbTdEMXlrZ21zRmE2T09GOEtoS1dnam5XeFpnNkp0RHBrWWpfN05iNHdUdDRzTVNnZm5NMXEyMEFaS19zbw?oc=5",
+            "published_ts": 1791186301.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۱:۱۵",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۱:۱۵",
             "age_fa": "۶ ساعت پیش",
-            "credibility": 0.912,
-            "credibility_fa": "۹۱٪",
-            "topic_fa": "بازار",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "دی‌فای",
             "assets": [
-              "BTC",
               "ETH"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
+            "id": "85cacc39d471",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Brent Tops $106 And Hike Odds Reach 64% As Crypto Sells Off",
-            "title_fa": "با فروش کریپتو، برنت از ۱۰۶ دلار بالاتر رفت و شانس افزایش به ۶۴ درصد رسید",
-            "summary_fa": "صد و سه توکن از ۱۲۵ توکن غیراستیبل کوین بزرگ در روز پس از ورود قیمت‌های تولیدکننده در آگوست به ۰.۴ درصد و بازدهی ۳۰ ساله خزانه‌داری در هر بسته شدن پنج سال گذشته، پایین‌تر بودند. بیت کوین ۷۷۱۲۰ دلار معامله شد. Ether.fi با رای بازخریدی که یک ",
-            "source": "The Defiant",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://thedefiant.io/news/markets/brent-tops-106-hike-odds-reach-64-crypto-sells-off-sep-10-2026",
-            "published_ts": 1789986114.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۳:۵۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۱",
-            "age_fa": "۱ دقیقه پیش",
-            "credibility": 0.8,
-            "credibility_fa": "۸۰٪",
+            "title_en": "Ether's liquidity shrank vs bitcoin in Q3. XRP bids piled up",
+            "title_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "summary_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "source": "CoinDesk",
+            "source_kind": "search",
+            "via": "Google News · ETH",
+            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOdC0wNUpzNUQ4eUZXZzR2eFZGbGVMRmtyYUdFcHh4alJTSlZDdXhXem1CYVg2T3lmd04zYzN0eHZiQ1FNdkw5WGZaT0lmLWtCUms2Y2ZVWVRsRGpIYlR5RUItbDI0b1hCYzZNWm5GZ3dYS0dZdHRWMVZraVVHLXdScmRfNnRqaEx3TlAwSEFTMFA1a0VwM2ExY2Z6OERkMWNMZ1VVdjFSSzNFZ3FMMy1SMFR3?oc=5",
+            "published_ts": 1791172200.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۲۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۲۰",
+            "age_fa": "۱۰ ساعت پیش",
+            "credibility": 0.912,
+            "credibility_fa": "۹۱٪",
             "topic_fa": "کلان",
             "assets": [
               "BTC",
               "ETH",
-              "WTI"
+              "XRP"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
+            "id": "3b30e8c6b9dc",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Ethereum finally breaks out of the month-long range as CFTC moves forward without Congress",
-            "title_fa": "با پیشروی CFTC بدون کنگره، اتریوم سرانجام از محدوده یک ماهه خارج شد",
-            "summary_fa": "با پیشروی CFTC بدون کنگره، اتریوم سرانجام از محدوده یک ماهه خارج شد",
-            "source": "investingLive",
-            "source_kind": "search",
-            "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOM2prQ016QXUxWFF4NjFET2I5dnhNN3JVM0I4TzR4bi00aExNRHh1cTY5TFdOVmpncFR0Z3ZEOHYtSzdfUEp2eTVId2lxTlRVdmVFcXl4eGhfT2VwN2RjZ3ROOXh6QWRCYUlGYm9VeWFaa01HLXMyYTZ6OGdBOTd2ZnNWTWRLeWRJbWN1U2RDYXFHOTJJdmtJY3laTHVOZHRSdWxKRGFWTndfVWNhLVZKUnhPTWtKYml3MUNDYlhlR2dpVTJaWklMdDJrYms?oc=5",
-            "published_ts": 1789980686.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۲۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۲۱",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.74,
-            "credibility_fa": "۷۴٪",
-            "topic_fa": "مقررات",
+            "title_en": "Bitcoin ETFs notch third inflow week as Ether ETFs shed $138M",
+            "title_fa": "ETF های بیت کوین سومین هفته ورودی را به خود اختصاص دادند زیرا ETF های اتر ۱۳۸ میلیون دلار کاهش یافتند",
+            "summary_fa": "جریان ورودی بیت کوین ETF به سومین هفته متوالی رسید، در حالی که ETF های اتر به سمت خروجی حرکت کردند و صندوق های Zcash اولین خروجی هفتگی خود را ثبت کردند.",
+            "source": "CoinTelegraph",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cointelegraph.com/markets/bitcoin-etf-third-inflow-week-ether-funds-red?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+            "published_ts": 1791187249.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۱:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۱:۳۰",
+            "age_fa": "۶ ساعت پیش",
+            "credibility": 0.86,
+            "credibility_fa": "۸۶٪",
+            "topic_fa": "ETF",
             "assets": [
+              "BTC",
               "ETH"
             ],
             "why_fa": "",
@@ -179,7 +182,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Brent Tops $106 And Hike Odds Reach 64% As Crypto Sells Off.\n- Can Bitcoin Hit $100K and Ethereum $4K by Year-End?.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Ether's liquidity shrank vs bitcoin in Q3. XRP bids piled up.\n- Ethereum surges nearly 70% in Q3, but its order books thin out against Bitcoin.",
         "fa": ""
       }
     ],
@@ -189,48 +192,50 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
+            "id": "85cacc39d471",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Brent Tops $106 And Hike Odds Reach 64% As Crypto Sells Off",
-            "title_fa": "با فروش کریپتو، برنت از ۱۰۶ دلار بالاتر رفت و شانس افزایش به ۶۴ درصد رسید",
-            "summary_fa": "صد و سه توکن از ۱۲۵ توکن غیراستیبل کوین بزرگ در روز پس از ورود قیمت‌های تولیدکننده در آگوست به ۰.۴ درصد و بازدهی ۳۰ ساله خزانه‌داری در هر بسته شدن پنج سال گذشته، پایین‌تر بودند. بیت کوین ۷۷۱۲۰ دلار معامله شد. Ether.fi با رای بازخریدی که یک ",
-            "source": "The Defiant",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://thedefiant.io/news/markets/brent-tops-106-hike-odds-reach-64-crypto-sells-off-sep-10-2026",
-            "published_ts": 1789986114.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۳:۵۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۱",
-            "age_fa": "۱ دقیقه پیش",
-            "credibility": 0.8,
-            "credibility_fa": "۸۰٪",
+            "title_en": "Ether's liquidity shrank vs bitcoin in Q3. XRP bids piled up",
+            "title_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "summary_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "source": "CoinDesk",
+            "source_kind": "search",
+            "via": "Google News · ETH",
+            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOdC0wNUpzNUQ4eUZXZzR2eFZGbGVMRmtyYUdFcHh4alJTSlZDdXhXem1CYVg2T3lmd04zYzN0eHZiQ1FNdkw5WGZaT0lmLWtCUms2Y2ZVWVRsRGpIYlR5RUItbDI0b1hCYzZNWm5GZ3dYS0dZdHRWMVZraVVHLXdScmRfNnRqaEx3TlAwSEFTMFA1a0VwM2ExY2Z6OERkMWNMZ1VVdjFSSzNFZ3FMMy1SMFR3?oc=5",
+            "published_ts": 1791172200.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۲۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۲۰",
+            "age_fa": "۱۰ ساعت پیش",
+            "credibility": 0.912,
+            "credibility_fa": "۹۱٪",
             "topic_fa": "کلان",
             "assets": [
               "BTC",
               "ETH",
-              "WTI"
+              "XRP"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
+            "id": "17b30a0b1557",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Can Bitcoin Hit $100K and Ethereum $4K by Year-End?",
-            "title_fa": "آیا بیت کوین می تواند تا پایان سال به ۱۰۰ هزار دلار و اتریوم به ۴ هزار دلار برسد؟",
-            "summary_fa": "اینکه بیت‌کوین می‌تواند سال ۲۰۲۶ را با قیمت ۱۰۰۰۰۰ دلار و اتریوم با قیمت ۴۰۰۰ دلار ببندد به یک سری تأییدها بستگی دارد، نه یک کاتالیزور واحد، و با توجه به سرعت معکوس شدن شرایط کلان و تقاضای ارزهای دیجیتال، هیچ یک از این آستانه‌ها نباید به عن",
-            "source": "CoinCu",
+            "title_en": "Ethereum surges nearly 70% in Q3, but its order books thin out against Bitcoin",
+            "title_fa": "اتریوم در سه ماهه سوم نزدیک به ۷۰ درصد افزایش یافت، اما سفارشات آن در برابر بیت کوین کاهش می یابد.",
+            "summary_fa": "چالش‌های نقدینگی اتریوم می‌تواند منجر به افزایش نوسانات بازار، تأثیرگذاری بر استراتژی‌های معامله‌گران و به‌طور بالقوه افزایش نوسانات قیمتی شود.",
+            "source": "Crypto Briefing",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://www.coincu.com/bitcoin-100k-ethereum-4k-year-end-outlook/",
-            "published_ts": 1789927432.0,
-            "date_fa": "۲۹ شهریور ۱۴۰۵",
-            "time_fa": "۲۱:۳۳",
-            "datetime_fa": "۲۹ شهریور ۱۴۰۵، ساعت ۲۱:۳۳",
-            "age_fa": "۱۶ ساعت پیش",
-            "credibility": 0.634,
-            "credibility_fa": "۶۳٪",
+            "link": "https://cryptobriefing.com/ethereum-q3-rally-thin-order-books/",
+            "published_ts": 1791183094.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۰:۲۱",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۰:۲۱",
+            "age_fa": "۶ ساعت پیش",
+            "credibility": 0.78,
+            "credibility_fa": "۷۸٪",
             "topic_fa": "کلان",
             "assets": [
               "BTC",
@@ -252,7 +257,7 @@
     [
       "p",
       {
-        "en": "- BTC, ETH price news: Bitcoin above $81,000 as NEAR jumps 23% on ZEC swap traffic. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum.\n- Ethereum finally breaks out of the month-long range as CFTC moves forward without Congress. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Ethereum Price Prediction: Can ETH Break $3,000 This Month? Here’s Why It Could. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum.\n- Ethereum supply tightens as ETH price reclaims $2,500 – What’s next?. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum.",
+        "en": "- Bitcoin ETFs notch third inflow week as Ether ETFs shed $138M. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum.\n- Bitmine acquires 15,112 Ethereum, raising total to 6.02M ETH. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum.\n- The SEC approved a 3x Ethereum ETF – Here’s what it means. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum.\n- SEC Clears Cboe to List Volatility Shares’ 3x Bitcoin and Ether Funds. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
         "fa": ""
       }
     ],
@@ -262,23 +267,24 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
+            "id": "3b30e8c6b9dc",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "BTC, ETH price news: Bitcoin above $81,000 as NEAR jumps 23% on ZEC swap traffic",
-            "title_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
-            "summary_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
-            "source": "CoinDesk",
-            "source_kind": "search",
-            "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNdnNnLVlhd2RTSjV6b2JqS3hqb0dqb0plRXN6NDV3UTd4ckpzMDdqbFprMVVpUFZObWtqNVhzQkN5YUxYb2JxR3NsS091WkllMU4yTTFHSHUzUDg2dVdIQVhXZndfc1g4Z1FtU1NHVHo4WFItUnZ4bUoydlVFeW4tVkpnMGhJb3FfQTZOdjNZelVMMlZZTmNjUFFnX2ZCM2xfTHVVU2NwRDJmNGtCaXBiNzNfZ183dw?oc=5",
-            "published_ts": 1789963423.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۷:۳۳",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۳۳",
+            "title_en": "Bitcoin ETFs notch third inflow week as Ether ETFs shed $138M",
+            "title_fa": "ETF های بیت کوین سومین هفته ورودی را به خود اختصاص دادند زیرا ETF های اتر ۱۳۸ میلیون دلار کاهش یافتند",
+            "summary_fa": "جریان ورودی بیت کوین ETF به سومین هفته متوالی رسید، در حالی که ETF های اتر به سمت خروجی حرکت کردند و صندوق های Zcash اولین خروجی هفتگی خود را ثبت کردند.",
+            "source": "CoinTelegraph",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cointelegraph.com/markets/bitcoin-etf-third-inflow-week-ether-funds-red?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+            "published_ts": 1791187249.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۱:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۱:۳۰",
             "age_fa": "۶ ساعت پیش",
-            "credibility": 0.912,
-            "credibility_fa": "۹۱٪",
-            "topic_fa": "بازار",
+            "credibility": 0.86,
+            "credibility_fa": "۸۶٪",
+            "topic_fa": "ETF",
             "assets": [
               "BTC",
               "ETH"
@@ -287,76 +293,80 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum."
           },
           {
+            "id": "d86cd9760cdd",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Ethereum finally breaks out of the month-long range as CFTC moves forward without Congress",
-            "title_fa": "با پیشروی CFTC بدون کنگره، اتریوم سرانجام از محدوده یک ماهه خارج شد",
-            "summary_fa": "با پیشروی CFTC بدون کنگره، اتریوم سرانجام از محدوده یک ماهه خارج شد",
-            "source": "investingLive",
-            "source_kind": "search",
-            "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOM2prQ016QXUxWFF4NjFET2I5dnhNN3JVM0I4TzR4bi00aExNRHh1cTY5TFdOVmpncFR0Z3ZEOHYtSzdfUEp2eTVId2lxTlRVdmVFcXl4eGhfT2VwN2RjZ3ROOXh6QWRCYUlGYm9VeWFaa01HLXMyYTZ6OGdBOTd2ZnNWTWRLeWRJbWN1U2RDYXFHOTJJdmtJY3laTHVOZHRSdWxKRGFWTndfVWNhLVZKUnhPTWtKYml3MUNDYlhlR2dpVTJaWklMdDJrYms?oc=5",
-            "published_ts": 1789980686.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۲۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۲۱",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.74,
-            "credibility_fa": "۷۴٪",
+            "title_en": "Bitmine acquires 15,112 Ethereum, raising total to 6.02M ETH",
+            "title_fa": "بیت‌مین ۱۵۱۱۲ اتریوم را به دست می‌آورد که مجموع را به ۶.۰۲ میلیون اتریوم افزایش می‌دهد.",
+            "summary_fa": "استراتژی تهاجمی کسب ETH بیت‌مین می‌تواند نفوذ بازار اتریوم را تقویت کند و سرمایه‌گذاری سازمانی را افزایش دهد.",
+            "source": "Crypto Briefing",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cryptobriefing.com/bitmine-buys-15112-eth-6-02m-total/",
+            "published_ts": 1791204289.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۶:۱۴",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۱۴",
+            "age_fa": "۵۴ دقیقه پیش",
+            "credibility": 0.78,
+            "credibility_fa": "۷۸٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "ETH"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum."
+          },
+          {
+            "id": "4cc50122a06a",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "The SEC approved a 3x Ethereum ETF – Here’s what it means",
+            "title_fa": "SEC یک ETF ۳ برابری اتریوم را تأیید کرد - معنی آن چیست",
+            "summary_fa": "مسیر فهرست ۳ برابری ETF اتریوم با تقاضای ضعیف Spot ETF مواجه است، در حالی که اتریوم بالای ۲۷۰۰ دلار باقی می ماند.",
+            "source": "AMBCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://ambcrypto.com/the-sec-approved-a-3x-ethereum-etf-heres-what-it-means/",
+            "published_ts": 1791194420.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۳:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۳۰",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.75,
+            "credibility_fa": "۷۵٪",
+            "topic_fa": "ETF",
+            "assets": [
+              "ETH"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum."
+          },
+          {
+            "id": "52485346d2ed",
+            "index": 4,
+            "index_fa": "۴",
+            "title_en": "SEC Clears Cboe to List Volatility Shares’ 3x Bitcoin and Ether Funds",
+            "title_fa": "SEC Cboe را برای فهرست کردن وجوه سه برابری بیت کوین و اتر سهام نوسانات پاک می کند",
+            "summary_fa": "این شش محصول، تراست های کالایی هستند که تحت قانون ۱۹۳۳ ثبت شده اند، در حالی که کارکنان SEC در دسامبر ۲۰۲۵، سه برابر وجوه تحت کنترل قانون ۱۹۴۰ را پس گرفتند.",
+            "source": "Unchained",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://unchainedcrypto.com/sec-clears-cboe-to-list-volatility-shares-3x-bitcoin-and-ether-funds/",
+            "published_ts": 1791193095.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۳:۰۸",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۰۸",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.7,
+            "credibility_fa": "۷۰٪",
             "topic_fa": "مقررات",
             "assets": [
+              "BTC",
               "ETH"
             ],
             "why_fa": "",
             "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
-          },
-          {
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Ethereum Price Prediction: Can ETH Break $3,000 This Month? Here’s Why It Could",
-            "title_fa": "پیش بینی قیمت اتریوم: آیا اتریوم می تواند ۳۰۰۰ دلار در این ماه بشکند؟ در اینجا این است که چرا می تواند",
-            "summary_fa": "اتریوم پس از یک رشد شش روزه، قیمت ۳۰۰۰ دلاری خود را به ۲۶۵۸ دلار رساند. شکستن سطوح مقاومت کلیدی، جریان ETF و آنچه که می تواند اتریوم را به ۲۸۰۰ دلار برساند.",
-            "source": "Cryptonews",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://cryptonews.com/news/ethereum-price-prediction-3000-september/",
-            "published_ts": 1789980040.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۱۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۱۰",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
-            "topic_fa": "ETF",
-            "assets": [
-              "ETH"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum."
-          },
-          {
-            "index": 4,
-            "index_fa": "۴",
-            "title_en": "Ethereum supply tightens as ETH price reclaims $2,500 – What’s next?",
-            "title_fa": "عرضه اتریوم با بازپس گیری ۲۵۰۰ دلار قیمت اتریوم کاهش می یابد - بعد چه می شود؟",
-            "summary_fa": "پویایی عرضه اتریوم در حال تشدید است زیرا سهام و تقاضای ETF بازار را حدود ۲۵۰۰ دلار تغییر می دهد.",
-            "source": "AMBCrypto",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://ambcrypto.com/ethereum-supply-tightens-as-eth-price-reclaims-2500-whats-next/",
-            "published_ts": 1789923625.0,
-            "date_fa": "۲۹ شهریور ۱۴۰۵",
-            "time_fa": "۲۰:۳۰",
-            "datetime_fa": "۲۹ شهریور ۱۴۰۵، ساعت ۲۰:۳۰",
-            "age_fa": "۱۷ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
-            "topic_fa": "ETF",
-            "assets": [
-              "ETH"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Ethereum."
           }
         ]
       }
@@ -371,7 +381,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $332.0B (CoinGecko). Reported 24-hour spot volume is $19.02B with 7-day average turnover broadly normal versus the trailing month (1.05x) . Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "en": "Total market capitalization stands near $331.7B (CoinGecko). Reported 24-hour spot volume is $9.98B with 7-day average turnover subdued versus the trailing month (0.81x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
         "fa": ""
       }
     ],
@@ -399,7 +409,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $2,717 versus EMA20 $2,507, EMA50 $2,337 and EMA200 $2,278 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $2,643 (recent swing low); the lower Bollinger band $2,340 as the 2σ downside envelope; upper band $2,673 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $98.32 implies a typical daily range of roughly 3.6 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 69.8 — neutral territory; MACD (12/26/9) sits above its signal line (84.26 vs 75.45, histogram +8.812), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 43%; the 20-day band spans 13% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 1.05x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +12.08% over 30 days and +63.14% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+8.06%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $2,717 versus EMA20 $2,652, EMA50 $2,492 and EMA200 $2,323 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $2,706 (recent swing low); the lower Bollinger band $2,493 as the 2σ downside envelope; first resistance at $2,727 (recent swing high); upper band $2,835 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $79.82 implies a typical daily range of roughly 2.9 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 62.5 — neutral territory; MACD (12/26/9) sits below its signal line (64.07 vs 73.35, histogram -9.279), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 39%; the 20-day band spans 13% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.81x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +9.51% over 30 days and +53.62% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.04%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -409,24 +419,26 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
+            "id": "b9b2debd3f68",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "XRP Price Prediction: XRP Could Flip Ethereum as It Targets $3,000",
-            "title_fa": "پیش بینی قیمت XRP: XRP می تواند اتریوم را با هدف قرار دادن ۳۰۰۰ دلار برگرداند",
-            "summary_fa": "XRP نزدیک به ۱.۴۴ دلار معامله می شود زیرا پایان نامه وثیقه ۳۳۰۰ دلاری کشش می یابد. در اینجا تنظیمات فنی، مقایسه اتریوم و یک جایگزین در مراحل اولیه وجود دارد.",
-            "source": "Cryptonews",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://cryptonews.com/news/xrp-price-prediction-flip-ethereum/",
-            "published_ts": 1789977232.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۱:۲۳",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۲۳",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
+            "title_en": "Why is Bitcoin rally cooling while Ethereum and XRP extend recovery?",
+            "title_fa": "چرا رالی بیت کوین خنک می شود در حالی که اتریوم و XRP بازیابی را گسترش می دهند؟",
+            "summary_fa": "چرا رالی بیت کوین خنک می شود در حالی که اتریوم و XRP بازیابی را گسترش می دهند؟",
+            "source": "FXStreet",
+            "source_kind": "search",
+            "via": "Google News · ETF",
+            "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQZHFWbkYwZ0l3Y0dwNTZMeWdlSU10ZEE3X3l4c1NBd0NsX1d1ZG9RZXc2c1JPVU5wbXhMRVhuMjYyOGExclpTeFE4Y3IyMVlVNERkQmNyazY4dTg3TXdvdU9Na3hEOXRxbXdXU1dlSW5pRldjZW5XMkZneTFWRjItcnZ0MEdPV0pHRi1kSjJkVDR3ZWQxU09FT0trSEpHRS1DdktnY1RTSjN5dGMybGVOdElTN2pUaTUxUk5NbDNjb0NobUJuRVVEM18xVnA2NlVBbFZSbVktQk1vbk9uQ3BzOHVFQXFXdVROVXVXOQ?oc=5",
+            "published_ts": 1791196379.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۴:۰۲",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۰۲",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.82,
+            "credibility_fa": "۸۲٪",
             "topic_fa": "تحلیل",
             "assets": [
+              "BTC",
               "ETH",
               "XRP"
             ],
@@ -434,26 +446,28 @@
             "why_en": ""
           },
           {
+            "id": "d7efb8a729ba",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Bitcoin Tops $84,000, Ethereum Crosses $2,700 as Crypto Market Extends Strong Rally",
-            "title_fa": "بیت کوین از ۸۴۰۰۰ دلار عبور کرد، اتریوم از ۲۷۰۰ دلار عبور کرد زیرا بازار کریپتو رالی قوی را افزایش داد",
-            "summary_fa": "بیت کوین از ۸۴۰۰۰ دلار عبور کرد، اتریوم از ۲۷۰۰ دلار عبور کرد زیرا بازار کریپتو رالی قوی را افزایش داد",
-            "source": "TradingKey",
-            "source_kind": "search",
-            "via": "Google News · ETH",
-            "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNcTdpdnp0TnhQRUJKMWpId29LVlFxeldFLWw3V0IzUXZPRUVQS1AxS0FtZ1dyZFBSNmVSWnBBZ2VsQ0dDZU5BWG9OM1NkVVV2dzRhN2o0bzFDeExIcUY1aHlMQkNpV0tpZkptQkxzeXdyNTlKVGxSa25rQ0hTTU0xdXRKVW9pbTd0VmNkZ3gzSm5lRnkyNWExM2pObnlmQTVDNW9BX3NSdHpab0dZZXBSYmhadjh0YkpyQlRGMC1rZEJUUUludXRUUTgwZlZwZVA3SEJwekpGY3BXN0c1X3pn?oc=5",
-            "published_ts": 1789981304.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۳۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۳۱",
-            "age_fa": "۱ ساعت پیش",
-            "credibility": 0.66,
-            "credibility_fa": "۶۶٪",
+            "title_en": "Top 3 Price Prediction: Bitcoin, Ethereum, Ripple – BTC, ETH and XRP extend multi‑week rally as bulls target higher levels",
+            "title_fa": "۳ پیش‌بینی قیمت برتر: بیت‌کوین، اتریوم، ریپل – بیت‌کوین، اتریوم و XRP رالی چند هفته‌ای را افزایش می‌دهند زیرا گاوها سطوح بالاتری را هدف قرار می‌دهند.",
+            "summary_fa": "۳ پیش‌بینی قیمت برتر: بیت‌کوین، اتریوم، ریپل – بیت‌کوین، اتریوم و XRP رالی چند هفته‌ای را افزایش می‌دهند زیرا گاوها سطوح بالاتری را هدف قرار می‌دهند.",
+            "source": "FXStreet",
+            "source_kind": "crypto",
+            "via": "FXStreet Crypto",
+            "link": "https://news.google.com/rss/articles/CBMihwJBVV95cUxNNFI2eGpCcG4zeWtxZDhoVnN0RmVYQS1zSVplVURfYXhldll6dXNfRF9aMllmNng2Rm5rcEVpanFoUEdUVkVLdUUza25Pa1lwWTIwVG9zUUdZYU1DaWN0dXZ0eG50N0VBelNQQ3Zvejd3ajBmMTIxNDJseFdBUEp3TjRFR2hiQll1OV9ubWNyb1lYNUxWbnRpVWR1UXdmNmduVTNiVG83Z0VFRkdPSVFaWmRCU1RMZkZDUzB6R1dFNXhQQ1JTTExlQ25KTkdYVVV2TzQ4cGxJbHNyanVjVEFkVTBhRDFFNXhHSjlrSmZDZDJRWmY1R1hMX21wWS0yc19hS1hORDEySQ?oc=5",
+            "published_ts": 1791171265.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۰۴",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۰۴",
+            "age_fa": "۱۰ ساعت پیش",
+            "credibility": 0.787,
+            "credibility_fa": "۷۹٪",
             "topic_fa": "تحلیل",
             "assets": [
               "BTC",
-              "ETH"
+              "ETH",
+              "XRP"
             ],
             "why_fa": "",
             "why_en": ""
@@ -471,7 +485,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($2,337); RSI holding above 60 (currently 70). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $2,643. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $2,727 on expanding turnover; continued holds of the 50-day average ($2,492); RSI holding above 60 (currently 63). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $2,706. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -485,11 +499,11 @@
     [
       "p",
       {
-        "en": "Net take on Ethereum: spot $2,720 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+5.67%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Ethereum: spot $2,715 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.56%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:22:51.409630+00:00",
-  "news_used": 4
+  "generated_at": "2026-10-05T13:39:13.557577+00:00",
+  "news_used": 9
 }

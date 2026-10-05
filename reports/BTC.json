@@ -9,64 +9,64 @@
       {
         "title": "Bitcoin — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Bitcoin",
-        "asof": "2026-09-21 13:52 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
+        "asof": "2026-10-05 17:09 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
         "symbol": "BTC",
         "name": "Bitcoin",
         "fa_name": "Bitcoin",
         "icon": "₿",
-        "price": 84565,
-        "change_24h": 5.3,
+        "price": 85948,
+        "change_24h": 0.79,
         "news_window_hours": 24.0,
-        "news_used": 16,
+        "news_used": 12,
         "sources_used": [
+          {
+            "name": "Crypto Briefing",
+            "count": 14
+          },
           {
             "name": "r/Bitcoin (شبکه اجتماعی)",
             "count": 11
           },
           {
-            "name": "CoinDesk",
+            "name": "Bitcoin.com News",
+            "count": 10
+          },
+          {
+            "name": "CryptoPotato",
+            "count": 10
+          },
+          {
+            "name": "Pluang",
+            "count": 10
+          },
+          {
+            "name": "Coinfomania",
             "count": 9
           },
           {
-            "name": "AMBCrypto",
+            "name": "CoinTelegraph",
             "count": 9
           },
           {
-            "name": "Crypto Briefing",
+            "name": "Finwire",
+            "count": 9
+          },
+          {
+            "name": "r/CryptoCurrency (شبکه اجتماعی)",
+            "count": 8
+          },
+          {
+            "name": "CoinGape",
             "count": 7
           },
           {
-            "name": "Yahoo Finance",
+            "name": "Coin Tribune",
             "count": 7
           },
           {
             "name": "CryptoSlate",
-            "count": 7
-          },
-          {
-            "name": "Pluang",
             "count": 6
-          },
-          {
-            "name": "CoinTelegraph",
-            "count": 5
-          },
-          {
-            "name": "CoinCu",
-            "count": 5
-          },
-          {
-            "name": "Cryptonews",
-            "count": 4
-          },
-          {
-            "name": "Crypto Daily",
-            "count": 4
-          },
-          {
-            "name": "U.Today",
-            "count": 4
           }
         ],
         "market_stale": false
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Bitcoin is changing hands near $84,565, +5.30% over the past 24 hours and +8.13% on a 7-day view. Spot trades above the 50-day average ($74,907) and above the 200-day average ($74,389), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+9.64%), suggesting the market is still repairing.",
+        "en": "Bitcoin is changing hands near $85,948, +0.79% over the past 24 hours and +3.11% on a 7-day view. Spot trades above the 50-day average ($79,156) and above the 200-day average ($75,564), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+7.86%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -92,23 +92,24 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
+            "id": "d72304c321d6",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Bitcoin Jumps to Over $84,800 After ETF Flows Turn Positive",
-            "title_fa": "بیت کوین پس از مثبت شدن جریان ETF به بیش از ۸۴۸۰۰ دلار می رسد",
-            "summary_fa": "بیت کوین روز دوشنبه به بالاترین سطح هشت ماهه خود رسید، زیرا بهبود گسترده‌تر در احساس ریسک به افزایش رشدی که هفته گذشته آغاز شد کمک کرد.",
-            "source": "Bloomberg",
+            "title_en": "Strategy Returns to Profitability on $21 Billion Unrealized Gain",
+            "title_fa": "استراتژی با سود غیر واقعی ۲۱ میلیارد دلاری به سوددهی بازمی گردد",
+            "summary_fa": "شرکت Strategy پس از ثبت یک سود غیرقابل تحقق از افزایش ارزش ذخایر بیت کوین خود در جریان صعود اواخر تابستان در این ارز دیجیتال، برای اولین بار در چهار فصل گذشته به سودآوری بازگشت.",
+            "source": "Bloomberg Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/bitcoin-etfs-swing-positive-as-token-holds-jump-above-81-000",
-            "published_ts": 1789967157.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۸:۳۵",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۸:۳۵",
-            "age_fa": "۵ ساعت پیش",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/strategy-returns-to-profitability-on-21-billion-unrealized-gain",
+            "published_ts": 1791203159.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۵۵",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۵۵",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
-            "topic_fa": "ETF",
+            "topic_fa": "نهادی",
             "assets": [
               "BTC"
             ],
@@ -116,50 +117,53 @@
             "why_en": ""
           },
           {
+            "id": "09dc5bcde349",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "BTC, ETH price news: Bitcoin above $81,000 as NEAR jumps 23% on ZEC swap traffic",
-            "title_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
-            "summary_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
+            "title_en": "Bitcoin holds $86,000 as dollar strengthens and European risks mount",
+            "title_fa": "با تقویت دلار و افزایش ریسک های اروپایی، بیت کوین ۸۶۰۰۰ دلار دارد",
+            "summary_fa": "با تقویت دلار و افزایش ریسک های اروپایی، بیت کوین ۸۶۰۰۰ دلار دارد",
             "source": "CoinDesk",
             "source_kind": "search",
-            "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNdnNnLVlhd2RTSjV6b2JqS3hqb0dqb0plRXN6NDV3UTd4ckpzMDdqbFprMVVpUFZObWtqNVhzQkN5YUxYb2JxR3NsS091WkllMU4yTTFHSHUzUDg2dVdIQVhXZndfc1g4Z1FtU1NHVHo4WFItUnZ4bUoydlVFeW4tVkpnMGhJb3FfQTZOdjNZelVMMlZZTmNjUFFnX2ZCM2xfTHVVU2NwRDJmNGtCaXBiNzNfZ183dw?oc=5",
-            "published_ts": 1789963423.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۷:۳۳",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۳۳",
-            "age_fa": "۶ ساعت پیش",
-            "credibility": 0.912,
-            "credibility_fa": "۹۱٪",
-            "topic_fa": "بازار",
+            "via": "Google News · BTC",
+            "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQbzdZVFNBczJSUmgyYXltODRac21HRE1rN2RJMDlyb3Rka1hhVzA0Ul95X1BINlBxZlVfR0hoZ3RUQ2l5aHNDQTViS29penU4UUF2Ukg2S2NPLUI4OEU3STA5VDR0dWczYTh3SnlEZVZPV3pJUXJvdVJqMEtuaF9zQzN6UmV0WXJIUnEzVnoyNGdxN3MzSWtZRm1RZ1F5X2w0dkMxU3ZFdFJLNzBfc3lpNjkxUGxsUEly?oc=5",
+            "published_ts": 1791197095.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۴:۱۴",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۱۴",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "عمومی",
             "assets": [
-              "BTC",
-              "ETH"
+              "BTC"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
+            "id": "85cacc39d471",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "FTAV’s further reading",
-            "title_fa": "مطالعه بیشتر FTAV",
-            "summary_fa": "Capex; مدارس؛ رتبه بندی بدهی؛ پیش فرض ها کیفیت پول؛ شرط بندی؛ بیت کوین؛ مرکز کندی؛ معاملات آتی پیاز؛ و لمینگ",
-            "source": "Financial Times News",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://www.ft.com/content/3b646756-12bc-442f-b77b-6583cee6de46",
-            "published_ts": 1789971043.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۹:۴۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۹:۴۰",
-            "age_fa": "۴ ساعت پیش",
-            "credibility": 0.9,
-            "credibility_fa": "۹۰٪",
-            "topic_fa": "بازار",
+            "title_en": "Ether's liquidity shrank vs bitcoin in Q3. XRP bids piled up",
+            "title_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "summary_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "source": "CoinDesk",
+            "source_kind": "search",
+            "via": "Google News · ETH",
+            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOdC0wNUpzNUQ4eUZXZzR2eFZGbGVMRmtyYUdFcHh4alJTSlZDdXhXem1CYVg2T3lmd04zYzN0eHZiQ1FNdkw5WGZaT0lmLWtCUms2Y2ZVWVRsRGpIYlR5RUItbDI0b1hCYzZNWm5GZ3dYS0dZdHRWMVZraVVHLXdScmRfNnRqaEx3TlAwSEFTMFA1a0VwM2ExY2Z6OERkMWNMZ1VVdjFSSzNFZ3FMMy1SMFR3?oc=5",
+            "published_ts": 1791172200.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۲۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۲۰",
+            "age_fa": "۱۰ ساعت پیش",
+            "credibility": 0.912,
+            "credibility_fa": "۹۱٪",
+            "topic_fa": "کلان",
             "assets": [
-              "BTC"
+              "BTC",
+              "ETH",
+              "XRP"
             ],
             "why_fa": "",
             "why_en": ""
@@ -177,7 +181,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Brent Tops $106 And Hike Odds Reach 64% As Crypto Sells Off.\n- Crypto enjoys bullish bounce post-Fed rate hike: Crypto Week Ahead.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Ether's liquidity shrank vs bitcoin in Q3. XRP bids piled up.\n- Bitcoin Price Forecast: BTC Targets $93K as Rate Hike Bets Ease.",
         "fa": ""
       }
     ],
@@ -187,48 +191,50 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
+            "id": "85cacc39d471",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Brent Tops $106 And Hike Odds Reach 64% As Crypto Sells Off",
-            "title_fa": "با فروش کریپتو، برنت از ۱۰۶ دلار بالاتر رفت و شانس افزایش به ۶۴ درصد رسید",
-            "summary_fa": "صد و سه توکن از ۱۲۵ توکن غیراستیبل کوین بزرگ در روز پس از ورود قیمت‌های تولیدکننده در آگوست به ۰.۴ درصد و بازدهی ۳۰ ساله خزانه‌داری در هر بسته شدن پنج سال گذشته، پایین‌تر بودند. بیت کوین ۷۷۱۲۰ دلار معامله شد. Ether.fi با رای بازخریدی که یک ",
-            "source": "The Defiant",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://thedefiant.io/news/markets/brent-tops-106-hike-odds-reach-64-crypto-sells-off-sep-10-2026",
-            "published_ts": 1789986114.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۳:۵۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۱",
-            "age_fa": "۱ دقیقه پیش",
-            "credibility": 0.8,
-            "credibility_fa": "۸۰٪",
+            "title_en": "Ether's liquidity shrank vs bitcoin in Q3. XRP bids piled up",
+            "title_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "summary_fa": "نقدینگی اتر در مقایسه با بیت کوین در سه ماهه سوم کاهش یافت. پیشنهادات XRP انباشته شده است",
+            "source": "CoinDesk",
+            "source_kind": "search",
+            "via": "Google News · ETH",
+            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOdC0wNUpzNUQ4eUZXZzR2eFZGbGVMRmtyYUdFcHh4alJTSlZDdXhXem1CYVg2T3lmd04zYzN0eHZiQ1FNdkw5WGZaT0lmLWtCUms2Y2ZVWVRsRGpIYlR5RUItbDI0b1hCYzZNWm5GZ3dYS0dZdHRWMVZraVVHLXdScmRfNnRqaEx3TlAwSEFTMFA1a0VwM2ExY2Z6OERkMWNMZ1VVdjFSSzNFZ3FMMy1SMFR3?oc=5",
+            "published_ts": 1791172200.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۲۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۲۰",
+            "age_fa": "۱۰ ساعت پیش",
+            "credibility": 0.912,
+            "credibility_fa": "۹۱٪",
             "topic_fa": "کلان",
             "assets": [
               "BTC",
               "ETH",
-              "WTI"
+              "XRP"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
+            "id": "90ecdc9a5c9f",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Crypto enjoys bullish bounce post-Fed rate hike: Crypto Week Ahead",
-            "title_fa": "Crypto از جهش صعودی افزایش نرخ پس از فدرال رزرو لذت می برد: هفته ارز دیجیتال در پیش است",
-            "summary_fa": "",
-            "source": "CoinDesk",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://www.coindesk.com/markets/2026/09/21/crypto-week-ahead",
-            "published_ts": 1789981962.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۴۲",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۲",
-            "age_fa": "۱ ساعت پیش",
-            "credibility": 0.75,
-            "credibility_fa": "۷۵٪",
+            "title_en": "Bitcoin Price Forecast: BTC Targets $93K as Rate Hike Bets Ease",
+            "title_fa": "پیش‌بینی قیمت بیت‌کوین: بیت‌کوین ۹۳ هزار دلار را به عنوان شرط‌های افزایش نرخ هدف قرار می‌دهد",
+            "summary_fa": "پیش‌بینی قیمت بیت‌کوین: بیت‌کوین ۹۳ هزار دلار را به عنوان شرط‌های افزایش نرخ هدف قرار می‌دهد",
+            "source": "FXEmpire",
+            "source_kind": "search",
+            "via": "FXEmpire",
+            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPVXRKZEFGMWViZ0xtNGNZUWxENS1DdnF5a1d1Nng3ZHQ5czNmZGl0NTJJUUlRdE5TMkpaTmI1UV9HZmx1Nk1XcEVNWHU5MF8tQWJPV21NN3pUQy1hU2Q5WGRHZk5rMWJva1N0Z3dzbGRNV2NiU2hQMWZaNHpQUHgzSUZRU0VMZmhfQTRoQkNmdVg1dU11WkEtT3ZSSy1HNEZZWU9WdG83TGdhOEJWcUJ0d3NR?oc=5",
+            "published_ts": 1791203208.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۵۶",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۵۶",
+            "age_fa": "۶ دقیقه پیش",
+            "credibility": 0.82,
+            "credibility_fa": "۸۲٪",
             "topic_fa": "کلان",
             "assets": [
               "BTC"
@@ -249,7 +255,7 @@
     [
       "p",
       {
-        "en": "- Bitcoin Jumps to Over $84,800 After ETF Flows Turn Positive. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin.\n- BTC, ETH price news: Bitcoin above $81,000 as NEAR jumps 23% on ZEC swap traffic. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin.\n- FTAV’s further reading. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin.\n- Here’s what happened in crypto today. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- North Korean fake recruiters infect 30K devices, steal $10.7M in crypto. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- Who needs CLARITY anyway? ARB could see 70X increase: Hodler’s Digest. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Why keeping your private keys safe won’t always stop crypto theft. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.",
+        "en": "- Strategy Returns to Profitability on $21 Billion Unrealized Gain. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin.\n- OKX Files With SEC to Launch Tokenized US Stock Trading. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Strategy opts for bigger spending on STRC buybacks over BTC purchases. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin.\n- Here’s what happened in crypto today. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Metaplanet reveals net income strategy to fuel Bitcoin accumulation. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin.\n- Greek soldiers among suspects in alleged $8M crypto pyramid scheme. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- Japan’s Ministry of Foreign Affairs Hits Garantex With Asset Freeze. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.",
         "fa": ""
       }
     ],
@@ -259,72 +265,74 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
+            "id": "d72304c321d6",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Bitcoin Jumps to Over $84,800 After ETF Flows Turn Positive",
-            "title_fa": "بیت کوین پس از مثبت شدن جریان ETF به بیش از ۸۴۸۰۰ دلار می رسد",
-            "summary_fa": "بیت کوین روز دوشنبه به بالاترین سطح هشت ماهه خود رسید، زیرا بهبود گسترده‌تر در احساس ریسک به افزایش رشدی که هفته گذشته آغاز شد کمک کرد.",
+            "title_en": "Strategy Returns to Profitability on $21 Billion Unrealized Gain",
+            "title_fa": "استراتژی با سود غیر واقعی ۲۱ میلیارد دلاری به سوددهی بازمی گردد",
+            "summary_fa": "شرکت Strategy پس از ثبت یک سود غیرقابل تحقق از افزایش ارزش ذخایر بیت کوین خود در جریان صعود اواخر تابستان در این ارز دیجیتال، برای اولین بار در چهار فصل گذشته به سودآوری بازگشت.",
+            "source": "Bloomberg Markets",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/strategy-returns-to-profitability-on-21-billion-unrealized-gain",
+            "published_ts": 1791203159.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۵۵",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۵۵",
+            "age_fa": "۱ ساعت پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "BTC"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin."
+          },
+          {
+            "id": "47c67ec45df2",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "OKX Files With SEC to Launch Tokenized US Stock Trading",
+            "title_fa": "فایل های OKX با SEC برای راه اندازی معاملات توکن شده سهام ایالات متحده",
+            "summary_fa": "OKX روز یکشنبه برای راه‌اندازی یک پلتفرم معاملاتی با سهام توکن‌شده به کمیسیون بورس و اوراق بهادار درخواست داد و آن را به یکی از اولین صرافی‌های بزرگ ارزهای دیجیتال تبدیل کرد که از قوانین جدید ایالات متحده استفاده می‌کند که به نسخه‌های دیجیت",
             "source": "Bloomberg",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/bitcoin-etfs-swing-positive-as-token-holds-jump-above-81-000",
-            "published_ts": 1789967157.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۸:۳۵",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۸:۳۵",
-            "age_fa": "۵ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
-            "topic_fa": "ETF",
-            "assets": [
-              "BTC"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin."
-          },
-          {
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "BTC, ETH price news: Bitcoin above $81,000 as NEAR jumps 23% on ZEC swap traffic",
-            "title_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
-            "summary_fa": "اخبار قیمت BTC و ETH: بیت کوین بالای ۸۱۰۰۰ دلار با جهش ۲۳ درصدی NEAR در ترافیک مبادله ZEC",
-            "source": "CoinDesk",
-            "source_kind": "search",
-            "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNdnNnLVlhd2RTSjV6b2JqS3hqb0dqb0plRXN6NDV3UTd4ckpzMDdqbFprMVVpUFZObWtqNVhzQkN5YUxYb2JxR3NsS091WkllMU4yTTFHSHUzUDg2dVdIQVhXZndfc1g4Z1FtU1NHVHo4WFItUnZ4bUoydlVFeW4tVkpnMGhJb3FfQTZOdjNZelVMMlZZTmNjUFFnX2ZCM2xfTHVVU2NwRDJmNGtCaXBiNzNfZ183dw?oc=5",
-            "published_ts": 1789963423.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۷:۳۳",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۳۳",
-            "age_fa": "۶ ساعت پیش",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/okx-files-with-sec-to-launch-tokenized-us-stock-trading-platform",
+            "published_ts": 1791163873.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۵:۰۱",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۵:۰۱",
+            "age_fa": "۱۲ ساعت پیش",
             "credibility": 0.912,
             "credibility_fa": "۹۱٪",
-            "topic_fa": "بازار",
+            "topic_fa": "مقررات",
             "assets": [
-              "BTC",
-              "ETH"
+              "BTC"
             ],
             "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin."
+            "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
           },
           {
+            "id": "7957a88eb71c",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "FTAV’s further reading",
-            "title_fa": "مطالعه بیشتر FTAV",
-            "summary_fa": "Capex; مدارس؛ رتبه بندی بدهی؛ پیش فرض ها کیفیت پول؛ شرط بندی؛ بیت کوین؛ مرکز کندی؛ معاملات آتی پیاز؛ و لمینگ",
-            "source": "Financial Times News",
-            "source_kind": "macro",
+            "title_en": "Strategy opts for bigger spending on STRC buybacks over BTC purchases",
+            "title_fa": "استراتژی هزینه های بیشتری را برای بازپرداخت STRC نسبت به خرید BTC انتخاب می کند",
+            "summary_fa": "Strategy هفته گذشته ۳۳۴ بیت کوین را به قیمت ۲۸.۷ میلیون دلار خریداری کرد در حالی که ۱۷۶.۳ میلیون دلار برای بازخرید حدود ۱.۷۷ میلیون سهم STRC هزینه کرد.",
+            "source": "CoinTelegraph",
+            "source_kind": "crypto",
             "via": "",
-            "link": "https://www.ft.com/content/3b646756-12bc-442f-b77b-6583cee6de46",
-            "published_ts": 1789971043.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۹:۴۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۹:۴۰",
-            "age_fa": "۴ ساعت پیش",
-            "credibility": 0.9,
-            "credibility_fa": "۹۰٪",
-            "topic_fa": "بازار",
+            "link": "https://cointelegraph.com/news/strategy-848k-bitcoin-strc-buybacks-outpace-btc-buys?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+            "published_ts": 1791206536.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۶:۵۲",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۵۲",
+            "age_fa": "۱۸ دقیقه پیش",
+            "credibility": 0.86,
+            "credibility_fa": "۸۶٪",
+            "topic_fa": "نهادی",
             "assets": [
               "BTC"
             ],
@@ -332,6 +340,7 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin."
           },
           {
+            "id": "f369356da708",
             "index": 4,
             "index_fa": "۴",
             "title_en": "Here’s what happened in crypto today",
@@ -341,11 +350,11 @@
             "source_kind": "crypto",
             "via": "",
             "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-            "published_ts": 1789965888.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۸:۱۴",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۸:۱۴",
-            "age_fa": "۶ ساعت پیش",
+            "published_ts": 1791205497.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۶:۳۴",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۳۴",
+            "age_fa": "۳۰ دقیقه پیش",
             "credibility": 0.86,
             "credibility_fa": "۸۶٪",
             "topic_fa": "مقررات",
@@ -356,22 +365,48 @@
             "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
           },
           {
+            "id": "ed2f65aef378",
             "index": 5,
             "index_fa": "۵",
-            "title_en": "North Korean fake recruiters infect 30K devices, steal $10.7M in crypto",
-            "title_fa": "استخدام کنندگان جعلی کره شمالی ۳۰ هزار دستگاه را آلوده کرده و ۱۰.۷ میلیون دلار ارز رمزنگاری شده را سرقت می کنند.",
-            "summary_fa": "گروه سایبری کره شمالی WaterPlum توسعه دهندگان را با مشاغل جعلی در شرکت های رمزنگاری، هوش مصنوعی و NFT هدف قرار داد و حداقل ۳۰۰۰۰ دستگاه را در بیش از ۱۰۰ کشور آلوده کرد.",
+            "title_en": "Metaplanet reveals net income strategy to fuel Bitcoin accumulation",
+            "title_fa": "Metaplanet استراتژی درآمد خالص را برای تقویت انباشت بیت کوین نشان می دهد",
+            "summary_fa": "Metaplanet یک چارچوب تخصیص سرمایه تجدید نظر شده را نشان داد که پیشنهاد می کند تا ۱۵٪ از کل دارایی ها را به سرمایه گذاری های استراتژیک برای تامین مالی انباشت بیت کوین خود اختصاص دهد.",
             "source": "CoinTelegraph",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://cointelegraph.com/news/north-korean-fake-recruiters-infect-30k-devices-steal-107m-in-crypto?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-            "published_ts": 1789954973.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۵:۱۲",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۵:۱۲",
-            "age_fa": "۹ ساعت پیش",
-            "credibility": 0.826,
-            "credibility_fa": "۸۳٪",
+            "link": "https://cointelegraph.com/news/metaplanet-net-income-strategy-bitcoin-accumulation?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+            "published_ts": 1791203319.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۵۸",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۵۸",
+            "age_fa": "۱ ساعت پیش",
+            "credibility": 0.86,
+            "credibility_fa": "۸۶٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "BTC"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Bitcoin."
+          },
+          {
+            "id": "33df9715dd7b",
+            "index": 6,
+            "index_fa": "۶",
+            "title_en": "Greek soldiers among suspects in alleged $8M crypto pyramid scheme",
+            "title_fa": "سربازان یونانی در میان مظنونان طرح هرمی کریپتو ۸ میلیون دلاری هستند",
+            "summary_fa": "دخالت پرسنل نظامی در طرح رمزنگاری آسیب‌پذیری‌ها در شبکه‌های اعتماد را برجسته می‌کند و بر نظارت دقیق‌تر نظارتی تاکید می‌کند.",
+            "source": "Crypto Briefing",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cryptobriefing.com/greek-soldiers-crypto-pyramid-scheme-arrests/",
+            "published_ts": 1791199372.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۴:۵۲",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۵۲",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.78,
+            "credibility_fa": "۷۸٪",
             "topic_fa": "امنیت",
             "assets": [
               "BTC"
@@ -380,46 +415,23 @@
             "why_en": "Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first."
           },
           {
-            "index": 6,
-            "index_fa": "۶",
-            "title_en": "Who needs CLARITY anyway? ARB could see 70X increase: Hodler’s Digest",
-            "title_fa": "چه کسی به وضوح نیاز دارد؟ ARB می تواند افزایش ۷۰ برابری داشته باشد: Hodler’s Digest",
-            "summary_fa": "کریپتو CLARITY را از دست داد، اما سهام توکن شده قانونی شد و ذخیره بیت کوین پیشرفت کرد. در همین حال Standard Chartered می گوید قیمت Arbitrum می تواند تا سال ۲۰۳۰ ۷۰ برابر شود.",
-            "source": "CoinTelegraph",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://cointelegraph.com/magazine/who-needs-clarity-anyway-arb-could-see-70x-increase-asia-express?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-            "published_ts": 1789947459.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۳:۰۷",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۳:۰۷",
-            "age_fa": "۱۱ ساعت پیش",
-            "credibility": 0.826,
-            "credibility_fa": "۸۳٪",
-            "topic_fa": "مقررات",
-            "assets": [
-              "BTC"
-            ],
-            "why_fa": "",
-            "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
-          },
-          {
+            "id": "dd398196bfc9",
             "index": 7,
             "index_fa": "۷",
-            "title_en": "Why keeping your private keys safe won’t always stop crypto theft",
-            "title_fa": "چرا ایمن نگه داشتن کلیدهای خصوصی شما همیشه سرقت رمزنگاری را متوقف نمی کند",
-            "summary_fa": "تقریباً ۴۰۰۰ بیت کوین از ذخایر Liquid در ۶ سپتامبر با برداشتی که شبکه تأیید کرد، خارج شد، حتی اگر کلیدهای خصوصی مورد استفاده برای تأیید آن دزدیده نشده بودند. نرم افزار برداشتی را پذیرفته بود که هرگز نباید واجد شرایط بود. Liquid به افراد این",
-            "source": "CryptoSlate",
+            "title_en": "Japan’s Ministry of Foreign Affairs Hits Garantex With Asset Freeze",
+            "title_fa": "وزارت امور خارجه ژاپن گارانتکس را با مسدود کردن دارایی‌ها هدف قرار داد",
+            "summary_fa": "ژاپن این هفته صرافی رمزارز روسی Garantex را به فهرست مسدود کردن دارایی های خود اضافه کرد و به ایالات متحده و اتحادیه اروپا پیوست تا پلتفرمی را هدف قرار دهد که وزارت خزانه داری می گوید بیش از ۱۰۰ میلیون دلار مرتبط با باج افزار و سایر فعالیت ",
+            "source": "Bitcoin.com News",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://cryptoslate.com/who-pays-when-bitcoin-disappears-without-anyone-stealing-the-keys/",
-            "published_ts": 1789936243.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۰:۰۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۰:۰۰",
-            "age_fa": "۱۴ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
+            "link": "https://news.bitcoin.com/regulation-and-legal/japans-ministry-of-foreign-affairs-hits-garantex-with-asset-freeze/",
+            "published_ts": 1791174626.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۸:۰۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۸:۰۰",
+            "age_fa": "۹ ساعت پیش",
+            "credibility": 0.73,
+            "credibility_fa": "۷۳٪",
             "topic_fa": "امنیت",
             "assets": [
               "BTC"
@@ -440,7 +452,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $1,701.0B (CoinGecko). Reported 24-hour spot volume is $38.03B with 7-day average turnover broadly normal versus the trailing month (1.00x) . Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed). Spot-BTC ETF net inflow for 18 Sep 2026 was $433.0m (Farside).",
+        "en": "Total market capitalization stands near $1,727.0B (CoinGecko). Reported 24-hour spot volume is $27.21B with 7-day average turnover broadly normal versus the trailing month (0.92x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
         "fa": ""
       }
     ],
@@ -468,7 +480,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $84,516 versus EMA20 $78,577, EMA50 $74,907 and EMA200 $74,389 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $81,272 (recent swing low); the lower Bollinger band $74,367 as the 2σ downside envelope; upper band $83,254 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $2,305 implies a typical daily range of roughly 2.7 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 70.8 — overbought territory; MACD (12/26/9) sits above its signal line (1802 vs 1538, histogram +264.1), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 39%; the 20-day band spans 11% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 1.00x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +9.64% over 30 days and +34.86% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+8.13%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $86,097 versus EMA20 $83,323, EMA50 $79,156 and EMA200 $75,564 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $84,853 (recent swing low); the lower Bollinger band $77,691 as the 2σ downside envelope; first resistance at $86,172 (recent swing high); upper band $89,073 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $2,121 implies a typical daily range of roughly 2.5 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 66.4 — neutral territory; MACD (12/26/9) sits below its signal line (2019 vs 2066, histogram -46.94), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 37%; the 20-day band spans 14% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.92x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +7.86% over 30 days and +36.02% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+3.11%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -478,22 +490,23 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
+            "id": "f3d5d7d5904f",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Bitcoin Rally 'Makes No Sense' as Tokenized Stocks Threaten Its Store of Value Case: Peter Schiff",
-            "title_fa": "پیتر شیف: رالی بیت کوین «معنی ندارد» زیرا سهام توکنیزه شده ذخیره ارزش آن را تهدید می کند",
-            "summary_fa": "پیتر شیف: رالی بیت کوین «معنی ندارد» زیرا سهام توکنیزه شده ذخیره ارزش آن را تهدید می کند",
-            "source": "Yahoo Finance",
-            "source_kind": "search",
-            "via": "Google News · BTC",
-            "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPOXNKS0VZUG5CUGczbU1Ha2VUOHV0YXpnZVAzWVdQRTVRaFlDUVh5TnYtRktlMnpKS1NDd0ZXejVUXy1Ia0wtTTlLU1ZNUW1adFhIUjlzRlN1RU9EaWZLTVlUbzBWQ1FWVTZ2RWFoVHVpMXZLbkk5ZVBmV0dUa2VfYVFHX081WXVkVnV5d0ZROWxaMko0ZlRRaw?oc=5",
-            "published_ts": 1789982816.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۵۶",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۵۶",
-            "age_fa": "۵۴ دقیقه پیش",
-            "credibility": 0.78,
-            "credibility_fa": "۷۸٪",
+            "title_en": "BTC price fights to reclaim 2026 open: Three things to know in Bitcoin this week",
+            "title_fa": "مبارزه قیمت بیت کوین برای بازپس گیری سال ۲۰۲۶ باز است: سه چیز که در این هفته باید در بیت کوین بدانید",
+            "summary_fa": "گاوهای بیت کوین مجدداً فشار خود را بر روی اوج های دامنه افزایش دادند و باز سالانه ۲۰۲۶ مقاومت کلیدی بعدی را برای شکستن تشکیل داد.",
+            "source": "CoinTelegraph",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cointelegraph.com/markets/btc-price-fights-to-reclaim-2026-open-three-things-to-know-in-bitcoin-this-week?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+            "published_ts": 1791191289.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۲:۳۸",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۳۸",
+            "age_fa": "۴ ساعت پیش",
+            "credibility": 0.86,
+            "credibility_fa": "۸۶٪",
             "topic_fa": "تحلیل",
             "assets": [
               "BTC"
@@ -502,22 +515,23 @@
             "why_en": ""
           },
           {
+            "id": "ae4b926fcc3c",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Billionaire Tim Draper Predicts Bitcoin Will Hit $250,000 Within 2 Years. Here's What Needs to Happen.",
-            "title_fa": "میلیاردر تیم دراپر پیش بینی می کند بیت کوین ظرف ۲ سال به ۲۵۰۰۰۰ دلار خواهد رسید. در اینجا چیزی است که باید اتفاق بیفتد.",
-            "summary_fa": "میلیاردر تیم دراپر پیش بینی می کند بیت کوین ظرف ۲ سال به ۲۵۰۰۰۰ دلار خواهد رسید. در اینجا چیزی است که باید اتفاق بیفتد",
-            "source": "Yahoo Finance",
-            "source_kind": "search",
-            "via": "Google News · BTC",
-            "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQMHZ0MG1Ob3NxRTQ0SXhwVXZVTVRhUGtnenc0Tmw4N2MwckdNZTJoSGRwZjllbWVQWlY2aEFkRV83V1ZXbnh4eDloc1hLLXlLcThmWG05NV9fcmVUY21ZQ0RDSjZFbklzc1Rvcld4U2NGaGExcVQ4SzJCdDVSRWxINzVrQkhWMDRCbnJ2MlFYaGZENl9yc0V2cmdMcUFqVFoxVllONm5wOA?oc=5",
-            "published_ts": 1789971600.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۹:۵۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۹:۵۰",
-            "age_fa": "۴ ساعت پیش",
-            "credibility": 0.78,
-            "credibility_fa": "۷۸٪",
+            "title_en": "Bitcoin’s big bounce has graduated to a longer-term uptrend. Is it too late to buy?",
+            "title_fa": "جهش بزرگ بیت کوین به یک روند صعودی بلندمدت رسیده است. آیا برای خرید دیر شده است؟",
+            "summary_fa": "یک الگوی فنی صعودی \"صلیب طلایی\" برای اولین بار در بیش از سه سال ظاهر شد. آخری خیلی خوب کار کرد",
+            "source": "MarketWatch",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.marketwatch.com/story/bitcoins-big-bounce-has-graduated-to-a-longer-term-uptrend-is-it-too-late-to-buy-a9bc585c?mod=mw_rss_topstories",
+            "published_ts": 1791197160.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۴:۱۶",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۱۶",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.85,
+            "credibility_fa": "۸۵٪",
             "topic_fa": "تحلیل",
             "assets": [
               "BTC"
@@ -538,7 +552,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($74,907); RSI holding above 60 (currently 71). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $81,272. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $86,172 on expanding turnover; continued holds of the 50-day average ($79,156); RSI holding above 60 (currently 66). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $84,853. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -552,11 +566,11 @@
     [
       "p",
       {
-        "en": "Net take on Bitcoin: spot $84,565 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+5.30%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Bitcoin: spot $85,948 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.79%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:22:47.842208+00:00",
-  "news_used": 4
+  "generated_at": "2026-10-05T13:39:11.987870+00:00",
+  "news_used": 12
 }

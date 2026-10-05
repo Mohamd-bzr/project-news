@@ -69,7 +69,7 @@ for sym, rep in reps.items():
     ordered = all(
         all(c["items"][i]["credibility"] >= c["items"][i + 1]["credibility"]
             for i in range(len(c["items"]) - 1))
-        for c in cites)
+        for c in cites if len(c["items"]) > 1)
     fresh = all((it.get("age_fa") or "") for it in flat)
     print(f"\n{sym} ({rep['fa_name']}): sections={len(heads)} TA paragraphs={paras} "
           f"(need >= 4) {'OK' if paras >= 4 else 'FAIL'}")
@@ -81,5 +81,7 @@ for sym, rep in reps.items():
         it = flat[0]
         print(f"  top cite: {it['source']} | {it['title_fa'][:52]} | "
               f"{it['date_fa']} {it['time_fa']} | {it['credibility_fa']}")
-print("\nreport generated at:", fa_datetime(reps["BTC"]["generated_at"]),
-      "| asof_fa:", reps["BTC"]["sections"][0][1]["asof_fa"])
+btc = reps.get('BTC', {})
+if btc and not btc.get('error'):
+    print("\nreport generated at:", fa_datetime(btc["generated_at"]),
+          "| asof_fa:", btc.get('sections', [])[0][1].get('asof_fa', 'N/A') if btc.get('sections') else 'N/A')

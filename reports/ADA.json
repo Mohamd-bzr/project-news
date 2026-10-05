@@ -9,39 +9,63 @@
       {
         "title": "Cardano — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Cardano",
-        "asof": "2026-09-21 13:52 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
+        "asof": "2026-10-05 17:09 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
         "symbol": "ADA",
         "name": "Cardano",
         "fa_name": "Cardano",
         "icon": "₳",
-        "price": 0.239179,
-        "change_24h": 9.26,
+        "price": 0.274346,
+        "change_24h": 11.45,
         "news_window_hours": 24.0,
-        "news_used": 10,
+        "news_used": 8,
         "sources_used": [
           {
-            "name": "StreetInsider",
+            "name": "The Crypto Basic",
+            "count": 4
+          },
+          {
+            "name": "Pluang",
+            "count": 3
+          },
+          {
+            "name": "CoinCu",
             "count": 2
+          },
+          {
+            "name": "Invezz",
+            "count": 1
+          },
+          {
+            "name": "FXEmpire",
+            "count": 1
+          },
+          {
+            "name": "Yahoo Finance",
+            "count": 1
+          },
+          {
+            "name": "99Bitcoins",
+            "count": 1
+          },
+          {
+            "name": "Coinpaper",
+            "count": 1
+          },
+          {
+            "name": "Finbold",
+            "count": 1
+          },
+          {
+            "name": "CryptoPotato",
+            "count": 1
           },
           {
             "name": "Cryptonews",
             "count": 1
           },
           {
-            "name": "Crypto Briefing",
-            "count": 1
-          },
-          {
-            "name": "FXStreet",
-            "count": 1
-          },
-          {
-            "name": "CryptoSlate",
-            "count": 1
-          },
-          {
-            "name": "TechBullion",
+            "name": "CoinPedia",
             "count": 1
           }
         ],
@@ -58,7 +82,7 @@
     [
       "p",
       {
-        "en": "Cardano is changing hands near $0.2392, +9.26% over the past 24 hours and +14.65% on a 7-day view. Spot trades above the 50-day average ($0.2040) and below the 200-day average ($0.2437), keeping the medium-term structure mixed. The 30-day tape reads as a recovery phase (+5.69%), suggesting the market is still repairing.",
+        "en": "Cardano is changing hands near $0.2743, +11.45% over the past 24 hours and +10.98% on a 7-day view. Spot trades above the 50-day average ($0.2245) and above the 200-day average ($0.2416), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+25.51%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -68,72 +92,78 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
+            "id": "f10d82e18843",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Cardano integrates with x402 SDK for seamless API payments in ADA",
-            "title_fa": "Cardano با x۴۰۲ SDK برای پرداخت های یکپارچه API در ADA ادغام می شود",
-            "summary_fa": "ادغام کاردانو با x۴۰۲ SDK می‌تواند سیستم‌های پرداخت API را متحول کند و ابزارهای بلاک چین و تعاملات عامل هوش مصنوعی را افزایش دهد.",
-            "source": "Crypto Briefing",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://cryptobriefing.com/cardano-x402-sdk-ada-api-payments/",
-            "published_ts": 1789977220.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۱:۲۳",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۲۳",
+            "title_en": "Cardano Price Forecast: ADA is One Step Away From Entering 40% Rally Setup",
+            "title_fa": "پیش بینی قیمت Cardano: ADA یک قدم با ورود به راه اندازی رالی ۴۰٪ فاصله دارد",
+            "summary_fa": "پیش بینی قیمت Cardano: ADA یک قدم با ورود به راه اندازی رالی ۴۰٪ فاصله دارد",
+            "source": "FXEmpire",
+            "source_kind": "search",
+            "via": "Google News · ADA",
+            "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORFNCaWZIczlTc3A1dVk4cU91aUxTSWR6N3RkYWRjMzh5N1NwZVRPNXItTl9oU1M3LXRzMm1IeU5wSUdlRnlmWGpvNVNEN1VUTm1EU1piVkl4LUVVV2hQVVFsZ25HSFpJZnVQejJaNmxiWEVhUXVhcFZYMVdpclBjY29hRVFVWlY0TGhEOVA5cWlrRVJSLWpTTEk5Yk80OWQyWlhUdVhPbkxQeGtFMi1kRXlpSElBUmtiSm1ZVXkydjg?oc=5",
+            "published_ts": 1791200594.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۱۳",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۱۳",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.82,
+            "credibility_fa": "۸۲٪",
+            "topic_fa": "تحلیل",
+            "assets": [
+              "ADA"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "5e736c9e6911",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Cardano Is Outpacing Bitcoin And XRP – Here’s What’s Driving ADA Higher",
+            "title_fa": "کاردانو در حال پیشی گرفتن از بیت کوین و XRP است - در اینجا چیزی است که ADA را بالاتر می برد",
+            "summary_fa": "کاردانو در حال پیشی گرفتن از بیت کوین و XRP است - در اینجا چیزی است که ADA را بالاتر می برد",
+            "source": "Yahoo Finance",
+            "source_kind": "search",
+            "via": "Google News · BTC",
+            "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPX1F4WnFCUkxZLXlodVljUEV2T1NoT1pJbXZwSFhkc0R5ZmNJSnhvUnk2cXhnS2p5ZUU4eVJUZGQ0RU9lOXhkdnZJNlRicjNmNHVpVmE0TTI1a09OSWxteG5DYi1EMGk0M1ZNV3VBSnpCSjRSNGN6NnFRWTBHQlJBUU8yMHZETV9kc0Z3WGNEOG5HMTlzaXlVZzNxaUtXYWk1ODVncg?oc=5",
+            "published_ts": 1791200261.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۰۷",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۰۷",
             "age_fa": "۲ ساعت پیش",
             "credibility": 0.78,
             "credibility_fa": "۷۸٪",
-            "topic_fa": "فناوری",
+            "topic_fa": "عمومی",
             "assets": [
+              "BTC",
+              "XRP",
               "ADA"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Cardano News: DReps’ Pogun Vote Opens a New Chapter for ADA",
-            "title_fa": "Cardano News: رای Pogun از DReps فصل جدیدی را برای ADA باز می کند",
-            "summary_fa": "حاکمیت کاردانو ۱۲.۲۹ میلیون ADA را برای Pogun رد کرد و وجوه را در خزانه نگه داشت در حالی که IOG سیاست اول Cardano خود را بازنگری می کند.",
-            "source": "Cryptonews",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://cryptonews.com/news/cardano-news-governance-pogun-vote/",
-            "published_ts": 1789981800.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۴۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۰",
-            "age_fa": "۱ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
-            "topic_fa": "مقررات",
-            "assets": [
-              "ADA"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
+            "id": "9ffd9cbae8f5",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Charles Hoskinson says Cardano no longer comes first – its treasury vote explains why",
-            "title_fa": "چارلز هاسکینسون می گوید که کاردانو دیگر در اولویت نیست - رای خزانه داری آن توضیح می دهد که چرا",
-            "summary_fa": "رد Pogun مانع از برداشت ۱۲.۲۹ میلیون ADA شد در حالی که هاسکینسون می گوید محصولات آینده به طور پیش فرض کاردانو نخواهند داشت.",
-            "source": "CryptoSlate",
+            "title_en": "Bitcoin (BTC) Rejected at $87K Again, Cardano (ADA) Soars 11%: Market Watch",
+            "title_fa": "دیده بان بازار: بیت کوین (BTC) دوباره با قیمت ۸۷ هزار دلار رد شد، کاردانو (ADA) ۱۱ درصد افزایش یافت",
+            "summary_fa": "سایر سودآورهای قابل توجه در ۲۴ ساعت گذشته عبارتند از FET و VIRTUAL.",
+            "source": "CryptoPotato",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://cryptoslate.com/charles-hoskinson-says-cardano-no-longer-comes-first-its-treasury-vote-explains-why/",
-            "published_ts": 1789939857.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۱:۰۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۱:۰۰",
-            "age_fa": "۱۳ ساعت پیش",
+            "link": "https://cryptopotato.com/bitcoin-btc-rejected-at-87k-again-cardano-ada-soars-11-market-watch/",
+            "published_ts": 1791193043.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۳:۰۷",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۰۷",
+            "age_fa": "۴ ساعت پیش",
             "credibility": 0.72,
             "credibility_fa": "۷۲٪",
-            "topic_fa": "بازار",
+            "topic_fa": "عمومی",
             "assets": [
+              "BTC",
               "ADA"
             ],
             "why_fa": "",
@@ -152,7 +182,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Cardano News: DReps’ Pogun Vote Opens a New Chapter for ADA.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- “What the Hell Else Can I Do?”—Cardano Founder Defends ADA Progress.",
         "fa": ""
       }
     ],
@@ -162,23 +192,24 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
+            "id": "e6c2667e947b",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Cardano News: DReps’ Pogun Vote Opens a New Chapter for ADA",
-            "title_fa": "Cardano News: رای Pogun از DReps فصل جدیدی را برای ADA باز می کند",
-            "summary_fa": "حاکمیت کاردانو ۱۲.۲۹ میلیون ADA را برای Pogun رد کرد و وجوه را در خزانه نگه داشت در حالی که IOG سیاست اول Cardano خود را بازنگری می کند.",
-            "source": "Cryptonews",
+            "title_en": "“What the Hell Else Can I Do?”—Cardano Founder Defends ADA Progress",
+            "title_fa": "«چه جهنمی دیگر می توانم انجام دهم؟» - بنیانگذار کاردانو از پیشرفت ADA دفاع می کند",
+            "summary_fa": "چارلز هاسکینسون با اشاره به RealFi، Midnight، Pogun و ادغام های اصلی، از پیشرفت کاردانو پس از انتقاد در مورد نقدینگی و استفاده دفاع می کند. چارلز هاسکینسون، بنیانگذار Cardano، پس از اینکه منتقدی در مورد اینکه آیا سالها توسعه نقدینگی کافی و ",
+            "source": "The Crypto Basic",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://cryptonews.com/news/cardano-news-governance-pogun-vote/",
-            "published_ts": 1789981800.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۴۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۰",
-            "age_fa": "۱ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
-            "topic_fa": "مقررات",
+            "link": "https://thecryptobasic.com/2026/10/05/what-the-hell-else-can-i-do-cardano-founder-defends-ada-progress/",
+            "published_ts": 1791181568.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۹:۵۶",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۹:۵۶",
+            "age_fa": "۶ ساعت پیش",
+            "credibility": 0.576,
+            "credibility_fa": "۵۸٪",
+            "topic_fa": "کلان",
             "assets": [
               "ADA"
             ],
@@ -198,7 +229,7 @@
     [
       "p",
       {
-        "en": "- Cardano News: DReps’ Pogun Vote Opens a New Chapter for ADA. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Charles Hoskinson says Cardano no longer comes first – its treasury vote explains why. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.\n- Cardano Price Prediction Holds Near $0.22 as Treasury Vote Continues and Remittix Expands Its Crypto-to-Bank Vision. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.",
+        "en": "- Machine learning algorithm sets Cardano (ADA) price for October 31, 2026. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.\n- Cardano (ADA) price jumps 10.81% after T. Rowe Price adds ADA to a crypto ETF, boosting institutional interest.. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.\n- Why Is Cardano (ADA) Price Surging Today? Key Drivers. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.",
         "fa": ""
       }
     ],
@@ -208,46 +239,23 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
+            "id": "7074004c0734",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Cardano News: DReps’ Pogun Vote Opens a New Chapter for ADA",
-            "title_fa": "Cardano News: رای Pogun از DReps فصل جدیدی را برای ADA باز می کند",
-            "summary_fa": "حاکمیت کاردانو ۱۲.۲۹ میلیون ADA را برای Pogun رد کرد و وجوه را در خزانه نگه داشت در حالی که IOG سیاست اول Cardano خود را بازنگری می کند.",
-            "source": "Cryptonews",
+            "title_en": "Machine learning algorithm sets Cardano (ADA) price for October 31, 2026",
+            "title_fa": "الگوریتم یادگیری ماشین قیمت کاردانو (ADA) را برای ۳۱ اکتبر ۲۰۲۶ تعیین می کند",
+            "summary_fa": "الگوریتم یادگیری ماشین قیمت کاردانو (ADA) را برای ۳۱ اکتبر ۲۰۲۶ تعیین می کند",
+            "source": "Finbold",
             "source_kind": "crypto",
-            "via": "",
-            "link": "https://cryptonews.com/news/cardano-news-governance-pogun-vote/",
-            "published_ts": 1789981800.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۴۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۰",
-            "age_fa": "۱ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
-            "topic_fa": "مقررات",
-            "assets": [
-              "ADA"
-            ],
-            "why_fa": "",
-            "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
-          },
-          {
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Charles Hoskinson says Cardano no longer comes first – its treasury vote explains why",
-            "title_fa": "چارلز هاسکینسون می گوید که کاردانو دیگر در اولویت نیست - رای خزانه داری آن توضیح می دهد که چرا",
-            "summary_fa": "رد Pogun مانع از برداشت ۱۲.۲۹ میلیون ADA شد در حالی که هاسکینسون می گوید محصولات آینده به طور پیش فرض کاردانو نخواهند داشت.",
-            "source": "CryptoSlate",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://cryptoslate.com/charles-hoskinson-says-cardano-no-longer-comes-first-its-treasury-vote-explains-why/",
-            "published_ts": 1789939857.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۱:۰۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۱:۰۰",
-            "age_fa": "۱۳ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
+            "via": "Finbold",
+            "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQR0VFdkNRc0hQU0p2REF4Qm9la1BJNWx6NEJ0ZWNHUDJ0VXR2NjZ5R0pnYjF3OVQyZmRTZ29aZDYybmpRMEdfbWl0ZmVuV2VwUnR5STVuem1ZUlNHdTlQY21OLWJZRnRJS1dvdVVfM3dPbGpXSlRjWWVqVlM4MXJBcEhYQUFDbEtJNnh6ZTFvcTZfbWF4?oc=5",
+            "published_ts": 1791193636.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۳:۱۷",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۱۷",
+            "age_fa": "۴ ساعت پیش",
+            "credibility": 0.7,
+            "credibility_fa": "۷۰٪",
             "topic_fa": "بازار",
             "assets": [
               "ADA"
@@ -256,23 +264,49 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano."
           },
           {
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Cardano Price Prediction Holds Near $0.22 as Treasury Vote Continues and Remittix Expands Its Crypto-to-Bank Vision",
-            "title_fa": "پیش‌بینی قیمت Cardano نزدیک به ۰.۲۲ دلار باقی می‌ماند زیرا رای خزانه‌داری ادامه دارد و Remittix چشم‌انداز رمزنگاری به بانک خود را گسترش می‌دهد.",
-            "summary_fa": "پیش‌بینی قیمت Cardano نزدیک به ۰.۲۲ دلار باقی می‌ماند زیرا رای خزانه‌داری ادامه دارد و Remittix چشم‌انداز رمزنگاری به بانک خود را گسترش می‌دهد.",
-            "source": "StreetInsider",
+            "id": "a191d596818e",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Cardano (ADA) price jumps 10.81% after T. Rowe Price adds ADA to a crypto ETF, boosting institutional interest.",
+            "title_fa": "قیمت Cardano (ADA) پس از افزودن ADA به ETF کریپتو، ۱۰.۸۱٪ جهش کرد و علاقه سازمانی را افزایش داد.",
+            "summary_fa": "قیمت Cardano (ADA) ۱۰.۸۱٪ جهش کرد پس از T. Rowe Price که ADA را به ETF کریپتو اضافه کرد و علاقه سازمانی را افزایش داد.",
+            "source": "Pluang",
             "source_kind": "search",
             "via": "Google News · ADA",
-            "link": "https://news.google.com/rss/articles/CBMiiAJBVV95cUxOaVNoRFFhQnQtWGo5OUNiLWZuOTVndEp6bWNTWVRPM2JUeHhwelJxQWM2aGVYcG8zSmM0ME1zZU1VV1hIVl9lM3A1TTJiRWs0WkZDUGh1NFpxN3pZNUhNQnYzZUQ1blhZNU82Tmd1eDkzYVhWVW9SVFhXUWJHaG1OdVc3SmFDUGQxS3c4Z1RoRGhEeWxjUDdLdFg3eU14NE05TXNvWDlTQVI1NGFOTjlGRFk5ZlhfM19RYlFjVWxTYy1qU01nSlFWNlozOG0wejB4T0FQbXZ3bTNfRF90TlREbm5ZUDJhcGFIQ3N6WThyUzQ2TmFqcWRvUXd5elBzaHJ0R1AzM3lZWlY?oc=5",
-            "published_ts": 1789934774.0,
-            "date_fa": "۲۹ شهریور ۱۴۰۵",
-            "time_fa": "۲۳:۳۶",
-            "datetime_fa": "۲۹ شهریور ۱۴۰۵، ساعت ۲۳:۳۶",
-            "age_fa": "۱۴ ساعت پیش",
-            "credibility": 0.634,
-            "credibility_fa": "۶۳٪",
-            "topic_fa": "نهادی",
+            "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPUXRmU1NULVRPMy1pWmk0NDZQNDVDOF9US1hXQkpsR0dEZXlQOU9kdUczaVNkazZSaHRyQmFOMnhHSmRybVVUNDQ0WjJqNFhIa2NPNzBRaGNhV3VMMkx2NGwzZXRhNWJMdVdnY0hnQTljMXFjS1B6bWRMVzRtT3c3QUFn?oc=5",
+            "published_ts": 1791190517.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۲:۲۵",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۵",
+            "age_fa": "۵ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "ETF",
+            "assets": [
+              "ADA"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano."
+          },
+          {
+            "id": "bb43fe445635",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "Why Is Cardano (ADA) Price Surging Today? Key Drivers",
+            "title_fa": "چرا قیمت Cardano (ADA) امروز افزایش می یابد؟ درایورهای کلیدی",
+            "summary_fa": "Cardano (ADA) در تاریخ ۵ اکتبر ۲۰۲۶، سودهای روزانه شدیدی را منتشر می کند و توجه معامله گران را در میان بازار آلت کوین گسترده تر که در جلسات اخیر پویایی چرخش را نشان داده است، به خود جلب می کند، اگرچه کاتالیزور خاصی که باعث این حرکت می شود ن",
+            "source": "CoinCu",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://www.coincu.com/why-is-cardano-price-surging-today-3/",
+            "published_ts": 1791190255.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۲:۲۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۰",
+            "age_fa": "۵ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "بازار",
             "assets": [
               "ADA"
             ],
@@ -292,7 +326,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $9.0B (CoinGecko). Reported 24-hour spot volume is $0.63B with 7-day average turnover elevated versus the trailing month (1.19x) . Note: the ETF-flow and sentiment figures above are the public Farside and alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "en": "Total market capitalization stands near $10.3B (CoinGecko). Reported 24-hour spot volume is $1.18B with 7-day average turnover elevated versus the trailing month (1.17x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
         "fa": ""
       }
     ],
@@ -320,7 +354,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.2391 versus EMA20 $0.2136, EMA50 $0.2040 and EMA200 $0.2437 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.2292 (recent swing low); the lower Bollinger band $0.1904 as the 2σ downside envelope; upper band $0.2366 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0124 implies a typical daily range of roughly 5.2 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 66.9 — neutral territory; MACD (12/26/9) sits above its signal line (0.006189 vs 0.003737, histogram +0.002452), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 75%; the 20-day band spans 22% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.19x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +5.69% over 30 days and +57.99% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+14.65%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.2743 versus EMA20 $0.2430, EMA50 $0.2245 and EMA200 $0.2416 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.2592 (recent swing low); the lower Bollinger band $0.2056 as the 2σ downside envelope; upper band $0.2783 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0146 implies a typical daily range of roughly 5.3 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 70.7 — overbought territory; MACD (12/26/9) sits above its signal line (0.01182 vs 0.01083, histogram +0.0009962), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 71%; the 20-day band spans 30% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.17x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +25.51% over 30 days and +57.18% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+10.98%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -330,22 +364,23 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
+            "id": "f10d82e18843",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Cardano Price Forecast: What's next for ADA?",
-            "title_fa": "پیش بینی قیمت Cardano: آینده ADA چیست؟",
-            "summary_fa": "پیش بینی قیمت Cardano: آینده ADA چیست؟",
-            "source": "FXStreet",
+            "title_en": "Cardano Price Forecast: ADA is One Step Away From Entering 40% Rally Setup",
+            "title_fa": "پیش بینی قیمت Cardano: ADA یک قدم با ورود به راه اندازی رالی ۴۰٪ فاصله دارد",
+            "summary_fa": "پیش بینی قیمت Cardano: ADA یک قدم با ورود به راه اندازی رالی ۴۰٪ فاصله دارد",
+            "source": "FXEmpire",
             "source_kind": "search",
             "via": "Google News · ADA",
-            "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPVjJVajFDVUx0cGU5YWg2eVltY0MtNHRpTVFzV2NQZjNLNUNFMkJxV0h1SnoyMnNVNE05N3U1QUhoQU5WeXg5MWFKYkRac2U4T2lFNVlLdEVkMkRERXp4R20xVWRsMUxSemZrdm1uMjdxek8zM3ZTakN5ZXQ3d2dzc1VNYmxqUC1lOW9iaXhwQVIyQ1loWnBFc0hxeTV1T2MtLVc4Mm9yVGlpelhVRDI1ckFaTUFDZ3pCZXA4VEFFWTBMZHgtMDFVb0M5QzBlMkM1UkE?oc=5",
-            "published_ts": 1789966844.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۸:۳۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۸:۳۰",
-            "age_fa": "۵ ساعت پیش",
-            "credibility": 0.66,
-            "credibility_fa": "۶۶٪",
+            "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORFNCaWZIczlTc3A1dVk4cU91aUxTSWR6N3RkYWRjMzh5N1NwZVRPNXItTl9oU1M3LXRzMm1IeU5wSUdlRnlmWGpvNVNEN1VUTm1EU1piVkl4LUVVV2hQVVFsZ25HSFpJZnVQejJaNmxiWEVhUXVhcFZYMVdpclBjY29hRVFVWlY0TGhEOVA5cWlrRVJSLWpTTEk5Yk80OWQyWlhUdVhPbkxQeGtFMi1kRXlpSElBUmtiSm1ZVXkydjg?oc=5",
+            "published_ts": 1791200594.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۱۳",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۱۳",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.82,
+            "credibility_fa": "۸۲٪",
             "topic_fa": "تحلیل",
             "assets": [
               "ADA"
@@ -354,22 +389,23 @@
             "why_en": ""
           },
           {
+            "id": "a756030a267c",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Cardano Price Prediction: ADA Targets $0.30 as AlphaPepe Buyers Chase the Much Bigger Move From $0.03050 to $1",
-            "title_fa": "پیش بینی قیمت Cardano: ADA ۰.۳۰ دلار را هدف قرار می دهد زیرا خریداران AlphaPepe حرکت بسیار بزرگتر از ۰.۰۳۰۵۰ دلار به ۱ دلار را دنبال می کنند.",
-            "summary_fa": "پیش بینی قیمت Cardano: ADA ۰.۳۰ دلار را هدف قرار می دهد زیرا خریداران AlphaPepe حرکت بسیار بزرگتر از ۰.۰۳۰۵۰ دلار به ۱ دلار را دنبال می کنند.",
-            "source": "StreetInsider",
-            "source_kind": "search",
-            "via": "Google News · ADA",
-            "link": "https://news.google.com/rss/articles/CBMiigJBVV95cUxQNVcxZ1MxUVg4QUhVb1pmdUh1YkxVclk1YnczaUlMRTJrcFFfNjRCT3M2andkV2NRVkpUNzFmc3M5QjZFcHM5eWJJcDFMVXo0NEhjQ2YzNjlLYzRrdXNYanI4bFpHZXp4OEU5dnAtREZIclluaWJBYm54Qkp3NWhmOTlMMU9TZ1VKcmJWbWd3NHg0dG5UMURlaUJKbUtUdlpYSDRwaFR4ZC1rRktCSEo4b0VDQzE5QkpkU1Q2X0tBSmZ4aWlaMWh0YkpJSW5ObkszcDZJRjJLQTRNaHIwQmhmekZaXzNKZkhJN2JTQV9tbzlXeXhkWDNwNmRfUkEtaWlpY0hWb1pOQnBzQQ?oc=5",
-            "published_ts": 1789956134.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۵:۳۲",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۵:۳۲",
-            "age_fa": "۸ ساعت پیش",
-            "credibility": 0.634,
-            "credibility_fa": "۶۳٪",
+            "title_en": "ADA Price Surges 11%: Why is Cardano Pumping As DEX Activity Falls?",
+            "title_fa": "افزایش قیمت ADA ۱۱٪: چرا پمپاژ کاردانو به عنوان فعالیت DEX کاهش می یابد؟",
+            "summary_fa": "ADA با ۱۰.۱۱ درصد افزایش به ۰.۲۶۷۸ دلار رسید، اما حجم Cardano DEX در ۳ اکتبر به ۵.۷۲ میلیون دلار کاهش یافت و حمایت زنجیره ای رالی ثابت نشد.",
+            "source": "Cryptonews",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://cryptonews.com/news/cardano-news-dex-volume-ada-rally/",
+            "published_ts": 1791190454.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۲:۲۴",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۴",
+            "age_fa": "۵ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
             "topic_fa": "تحلیل",
             "assets": [
               "ADA"
@@ -390,7 +426,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($0.2040); RSI holding above 60 (currently 67). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $0.2292. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($0.2245); RSI holding above 60 (currently 71). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $0.2592. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -404,11 +440,11 @@
     [
       "p",
       {
-        "en": "Net take on Cardano: spot $0.2392 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+9.26%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Cardano: spot $0.2743 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+11.45%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:22:38.173880+00:00",
-  "news_used": 4
+  "generated_at": "2026-10-05T13:39:18.312384+00:00",
+  "news_used": 8
 }

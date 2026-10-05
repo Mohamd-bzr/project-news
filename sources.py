@@ -45,7 +45,7 @@ TOPICS = {
 TOPIC_ORDER = list(TOPICS.keys())
 
 _TOPIC_KEYWORDS = {
-    "security": r"\bhack(?:ed|ers?|ing)?\b|\bexploit\w*\b|\bbreach\w*\b|\bstolen\b|\bsteal(?:ing|s)?\b|\bscam\w*\b|\bphishing\b|\bransom\w*\b|\bvulnerab\w*\b|\bmalf?are\b|\bdrain(?:ed|ing)?\b|\bseiz\w*\b|\blaunder\w*\b",
+    "security": r"\bhack(?:ed|ers?|ing)?\b|\bexploit\w*\b|\bbreach\w*\b|\bstolen\b|\bsteal(?:ing|s)?\b|\bscam\w*\b|\bphishing\b|\bransom\w*\b|\bvulnerab\w*\b|\bmal(?:w|f)are\b|\bdrain(?:ed|ing)?\b|\bseiz\w*\b|\blaunder\w*\b",
     "regulation": r"\bregulat\w*\b|\bSEC\b|\bCFTC\b|\bMiCA\b|\blegislat\w*\b|\bbill\b|\bsenate\b|\bcongress\w*\b|\blaw(?:s|maker)?\b|\bban(?:s|ned|ning)?\b|\blegal\w*\b|\bcompliance\b|\benforcement\b|\bcourt\b|\bDOJ\b|\bprosecut\w*\b|\bOCC\b|\btax\w*\b|\bclarity act\b|\bpolicy\b",
     "institutional": r"\bblackrock\b|\bgrayscale\b|\bfidelity\b|\bark invest\b|\bmicrostrategy\b|\bstrategy\b|\bcorporate\b|\binstitution\w*\b|\bbank\w*|\bstrive\b|\bbitmine\b|\bwall street\b|\bjpmorgan\b|\bgoldman\b|\bmorgan stanley\b|\bstandard chartered\b|\bbank of america\b|\bsovereign\b|\bpension\b",
     "etf": r"\betf\w*\b|\binflow\w*\b|\boutflow\w*\b|\bfund flow\w*\b|\bspot (?:bitcoin|ether|eth|btc|solana|xrp|gold|silver) etf\b|\bibit\b|\bethe\b|\bgld\b|\bslv\b",
@@ -63,11 +63,11 @@ _TOPIC_COMPILED = {k: re.compile(v, re.I) for k, v in _TOPIC_KEYWORDS.items()}
 _ASSET_PATTERNS = {
     "BTC":  r"\b(?:bitcoin|btc|sats?|satoshis?)\b",
     "ETH":  r"\b(?:ethereum|ether|eth|vitalik)\b",
-    "SOL":  r"\b(?:solana|sol\b)",
+    "SOL":  r"\b(?:solana|sol)\b",
     "XRP":  r"\b(?:xrp|ripple)\b",
-    "ADA":  r"\b(?:cardano|ada\b)",
-    "BNB":  r"\b(?:bnb|binance coin|binance smart chain|bsc\b)",
-    "DOGE": r"\b(?:dogecoin|doge\b)",
+    "ADA":  r"\b(?:cardano|ada)\b",
+    "BNB":  r"\b(?:bnb|binance coin|binance smart chain|bsc)\b",
+    "DOGE": r"\b(?:dogecoin|doge)\b",
     "XAU":  r"\b(?:gold|xau(?:usd)?|bullion|ounce of gold)\b",
     "XAG":  r"\b(?:silver|xag(?:usd)?|white metal)\b",
     "WTI":  r"\b(?:oil|wti|crude|brent|opec|petroleum|barrel)\b",
@@ -152,11 +152,74 @@ SOURCES = {
 
     # ── Metals / commodities ────────────────────────────────────────────
     "kitco":          {"name": "Kitco Metals",    "rss": "https://www.kitco.com/rss/KitcoNewsRSS.xml",     "trust": 0.80, "tier": 2, "kind": "metals"},
-    "fxempire":       {"name": "FXEmpire",        "rss": "https://www.fxempire.com/api/v1/en/articles/rss/news?category=Commodities", "trust": 0.74, "tier": 2, "kind": "metals"},
+    "fxempire":       {"name": "FXEmpire",        "rss": "https://www.fxempire.com/api/v1/en/articles/rss/news", "trust": 0.82, "tier": 2, "kind": "macro"},
+    "fxempire-crypto": {"name": "FXEmpire Crypto", "rss": "https://www.fxempire.com/api/v1/en/articles/rss/news?category=Cryptocurrencies", "trust": 0.82, "tier": 2, "kind": "crypto"},
+    "fxempire-currencies": {"name": "FXEmpire Currencies", "rss": "https://www.fxempire.com/api/v1/en/articles/rss/news?category=Currencies", "trust": 0.82, "tier": 2, "kind": "macro"},
+    "fxempire-commodities": {"name": "FXEmpire Commodities", "rss": "https://www.fxempire.com/api/v1/en/articles/rss/news?category=Commodities", "trust": 0.82, "tier": 2, "kind": "metals"},
+    "fxempire-stocks": {"name": "FXEmpire Stocks", "rss": "https://www.fxempire.com/api/v1/en/articles/rss/news?category=Stock-Indices", "trust": 0.80, "tier": 2, "kind": "macro"},
     "investing-com":  {"name": "Investing.com",   "rss": "https://www.investing.com/rss/news_285.rss",     "trust": 0.80, "tier": 2, "kind": "metals"},
     "investing-news": {"name": "Investing.com Mkts","rss": "https://www.investing.com/rss/news.rss",       "trust": 0.80, "tier": 2, "kind": "macro"},
     "oilprice":       {"name": "OilPrice",        "rss": "https://oilprice.com/rss/main",                  "trust": 0.74, "tier": 3, "kind": "metals"},
     "miningcom":      {"name": "Mining.com",      "rss": "https://www.mining.com/feed/",                   "trust": 0.78, "tier": 2, "kind": "metals"},
+
+    # ── Precious metals expansion 2026-09-28 (verified live) ───────────────
+    # Native bullion-dealer RSS is largely dead (403/404/empty). Google News
+    # topic feeds returned real editorial content on every one of 49 tested.
+    # gl+ceid are REQUIRED on the Google URLs or topic queries return 0 entries.
+    "gold-price":      {"name": "Gold Price", "rss": "https://news.google.com/rss/search?q=%22gold+price%22+OR+%22gold+prices%22+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.85, "tier": 2, "kind": "metals"},
+    "gold-record":     {"name": "Gold Record High", "rss": "https://news.google.com/rss/search?q=%22gold%22+%22record+high%22+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "silver-price":    {"name": "Silver Price", "rss": "https://news.google.com/rss/search?q=%22silver+price%22+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.85, "tier": 2, "kind": "metals"},
+    "pgm":             {"name": "Platinum Palladium PGM", "rss": "https://news.google.com/rss/search?q=platinum+palladium+rhodium+%28price+OR+supply+OR+mine%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "safe-haven":      {"name": "Safe Haven Flows", "rss": "https://news.google.com/rss/search?q=%22safe+haven%22+%28gold+OR+silver+OR+%22precious+metal%22%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "comex":           {"name": "COMEX Futures", "rss": "https://news.google.com/rss/search?q=%28COMEX+OR+futures+OR+%22open+interest%22%29+%28gold+OR+silver%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "cftc":            {"name": "CFTC Positioning", "rss": "https://news.google.com/rss/search?q=%28CFTC+OR+positioning+OR+commitments%29+%28gold+OR+silver+OR+copper%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "gold-etf":        {"name": "Gold Silver ETF Flows", "rss": "https://news.google.com/rss/search?q=%28gold+OR+silver%29+%28ETF+OR+%22fund+flows%22+OR+%22inflows%22+OR+%22outflows%22%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "cb-gold-buy":     {"name": "Central Bank Gold", "rss": "https://news.google.com/rss/search?q=%22central+bank%22+%28gold+OR+%22gold+buying%22+OR+reserves%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.85, "tier": 2, "kind": "metals"},
+    "fed-gold":        {"name": "Fed Rate Gold", "rss": "https://news.google.com/rss/search?q=%28Fed+OR+%22Federal+Reserve%22+OR+rate+cut%29+gold+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "inflation-gold":  {"name": "Inflation Metals", "rss": "https://news.google.com/rss/search?q=inflation+%28gold+OR+%22precious+metals%22+OR+%22safe+haven%22%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.78, "tier": 2, "kind": "metals"},
+    "gold-mine":       {"name": "Gold Mining", "rss": "https://news.google.com/rss/search?q=%28%22gold+mine%22+OR+%22gold+mining%22+OR+miner%29+%28production+OR+AISC+OR+%22cost+curve%22%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.78, "tier": 2, "kind": "metals"},
+    "silver-mine":     {"name": "Silver Mining", "rss": "https://news.google.com/rss/search?q=%28%22silver+mine%22+OR+%22silver+mining%22%29+when%3A5d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.75, "tier": 2, "kind": "metals"},
+    "silver-squeeze":  {"name": "Silver Squeeze", "rss": "https://news.google.com/rss/search?q=%22silver%22+%28squeeze+OR+%22physical+demand%22+OR+premiu%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.78, "tier": 2, "kind": "metals"},
+    "gold-supply":     {"name": "Gold Supply Demand", "rss": "https://news.google.com/rss/search?q=%28gold+OR+silver%29+%28mine+OR+supply+OR+%22mine+supply%22+OR+%22jewellery+demand%22%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.76, "tier": 2, "kind": "metals"},
+    "gold-etf-countr": {"name": "China India Gold", "rss": "https://news.google.com/rss/search?q=%28India+OR+China+OR+Turkey+OR+Russia%29+%28gold+OR+silver%29+%28buying+OR+imports+OR+%22central+bank%22%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "metals"},
+    "gold-jewellery":  {"name": "Gold Jewellery Demand", "rss": "https://news.google.com/rss/search?q=%28%22jewellery%22+OR+jewelry%29+%28gold+OR+%22gold+demand%22%29+%28India+OR+China+OR+Turkey%29+when%3A5d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.75, "tier": 2, "kind": "metals"},
+    "gold-coins":      {"name": "Gold Coins Bullion", "rss": "https://news.google.com/rss/search?q=%28%22gold+coin%22+OR+%22gold+bar%22+OR+bullion%29+%28sales+OR+demand+OR+buyback%29+when%3A5d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.72, "tier": 2, "kind": "metals"},
+    "gold-refinery":   {"name": "Gold Refinery Mint", "rss": "https://news.google.com/rss/search?q=%28refinery+OR+refining+OR+%22gold+bar%22+OR+mint%29+%28gold+OR+silver%29+when%3A5d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.70, "tier": 2, "kind": "metals"},
+    "geopolitics-gold":{"name": "Geopolitics Gold", "rss": "https://news.google.com/rss/search?q=%28geopolit*+OR+%22trade+war%22+OR+sanctions%29+%28gold+OR+silver%29+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.78, "tier": 2, "kind": "metals"},
+    "dollar-gold":     {"name": "Dollar Gold", "rss": "https://news.google.com/rss/search?q=%28%22dollar+index%22+OR+%22dollar+strength%22%29+gold+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.72, "tier": 2, "kind": "metals"},
+
+    # Publisher-scoped via Google — free path to the Bloomberg/Reuters/CNBC wire.
+    "gn-reuters-gold":    {"name": "Reuters Metals", "rss": "https://news.google.com/rss/search?q=source%3AReuters+%28gold+OR+silver+OR+metals%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.88, "tier": 2, "kind": "metals"},
+    "gn-bloomberg":       {"name": "Bloomberg Metals", "rss": "https://news.google.com/rss/search?q=source%3ABloomberg+%28gold+OR+silver+OR+%22precious+metals%22%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.86, "tier": 2, "kind": "metals"},
+    "gn-cnbc":            {"name": "CNBC Commodities", "rss": "https://news.google.com/rss/search?q=source%3ACNBC+%28gold+OR+silver+OR+commodities%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "metals"},
+    "gn-investing":       {"name": "Investing Metals", "rss": "https://news.google.com/rss/search?q=site%3Ainvesting.com+%28gold+OR+silver%29+%28price+OR+forecast+OR+analysis%29+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.78, "tier": 2, "kind": "metals"},
+    "gn-fxempire":        {"name": "FXEmpire",        "rss": "https://news.google.com/rss/search?q=site%3Afxempire.com+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "search"},
+    "fxstreet":           {"name": "FXStreet",        "rss": "https://news.google.com/rss/search?q=site%3Afxstreet.com+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "macro"},
+    "fxstreet-news":      {"name": "FXStreet News",   "rss": "https://news.google.com/rss/search?q=site%3Afxstreet.com%2Fnews+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "macro"},
+    "fxstreet-crypto":    {"name": "FXStreet Crypto", "rss": "https://news.google.com/rss/search?q=site%3Afxstreet.com+%28crypto+OR+bitcoin+OR+ethereum+OR+xrp+OR+solana%29+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "crypto"},
+    "fxstreet-forex":     {"name": "FXStreet Forex",  "rss": "https://news.google.com/rss/search?q=site%3Afxstreet.com+%28forex+OR+dollar+OR+eur+OR+currency%29+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "macro"},
+    "fxstreet-metals":    {"name": "FXStreet Metals", "rss": "https://news.google.com/rss/search?q=site%3Afxstreet.com+%28gold+OR+silver+OR+oil+OR+metals%29+when%3A2d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "metals"},
+    "gn-fxstreet":        {"name": "FXStreet",        "rss": "https://news.google.com/rss/search?q=site%3Afxstreet.com+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.82, "tier": 2, "kind": "metals"},
+    "gn-kitco":           {"name": "Kitco News", "rss": "https://news.google.com/rss/search?q=site%3Akitco.com+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.84, "tier": 2, "kind": "metals"},
+    "gn-goldseek":        {"name": "GoldSeek Feed", "rss": "https://news.google.com/rss/search?q=site%3Agoldseek.com+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.76, "tier": 2, "kind": "metals"},
+    "gn-silverseek":      {"name": "SilverSeek Feed", "rss": "https://news.google.com/rss/search?q=site%3Asilverseek.com+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.76, "tier": 2, "kind": "metals"},
+    "gn-mining":          {"name": "Mining.com Feed", "rss": "https://news.google.com/rss/search?q=site%3Amining.com+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.78, "tier": 2, "kind": "metals"},
+    "gn-bullionvault":    {"name": "BullionVault News", "rss": "https://news.google.com/rss/search?q=site%3Abullionvault.com+when%3A7d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.84, "tier": 2, "kind": "metals"},
+    "gn-moneymetals":     {"name": "MoneyMetals News", "rss": "https://news.google.com/rss/search?q=site%3Amoneymetals.com+when%3A7d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.80, "tier": 2, "kind": "metals"},
+    "gn-goldorg":         {"name": "World Gold Council", "rss": "https://news.google.com/rss/search?q=site%3Agold.org+when%3A7d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.90, "tier": 2, "kind": "metals"},
+    "gn-zerocopy":        {"name": "SeekingAlpha Precious", "rss": "https://news.google.com/rss/search?q=site%3Aseekingalpha.com+%28gold+OR+silver%29+when%3A3d&hl=en-US&gl=US&ceid=US:EN", "trust": 0.74, "tier": 2, "kind": "metals"},
+
+    # Native RSS confirmed working through the recovery ladder.
+    "wgc-native":              {"name": "World Gold Council RSS", "rss": "https://www.gold.org/rss/news", "trust": 0.90, "tier": 2, "kind": "metals"},
+    "lbma-native":             {"name": "LBMA", "rss": "https://www.lbma.org.uk/rss/news", "trust": 0.86, "tier": 2, "kind": "metals"},
+    "metalsfocus-native":      {"name": "MetalsFocus", "rss": "https://www.metalsfocus.com/feed/", "trust": 0.82, "tier": 2, "kind": "metals"},
+    "bullionstar-native":      {"name": "BullionStar", "rss": "https://www.bullionstar.com/blogs/feed/", "trust": 0.74, "tier": 2, "kind": "metals"},
+    "northern-miner-native":   {"name": "Northern Miner", "rss": "https://www.northernminer.com/feed/", "trust": 0.76, "tier": 2, "kind": "metals"},
+    "forexlive-native":        {"name": "ForexLive", "rss": "https://forexlive.com/feed", "trust": 0.74, "tier": 2, "kind": "metals"},
+    "wolfstreet-metals-native":{"name": "WolfStreet Metals", "rss": "https://wolfstreet.com/category/precious-metals/feed/", "trust": 0.78, "tier": 2, "kind": "metals"},
+    "doomberg-native":         {"name": "Doomberg", "rss": "https://doomberg.com/feed/", "trust": 0.68, "tier": 2, "kind": "metals"},
+    "silverinst-native":       {"name": "Silver Institute", "rss": "https://silverinstitute.org/feed/", "trust": 0.84, "tier": 2, "kind": "metals"},
+    "prnewswire-metals-native":{"name": "PRNewswire Metals", "rss": "https://www.prnewswire.com/rss/precious-metals-list.rss", "trust": 0.66, "tier": 2, "kind": "metals"},
 
     # ── FX (forex) ─────────────────────────────────────────────────────
 
@@ -205,6 +268,75 @@ SOURCES = {
     "bbc-business":     {"name": "BBC Business",      "rss": "https://feeds.bbci.co.uk/news/business/rss.xml", "trust": 0.82, "tier": 2, "kind": "macro"},
     "investing-crypto": {"name": "Investing.com Crypto","rss": "https://www.investing.com/rss/news_301.rss",    "trust": 0.78, "tier": 2, "kind": "crypto"},
     "ct-defi":          {"name": "CoinTelegraph DeFi", "rss": "https://cointelegraph.com/rss/tag/defi",         "trust": 0.84, "tier": 2, "kind": "crypto"},
+
+    # ── FXEmpire's own outbound sources (2026-09 — user-supplied list; the
+    #    six that were missing from the roster above). Feeds discovered and
+    #    verified live: every one answers 200 with items. ───────────────────
+    "cointribune":      {"name": "Coin Tribune",   "rss": "https://www.cointribune.com/feed/",               "trust": 0.66, "tier": 2, "kind": "crypto"},
+    "invezz":           {"name": "Invezz",         "rss": "https://www.invezz.com/feed/",                    "trust": 0.68, "tier": 2, "kind": "crypto"},
+    "unchained":        {"name": "Unchained",      "rss": "https://unchainedcrypto.com/feed/",               "trust": 0.70, "tier": 2, "kind": "crypto"},
+    "dailycoin":        {"name": "DailyCoin",      "rss": "https://dailycoin.com/feed/",                    "trust": 0.64, "tier": 3, "kind": "crypto"},    "coinpaper":      {"name": "Coinpaper",      "rss": "https://coinpaper.com/feed",                     "trust": 0.62, "tier": 3, "kind": "crypto"},
+    "cryip":          {"name": "Cryip",          "rss": "https://cryip.co/rss",                           "trust": 0.62, "tier": 3, "kind": "crypto"},
+
+    # ── English-language republishers of Bloomberg / Reuters / FT / WSJ
+    #    content (screened 2026-09-27). Criteria: English, free, market-
+    #    focused, live RSS verified, and their output passes
+    #    is_relevant()/validate_article() once SPORTS_NOISE is applied.
+    #    Section feeds are used where the site exposes one (Dawn Business,
+    #    Euronews Business, ET/LiveMint/Business-Standard markets desks) so
+    #    general-news noise never enters the pipeline. ───────────────────
+    "et-markets":       {"name": "Economic Times Markets", "rss": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms", "trust": 0.72, "tier": 2, "kind": "macro"},
+    "business-standard": {"name": "Business Standard Markets", "rss": "https://www.business-standard.com/rss/markets-106.rss",   "trust": 0.72, "tier": 2, "kind": "macro"},
+    "livemint":         {"name": "LiveMint Markets",      "rss": "https://www.livemint.com/rss/markets",                        "trust": 0.72, "tier": 2, "kind": "macro"},
+    "businessline":     {"name": "Hindu BusinessLine",    "rss": "https://www.thehindubusinessline.com/feeder/default.rss",    "trust": 0.70, "tier": 2, "kind": "macro"},
+    "dawn-business":    {"name": "Dawn Business",         "rss": "https://www.dawn.com/feeds/business",                          "trust": 0.74, "tier": 2, "kind": "macro"},
+    "euronews-biz":     {"name": "Euronews Business",     "rss": "https://www.euronews.com/rss?level=vertical&name=business",   "trust": 0.72, "tier": 2, "kind": "macro"},
+    "finwire":          {"name": "Finwire",               "rss": "https://finwire.io/rss.xml",                                    "trust": 0.70, "tier": 2, "kind": "macro"},
+    "marketnews":       {"name": "Market.News",            "rss": "https://market.news/rss.xml",                                   "trust": 0.66, "tier": 3, "kind": "macro"},
+    "thestreet":        {"name": "TheStreet",             "rss": "https://www.thestreet.com/.rss/full/",                          "trust": 0.70, "tier": 3, "kind": "macro"},
+    "ibd":              {"name": "Investor's Business Daily", "rss": "https://investors.com/feed/",                                "trust": 0.66, "tier": 3, "kind": "research"},
+    "gulfnews":         {"name": "Gulf News",              "rss": "https://gulfnews.com/feed/",                                     "trust": 0.66, "tier": 3, "kind": "macro"},
+    "hurriyet-dn":      {"name": "Hurriyet Daily News",   "rss": "https://hurriyetdailynews.com/rss/news",                         "trust": 0.64, "tier": 3, "kind": "macro"},
+    # Screened OUT of this batch (2026-09-27): Yonhap / Korea Herald /
+    # Korea Times — general wires whose medal tables are now filtered but
+    # whose remaining output is politics + chip-industry news outside the
+    # tracked assets (measured yield: 0 articles / 60 raw). Business Insider
+    # (no markets feed) and Business Day NG (stale) likewise yielded nothing
+    # useful. Moneycontrol, NDTV Profit, CNBC-TV18, Business Recorder, The
+    # News and Gulf News' section feeds expose no parseable RSS at all.
+
+    # ── MASTER-file screen (2026-09-28): candidates from the user's
+    #    crypto_sources_MASTER.md plus own web research. Every feed below
+    #    was probed live: HTTP 200, parseable RSS, items in the last 72h,
+    #    and ≥50% is_relevant() pass-rate on sampled titles. Rejected from
+    #    the same file: wublock.com/feed (timeouts), wublockprint (dead
+    #    host), weekinethereumnews (SSL error), milkroad + delphidigital +
+    #    galaxy.com/research + goldtelegraph (200 but zero entries),
+    #    binance-research (HTTP 202, no body), coinbase blog + goldsilver
+    #    (403), paradigm / mechanism / defireports / gold.org / bullionvault
+    #    / miningweekly (404), azcoinnews (503), crypto-news.land +
+    #    coinpath.io (timeouts). Newsletters (substacks) are live but their
+    #    72h output is thin; kept only the asset-focused ones. ──────────
+    "nftevening":      {"name": "NFT Evening",       "rss": "https://nftevening.com/feed/",               "trust": 0.62, "tier": 3, "kind": "crypto"},
+    "bankless":        {"name": "Bankless",          "rss": "https://bankless.com/feed",                  "trust": 0.74, "tier": 2, "kind": "crypto"},
+    "a16zcrypto":      {"name": "a16z Crypto",      "rss": "https://a16zcrypto.com/feed/",               "trust": 0.82, "tier": 2, "kind": "research"},
+    "blockchainrep":   {"name": "Blockchain Reporter", "rss": "https://blockchainreporter.net/feed/",      "trust": 0.64, "tier": 3, "kind": "crypto"},
+    "bitcoinke":       {"name": "BitcoinKE",         "rss": "https://bitcoinke.io/feed/",                 "trust": 0.64, "tier": 3, "kind": "crypto"},
+    "kingworldnews":   {"name": "King World News",   "rss": "https://kingworldnews.com/feed",             "trust": 0.62, "tier": 3, "kind": "metals"},
+    "goldseek":        {"name": "GoldSeek",          "rss": "https://news.goldseek.com/newsRSS.xml",      "trust": 0.70, "tier": 2, "kind": "metals"},
+    "financemagnates": {"name": "Finance Magnates",   "rss": "https://www.financemagnates.com/feed/",      "trust": 0.70, "tier": 2, "kind": "macro"},
+    "actionforex":     {"name": "Action Forex",       "rss": "https://www.actionforex.com/feed/",           "trust": 0.66, "tier": 3, "kind": "macro"},
+
+    # ── Newsletters (MASTER file, probed live, asset-focused picks) ────
+    "rektcapital":     {"name": "Rekt Capital",      "rss": "https://rektcapital.substack.com/feed",      "trust": 0.72, "tier": 3, "kind": "research"},
+    "pomp":            {"name": "The Pomp Letter",    "rss": "https://pomp.substack.com/feed",             "trust": 0.70, "tier": 3, "kind": "research"},
+    "cobie":           {"name": "Cobie",             "rss": "https://cobie.substack.com/feed",            "trust": 0.72, "tier": 3, "kind": "research"},
+    "tokenunlocks":    {"name": "Token Unlocks",      "rss": "https://tokenunlocks.substack.com/feed",     "trust": 0.68, "tier": 3, "kind": "research"},
+
+    # ── Reddit subs (MASTER file, probed: r/DeFi yields real discussion
+    #    within 72h; r/CryptoTechnology throttles 429; r/altcoin is pinned
+    #    posts only). r/CryptoCurrency + r/Bitcoin already in the roster. ──
+    "reddit-defi":     {"name": "r/DeFi (شبکه اجتماعی)", "rss": "https://www.reddit.com/r/DeFi/.rss", "trust": 0.50, "tier": 4, "kind": "social", "sequential": True},
 }
 
 # ── Per-asset Google News queries (free, key-less, very wide reach) ─────
@@ -271,10 +403,28 @@ PUBLISHER_TRUST = {
     "bitcoinist": 0.70, "newsbtc": 0.74, "daily hodl": 0.70, "the defiant": 0.80,
     "protos": 0.80, "dl news": 0.80, "crypto briefing": 0.78, "finbold": 0.70,
     "watcher guru": 0.68, "coinpedia": 0.62, "coincu": 0.66, "cryptodaily": 0.66,
-    "mining.com": 0.78, "fxempire": 0.74, "oilprice": 0.74, "zerohedge": 0.60,
+    "mining.com": 0.78, "fxempire": 0.82, "fx empire": 0.82, "fxempire.com": 0.82,
+    "fxstreet": 0.82, "fx street": 0.82, "fxstreet.com": 0.82, "oilprice": 0.74, "zerohedge": 0.60,
     "the street": 0.70, "thestreet": 0.70, "motley fool": 0.60, "investopedia": 0.78,
     "moneyweb": 0.65, "theprint": 0.60, "times of india": 0.62, "the hindu": 0.70,
     "forexlive": 0.74, "investinglive": 0.74,
+    "coin tribune": 0.66, "invezz": 0.68, "unchained": 0.70, "unchained crypto": 0.70,
+    "dailycoin": 0.64, "coinpaper": 0.62, "cryip": 0.62,
+    # republishers added 2026-09-27 (screened batch)
+    "economic times": 0.72, "et markets": 0.72, "business standard": 0.72,
+    "livemint": 0.72, "mint": 0.72, "the hindu businessline": 0.70,
+    "hindu businessline": 0.70, "businessline": 0.70, "dawn": 0.74,
+    "dawn news": 0.74, "euronews": 0.72, "finwire": 0.70, "market.news": 0.66,
+    "marketnews": 0.66, "gulf news": 0.66, "hurriyet daily news": 0.64,
+    "investor's business daily": 0.66, "investors business daily": 0.66,
+    "yonhap news": 0.76, "yonhap": 0.76, "korea herald": 0.70,
+    "korea times": 0.66,
+    # MASTER-file screen 2026-09-28
+    "nft evening": 0.62, "bankless": 0.74, "a16z crypto": 0.82,
+    "blockchain reporter": 0.64, "bitcoinke": 0.64, "king world news": 0.62,
+    "goldseek": 0.70, "finance magnates": 0.70, "action forex": 0.66,
+    "rekt capital": 0.72, "the pomp letter": 0.70, "pomp": 0.70,
+    "anthony pompliano": 0.70, "cobie": 0.72, "token unlocks": 0.68,
 }
 PUBLISHER_TRUST_DEFAULT = 0.64
 
@@ -364,7 +514,7 @@ RELEVANCE_PATTERN = re.compile(
     r"\bbitcoin\b|\bbtc\b|\bcrypto\w*\b|\bethereum\b|\bether\b|\bblockchain\b|"
     r"\bstablecoin\w*\b|\btoken\w*\b|\bdefi\b|\betf\b|\baltcoin\w*\b|\bsatoshi\b|"
     r"\bdigital asset\w*\b|\bweb3\b|\bmeme coin\w*\b|\bhalving\b|\bmining\b|"
-    r"\bhashrate\b|\bexchange\w*\b|\bbinance\b|\bcoinbase\b|\bkraken\b|\bokx\b|"
+    r"\bhashrate\b|\b(?:crypto\w*|digital) exchange\w*\b|\bstock exchange\w*\b|\bexchange rate\w*\b|\bbinance\b|\bcoinbase\b|\bkraken\b|\bokx\b|"
     r"\bsec\b|\bcftc\b|\bregulat\w*\b|\bfederal reserve\b|\bfed\b|\bfomc\b|"
     r"\binflation\b|\bcpi\b|\bpce\b|\binterest rate\w*\b|\brate (?:cut|hike)\w*\b|"
     r"\btreasury yield\w*\b|\bdollar index\b|\bdxy\b|\bliquidity\b|\bpowell\b|"
@@ -373,7 +523,15 @@ RELEVANCE_PATTERN = re.compile(
     r"\bcoin\b|\baltcoins?\b|\bwallet\w*\b|\bnft\w*\b|\bdex\b|\bcex\b|"
     r"\bstaking\b|\bairdrop\w*\b|\btokeniz\w*\b|\brwa\b|\bdapp\w*\b|\bmainnet\b|"
     r"\bbull run\b|\bbear market\b|\bcrypto market\b|\bdigital currency\b|"
-    r"\bmonetary policy\b|\btariff\w*\b|\bcentral bank\w*\b",
+    r"\bmonetary policy\b|\btariff\w*\b|\bcentral bank\w*\b|"
+    r"\bforex\b|\bcurrencies\b|\bcurrency\b|\bfx\b|\beur/?usd\b|\bgbp/?usd\b|\busd/?jpy\b|\baud/?usd\b|\busd/?cad\b|\byen\b|\beuro\b|\bpound\b|"
+    # commodities & indices — needed because is_relevant() now asks the
+    # headline first: a story whose headline says "crude" / "Wall Street"
+    # must still qualify even when it names no tracked asset verbatim.
+    r"\boil (?:prices?|markets?|output|supplies|supply|demand|production)\b|"
+    r"\bcrude\b|\bbrent\b|\bopec\b|\bnatural gas\b|\bwti\b|"
+    r"\bnasdaq\b|\bdow jones\b|\bs&p 500\b|\bwall street\b|\bstock market\b|"
+    r"\bnifty\b|\bsensex\b",
     re.I,
 )
 
@@ -391,14 +549,62 @@ NOISE_PATTERN = re.compile(
     re.I,
 )
 
+# Sports & award coverage carried by the general wires (Yonhap, Korea Times,
+# Korea Herald, Euronews…). "S. Korea captures gold in women's sabre" used to
+# match XAU/XAG and sail in through the asset shortcut. Never market news, so
+# it is rejected before anything else — checked on the headline only.
+SPORTS_NOISE_PATTERN = re.compile(
+    r"\b(?:asian games|asiad|olympi\w*|medals?\b|fencing|sabre\b|epee\b|handball|"
+    r"skateboarding|equestrian|dressage|synchroni[sz]ed (?:diving|swimming)|\bdivers\b|"
+    r"weightlifting|world cup|championship\w*|grand prix|super bowl|"
+    r"(?:wins?|won|claims?|claimed|captures?|captured|grabs?|grabbed|bags?|bagged|"
+    r"nabs?|nabbed|secures?|secured) (?:the )?(?:gold|silver|bronze)|"
+    r"(?:gold|silver|bronze) medal|"
+    r"\b(?:women|men|mixed)[-' ](?:team|event|singles|doubles|relay|final)\b)",
+    re.I,
+)
 
-def is_relevant(assets, title: str, summary: str = "") -> bool:
-    """Tracked asset hit, or clearly crypto / metals / macro monetary news."""
-    if assets:
+
+# Junk templates that are rejected no matter which asset words the headline
+# happens to contain — Indian/US stock-picking SEO ("stocks to buy | Target,
+# SL"), IPO filings, dividend and insider boilerplate. Checked before the
+# headline-asset shortcut, unlike NOISE_PATTERN which only applies when no
+# tracked asset is named (it contains "price target", which must NOT kill a
+# legitimate "gold price target $4,000" headline).
+HARD_NOISE_PATTERN = re.compile(
+    r"\b(?:top |best )?(?:stocks?|shares?) to buy\b|\btop stocks\b|"
+    r"\bstock picks?\b|\bstock selection\b|\btarget,? sl\b|\bbuy points?\b|"
+    r"\bpicks? \d+ stocks\b|\braise stakes in \d+ stocks\b|\bshare price\b|"
+    r"\bdrhp\b|\bfresh issue\b|\bipo (?:papers?|filing|stock)\b|"
+    r"\bfiles? (?:for (?:an? )?)?(?:draft )?(?:red herring )?prospectus\b|"
+    r"\bgoes? ex-dividend\b|\bdividend (?:declared|yield|per share)\b|"
+    r"\binsider (?:trading|selling|buying)\b|\bannual meeting\b|"
+    r"\bhits? (?:52-week|all-time) (?:high|low)\b",
+    re.I,
+)
+
+
+def is_relevant(assets, title: str, summary: str = "", custom=None) -> bool:
+    """Tracked asset hit, or clearly crypto / metals / macro monetary news.
+
+    Order matters:
+      1. sports/medal headlines are never market news (see SPORTS_NOISE_PATTERN);
+      2. hard junk templates (stock-picking SEO, IPO filings) are rejected even
+         when the headline names an asset;
+      3. an asset named in the *headline* is enough on its own;
+      4. otherwise the headline must survive the noise screen and the whole
+         text must look like coverage we track — a stray "oil" buried in a
+         summary must not promote an unrelated story to WTI.
+    """
+    if SPORTS_NOISE_PATTERN.search(title):
+        return False
+    if HARD_NOISE_PATTERN.search(title):
+        return False
+    if detect_assets(title, "", custom):
         return True
-    text = f"{title} {summary[:400]}"
     if NOISE_PATTERN.search(title):
         return False
+    text = f"{title} {summary[:400]}"
     return bool(RELEVANCE_PATTERN.search(text))
 
 
@@ -433,7 +639,7 @@ def build_custom_patterns(custom_assets: dict) -> dict:
         pats = []
         for k in split_keywords(meta.get("keywords")):
             # a multi-word phrase should tolerate any spacing
-            pats.append(re.escape(k).replace(r"\ ", r"\s+"))
+            pats.append(re.sub(r'\s+', r'\\s+', re.escape(k)))
         if meta.get("keywords_regex"):
             pats.append(meta["keywords_regex"])
         if not pats:
@@ -482,6 +688,8 @@ def validate_article(art: dict, source_trust: float, now=None,
         return {"valid": False, "reasons": ["seo_page"], "credibility": 0.0}
 
     pub_ts = art.get("published_ts")
+    if pub_ts is None:
+        pub_ts = now.timestamp()
     age_hours = None
     if isinstance(pub_ts, (int, float)):
         age_hours = max(0.0, (now.timestamp() - pub_ts) / 3600.0)

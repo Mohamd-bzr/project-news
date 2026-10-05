@@ -205,7 +205,7 @@ def translate_many(texts, persian_digits: bool = True) -> dict:
                 with _LOCK:
                     _CACHE[_cache_key(src)] = dst
                     _STATS["translated"] += 1
-        _DIRTY = True
+                    _DIRTY = True
 
     return out
 

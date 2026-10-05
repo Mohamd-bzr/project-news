@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پروژه MOHMD NEWS چیست و چه‌کار می‌کند؟ — راهنمای به زبان ساده</title>
+<meta name="description" content="معرفی کامل و سادهٔ پروژه MOHMD NEWS / FreeBuff: چه چیزهایی دارد، چه‌کار می‌کند و اصلاً چطور کار می‌کند.">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   راهنمای پروژه — تم شب‌رنگ «ترمینال نیمه‌شب» هم‌رنگ خودِ داشبورد
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --bg:#0C111C; --bg-deep:#080C15; --panel:#121826; --panel-2:#171E2B; --panel-3:#1D2432;
+  --rule:rgba(154,182,224,.14); --rule-2:rgba(154,182,224,.07);
+  --ink-1:#F1F4F9; --ink-2:#D2D9E3; --ink-3:#AFB9C8; --ink-4:#8D99AB;
+  --cu:#6C97DC; --cu-2:#4A7BC0; --cu-txt:#DCE6F4; --cu-wash:rgba(108,151,220,.11);
+  --up:#2EBD77; --up-wash:rgba(46,189,119,.12);
+  --dn:#EE6A58; --dn-wash:rgba(238,106,88,.12);
+  --warn:#E8A23C; --warn-wash:rgba(232,162,60,.13);
+  --r1:4px; --r2:8px; --r3:12px;
+  --mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  --sans:"Vazirmatn","Segoe UI",Tahoma,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(108,151,220,.10), transparent 60%),
+    radial-gradient(900px 500px at 0% 100%, rgba(46,189,119,.05), transparent 55%),
+    var(--bg);
+  color:var(--ink-2); font-family:var(--sans); font-size:16px; line-height:1.95;
+}
+.wrap{max-width:1150px; margin:0 auto; padding:0 20px}
+
+/* ── نوار بالای صفحه ─────────────────────────────────────────── */
+.topbar{
+  position:sticky; top:0; z-index:50; backdrop-filter:blur(14px);
+  background:rgba(12,17,28,.82); border-bottom:1px solid var(--rule);
+}
+.topbar-in{max-width:1150px; margin:0 auto; padding:10px 20px; display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+.brand{font-weight:800; color:var(--ink-1); letter-spacing:.2px; font-size:15px; display:flex; align-items:center; gap:8px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--cu);box-shadow:0 0 10px var(--cu)}
+.jump{display:flex; gap:4px; flex-wrap:wrap; margin-inline-start:auto}
+.jump a{
+  color:var(--ink-3); text-decoration:none; font-size:12.5px; padding:5px 9px;
+  border-radius:100px; border:1px solid transparent; white-space:nowrap;
+}
+.jump a:hover{color:var(--ink-1); border-color:var(--rule); background:var(--panel-2)}
+
+/* ── قهرمان صفحه ─────────────────────────────────────────────── */
+.hero{padding:54px 0 26px}
+.kicker{
+  display:inline-flex; align-items:center; gap:8px; font-size:12.5px; color:var(--cu-txt);
+  background:var(--cu-wash); border:1px solid rgba(108,151,220,.35); border-radius:100px; padding:6px 14px;
+}
+h1{font-size:clamp(26px,4.4vw,44px); line-height:1.4; color:var(--ink-1); margin:18px 0 10px; font-weight:800}
+h1 .accent{color:var(--cu)}
+.hero p.lead{font-size:clamp(15px,1.8vw,18.5px); color:var(--ink-2); max-width:88ch; margin:0 0 8px}
+.hero .meta{display:flex; gap:10px; flex-wrap:wrap; margin-top:20px}
+.chip{
+  font-size:12.5px; color:var(--ink-3); background:var(--panel-2); border:1px solid var(--rule-2);
+  border-radius:100px; padding:6px 12px;
+}
+.chip b{color:var(--ink-1); font-weight:700}
+
+/* ── بخش‌ها و کارت‌ها ────────────────────────────────────────── */
+section{padding:34px 0; border-top:1px solid var(--rule-2); margin-top:10px}
+.sec-head{display:flex; align-items:center; gap:14px; margin-bottom:6px}
+.sec-num{
+  width:44px; height:44px; flex:0 0 44px; border-radius:var(--r3); display:grid; place-items:center;
+  background:linear-gradient(160deg,var(--panel-3),var(--panel)); border:1px solid var(--rule);
+  color:var(--cu-txt); font-weight:800; font-size:17px; font-family:var(--mono);
+}
+h2{font-size:clamp(20px,2.6vw,28px); color:var(--ink-1); margin:0; font-weight:800; line-height:1.5}
+.sec-sub{color:var(--ink-4); font-size:13.5px; margin:2px 0 20px 58px}
+h3{color:var(--ink-1); font-size:18.5px; margin:30px 0 10px; font-weight:700; display:flex; align-items:center; gap:8px}
+h3 .n{font-family:var(--mono); font-size:13px; color:var(--cu); font-weight:700}
+h4{color:var(--ink-1); font-size:15.5px; margin:18px 0 6px; font-weight:700}
+p{margin:8px 0 12px}
+ul,ol{margin:8px 0 14px; padding-inline-start:22px}
+li{margin:5px 0}
+code{
+  font-family:var(--mono); font-size:.86em; background:var(--bg-deep); border:1px solid var(--rule-2);
+  border-radius:6px; padding:1.5px 6px; direction:ltr; unicode-bidi:embed; color:var(--cu-txt);
+}
+b,strong{color:var(--ink-1)}
+
+.card{
+  background:linear-gradient(175deg,var(--panel),rgba(18,24,38,.75)); border:1px solid var(--rule);
+  border-radius:var(--r3); padding:18px 20px; margin:14px 0;
+}
+.grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.grid-2{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.mini{
+  background:var(--panel-2); border:1px solid var(--rule-2); border-radius:var(--r3); padding:14px 16px;
+}
+.mini .t{color:var(--ink-1); font-weight:700; font-size:14.5px; display:flex; align-items:center; gap:8px; margin-bottom:4px}
+.mini p{font-size:13.5px; color:var(--ink-3); margin:4px 0 0; line-height:1.85}
+.icon{
+  width:26px;height:26px;flex:0 0 26px;border-radius:8px;display:grid;place-items:center;font-size:14px;
+  background:var(--cu-wash); border:1px solid rgba(108,151,220,.3);
+}
+.badge{
+  display:inline-block; font-size:11.5px; border-radius:100px; padding:2px 9px; border:1px solid var(--rule);
+  color:var(--ink-3); background:var(--panel-2); white-space:nowrap;
+}
+.badge.g{color:var(--up);border-color:rgba(46,189,119,.4);background:var(--up-wash)}
+.badge.r{color:var(--dn);border-color:rgba(238,106,88,.4);background:var(--dn-wash)}
+.badge.w{color:var(--warn);border-color:rgba(232,162,60,.4);background:var(--warn-wash)}
+.badge.b{color:var(--cu-txt);border-color:rgba(108,151,220,.4);background:var(--cu-wash)}
+
+/* ── هشدار / نکته ────────────────────────────────────────────── */
+.note{border-radius:var(--r3); padding:14px 16px; margin:14px 0; border:1px solid var(--rule); background:var(--panel-2)}
+.note .h{font-weight:800; color:var(--ink-1); display:flex; gap:8px; align-items:center; margin-bottom:4px}
+.note p{margin:4px 0 0; font-size:14px; color:var(--ink-3)}
+.note.ok{border-color:rgba(46,189,119,.35); background:var(--up-wash)}
+.note.warn{border-color:rgba(232,162,60,.35); background:var(--warn-wash)}
+.note.info{border-color:rgba(108,151,220,.35); background:var(--cu-wash)}
+
+/* ── جدول‌ها ──────────────────────────────────────────────────── */
+.tblwrap{overflow-x:auto; border:1px solid var(--rule); border-radius:var(--r3); margin:14px 0; background:var(--panel)}
+table{width:100%; border-collapse:collapse; font-size:14px; min-width:560px}
+th{background:var(--bg-deep); color:var(--ink-3); text-align:start; padding:10px 14px; font-size:12.5px; font-weight:700; border-bottom:1px solid var(--rule)}
+td{padding:9px 14px; border-bottom:1px solid var(--rule-2); vertical-align:top}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(224,236,252,.03)}
+td code{font-size:12.5px}
+.num{font-family:var(--mono); direction:ltr; unicode-bidi:embed; color:var(--cu-txt); font-weight:600}
+
+/* ── زنجیرهٔ جریان (نمودار) ─────────────────────────────────── */
+.flow{display:flex; flex-direction:column; gap:0; margin:18px 0}
+.step{
+  display:flex; gap:14px; align-items:flex-start; position:relative;
+  background:var(--panel-2); border:1px solid var(--rule-2); border-radius:var(--r3); padding:13px 16px;
+}
+.step + .step{margin-top:26px}
+.step + .step::before{
+  content:"↓"; position:absolute; top:-24px; inset-inline-start:50%; transform:translateX(50%);
+  color:var(--cu); font-size:16px; opacity:.85;
+}
+.step .snum{
+  font-family:var(--mono); font-weight:700; color:var(--bg); background:var(--cu);
+  min-width:26px; height:26px; border-radius:8px; display:grid; place-items:center; font-size:13px; margin-top:2px;
+}
+.step .st{color:var(--ink-1); font-weight:700; font-size:14.5px}
+.step .sd{color:var(--ink-3); font-size:13.5px; margin-top:2px; line-height:1.85}
+.step.hot{border-color:rgba(46,189,119,.35); background:var(--up-wash)}
+.step.hot .snum{background:var(--up)}
+.step.gold{border-color:rgba(232,162,60,.35); background:var(--warn-wash)}
+.step.gold .snum{background:var(--warn)}
+
+/* ── دو ستونهٔ ساده ─────────────────────────────────────────── */
+.cols{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+@media(max-width:820px){.cols{grid-template-columns:1fr}}
+
+/* ── واژه‌نامه ────────────────────────────────────────────────── */
+details{
+  background:var(--panel-2); border:1px solid var(--rule-2); border-radius:var(--r2);
+  padding:11px 15px; margin:7px 0;
+}
+details[open]{border-color:var(--rule)}
+summary{cursor:pointer; color:var(--ink-1); font-weight:700; font-size:14.5px; list-style:none; display:flex; align-items:center; gap:9px}
+summary::before{content:"＋"; color:var(--cu); font-family:var(--mono); font-size:13px}
+details[open] summary::before{content:"－"}
+details p{font-size:13.5px; color:var(--ink-3); margin:8px 0 2px}
+
+/* ── پاورقی ──────────────────────────────────────────────────── */
+footer{
+  border-top:1px solid var(--rule); padding:26px 0 40px; margin-top:20px; color:var(--ink-4); font-size:13px;
+}
+footer b{color:var(--ink-2)}
+hr{border:none;border-top:1px solid var(--rule-2);margin:26px 0}
+
+@media print{
+  body{background:#fff;color:#111}
+  .topbar{display:none}
+  .card,.mini,.step,details,.tblwrap{border-color:#ccc;background:#fafafa}
+  h1,h2,h3,h4,b,strong{color:#000}
+  a{color:#000}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ نوار بالا ═══════════ -->
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><span class="dot"></span> MOHMD NEWS — راهنمای پروژه</div>
+    <nav class="jump">
+      <a href="#s1">۳ جمله‌ای</a>
+      <a href="#s2">تشبیه ساده</a>
+      <a href="#s3">داستان یک خبر</a>
+      <a href="#s4">امکانات ریز</a>
+      <a href="#s5">صفحه‌های داشبورد</a>
+      <a href="#s6">زیر پوست</a>
+      <a href="#s7">اعداد</a>
+      <a href="#s8">اجرا</a>
+      <a href="#s9">محدودیت‌ها</a>
+      <a href="#s10">واژه‌نامه</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ═══════════ قهرمان ═══════════ -->
+<header class="hero">
+  <span class="kicker">📘 راهنمای کامل به زبان خیلی ساده</span>
+  <h1>پروژهٔ <span class="accent">MOHMD NEWS</span> چیست و اصلاً چه‌کار می‌کند؟</h1>
+  <p class="lead">
+    این پروژه یک <b>«کارخانهٔ خبرِ فارسی»</b> است که روی کامپیوتر خودت کار می‌کند.
+    خودش هر نیم‌ساعت از حدود <b>۲۰۰ منبع خبری</b> خبر می‌خواند، خبرهای بی‌ارزش و دروغ را دور می‌ریزد،
+    آن‌ها را <b>فارسی</b> می‌کند، قیمت لحظه‌ای بازارها را می‌گیرد و برای هر دارایی (بیت‌کوین، طلا، نفت، دلار، بورس آمریکا…)
+    یک <b>گزارش تحلیلی</b> می‌سازد.
+  </p>
+  <p class="lead">
+    بعد همه را در یک <b>داشبورد فارسی</b> نشانت می‌دهد و اگر بخواهی، خلاصه‌اش را به تلگرام یا بله می‌فرستد.
+    همه‌چیز <b>رایگان</b> است و به کلید API خاصی نیاز ندارد (کلید فقط برای چند امکان اضافه و اختیاری است).
+  </p>
+  <div class="meta">
+    <span class="chip">🎯 <b>۱۹۳</b> منبع خبری</span>
+    <span class="chip">🪙 <b>۱۳</b> دارایی تحت پایش</span>
+    <span class="chip">🖥️ <b>۱۵</b> صفحهٔ داشبورد</span>
+    <span class="chip">🔌 <b>۷۵</b> آدرس API</span>
+    <span class="chip">⏱️ به‌روزرسانی خودکار هر <b>۳۰ دقیقه</b></span>
+    <span class="chip">🌐 کاملاً <b>فارسی</b> و راست‌به‌چپ</span>
+  </div>
+  <div class="note info" style="margin-top:22px">
+    <div class="h">🧭 این فایل برای کیست؟</div>
+    <p>
+      برای کسی که <b>حتی یک خط هم برنامه‌نویسی نمی‌داند</b>. هیچ اصطلاح فنی‌ای بدون توضیح رها نشده.
+      اگر جایی کلمه‌ای سخت دیدی، آخر همین صفحه یک <a href="#s10" style="color:var(--cu-txt)">واژه‌نامهٔ ساده</a> هست که همان کلمه را با زبان کوچه‌بازاری توضیح می‌دهد.
+    </p>
+  </div>
+</header>
+
+<!-- ═══════════ ۱ ═══════════ -->
+<section id="s1">
+  <div class="sec-head"><div class="sec-num">۱</div><h2>در سه جمله بفهم (خلاصهٔ تنبل‌ها)</h2></div>
+  <div class="sec-sub">اگر فقط ۳۰ ثانیه وقت داری، همین را بخوان.</div>
+
+  <div class="grid">
+    <div class="mini"><div class="t"><span class="icon">📚</span> جملهٔ اول — چه هست؟</div>
+      <p>یک برنامهٔ تحت‌وب است که روی کامپیوتر خودت اجرا می‌شود و کارش «خبرخوانی خودکار بازار» است.</p></div>
+    <div class="mini"><div class="t"><span class="icon">⚙️</span> جملهٔ دوم — چه‌کار می‌کند؟</div>
+      <p>هر ۳۰ دقیقه از ۱۹۳ منبع خبر می‌گیرد، خبرهای بی‌ربط و تبلیغاتی را حذف می‌کند، ترجمهٔ فارسی می‌کند و برای هر دارایی گزارش می‌سازد.</p></div>
+    <div class="mini"><div class="t"><span class="icon">🎁</span> جملهٔ سوم — خروجی‌اش چیست؟</div>
+      <p>یک داشبورد فارسی ۱۵ صفحه‌ای + گزارش‌های تحلیلی + پیام آمادهٔ تلگرام/بله. همه‌اش هم آفلاین هم کار می‌کند.</p></div>
+  </div>
+
+  <div class="note ok">
+    <div class="h">✅ یک جملهٔ طلایی برای حفظ کردن</div>
+    <p>«این پروژه = یک خبرنگار ربات که ۲۴ ساعته کار می‌کند، تقلب‌ها را می‌گیرد، خبر را فارسی می‌کند و آخرش یک گزارش آماده تحویلت می‌دهد.»</p>
+  </div>
+
+  <div class="note warn">
+    <div class="h">🚫 این پروژه چه چیزی <u>نیست</u>؟</div>
+    <p>
+      ربات معامله‌گر نیست و سفارش خرید/فروش نمی‌دهد. سیگنال «حتماً بخر» یا «حتماً بفروش» نمی‌دهد.
+      توصیهٔ سرمایه‌گذاری نمی‌دهد و سود را تضمین نمی‌کند؛ فقط خبر و تحلیل با ذکر منبع تحویل می‌دهد.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ ۲ ═══════════ -->
+<section id="s2">
+  <div class="sec-head"><div class="sec-num">۲</div><h2>پروژه را با یک مثال ساده بفهم (تشبیه کارخانه)</h2></div>
+  <div class="sec-sub">اگر کلمات «منبع خبری»، «سرور» و «دیتابیس» را نمی‌فهمی، این بخش را بخوان.</div>
+
+  <p>این پروژه را مثل یک <b>کارخانهٔ آبمیوه‌گیری</b> در نظر بگیر که کل کارگرهایش ربات‌اند و ۲۴ ساعته کار می‌کنند:</p>
+
+  <div class="flow">
+    <div class="step">
+      <div class="snum">۱</div>
+      <div><div class="st">باغ‌ها — یعنی «منابع خبری»</div>
+      <div class="sd">۱۹۳ باغ مختلف داریم: سایت‌های خبری کریپتو، سایت‌های طلا و نقره، سایت‌های اقتصاد دنیا، جستجوی گوگل‌نیوز و شبکه‌های اجتماعی. میوهٔ خام همان «خبر» است.</div></div>
+    </div>
+    <div class="step">
+      <div class="snum">۲</div>
+      <div><div class="st">میوه‌چین‌ها — یعنی «خبرخوان» برنامه</div>
+      <div class="sd">برنامه هم‌زمان به همهٔ باغ‌ها سر می‌زند (نه یکی‌یکی، بلکه با هم) و تازه‌ترین خبرها را برمی‌دارد. اگر یک باغ خراب بود، بقیه دست‌نخورده کار می‌کنند.</div></div>
+    </div>
+    <div class="step hot">
+      <div class="snum">۳</div>
+      <div><div class="st">ماشین شست‌وشو — یعنی «اعتبارسنجی»</div>
+      <div class="sd">میوهٔ خراب، گَندیده، تبلیغاتی و تاریخ‌گذشته همین‌جا دور ریخته می‌شود. هر خبر یک امتیاز اعتبار ۰ تا ۱ می‌گیرد (منبع معتبر چقدر، خبر چقدر تازه…).</div></div>
+    </div>
+    <div class="step">
+      <div class="snum">۴</div>
+      <div><div class="st">خط ترجمه — یعنی «مترجم فارسی»</div>
+      <div class="sd">خبر انگلیسی می‌آید، فارسی می‌شود. یک «کش» دارد یعنی ترجمهٔ هر جمله یک‌بار انجام می‌شود و بار بعد فوری است.</div></div>
+    </div>
+    <div class="step">
+      <div class="snum">۵</div>
+      <div><div class="st">برچسب‌زن — یعنی «تشخیص دارایی و موضوع»</div>
+      <div class="sd">به هر خبر می‌چسباند که مربوط به کدام دارایی است (بیت‌کوین؟ طلا؟ نفت؟) و دربارهٔ چه موضوعی (قانون‌گذاری؟ ETF؟ جنگ؟).</div></div>
+    </div>
+    <div class="step gold">
+      <div class="snum">۶</div>
+      <div><div class="st">سردخانه — یعنی «دیتابیس SQLite»</div>
+      <div class="sd">همهٔ خبرهای تمیز و متن کاملشان در یک فایل ذخیره می‌شود؛ پس اگر برنامه را ببندی و باز کنی، چیزی از دست نمی‌رود.</div></div>
+    </div>
+    <div class="step">
+      <div class="snum">۷</div>
+      <div><div class="st">آشپزخانه — یعنی «گزارش‌ساز»</div>
+      <div class="sd">برای هر دارایی یک گزارش ۸ بخشی نوشته می‌شود: وضعیت بازار، اقتصاد کلان، اثر خبرها، جریان پول، مشتقه‌ها، تکنیکال، سناریوها و جمع‌بندی — با ذکر دقیق منبع هر جمله.</div></div>
+    </div>
+    <div class="step">
+      <div class="snum">۸</div>
+      <div><div class="st">مغازه — یعنی «داشبورد» و «پیام‌رسان‌ها»</div>
+      <div class="sd">داشبورد همان صفحه‌ای است که در مرورگر می‌بینی. اگر بخواهی، پیام آماده هم برای پیک (تلگرام/بله/دیسکورد/ایمیل) فرستاده می‌شود.</div></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="h">🔁 و این چرخه کی تمام می‌شود؟</div>
+    <p>هیچ‌وقت! هر ۳۰ دقیقه همین ۸ مرحله از نو اجرا می‌شود. یعنی همیشه خبرهای تازه روی مغازه هستند.</p>
+  </div>
+</section>
+
+<!-- ═══════════ ۳ ═══════════ -->
+<section id="s3">
+  <div class="sec-head"><div class="sec-num">۳</div><h2>داستان یک خبر، از لحظهٔ انتشار تا رسیدن به دست تو</h2></div>
+  <div class="sec-sub">با ساعت واقعی مثال می‌زنیم تا دقیقاً بفهمی چه اتفاقی می‌افتد.</div>
+
+  <p>فرض کن ساعت <b>۹:۱۲</b> صبح، یک سایت خبری می‌نویسد: «بیت‌کوین از مرز ۷۰ هزار دلار گذشت». این خبر چه مسیری طی می‌کند؟</p>
+
+  <div class="flow">
+    <div class="step"><div class="snum">۹:۱۲</div>
+      <div><div class="st">خبر روی سایت منتشر شد</div>
+      <div class="sd">هنوز هیچ‌جای پروژه خبر ندارد.</div></div></div>
+    <div class="step"><div class="snum">۹:۱۵</div>
+      <div><div class="st">چرخهٔ بعدی شروع شد</div>
+      <div class="sd">سرور می‌رود سراغ همهٔ ۱۹۳ منبع. از هر منبع فقط «فهرست تازه» را می‌خواند؛ همهٔ سایت را دانلود نمی‌کند.</div></div></div>
+    <div class="step"><div class="snum">۹:۱۶</div>
+      <div><div class="st">خبر پیدا شد و آزمایش‌ها را رد کرد</div>
+      <div class="sd">بررسی شد که تکراری نباشد، قدیمی نباشد، تبلیغ نباشد، عنوانش معنی‌دار باشد و به یکی از ۱۳ دارایی ربط داشته باشد.</div></div></div>
+    <div class="step"><div class="snum">۹:۱۶</div>
+      <div><div class="st">امتیاز اعتبار گرفت</div>
+      <div class="sd">مثلاً ۰٫۹۱ از ۱. چون منبعش خبرگزاری معتبری است و تازه است. (اگر منبع ضعیف یا کلیک‌بیت بود، امتیازش می‌افتاد یا کامل حذف می‌شد.)</div></div></div>
+    <div class="step"><div class="snum">۹:۱۷</div>
+      <div><div class="st">فارسی شد</div>
+      <div class="sd">عنوان و خلاصه ترجمه شد. تعداد بازدیدها هم شمرده شد و برایش یک تصویر کوچک (کاور) پیدا شد.</div></div></div>
+    <div class="step"><div class="snum">۹:۱۷</div>
+      <div><div class="st">برچسب خورد</div>
+      <div class="sd">این خبر به «BTC» و به موضوع «قیمت / بازار» وصل شد.</div></div></div>
+    <div class="step hot"><div class="snum">۹:۱۸</div>
+      <div><div class="st">قیمت‌ها هم آمدند</div>
+      <div class="sd">سرور قیمت لحظه‌ای بیت‌کوین را از چند سرویس رایگان می‌گیرد و تغییر ۲۴ ساعتهٔ آن را حساب می‌کند.</div></div></div>
+    <div class="step hot"><div class="snum">۹:۱۹</div>
+      <div><div class="st">گزارش بیت‌کوین به‌روز شد</div>
+      <div class="sd">این خبر تازه، داخل گزارش بیت‌کوین در بخش «اثر خبرها» می‌نشیند؛ دقیقاً با نام منبع، تاریخ شمسی و ساعت تهران — تا بتوانی خودت راستی‌آزمایی کنی.</div></div></div>
+    <div class="step gold"><div class="snum">۹:۲۰</div>
+      <div><div class="st">روی داشبورد ظاهر شد</div>
+      <div class="sd">در «جریان زندهٔ اخبار» کارت این خبر ظاهر می‌شود؛ عنوان فارسی، منبع، امتیاز اعتبار، زمان و برچسب دارایی.</div></div></div>
+    <div class="step gold"><div class="snum">۹:۲۰</div>
+      <div><div class="st">(اگر تلگرام را فعال کرده باشی) پیام هم رفت</div>
+      <div class="sd">متن آماده با هشتگ و لینک به کانال تو ارسال می‌شود. همهٔ این‌ها در کمتر از ۵ دقیقه از لحظهٔ انتشار خبر.</div></div></div>
+  </div>
+
+  <div class="note info">
+    <div class="h">⏳ پس چقدر طول می‌کشد تا خبر جدید را ببینم؟</div>
+    <p>حداکثر به اندازهٔ فاصلهٔ یک چرخه: اگر چرخه هر ۳۰ دقیقه باشد، بدترین حالت ~۳۰ دقیقه بعد خبر را می‌بینی و معمولاً زودتر. یک دکمهٔ <b>«به‌روزرسانی»</b> هم هست که خودت چرخه را دستی اجرا کنی.</p>
+  </div>
+</section>
+
+<!-- ═══════════ ۴ ═══════════ -->
+<section id="s4">
+  <div class="sec-head"><div class="sec-num">۴</div><h2>ریز به ریز: پروژه چه چیزهایی دارد و هر کدام چه‌کار می‌کند؟</h2></div>
+  <div class="sec-sub">این بخش، فهرست کامل قابلیت‌هاست؛ از خواندن خبر تا فرستادن پیام.</div>
+
+  <!-- ۴.۱ -->
+  <h3><span class="n">۴٫۱</span> جمع‌آوری خبر از ۱۹۳ منبع</h3>
+  <p>پروژه به‌جای اینکه به یک سایت وابسته باشد، از <b>۱۹۳ منبع مختلف</b> خبر می‌خواند. فهرستشان داخل فایل <code>sources.py</code> است و شامل این خانواده‌ها می‌شود:</p>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>نوع منبع</th><th>تعداد</th><th>مثال‌ها و توضیح</th></tr></thead>
+      <tbody>
+        <tr><td>🪙 کریپتو</td><td class="num">۵۸</td><td>CoinDesk، CoinTelegraph، The Block، Decrypt، Bitcoin Magazine و…</td></tr>
+        <tr><td>🥇 فلزات و کالا</td><td class="num">۵۲</td><td>Kitco، GoldSeek، King World News و سایت‌های طلا/نقره</td></tr>
+        <tr><td>🌍 اقتصاد کلان</td><td class="num">۴۲</td><td>Bloomberg، WSJ، CNBC، ForexLive، MarketWatch و ده‌ها وایر دیگر</td></tr>
+        <tr><td>🔎 جستجوی گوگل‌نیوز</td><td class="num">۱۷</td><td>برای هر دارایی یک جستجوی زنده + فیلترهای وایر (رویترز، بلومبرگ…)</td></tr>
+        <tr><td>🧪 پژوهشی</td><td class="num">۱۳</td><td>تحلیل‌های عمیق: a16z، Messari، Rekt Capital، تحلیلگران مستقل</td></tr>
+        <tr><td>💬 شبکه‌های اجتماعی</td><td class="num">۱۱</td><td>ساب‌ردیت‌های Reddit (r/Bitcoin، r/CryptoCurrency و…) با فیلتر حداقل لایک</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="mini">
+    <div class="t"><span class="icon">👀</span> نکته</div>
+    <p>منابع به‌صورت «RSS» خوانده می‌شوند؛ یعنی خود سایت یک فهرست تازه از خبرهایش می‌دهد و برنامه لازم نیست کل صفحه را بکَند. این کار هم سریع‌تر است و هم مؤدبانه‌تر.</p>
+  </div>
+
+  <!-- ۴.۲ -->
+  <h3><span class="n">۴٫۲</span> ماشین «اعتبارسنجی»: خبر خوب را از آشغال جدا می‌کند</h3>
+  <p>هر خبر قبل از هر کاری یک امتیاز <b>۰ تا ۱</b> می‌گیرد. این امتیاز شفاف است؛ یعنی اگر بپرسی «چرا؟» جواب دارد:</p>
+  <ul>
+    <li><b>اعتبار منبع (پایه):</b> خبرگزاری رسمی نمرهٔ بالاتری از یک وبلاگ ناشناس می‌گیرد.</li>
+    <li><b>جریمه‌ها:</b> عنوان کلیک‌بیت (تا منفی ۰٫۱۵)، متن خیلی کوتاه (۰٫۲۰-)، ادعای بی‌سند (۰٫۱۰-) و لینک تبلیغاتی (۰٫۳۵-).</li>
+    <li><b>پاداش تازگی:</b> خبر ۶ ساعته ضریب کامل می‌گیرد؛ خبر ۴۸ ساعتهٔ گذشته کم‌تر.</li>
+    <li><b>حذف قطعی (بدون امتیاز):</b> محتوای تبلیغاتی و رپورتاژ، مباحث هرز، صفحه‌های سئوی بی‌ارزش، عنوان‌های خیلی کوتاه، خبرهای ورزشی و خبرهای قدیمی‌تر از پنجرهٔ خبری (پیش‌فرض ۲۴ ساعت).</li>
+  </ul>
+  <div class="note ok"><div class="h">🎛️ پنجرهٔ خبری قابل تغییر است</div><p>در تنظیمات می‌توانی از ۲۴ / ۴۸ / ۷۲ یا ۱۶۸ ساعت انتخاب کنی. یعنی «چقدر عقب‌تر را نگاه کنم؟» دست خودت است.</p></div>
+
+  <!-- ۴.۳ -->
+  <h3><span class="n">۴٫۳</span> برچسب دارایی و موضوع</h3>
+  <p>برنامه می‌فهمد هر خبر مربوط به کدام دارایی است. <b>۱۳ دارایی</b> تحت پایش هستند:</p>
+  <div class="grid">
+    <div class="mini"><div class="t">🪙 رمزارزها</div><p>بیت‌کوین (BTC)، اتریوم (ETH)، سولانا (SOL)، ریپل (XRP)، کاردانو (ADA)، بایننس‌کوین (BNB)، دوج‌کوین (DOGE)</p></div>
+    <div class="mini"><div class="t">🥇 فلزات و انرژی</div><p>طلا (XAU)، نقره (XAG)، نفت خام WTI</p></div>
+    <div class="mini"><div class="t">🌐 اقتصاد کلان</div><p>شاخص دلار (DXY)، شاخص S&amp;P ۵۰۰ بورس آمریکا، شاخص ترس VIX</p></div>
+  </div>
+  <p>هر دارایی «شخصیت» خودش را دارد: برای رمزارزها قیمت از صرافی‌ها و برای بقیه از یاهو فایننس خوانده می‌شود. می‌توانی دارایی دلخواه هم اضافه کنی و برنامه خودش نمادش را پیدا می‌کند.</p>
+
+  <!-- ۴.۴ -->
+  <h3><span class="n">۴٫۴</span> ترجمهٔ فارسی هوشمند</h3>
+  <ul>
+    <li>عنوان و خلاصهٔ هر خبر فارسی می‌شود؛ تاریخ‌ها <b>شمسی</b> و ساعت‌ها به وقت تهران نمایش داده می‌شوند.</li>
+    <li>یک حافظهٔ دائمی ترجمه (<code>translate_cache.json</code>) وجود دارد؛ برای همین راه‌اندازی‌های بعدی تقریباً هیچ ترجمهٔ تازه‌ای لازم نیست و خیلی سریع است.</li>
+    <li>متن کامل خبرها هم (اگر متن انگلیسی‌اش در دسترس باشد) روی درخواست تو به فارسی ترجمه می‌شود.</li>
+  </ul>
+
+  <!-- ۴.۵ -->
+  <h3><span class="n">۴٫۵</span> قیمت‌ها و دادهٔ بازار</h3>
+  <ul>
+    <li>قیمت لحظه‌ای ۱۳ دارایی + تغییر ۲۴ ساعته + نمودار جرقه‌ای کوچک در نوار بالای داشبورد.</li>
+    <li>تاریخ یک‌سالهٔ روزانه برای محاسبهٔ اندیکاتورها و گزارش.</li>
+    <li>چند منبع پشت‌سرهم برای قیمت (اگر اولی جواب نداد، دومی و سومی) تا قیمت بی‌خودی خالی نماند.</li>
+    <li>شاخص <b>ترس و طمع</b> برای هر دارایی به‌صورت جداگانه، ساخته‌شده از تیترهای همان دارایی.</li>
+  </ul>
+
+  <!-- ۴.۶ -->
+  <h3><span class="n">۴٫۶</span> گزارش تحلیلی برای هر دارایی — قلب پروژه</h3>
+  <p>برای هر دارایی یک گزارش «مؤسسی‌وار» ساخته می‌شود با <b>۸ بخش ثابت</b>:</p>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>#</th><th>بخش گزارش</th><th>چه می‌گوید (ساده)</th></tr></thead>
+      <tbody>
+        <tr><td class="num">۱</td><td>مرور بازار</td><td>قیمت الان کجاست، امروز چه‌قدر بالا/پایین رفته</td></tr>
+        <tr><td class="num">۲</td><td>محیط اقتصاد کلان</td><td>دلار، طلا، بورس و حال‌وهوای کلی اقتصاد دنیا</td></tr>
+        <tr><td class="num">۳</td><td>اثر خبرها</td><td>کدام خبرها روی این دارایی اثر گذاشتند (با نام منبع و تاریخ)</td></tr>
+        <tr><td class="num">۴</td><td>جریان پول و صندوق‌ها</td><td>پول به ETFها می‌رود یا بیرون می‌آید؛ ترس و طمع بازار</td></tr>
+        <tr><td class="num">۵</td><td>بازار مشتقه</td><td>نرخ بهرهٔ معاملات آتی، موقعیت‌های باز، نسبت خرید/فروش</td></tr>
+        <tr><td class="num">۶</td><td>تحلیل تکنیکال</td><td>میانگین‌ها، RSI، MACD، حمایت و مقاومت و روند</td></tr>
+        <tr><td class="num">۷</td><td>سناریوها</td><td>اگر قیمت بالای فلان برود چه می‌شود، اگر زیر فلان برود چه</td></tr>
+        <tr><td class="num">۸</td><td>جمع‌بندی</td><td>خلاصهٔ همه‌چیز در چند خط</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li>هر جمله‌ای که از خبری استفاده کرده، <b>دقیقاً منبعش را ذکر می‌کند</b> (نام سایت + تاریخ شمسی + ساعت تهران + امتیاز اعتبار). این یکی از مهم‌ترین ویژگی‌های پروژه است: هیچ حرفی بی‌سند نیست.</li>
+    <li>هم نسخهٔ فارسی دارد هم انگلیسی؛ می‌توانی «فقط متن» را کپی کنی یا خروجی <b>Markdown</b> بگیری.</li>
+    <li>اگر داده‌ای از یک سرویس نیاید، گزارش نمی‌شکند؛ همان‌جا یک خط صادقانه می‌نویسد «داده در دسترس نبود».</li>
+  </ul>
+
+  <!-- ۴.۷ -->
+  <h3><span class="n">۴٫۷</span> تقویم اقتصادی — «چه خبری قرار است منتشر شود؟»</h3>
+  <ul>
+    <li>رویدادهای مهم 경제ی دو هفته (این هفته و هفتهٔ بعد) با ساعت دقیق.</li>
+    <li>برای هر رویداد: عدد قبلی، پیش‌بینی و عدد واقعی بعد از انتشار + «غلغله» (تفاوت واقعی و پیش‌بینی).</li>
+    <li>درجهٔ اهمیت (بالا/متوسط/کم)، دستهٔ ارز (دلار، یورو، پوند…)، جستجو و فیلتر.</li>
+    <li>انتخاب <b>منطقهٔ زمانی</b> (پیش‌فرض تهران) و شمارش معکوس زنده تا رویداد بعدی.</li>
+    <li>برای هر رویداد انگلیسی یک توضیح چهارپاراگرافی («چیست؟ چطور اندازه‌گیری می‌شود؟ چرا مهم است؟ بازار چطور معامله‌اش می‌کند؟»).</li>
+    <li>بخش «واکنش تاریخی قیمت»: نشان می‌دهد در انتشارهای قبلی همین شاخص، طلا/دلار/کریپتو معمولاً چه واکنشی نشان داده‌اند (با برچسب «مرجع/زنده» و توضیح صادقانه که این آمار، مدل مرجع است نه بک‌تست زنده).</li>
+  </ul>
+
+  <!-- ۴.۸ -->
+  <h3><span class="n">۴٫۸</span> تابلوی زندهٔ ETF — ۵۶ صندوق</h3>
+  <p>یک تابلوی نرخ لحظه‌ای برای <b>۵۶ صندوق ETF</b> در <b>۱۰ خانواده</b>: بیت‌کوین اسپات (۱۲ صندوق)، فیوچرز بیت‌کوین، اهرمی/معکوس، اتریوم اسپات (۱۰)، سولانا، ریپل، ترکیبی، سهام کریپتو، کالا (طلا/نقره/نفت) و شاخص‌های بازار (S&amp;P، نزدک، دلار…).</p>
+  <ul>
+    <li>هر کارت: نام صندوق، قیمت، درصد تغییر، گروه. نام‌ها از خودِ منبع خوانده می‌شود تا برچسب قدیمی نماند.</li>
+    <li>فیلتر گروه + کادر جستجو برای پیدا کردن سریع بین ۵۶ کارت.</li>
+  </ul>
+
+  <!-- ۴.۹ -->
+  <h3><span class="n">۴٫۹</span> ایده‌های تریدینگ‌ویو</h3>
+  <ul>
+    <li>ایده‌های تحلیلگران تریدینگ‌ویو برای هر دارایی جمع می‌شود؛ همراه با <b>تصویر نمودار</b>، متن، تعداد لایک/کامنت و <b>لینک درست</b> به صفحهٔ اصلی ایده.</li>
+    <li>فیلترهایی شبیه خود تریدینگ‌ویو: محبوب‌ترین / جدیدترین / بیشترین دنبال‌کننده؛ نوع: منتخب سردبیر، آموزشی، ویدیو.</li>
+    <li>هر ایده را می‌توانی داخل برنامه باز کنی و با یک دکمه <b>فارسی‌اش</b> کنی.</li>
+  </ul>
+
+  <!-- ۴.۱۰ -->
+  <h3><span class="n">۴٫۱۰</span> آرشیو، نشان‌گذاری و جستجو</h3>
+  <ul>
+    <li><b>آرشیو هوشمند:</b> خبرهایی که از پنجرهٔ خبری بیرون رفتند، حذف نمی‌شوند؛ به آرشیو می‌روند تا بعداً پیدا شوند.</li>
+    <li><b>نشان‌شده‌ها:</b> هر خبری را می‌توانی ستاره کنی و بعداً بخوانی (حتی آفلاین).</li>
+    <li><b>جستجوی محلی:</b> روی همهٔ خبرهای ذخیره‌شده در مرورگر یک ایندکس متن کامل ساخته می‌شود؛ جستجو در چند میلی‌ثانیه انجام می‌شود و آفلاین هم کار می‌کند.</li>
+    <li>متن کامل هر خبر در پنجرهٔ مجزا باز می‌شود (و برای سایت‌های سخت‌گیر، از راه‌های جایگزین خوانده می‌شود).</li>
+  </ul>
+
+  <!-- ۴.۱۱ -->
+  <h3><span class="n">۴٫۱۱</span> سلامت منابع و خودترمیمی</h3>
+  <ul>
+    <li>صفحه‌ای که برای هر ۱۹۳ منبع می‌گوید: سالم است یا خراب؟ چقدر طول کشید؟ چند خبر داد؟ چرا خراب شد؟</li>
+    <li>اگر منبعی چند چرخه پشت‌سرهم خراب شود، برنامه خودش مدتی خنکش می‌کند و بعد دوباره امتحان می‌کند (مدارشکن و بازیابی خودکار).</li>
+    <li>دکمهٔ <b>«بازیابی»</b>: یک کلیک، همهٔ منابع خراب را دوباره امتحان می‌کند (راه‌های جایگزین: نسخهٔ AMP، کاربر جایگزین، آینهٔ گوگل‌نیوز).</li>
+    <li>نمودار کوچک تاریخچهٔ سلامت هر منبع در ۳۰ چرخهٔ اخیر.</li>
+  </ul>
+
+  <!-- ۴.۱۲ -->
+  <h3><span class="n">۴٫۱۲</span> استودیو تولید محتوا — «چه سوژه‌ای امروز ارزش ساختن دارد؟»</h3>
+  <p>این یکی از بخش‌های جدید و جذاب پروژه است. فرقش با خبر این است:</p>
+  <div class="cols">
+    <div class="mini"><div class="t">📰 خبر می‌گوید…</div><p>«واقعیت چیست؟» و با نام منبع و امتیاز اعتبار.</p></div>
+    <div class="mini"><div class="t">🎬 استودیو می‌گوید…</div><p>«مردم چه چیزی را می‌بینند؟» — با خواندن تقاضای واقعی از یوتیوب، کانال‌های تلگرام و ردیت.</p></div>
+  </div>
+  <ul>
+    <li><b>رتبه‌بندی سوژه‌ها</b> با ۷ فاکتور شفاف: اعتبار، پوشش (چند منبع گفته‌اند)، تناسب با مخاطب، تازگی، یوتیوب، تلگرام، ردیت.</li>
+    <li>اعتبار یک <b>دروازه</b> است نه یک امتیاز ساده: خبر زیر حد اعتبار، هرچقدر هم جذاب باشد، وارد لیست نمی‌شود.</li>
+    <li>برای هر سوژه <b>پیش‌نویس</b> می‌سازد: کپشن، کاروسل ۵ تا ۸ اسلایدی، و متن ویدیوی ۳۰ تا ۶۰ ثانیه‌ای.</li>
+    <li>اگر کلید هوش مصنوعی بدهی، متن‌ها با AI نوشته می‌شود؛ اگر ندهی، با قالب‌های قاعده‌مند از خودِ خبر ساخته می‌شود. در هر دو حالت <b>هیچ عددی جعل نمی‌شود</b>.</li>
+    <li>اسلایدها را می‌توانی به‌صورت تصویر (PNG) بیرون بگیری یا نسخهٔ چاپی بگیری.</li>
+    <li>انتشار به تلگرام فقط با تأیید خودت انجام می‌شود (بدون کلیک تو، هیچ‌چیز ارسال نمی‌شود).</li>
+  </ul>
+
+  <!-- ۴.۱۳ -->
+  <h3><span class="n">۴٫۱۳</span> «کانال طلا و سکه» — پیشنهاد خبرهای وایرال</h3>
+  <p>یک صفحهٔ مخصوص که برای یک پیج فارسی طلا/سکه/ارز تنظیم شده است:</p>
+  <ul>
+    <li>هر خبر بر اساس «شبیه یک پیج طلا و سکه بودن» غربال می‌شود: اخبار قیمت داخلی، نوسان بازار، بازارهای جهانی، اخبار طلا.</li>
+    <li>خبرهای بی‌ربط (هک، دی‌فای، میم‌کوین، حاشیهٔ سلبریتی) <b>از ابتدا حذف</b> می‌شوند؛ چون هویت یک پیج با چیزهایی که منتشر نمی‌کند تعریف می‌شود.</li>
+    <li>آن‌چه می‌ماند یک نمرهٔ «احتمال وایرال شدن» می‌خورد که از ۵ عامل ساخته می‌شود: شوک بازار، جیب مخاطب (ارتباط با قیمت‌های داخلی)، زاویهٔ چشمگیر، تقاضای اجتماعی واقعی و تازگی.</li>
+    <li>متن هیچ‌چیزی اینجا ساخته نمی‌شود؛ فقط <b>پیشنهاد + دلیلش</b> به تو داده می‌شود تا خودت انتخاب کنی.</li>
+  </ul>
+
+  <!-- ۴.۱۴ -->
+  <h3><span class="n">۴٫۱۴</span> هوش مصنوعی و تحلیل‌های خودکار</h3>
+  <ul>
+    <li><b>خلاصهٔ هوشمند (اختیاری):</b> اگر کلید OpenAI (یا OpenRouter) بدهی، برای هر دارایی خلاصهٔ خبرهایش نوشته می‌شود.</li>
+    <li><b>تشخیص ناهنجاری (بدون کلید):</b> برنامه یاد می‌گیرد چه ساعتی و چه تعداد خبر «عادی» است و اگر یک دارایی ناگهان پرش خبری بگیرد، هشدار می‌دهد.</li>
+    <li><b>پیش‌بینی روند (بدون کلید):</b> از روند احساسات خبرها و قیمت، یک برآورد آماری ساده می‌دهد. این «مدل سادهٔ محلی» است، نه پیش‌بینی جادویی.</li>
+    <li><b>تحلیل احساسات:</b> مثبت یا منفی بودن هر خبر با واژه‌نامهٔ مالی فارسی/انگلیسی سنجیده می‌شود.</li>
+    <li><b>تشخیص خبر تکراری:</b> یک خبر که توسط ۵ سایت بازنشر شده، حدود ۵ بار شمرده نمی‌شود.</li>
+  </ul>
+
+  <!-- ۴.۱۵ -->
+  <h3><span class="n">۴٫۱۵</span> فرستادن پیام و یکپارچه‌سازی با سرویس‌های دیگر</h3>
+  <div class="grid">
+    <div class="mini"><div class="t">✈️ تلگرام</div><p>توکن ربات و آیدی کانال؛ متن قالب‌پذیر با متغیرها (عنوان، خلاصه، امتیاز، هشتگ)؛ پیش‌نمایش زنده؛ ارسال دستی یا خودکار؛ ساعت سکوت؛ حداقل اعتبار؛ لینک در خط جدا.</p></div>
+    <div class="mini"><div class="t">🅱️ بله</div><p>همان امکانات تلگرام برای پیام‌رسان بلهٔ ایرانی.</p></div>
+    <div class="mini"><div class="t">🎮 دیسکورد</div><p>ارسال خلاصهٔ بازار به کانال دیسکورد (اختیاری).</p></div>
+    <div class="mini"><div class="t">📧 ایمیل</div><p>خلاصهٔ هفتگی ایمیلی با HTML مرتب (اختیاری، با تنظیمات SMTP).</p></div>
+    <div class="mini"><div class="t">📈 وب‌هوک تریدینگ‌ویو</div><p>تریدینگ‌ویو می‌تواند هشدارهایش را به این پروژه بفرستد و اینجا ذخیره/نمایش داده شوند.</p></div>
+    <div class="mini"><div class="t">🔔 قوانین هشدار</div><p>در داشبورد می‌توانی قانون بسازی: «اگر قیمت نفت بالای فلان رفت» یا «اگر خبری با کلمهٔ فلان و اعتبار بالای ۵۰٪ آمد» → پیام، صدا، اعلان مرورگر یا تلگرام.</p></div>
+  </div>
+
+  <!-- ۴.۱۶ -->
+  <h3><span class="n">۴٫۱۶</span> API — برای برنامه‌نویس‌ها</h3>
+  <ul>
+    <li>کل پروژه ۷۵ آدرس (endpoint) دارد؛ بخشی از آن‌ها نسخهٔ رسمی و مستندساز‌ی‌شده‌اند: <code>/api/v1/articles</code> ، <code>/api/v1/indicators/&lt;symbol&gt;</code> ، <code>/api/v1/sentiment</code> ، <code>/api/v1/calendar</code> ، <code>/api/v1/reports/&lt;symbol&gt;</code> ، <code>/api/v1/health</code>.</li>
+    <li>مستندات تعاملی (Swagger/OpenAPI) در آدرس <code>/api/docs</code> نمایش داده می‌شود.</li>
+    <li>دسترسی با «کلید API» (<code>X-API-Key</code>)؛ کلیدها در <code>data/api_keys.json</code> مدیریت می‌شوند.</li>
+    <li>دو پلن تعریف شده: <b>Free</b> (روزانه ۱۰۰ درخواست، ۳ هشدار) و <b>Pro</b> (روزانه ۱۰۰۰ درخواست، هشدار نامحدود) — یعنی کد برای فروش اشتراکی هم آماده است.</li>
+  </ul>
+
+  <!-- ۴.۱۷ -->
+  <h3><span class="n">۴٫۱۷</span> کار کردن بدون اینترنت (آفلاین) — PWA</h3>
+  <ul>
+    <li>داشبورد یک <b>برنامهٔ وب نصب‌شدنی</b> است؛ می‌توانی روی موبایل یا دسکتاپ مثل یک اپ نصبش کنی.</li>
+    <li>یک «کارگر سرویس» (Service Worker) پشت صفحه هست که آخرین پاسخ سرور را نگه می‌دارد.</li>
+    <li>اگر اینترنت یا سرور قطع شود، صفحه از حافظهٔ داخلی مرورگر باز می‌شود: خبرها، گزارش‌ها، تقویم و جستجو کار می‌کنند.</li>
+    <li>بالای صفحه یک نشانگر می‌گوید: «آنلاین» / «در حال همگام‌سازی» / «آفلاین (حالت حافظه)».</li>
+  </ul>
+
+  <!-- ۴.۱۸ -->
+  <h3><span class="n">۴٫۱۸</span> سرعت و روان بودن</h3>
+  <ul>
+    <li>لیست خبر اگر ۶۰۰ تا هم باشد، فقط کارت‌هایی که جلوی چشم تو هستند ساخته می‌شوند (پنجره‌سازی DOM). پس صفحه کند نمی‌شود.</li>
+    <li>یک «جریان زنده» (Stream) وجود دارد که قیمت‌ها و خبرهای تازه را بدون رفرش کردن صفحه می‌فرستد.</li>
+    <li>قیمت‌ها فقط در همان جایی که عوض شده‌اند به‌روز می‌شوند، نه کل صفحه.</li>
+    <li>تمام ساعت‌های داخلی صفحه زیر یک «ساعت مرکزی» جمع شده‌اند تا وقتی تب پنهان است، باتری و CPU هدر نرود.</li>
+  </ul>
+
+  <!-- ۴.۱۹ -->
+  <h3><span class="n">۴٫۱۹</span> ردیاب نهنگ‌ها (شفاف و صادقانه)</h3>
+  <p>یک صفحه هست که «جابه‌جایی‌های بزرگ پول» را نشان می‌دهد: خروج بیت‌کوین از صرافی، ورود به صرافی، مینت استیبل‌کوین‌ها و… با کارت‌های خلاصه و جدول تراکنش‌ها.</p>
+  <div class="note warn">
+    <div class="h">⚠️ حقیقت این بخش را هم بگویم</div>
+    <p>در وضعیت فعلی، داده‌های ردیاب نهنگ <b>شبیه‌سازی‌شده و نمایشی</b> هستند (برنامه خودش تراکنش‌های نمونهٔ محتمل را می‌سازد) و به یک سرویس زندهٔ آن‌چین وصل نیست. یعنی ظاهر و منطق نمایش آماده است، اما عددها را برای تصمیم‌گیری واقعی استفاده نکن. اتصال به داده واقعی یک «یک قدم بعدی» است.</p>
+  </div>
+</section>
+
+<!-- ═══════════ ۵ ═══════════ -->
+<section id="s5">
+  <div class="sec-head"><div class="sec-num">۵</div><h2>داشبورد: ۱۵ صفحه، هر کدام چه‌کار می‌کند؟</h2></div>
+  <div class="sec-sub">اینها همان دکمه‌هایی هستند که در منوی سمت راست صفحه می‌بینی.</div>
+
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>صفحه (نام در منو)</th><th>به زبان ساده چه‌کار می‌کند</th></tr></thead>
+      <tbody>
+        <tr><td>📰 جریان زندهٔ اخبار</td><td>قلبِ خواندن. کارت‌های خبری فارسی با تصویر، امتیاز اعتبار، فیلتر (جستجو، منبع، نوع، مرتب‌سازی، بازهٔ اعتبار) و برچسب دارایی/موضوع. بالای آن یک ردیف «اخبار منتخب» به‌صورت چرخان وجود دارد.</td></tr>
+        <tr><td>📊 تحلیل و گزارش‌ها</td><td>گزارش ۸ بخشی هر دارایی + نمودار حرفه‌ای تریدینگ‌ویو + نشانگر ترس و طمع همان دارایی + کادر منابع هر بخش + دکمهٔ کپی/مارک‌داون/ترجمه.</td></tr>
+        <tr><td>🎬 استودیو محتوا</td><td>رتبه‌بندی سوژه‌ها بر اساس سیگنال‌های تقاضای شبکه‌های اجتماعی و ساخت پیش‌نویس کپشن/کاروسل/اسکریپت + خروجی تصویری اسلایدها.</td></tr>
+        <tr><td>🥇 کانال طلا و سکه</td><td>پیشنهادهای وایرال مخصوص یک پیج طلا/سکه/ارز، با نمره و دلایل و فیلتر دسته.</td></tr>
+        <tr><td>💡 ایده‌های تریدینگ‌ویو</td><td>ایده‌های تحلیلگران با تصویر نمودار، لینک، لایک/کامنت و ترجمهٔ فارسی.</td></tr>
+        <tr><td>📅 تقویم اقتصادی</td><td>رویدادهای مهم اقتصادی دو هفته، با عدد واقعی/پیش‌بینی، شمارش معکوس، منطقهٔ زمانی و توضیح انگلیسی هر رویداد.</td></tr>
+        <tr><td>🏦 نرخ زندهٔ ETF</td><td>تابلوی قیمت ۵۶ صندوق ETF در ۱۰ خانواده با فیلتر و جستجو.</td></tr>
+        <tr><td>🐋 ردیاب نهنگ‌ها</td><td>نمایش جابه‌جایی‌های بزرگ پول (در وضعیت فعلی: نمایشی/شبیه‌سازی‌شده).</td></tr>
+        <tr><td>🗄️ آرشیو هوشمند</td><td>خبرهای قدیمی‌تر که از پنجرهٔ زمانی بیرون رفته‌اند؛ همچنان قابل خواندن و جستجو.</td></tr>
+        <tr><td>⭐ نشان‌شده‌ها</td><td>خبرهایی که خودت ستاره کرده‌ای.</td></tr>
+        <tr><td>🩺 سلامت منابع</td><td>وضعیت ۱۹۳ منبع: سالم/خراب، سرعت، تعداد خبر، علت خرابی، تاریخچه و دکمهٔ بازیابی.</td></tr>
+        <tr><td>📨 پیام‌رسان‌ها</td><td>تنظیمات تلگرام/بله + قوانین هشدار هوشمند + پیش‌نمایش و ارسال آزمایشی.</td></tr>
+        <tr><td>⚙️ تنظیمات داشبورد</td><td>فاصلهٔ چرخه (۱۵/۳۰/۶۰ دقیقه)، پنجرهٔ خبری (۲۴ تا ۱۶۸ ساعت)، دارایی‌های فعال، گزارش خودکار، تنظیمات AI و فیلترها.</td></tr>
+        <tr><td>📡 مدیریت منابع خبری</td><td>روشن/خاموش کردن هر منبع، اضافه کردن منبع دلخواه (RSS).</td></tr>
+        <tr><td>💹 مدیریت دارایی‌ها</td><td>اضافه کردن دارایی دلخواه با نماد؛ برنامه خودش نماد درست را پیدا می‌کند و گزارش می‌سازد.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note info">
+    <div class="h">🧩 نوار بالای صفحه</div>
+    <p>وضعیت چرخه + شمارش معکوس تا چرخهٔ بعد + دکمهٔ به‌روزرسانی دستی + نوار قیمت لحظه‌ای (متغیر) + نشانگر وضعیت آنلاین/آفلاین. منوی سمت راست هم قابل جمع‌شدن است تا فضای بیشتری بگیری.</p>
+  </div>
+</section>
+
+<!-- ═══════════ ۶ ═══════════ -->
+<section id="s6">
+  <div class="sec-head"><div class="sec-num">۶</div><h2>زیر پوست پروژه: اصلاً چطور کار می‌کند؟</h2></div>
+  <div class="sec-sub">اینجا کمی فنی می‌شویم ولی همچنان ساده. اگر نمی‌خواهی، از این بخش بپر.</div>
+
+  <h3><span class="n">۶٫۱</span> سه لایهٔ پروژه</h3>
+  <div class="grid">
+    <div class="mini"><div class="t"><span class="icon">🧠</span> لایهٔ موتور (پایتون)</div>
+      <p>همهٔ کارهای سنگین: خواندن منابع، اعتبارسنجی، ترجمه، محاسبهٔ اندیکاتور، ساخت گزارش، ارسال پیام، API. این لایه با زبان <b>پایتون</b> و چارچوب <b>Flask</b> نوشته شده است.</p></div>
+    <div class="mini"><div class="t"><span class="icon">🖥️</span> لایهٔ نمایش (مرورگر)</div>
+      <p>یک صفحهٔ فارسی راست‌به‌چپ که تمام ظاهر و تعامل‌هایش داخل یک فایل است: HTML + CSS + JavaScript. بدون مرحلهٔ build و بدون فریم‌ورک سنگین.</p></div>
+    <div class="mini"><div class="t"><span class="icon">💾</span> لایهٔ حافظه</div>
+      <p>دو جا: یک دیتابیس <b>SQLite</b> روی کامپیوتر (برای خبرها، متن‌ها و آرشیو) و یک حافظهٔ <b>IndexedDB</b> داخل مرورگر (برای حالت آفلاین و جستجوی سریع).</p></div>
+  </div>
+
+  <h3><span class="n">۶٫۲</span> مسیر داده در یک چرخه (نمای فنی)</h3>
+  <div class="flow">
+    <div class="step"><div class="snum">A</div><div><div class="st">خواندن موازی منابع</div><div class="sd">۱۹۳ فید به‌صورت هم‌زمان (چند ده نخ/Thread) خوانده می‌شود؛ فیدهای خراب جداگانه علامت می‌خورند و روی بقیه اثر نمی‌گذارند.</div></div></div>
+    <div class="step hot"><div class="snum">B</div><div><div class="st">پاک‌سازی و امتیازدهی</div><div class="sd">حذف تکراری‌ها، بررسی الگوهای تبلیغاتی/اسپم/ورزشی، تشخیص ربط به دارایی، محاسبهٔ امتیاز اعتبار.</div></div></div>
+    <div class="step"><div class="snum">C</div><div><div class="st">ترجمه و برچسب</div><div class="sd">ترجمهٔ عنوان/خلاصه (با کش دائمی) + تعیین دارایی‌ها و موضوع + پیدا کردن تصویر کاور.</div></div></div>
+    <div class="step"><div class="snum">D</div><div><div class="st">بازار</div><div class="sd">قیمت‌های لحظه‌ای و تاریخ یک‌سالهٔ ۱۳ دارایی + شاخص ترس و طمع + رتبه‌بندی شده در حافظهٔ سرور.</div></div></div>
+    <div class="step gold"><div class="snum">E</div><div><div class="st">ساخت گزارش‌ها</div><div class="sd">برای هر دارایی، گزارش ۸ بخشی با انتخاب خبرهای معتبر و نوشتن ارجاع‌ها (منبع + تاریخ شمسی + ساعت).</div></div></div>
+    <div class="step gold"><div class="snum">F</div><div><div class="st">ذخیره‌سازی</div><div class="sd">خبرهای تازه در SQLite (جدول مقالات)، متن‌های کامل و ترجمه‌ها در جدول مخصوص؛ کش‌های قیمت/ترجمه هم روی دیسک نوشته می‌شوند.</div></div></div>
+    <div class="step"><div class="snum">G</div><div><div class="st">تحویل</div><div class="sd">مرورگر با یک درخواست، بستهٔ کامل داده را می‌گیرد. یک «جریان» جداگانه هم قیمت/خبر تازه را بدون رفرش می‌فرستد. تلگرام/بله/ایمیل/دیسکورد هم همین‌جا کار می‌کنند.</div></div></div>
+  </div>
+
+  <h3><span class="n">۶٫۳</span> نقشهٔ فایل‌ها — هر فایل، یک مسئولیت</h3>
+  <p>پروژه از چند فایل تشکیل شده که هر کدام یک کار مشخص دارند. این جدول، نسخهٔ سادهٔ همان ساختار است:</p>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>فایل</th><th>به زبان ساده، چه‌کار می‌کند</th></tr></thead>
+      <tbody>
+        <tr><td><code>app.py</code></td><td><b>مغز پروژه.</b> سرور، چرخهٔ ۳۰ دقیقه‌ای، ۷۵ آدرس API، تنظیمات، تلگرام/بله، سلامت منابع و همهٔ هماهنگی‌ها.</td></tr>
+        <tr><td><code>dashboard_html.py</code></td><td><b>کل صفحهٔ داشبورد.</b> ظاهر، رنگ‌ها، ۱۵ صفحه، تمام منطق مرورگر (چند هزار خط JavaScript) داخل همین یک فایل.</td></tr>
+        <tr><td><code>sources.py</code></td><td><b>دفترچهٔ تلفن پروژه.</b> فهرست ۱۹۳ منبع، ۱۳ دارایی، الگوهای تشخیص موضوع و قوانین اعتبارسنجی.</td></tr>
+        <tr><td><code>scraper.py</code></td><td><b>خبرخوان.</b> منابع را موازی می‌خواند، متن و تصویر را در می‌آورد، خبر خراب را تشخیص می‌دهد.</td></tr>
+        <tr><td><code>report_generator.py</code></td><td><b>نویسندهٔ گزارش.</b> هشت بخش هر گزارش و انتخاب خبرهای مرجع و ساخت ارجاع‌ها.</td></tr>
+        <tr><td><code>calendar_data.py</code></td><td><b>تقویم و داده‌های کلان.</b> رویدادهای اقتصادی، ترس و طمع، نرخ دلار/طلا/نفت/شاخص‌ها، جلسات بازار.</td></tr>
+        <tr><td><code>market_data.py</code></td><td><b>قیمت‌ها.</b> گرفتن قیمت لحظه‌ای و تاریخ یک‌ساله + حافظهٔ موقت روی دیسک.</td></tr>
+        <tr><td><code>indicators.py</code></td><td><b>ماشین‌حساب تحلیل.</b> میانگین‌ها، RSI، MACD، بولینگر، حمایت/مقاومت، همبستگی.</td></tr>
+        <tr><td><code>translate.py</code></td><td><b>مترجم.</b> ترجمهٔ فارسی + کش دائمی + تبدیل اعداد فارسی/انگلیسی.</td></tr>
+        <tr><td><code>fa_format.py</code></td><td><b>تقویم‌نگار.</b> تاریخ شمسی، ساعت تهران، اعداد فارسی، «۵ دقیقه پیش» و…</td></tr>
+        <tr><td><code>news_bypass.py</code></td><td><b>در بازکن متن خبر.</b> برای سایت‌های سخت‌گیر، چند راه مختلف را امتحان می‌کند تا متن کامل را بگیرد.</td></tr>
+        <tr><td><code>database.py</code></td><td><b>حافظهٔ دائمی.</b> نوشتن و خواندن خبرها، متن‌ها و آرشیو در SQLite تا با ری‌استارت چیزی از دست نرود.</td></tr>
+        <tr><td><code>news_intelligence.py</code></td><td><b>تحلیل‌گر خبر.</b> تشخیص تکراری، ناهنجاری، و رابطهٔ بین موج خبرها و حرکت قیمت.</td></tr>
+        <tr><td><code>sentiment.py</code></td><td><b>حس‌سنج.</b> تشخیص مثبت/منفی بودن خبر با واژه‌نامه‌های مالی.</td></tr>
+        <tr><td><code>tv_ideas.py</code></td><td><b>ایده‌خوان تریدینگ‌ویو.</b> جمع‌آوری ایده‌ها + تصویر + لینک درست + تعداد دنبال‌کنندهٔ نویسنده.</td></tr>
+        <tr><td><code>reddit_scores.py</code></td><td><b>شمارندهٔ لایک ردیت.</b> تعداد رأی پست‌های ردیت را از آرشیو عمومی می‌گیرد تا فیلتر «حداقل ۲۰۰۰ رأی» کار کند.</td></tr>
+        <tr><td><code>content_studio.py</code></td><td><b>سوژه‌یاب استودیو.</b> رتبه‌بندی خبر برای تبدیل‌شدن به محتوا + ساخت پیش‌نویس کپشن/کاروسل/اسکریپت.</td></tr>
+        <tr><td><code>social_signals.py</code></td><td><b>رادار تقاضا.</b> خواندن بازدید/محبوبیت از یوتیوب، کانال‌های تلگرام و ردیت.</td></tr>
+        <tr><td><code>channel_profile.py</code></td><td><b>غربال پیج طلا و سکه.</b> تشخیص این‌که خبری به این پیج می‌خورد یا نه + نمرهٔ وایرال.</td></tr>
+        <tr><td><code>news_editorial.py</code></td><td><b>ویراستار.</b> ۱۷ قانون نگارش خبر برای انتشار (عنوان کوتاه، خلاصهٔ ۲ تا ۴ جمله، ایموجی استاندارد و…).</td></tr>
+        <tr><td><code>ai_features.py</code></td><td><b>بخش هوش مصنوعی.</b> خلاصهٔ اختیاری با کلید، پیش‌بینی آماری و تشخیص ناهنجاری بدون کلید.</td></tr>
+        <tr><td><code>billing.py</code> + <code>middleware.py</code></td><td><b>اشتراک‌ها.</b> پلن Free/Pro، کلید API، محدودیت روزانه و شمارش مصرف.</td></tr>
+        <tr><td><code>api_docs.py</code></td><td><b>راهنمای API.</b> مستندات OpenAPI که در <code>/api/docs</code> نشان داده می‌شود.</td></tr>
+        <tr><td><code>logging_config.py</code></td><td><b>دفترچهٔ رویدادها.</b> لاگ‌های مرتب در پوشهٔ <code>logs/</code>.</td></tr>
+        <tr><td><code>integrations/</code></td><td><b>رابط‌های بیرونی.</b> دیسکورد، ایمیل هفتگی و وب‌هوک تریدینگ‌ویو.</td></tr>
+        <tr><td><code>web/</code></td><td><b>لایهٔ آفلاین.</b> کارگر سرویس، موتور حافظه، اسکریپت استودیو و کانال + آیکن‌ها.</td></tr>
+        <tr><td><code>tests/</code></td><td><b>آزمایشگاه.</b> ۹ فایل تست که جلوی خراب‌شدن بی‌صدا را می‌گیرند.</td></tr>
+        <tr><td><code>tools/</code></td><td><b>جعبه‌ابزار توسعه.</b> چک‌کردن جاوااسکریپت، ساخت تم، ساخت نسخهٔ نمونهٔ آفلاین و…</td></tr>
+        <tr><td><code>reports/</code></td><td><b>آخرین گزارش هر دارایی</b> به‌صورت فایل JSON (۱۴ فایل).</td></tr>
+        <tr><td><code>settings.json</code></td><td><b>تنظیمات تو.</b> فاصلهٔ چرخه، پنجرهٔ خبری، دارایی‌ها، منابع، تلگرام/بله و…</td></tr>
+        <tr><td><code>.mohmd_news.db</code></td><td><b>دیتابیس اصلی.</b> خبرها، متن‌های کامل، ترجمه‌ها و آرشیو.</td></tr>
+        <tr><td>کش‌ها</td><td><code>.translate_cache.json</code> ترجمه‌ها، <code>.market_cache.json</code> قیمت‌ها، <code>.reddit_scores.json</code> رأی‌ها، <code>.content_studio_cache.json</code> سیگنال‌ها.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3><span class="n">۶٫۴</span> چند تصمیم مهم طراحی (چرا این‌طور ساخته شده؟)</h3>
+  <ul>
+    <li><b>همه‌چیز رایگان و بدون کلید:</b> سعی شده هیچ سرویس پولی‌ای لازم نباشد؛ هر جا کلید لازم است (AI، ایمیل) اختیاری است و بدون آن هم پروژه کار می‌کند.</li>
+    <li><b>هر سرویس مستقل خراب می‌شود:</b> اگر قیمت نیامد یا تقویم قطع شد، بقیهٔ پروژه سالم می‌ماند و همان‌جا یک پیام صادقانه می‌نویسد.</li>
+    <li><b>امتیازها قابل توضیح‌اند:</b> برای هر نمره (اعتبار خبر، وایرال، رتبهٔ سوژه) فاکتورهایش هم نشان داده می‌شود؛ هیچ جعبهٔ سیاهی وجود ندارد.</li>
+    <li><b>فارسی‌محور:</b> تاریخ شمسی، اعداد فارسی، چیدمان راست‌به‌چپ و متن‌های قالب‌بندی‌شدهٔ فارسی برای انتشار در پیام‌رسان‌ها.</li>
+    <li><b>بدون مرحلهٔ ساخت (No build):</b> پایتون و یک فایل HTML؛ همین که پایتون داشته باشی، پروژه اجرا می‌شود.</li>
+  </ul>
+</section>
+
+<!-- ═══════════ ۷ ═══════════ -->
+<section id="s7">
+  <div class="sec-head"><div class="sec-num">۷</div><h2>اعداد پروژه (یک نگاه آماری)</h2></div>
+  <div class="sec-sub">این عددها را همین حالا از خود پروژه گرفتم، نه از حافظه.</div>
+
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>شاخص</th><th>مقدار</th><th>توضیح کوتاه</th></tr></thead>
+      <tbody>
+        <tr><td>منابع خبری</td><td class="num">۱۹۳</td><td>۵۸ کریپتو + ۵۲ فلزات + ۴۲ کلان + ۱۷ جستجو + ۱۳ پژوهشی + ۱۱ اجتماعی</td></tr>
+        <tr><td>دارایی‌های تحت پایش</td><td class="num">۱۳</td><td>BTC, ETH, SOL, XRP, ADA, BNB, DOGE, XAU, XAG, WTI, DXY, SPX, VIX</td></tr>
+        <tr><td>صفحه‌های داشبورد</td><td class="num">۱۵</td><td>از جریان اخبار تا مدیریت دارایی‌ها</td></tr>
+        <tr><td>آدرس‌های API</td><td class="num">۷۵</td><td>Web + REST + استریم + مدیریت</td></tr>
+        <tr><td>صندوق‌های ETF</td><td class="num">۵۶</td><td>در ۱۰ خانواده</td></tr>
+        <tr><td>خطوط پایتون</td><td class="num">~۲۷٬۰۰۰</td><td>کل ماژول‌های پایتون</td></tr>
+        <tr><td>خطوط صفحهٔ داشبورد</td><td class="num">~۹٬۸۰۰</td><td>یک فایل، شامل همهٔ HTML/CSS/JS</td></tr>
+        <tr><td>تست‌های خودکار</td><td class="num">۱۶۱</td><td>۹ فایل تست (شامل تست منطق مرورگر)</td></tr>
+        <tr><td>فاصلهٔ پیش‌فرض چرخه</td><td class="num">۳۰ دقیقه</td><td>قابل تغییر به ۱۵ یا ۶۰</td></tr>
+        <tr><td>پنجرهٔ خبری پیش‌فرض</td><td class="num">۲۴ ساعت</td><td>قابل تغییر تا ۱۶۸ ساعت</td></tr>
+        <tr><td>پورت پيش‌فرض</td><td class="num">5055</td><td><code>http://localhost:5055</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ ۸ ═══════════ -->
+<section id="s8">
+  <div class="sec-head"><div class="sec-num">۸</div><h2>چطور اجرا کنیم؟ (قدم‌به‌قدم)</h2></div>
+  <div class="sec-sub">روی ویندوز ساده‌ترین راه: فقط فایل start.bat را دوبار کلیک کن.</div>
+
+  <h3><span class="n">۸٫۱</span> راه سادهٔ ویندوز</h3>
+  <ol>
+    <li>فایل <code>start.bat</code> را دوبار کلیک کن.</li>
+    <li>بار اول خودش یک محیط پایتون می‌سازد و بسته‌های لازم را نصب می‌کند (چند دقیقه طول می‌کشد).</li>
+    <li>اگر برنامه هنگام اجرا از نبود یک کتابخانه شکایت کرد، فقط این دستور را یک‌بار اجرا کن: <code>.venv\Scripts\python -m pip install -r requirements.txt</code></li>
+    <li>مرورگر خودش باز می‌شود: <code>http://localhost:5055</code></li>
+    <li>صبر کن چرخهٔ اول تمام شود (حدود ۲ تا ۴ دقیقه) تا خبرها و قیمت‌ها بیایند.</li>
+  </ol>
+
+  <h3><span class="n">۸٫۲</span> راه دستی (هر سیستم‌عاملی)</h3>
+  <pre style="background:var(--bg-deep);border:1px solid var(--rule);border-radius:var(--r2);padding:14px 16px;overflow:auto;direction:ltr;text-align:left"><code style="border:none;background:none;padding:0">python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt   # ویندوز
+.venv\Scripts\python app.py --port 5055</code></pre>
+
+  <h3><span class="n">۸٫۳</span> نکته‌های امنیتی و تنظیمات محیطی</h3>
+  <ul>
+    <li>پروژه به‌صورت پیش‌فرض فقط روی <b>همین کامپیوتر</b> باز می‌شود (<code>127.0.0.1</code>). یعنی هیچ‌کس از اینترنت نمی‌تواند واردش شود.</li>
+    <li>اگر خواستی روی شبکهٔ خانه/شرکت بازش کنی، با سوئیچ <code>--public</code> یا متغیر <code>MOHMD_HOST</code>؛ ولی حتماً یک <code>MOHMD_TOKEN</code> هم بگذار تا هر درخواست توکن بخواهد.</li>
+    <li>برای فعال‌کردن خلاصه با هوش مصنوعی: کلید OpenAI را در تنظیمات (بخش AI) بگذار. برای تلگرام: توکن ربات و آیدی کانال.</li>
+    <li>دو متغیر محیطی کاربردی: <code>MOHMD_PROXY</code> (عبور ترافیک از پروکسی برای سایت‌های بسته) و <code>MOHMD_JINA_KEY</code> (زنده‌کردن یکی از خواننده‌های متن).</li>
+  </ul>
+
+  <div class="note ok">
+    <div class="h">🧪 تست بدون سرور</div>
+    <p>فایل <code>smoke_test.py</code> یک چرخهٔ آزمایشی را بدون بالا آوردن سرور اجرا می‌کند؛ برای وقتی که فقط می‌خواهی ببینی موتور سالم است.</p>
+  </div>
+</section>
+
+<!-- ═══════════ ۹ ═══════════ -->
+<section id="s9">
+  <div class="sec-head"><div class="sec-num">۹</div><h2>محدودیت‌ها و نکته‌های صادقانه</h2></div>
+  <div class="sec-sub">هر پروژه‌ای نقص دارد. این‌ها را بدان تا انتظار اشتباهی نداشته باشی.</div>
+
+  <div class="note warn"><div class="h">🐋 ردیاب نهنگ‌ها فعلاً نمایشی است</div><p>داده‌هایش شبیه‌سازی‌شده‌اند (بالا توضیح داده شد). برای تصمیم‌گیری واقعی به آن تکیه نکن.</p></div>
+
+  <div class="note warn"><div class="h">🤖 خلاصهٔ هوش مصنوعی کلید می‌خواهد</div><p>بدون کلید، همه‌چیز کار می‌کند جز «خلاصه با AI». پیش‌بینی و ناهنجاری محلی بدون کلید کار می‌کنند.</p></div>
+
+  <div class="note warn"><div class="h">🔒 چند سایت متن کامل را نمی‌دهند</div><p>سایت‌هایی مثل Forbes و Bloomberg در برابر خواندن خودکار مقاومت می‌کنند. در این موارد برنامه یک پیام شفاف نشان می‌دهد + لینک خود سایت + پیشنهاد چند خبر مرتبط که متن کاملشان در دسترس است. هیچ‌وقت متن جعلی ساخته نمی‌شود.</p></div>
+
+  <div class="note warn"><div class="h">💬 ردیت بعضی وقت‌ها سخت می‌گیرد</div><p>گرفتن تعداد لایک از ردیت ممکن است گاهی کند/محدود شود؛ برنامه در چرخهٔ بعد دوباره تلاش می‌کند.</p></div>
+
+  <div class="note warn"><div class="h">🔑 بدون رمز عبور طراحی شده</div><p>پیش‌فرض برای اجرای لوکال روی کامپیوتر خودت است. اگر آن را روی اینترنت باز کنی، باید خودت توکن/لایهٔ محافظ اضافه کنی.</p></div>
+
+  <div class="note warn"><div class="h">📱 حالت آفلاین فقط در همان مرورگر</div><p>حافظهٔ آفلاین (IndexedDB) روی همان مرورگری ذخیره می‌شود که استفاده کرده‌ای؛ بین دستگاه‌ها همگام‌سازی نمی‌شود.</p></div>
+
+  <div class="note warn"><div class="h">💳 بخش اشتراک‌ها بدون صفحهٔ پرداخت است</div><p>ساختار پلن Free/Pro و کلید API در کد وجود دارد، اما واسط خرید/درگاه پرداخت ساخته نشده است.</p></div>
+
+  <div class="note info"><div class="h">📄 سند فنی مفصل‌تر هم هست</div><p>فایل <code>PROJECT_OVERVIEW.md</code> نسخهٔ انگلیسی و خیلی فنی پروژه است (تاریخچهٔ تغییرات، تصمیم‌ها، جزئیات هر ماژول). این فایل HTML نسخهٔ سادهٔ فارسی همان است.</p></div>
+</section>
+
+<!-- ═══════════ ۱۰ ═══════════ -->
+<section id="s10">
+  <div class="sec-head"><div class="sec-num">۱۰</div><h2>واژه‌نامهٔ ساده (هر کلمهٔ فنی که ممکن است ببینی)</h2></div>
+  <div class="sec-sub">روی هر کلمه بزن تا توضیحش باز شود؛ دقیقاً مثل باز کردن یک کشو.</div>
+
+  <details><summary>RSS — «فهرست تازه‌های سایت»</summary><p>یک فایل استاندارد که هر سایت خبری می‌سازد و تازه‌ترین خبرهایش را با عنوان، لینک و تاریخ داخل آن می‌گذارد. برنامه هر چند دقیقه همان فایل را می‌خواند؛ لازم نیست کل سایت را زیر و رو کند.</p></details>
+  <details><summary>API — «پیشخوان سفارش»</summary><p>راه رسمی که دو برنامه با هم حرف بزنند. مثلاً برنامهٔ تو به سرور می‌گوید «قیمت بیت‌کوین را بده» و سرور جواب می‌دهد. هر آدرس API مثل یک باجهٔ مشخص است.</p></details>
+  <details><summary>Endpoint — «یک باجه در پیشخوان»</summary><p>هر آدرس مشخص API یک endpoint است. مثلاً <code>/api/live</code> باجهٔ «قیمت‌های لحظه‌ای» است و <code>/api/econ</code> باجهٔ «تقویم اقتصادی».</p></details>
+  <details><summary>سرور — «آشپزخانه‌ای که درخواست‌ها را می‌پزد»</summary><p>برنامه‌ای که همیشه در حال اجراست و به درخواست‌های مرورگر جواب می‌دهد. در این پروژه، همان برنامهٔ پایتونی است که خودت اجرا می‌کنی.</p></details>
+  <details><summary>Flask — «چارچوب ساخت وب با پایتون»</summary><p>یک کتابخانهٔ پایتون که کارش این است: «وقتی کسی فلان آدرس را باز کرد، فلان جواب را بده». سرور این پروژه با آن ساخته شده.</p></details>
+  <details><summary>SQLite — «یک دیتابیس داخل یک فایل»</summary><p>دیتابیس یعنی جایی که داده‌ها را منظم نگه می‌دارند. SQLite نوعی است که همه‌اش در یک فایل است و نصب جداگانه نمی‌خواهد. فایل <code>.mohmd_news.db</code> همین است.</p></details>
+  <details><summary>کش (Cache) — «یخچال میان‌راه»</summary><p>وقتی یک چیز را یک‌بار گرفتی، جایی ذخیره‌اش می‌کنی تا دفعهٔ بعد سریع باشد. کش ترجمه باعث می‌شود یک جمله دو بار ترجمه نشود.</p></details>
+  <details><summary>Thread / نخ — «کارگر موازی»</summary><p>کامپیوتر می‌تواند هم‌زمان چند کار انجام دهد. هر «نخ» یک کارگر است. پروژه ۱۹۳ منبع را با چند کارگر موازی می‌خواند تا سریع باشد، نه یکی‌یکی.</p></details>
+  <details><summary>WebSocket / SSE — «تلفن همیشه‌باز بین صفحه و سرور»</summary><p>به‌جای اینکه صفحه هر چند ثانیه بپرسد «چیز جدیدی هست؟»، یک ارتباط باز می‌ماند و سرور خودش خبر تازه را می‌فرستد. همین می‌کند که قیمت‌ها زنده به‌نظر برسند.</p></details>
+  <details><summary>PWA / Service Worker — «برنامهٔ نصب‌شدنی که آفلاین هم کار می‌کند»</summary><p>PWA یعنی یک سایت که مثل اپلیکیشن قابل نصب است. Service Worker یک «کارگر پشت‌صحنه» داخل مرورگر است که نسخهٔ ذخیره‌شدهٔ صفحه را نگه می‌دارد تا بدون اینترنت هم باز شود.</p></details>
+  <details><summary>IndexedDB — «انبار مرورگر»</summary><p>یک دیتابیس داخل مرورگر که فضای بیشتری از حافظهٔ معمولی دارد. پروژه خبرهای ذخیره‌شده و ایندکس جستجو را اینجا نگه می‌دارد.</p></details>
+  <details><summary>اندیکاتور — «فرمول ریاضی تحلیل قیمت»</summary><p>مثل میانگین متحرک یا RSI. هر اندیکاتور یک نکتهٔ خاص دربارهٔ روند قیمت را به‌شکل عدد نشان می‌دهد.</p></details>
+  <details><summary>امتیاز اعتبار (Credibility) — «کارنامهٔ خبر»</summary><p>عددی بین ۰ تا ۱ که می‌گوید این خبر چقدر قابل‌اعتماد است: از کدام منبع آمده، چقدر تازه است و آیا نشانه‌های خبر بد (کلیک‌بیت، تبلیغ) دارد یا نه.</p></details>
+  <details><summary>Fallback — «راه جایگزین»</summary><p>یعنی اگر راه اول جواب نداد، راه دوم و سوم را امتحان کن. مثلاً اگر منبع قیمت اصلی خوابید، از منبع دوم قیمت بگیر.</p></details>
+  <details><summary>Rate Limit — «سهمیهٔ ساعتی»</summary><p>بعضی سرویس‌ها می‌گویند «در هر دقیقه فقط چند بار می‌توانی بپرسی». Rate limit همان قانون سهمیه است.</p></details>
+  <details><summary>Circuit Breaker — «خاموش‌کردن موقت یک منبع خراب»</summary><p>اگر یک منبع چهار چرخهٔ پشت‌سرهم خراب بدهد، برنامه موقتاً کنارش می‌گذارد تا هم وقت هدر نرود و هم آن سایت اذیت نشود؛ بعد دوباره امتحان می‌کند.</p></details>
+  <details><summary>Webhook — «زنگ دربِ هوشمند»</summary><p>یعنی یک سرویس دیگر (مثل تریدینگ‌ویو) بهت خبر می‌دهد «رویداد فلان اتفاق افتاد» و پیام را به آدرس تو می‌فرستد. نیازی نیست تو مدام بپرسی.</p></details>
+  <details><summary>Jalali — «تاریخ شمسی»</summary><p>همان تقویم خودمان (۱۴۰۵/…) به‌جای تقویم میلادی. پروژه تاریخ‌ها را شمسی نشان می‌دهد.</p></details>
+  <details><summary>RTL — «راست‌به‌چپ»</summary><p>چیدمان مخصوص زبان‌های فارسی/عربی که متن از سمت راست شروع می‌شود. کل داشبورد RTL است.</p></details>
+  <details><summary>REST API — «قواعد استاندارد حرف‌زدن با سرور»</summary><p>یک سبک رایج برای ساخت API؛ یعنی آدرس‌ها معنی‌دار باشند (<code>/api/report/BTC</code> یعنی گزارش بیت‌کوین) و جواب‌ها معمولاً JSON باشند.</p></details>
+  <details><summary>JSON — «دفترچهٔ ساخت‌یافته»</summary><p>یک شکل استاندارد برای رد و بدل کردن داده که هم انسان می‌تواند بخواند هم ماشین. مثل <code>{"price": 70000, "change": 2.5}</code>.</p></details>
+  <details><summary>Virtual Scrolling — «نمایش پنجره‌ای لیست»</summary><p>وقتی هزار خبر داری، به‌جای ساختن هزار کارت، فقط کارت‌هایی که در کادر دید تو هستند ساخته می‌شوند. صفحه سبک می‌ماند و سریع اسکرول می‌شود.</p></details>
+</section>
+
+<!-- ═══════════ ۱۱ ═══════════ -->
+<section id="s11">
+  <div class="sec-head"><div class="sec-num">۱۱</div><h2>جمع‌بندی در چند خط</h2></div>
+  <div class="card">
+    <p style="font-size:16.5px;color:var(--ink-1);margin-top:0">
+      این پروژه یک <b>ترمینال هوش بازار فارسی</b> است که همه‌چیزش خودکار است:
+      منابع خبری را می‌خواند، خبر بد را دور می‌ریزد، فارسی می‌کند، قیمت‌ها و تقویم اقتصادی را کنار هم می‌گذارد،
+      برای هر دارایی یک <b>گزارش مستند با ذکر منبع</b> می‌سازد و در یک داشبورد ۱۵ صفحه‌ای —
+      هم روی اینترنت و هم بدون آن — تحویلت می‌دهد.
+    </p>
+    <p>
+      بخش‌های جدیدتر هم برای تولید محتوا اضافه شده‌اند: <b>استودیو محتوا</b> که می‌گوید چه سوژه‌ای ارزش ساختن دارد،
+      و <b>کانال طلا و سکه</b> که خبرهای مناسب یک پیج فارسی را با نمرهٔ وایرال پیشنهاد می‌دهد.
+      برای برنامه‌نویس‌ها هم API مستند و برای فروش اشتراکی هم ساختار پلن‌ها آماده است.
+    </p>
+    <p style="margin-bottom:0">
+      بزرگ‌ترین نقطهٔ قوتش این است که <b>هیچ حرفی بی‌سند نیست</b>: هر عدد و هر جمله به منبعش وصل است.
+      و بزرگ‌ترین نکتهٔ صادقانه‌اش این که چند بخش (خلاصهٔ AI، ردیاب نهنگ، درگاه پرداخت) یا کلید می‌خواهند یا هنوز کامل نشده‌اند.
+    </p>
+  </div>
+
+  <div class="note info">
+    <div class="h">🖨️ می‌خواهی نگهش داری؟</div>
+    <p>این صفحه کاملاً مستقل است (اینترنت لازم ندارد). می‌توانی ذخیره‌اش کنی، یا با دکمهٔ زیر چاپش بگیری.</p>
+    <p style="margin-top:10px">
+      <button onclick="window.print()" style="font-family:inherit;font-size:14px;padding:9px 18px;border-radius:100px;border:1px solid rgba(108,151,220,.4);background:var(--cu-wash);color:var(--cu-txt);cursor:pointer">
+        🖨️ چاپ / ذخیرهٔ PDF
+      </button>
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p style="margin:0">
+    <b>MOHMD NEWS</b> (نام پروژه: FreeBuff) — یک برنامهٔ تحت‌وب فارسی، بدون نیاز به کلید برای کارهای اصلی،
+    اجرا روی کامپیوتر خودت (پیش‌فرض <code>http://localhost:5055</code>).
+  </p>
+  <p style="margin:6px 0 0">
+    این فایل یک «راهنمای ساده» است و جای سند فنی را نمی‌گیرد؛ برای جزئیات مهندسی،
+    <code>PROJECT_OVERVIEW.md</code> را بخوان. تاریخ تهیهٔ این راهنما: مهر ۱۴۰۵ (اکتبر ۲۰۲۶).
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -99,7 +99,10 @@ def _yahoo_chart(yh_symbol: str, rng: str = "1y", interval: str = "1d") -> dict 
         r = requests.get(url, params={"range": rng, "interval": interval},
                          headers=UA, timeout=15)
         r.raise_for_status()
-        res = r.json()["chart"]["result"][0]
+        data = r.json().get("chart", {}).get("result")
+        if not data:
+            return None
+        res = data[0]
         q = res["indicators"]["quote"][0]
         # keep rows aligned: drop a whole row if any of its values is missing
         closes, highs, lows, vols, stamps = [], [], [], [], []

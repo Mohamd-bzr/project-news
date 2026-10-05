@@ -104,6 +104,8 @@ def fa_ago(hours) -> str:
     """`۳ ساعت پیش` / `۲۵ دقیقه پیش` / `۱ دقیقه پیش` — no "همین حالا" */"""
     if hours is None:
         return ""
+    if isinstance(hours, (int, float)) and hours < 0:
+        return ""
     minutes = float(hours) * 60
     if minutes < 1:
         return "۱ دقیقه پیش"

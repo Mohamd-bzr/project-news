@@ -9,20 +9,56 @@
       {
         "title": "S&P 500 — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار اس‌اند‌پی ۵۰۰",
-        "asof": "2026-09-21 13:52 Tehran",
-        "asof_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۵۲",
+        "asof": "2026-10-05 17:09 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
         "symbol": "SPX",
         "name": "S&P 500",
         "fa_name": "اس‌اند‌پی ۵۰۰",
         "icon": "🏛",
-        "price": 7650.5,
-        "change_24h": 0.17,
+        "price": 7735.220215,
+        "change_24h": 0.16,
         "news_window_hours": 24.0,
-        "news_used": 11,
+        "news_used": 10,
         "sources_used": [
           {
-            "name": "Bloomberg Markets",
+            "name": "Motley Fool Investing",
+            "count": 9
+          },
+          {
+            "name": "Finwire",
+            "count": 7
+          },
+          {
+            "name": "ForexLive",
+            "count": 7
+          },
+          {
+            "name": "Hindu BusinessLine",
             "count": 5
+          },
+          {
+            "name": "FXStreet",
+            "count": 4
+          },
+          {
+            "name": "Bloomberg",
+            "count": 2
+          },
+          {
+            "name": "TheStreet",
+            "count": 2
+          },
+          {
+            "name": "LiveMint Markets",
+            "count": 2
+          },
+          {
+            "name": "Market.News",
+            "count": 2
+          },
+          {
+            "name": "r/CryptoCurrency (شبکه اجتماعی)",
+            "count": 2
           },
           {
             "name": "Financial Times Markets",
@@ -30,30 +66,6 @@
           },
           {
             "name": "MarketWatch",
-            "count": 1
-          },
-          {
-            "name": "Yahoo Finance",
-            "count": 1
-          },
-          {
-            "name": "Financial Times News",
-            "count": 1
-          },
-          {
-            "name": "r/CryptoMarkets (شبکه اجتماعی)",
-            "count": 1
-          },
-          {
-            "name": "ForexLive",
-            "count": 1
-          },
-          {
-            "name": "Motley Fool Investing",
-            "count": 1
-          },
-          {
-            "name": "NewsBTC",
             "count": 1
           }
         ],
@@ -70,7 +82,7 @@
     [
       "p",
       {
-        "en": "S&P 500 is changing hands near $7,650, +0.17% over the past 24 hours and +0.19% on a 7-day view. Spot trades above the 50-day average ($7,605) and above the 200-day average ($7,223), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (-0.77%), suggesting the market is still rotating within a range.",
+        "en": "S&P 500 is changing hands near $7,735, +0.16% over the past 24 hours and +0.40% on a 7-day view. Spot trades above the 50-day average ($7,642) and above the 200-day average ($7,267), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (+0.79%), suggesting the market is still rotating within a range.",
         "fa": ""
       }
     ],
@@ -80,44 +92,21 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
+            "id": "bef18ca53a9f",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Vanguard Sees 'Huge Rotation' by US Investors Into Bonds",
-            "title_fa": "Vanguard شاهد \"چرخش عظیم\" توسط سرمایه گذاران ایالات متحده در اوراق قرضه است",
-            "summary_fa": "اورسولا مارچیونی، رئیس راه‌حل‌های چند دارایی و مشاور ونگارد در اروپا، درباره بازار اوراق قرضه و اینکه چگونه شاهد «طراحی مجدد معیارهای درآمد ثابت در پرتفوی» هستیم، صحبت می‌کند. او همچنین تفاوت‌های بین سرمایه‌گذاران آمریکایی و اروپایی را مورد",
-            "source": "Bloomberg Markets",
+            "title_en": "Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election",
+            "title_fa": "یورو به پایین ترین سطح ۱۷ ماهه کاهش یافت. بولسونارو در انتخابات برزیل پیشتاز لولا شد",
+            "summary_fa": "در حالی که تحولات سیاسی، یورو را به پایین ترین سطح خود در ۱۷ ماه گذشته می رساند، ارزش سهام جهانی متزلزل می شود. پدرو سانچز، نخست وزیر اسپانیا، در بحبوحه افزایش اعتراضات اجتماعی به مسکن، خواستار برگزاری انتخابات زودهنگام شد. فلاویو بولسونارو",
+            "source": "Bloomberg",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/videos/2026-09-21/vanguard-sees-huge-rotation-by-us-investors-into-bonds-video",
-            "published_ts": 1789983678.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۳:۱۱",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۳:۱۱",
-            "age_fa": "۴۲ دقیقه پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
-            "topic_fa": "عمومی",
-            "assets": [
-              "SPX"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Goldman’s Bell Backs German Stocks Despite Rising Political Risk",
-            "title_fa": "گلدمن بل از سهام آلمان با وجود افزایش ریسک سیاسی حمایت می کند",
-            "summary_fa": "به گفته شارون بل از شرکت گلدمن ساکس، که می گوید DAX تا حد زیادی از ریسک های داخلی محافظت می شود، تشدید ناآرامی های سیاسی آلمان نیازی به دردسر برای بازار اصلی سهام این کشور ندارد.",
-            "source": "Bloomberg Markets",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/goldman-s-bell-backs-german-stocks-despite-rising-political-risk",
-            "published_ts": 1789982307.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۴۸",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۸",
-            "age_fa": "۱ ساعت پیش",
+            "link": "https://www.bloomberg.com/news/videos/2026-10-05/bloomberg-brief-10-5-2026-video",
+            "published_ts": 1791201579.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۲۹",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۲۹",
+            "age_fa": "۳۶ دقیقه پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -128,22 +117,48 @@
             "why_en": ""
           },
           {
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Dimon Heads to India as Wall Street Steps Up Fight for Deal Boom",
-            "title_fa": "زمانی که وال استریت مبارزه برای رونق معامله را آغاز می کند، دیمون به هند می رود",
-            "summary_fa": "جیمی دیمون از جی پی مورگان چیس و شرکت این هفته به هند می رود، دیداری که در حالی انجام می شود که غول وال استریت به سمت کشوری که انتظار رونق بیشتری در معاملات دارد، افزایش یافته است.",
-            "source": "Bloomberg Markets",
+            "id": "aeac43df1e7a",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Emerging-Market Equities Jump, Brazil Assets Soar on Elections",
+            "title_fa": "جهش سهام بازارهای نوظهور، افزایش دارایی های برزیل در انتخابات",
+            "summary_fa": "شاخصی که سهام بازارهای نوظهور را ردیابی می کند در آغاز هفته افزایش می یابد، در حالی که رئال برزیل به دنبال یک نتیجه غیرمنتظره انتخابات پسند بازار در روز یکشنبه، پیشتاز رشد ارز است.",
+            "source": "Bloomberg",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/dimon-heads-to-india-as-wall-street-steps-up-fight-for-deal-boom",
-            "published_ts": 1789979360.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۱:۵۹",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۵۹",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/emerging-market-assets-climb-as-fed-hike-bets-cool-oil-drops",
+            "published_ts": 1791167006.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۵:۵۳",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۵:۵۳",
+            "age_fa": "۱۱ ساعت پیش",
+            "credibility": 0.912,
+            "credibility_fa": "۹۱٪",
+            "topic_fa": "عمومی",
+            "assets": [
+              "SPX"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "539461f8ada2",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "Global pension funds cut US equities over AI concentration risk",
+            "title_fa": "صندوق های بازنشستگی جهانی سهام ایالات متحده را به دلیل خطر تمرکز هوش مصنوعی کاهش دادند",
+            "summary_fa": "با افزایش نگرانی‌ها در مورد ارزش‌گذاری‌های «کشیده»، به تنوع‌سازی فشار بیاورید",
+            "source": "Financial Times Markets",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad?syn-25a6b1a6=1",
+            "published_ts": 1791172812.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۳۰",
+            "age_fa": "۱۰ ساعت پیش",
+            "credibility": 0.864,
+            "credibility_fa": "۸۶٪",
             "topic_fa": "نهادی",
             "assets": [
               "SPX"
@@ -164,7 +179,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Emerging-Market Stocks, Currencies Gain After US-China Talks.\n- investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Bull run for Japan stocks at risk, warns boss of biggest trading house.\n- Dow Jones Forecast: Treasury Yields Put 50,000 Support at Risk.",
         "fa": ""
       }
     ],
@@ -174,50 +189,50 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
+            "id": "130f6cabbc1b",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Emerging-Market Stocks, Currencies Gain After US-China Talks",
-            "title_fa": "سهام بازارهای نوظهور، افزایش ارز پس از مذاکرات آمریکا و چین",
-            "summary_fa": "ارزش سهام و ارزهای بازارهای نوظهور پس از آن که ایالات متحده و چین ارزیابی های مثبتی از مذاکرات خود پیش از اجلاس ارائه کردند، افزایش یافتند. کاهش قیمت نفت به احساسات مثبت به سمت دارایی های پرریسک تر افزود.",
-            "source": "Bloomberg Markets",
+            "title_en": "Bull run for Japan stocks at risk, warns boss of biggest trading house",
+            "title_fa": "رئیس بزرگترین خانه تجاری هشدار داد که گاو نر برای سهام ژاپن در معرض خطر است",
+            "summary_fa": "رئیس شرکت میتسوبیشی می‌گوید که شرکت‌ها باید پول نقد را کارآمدتر به کار گیرند، زیرا نگران هستند که بازده اوراق قرضه ممکن است به سهام آسیب برساند.",
+            "source": "Financial Times Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/emerging-market-stocks-currencies-gain-after-us-china-talks",
-            "published_ts": 1789966824.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۸:۳۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۸:۳۰",
-            "age_fa": "۵ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
+            "link": "https://www.ft.com/content/1fdb8380-2fac-474a-a184-616c0a29feb6?syn-25a6b1a6=1",
+            "published_ts": 1791147600.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۰:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۰:۳۰",
+            "age_fa": "۱۷ ساعت پیش",
+            "credibility": 0.864,
+            "credibility_fa": "۸۶٪",
             "topic_fa": "کلان",
             "assets": [
-              "WTI",
               "SPX"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
+            "id": "74820b5e9604",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell",
-            "title_fa": "InvestingLive اخبار بازار آسیا و اقیانوسیه: قیمت نفت در بازه زمانی باز افزایش یافت اما به زودی سقوط کرد",
-            "summary_fa": "ترامپ پس از تماس با ولیعهد عربستان، دو بار حملات هوایی حوثی‌ها را تغییر داد war-e",
-            "source": "ForexLive",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-gapped-higher-at-open-but-soon-fell/",
-            "published_ts": 1789962492.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۷:۱۸",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۱۸",
-            "age_fa": "۷ ساعت پیش",
-            "credibility": 0.71,
-            "credibility_fa": "۷۱٪",
-            "topic_fa": "مقررات",
+            "title_en": "Dow Jones Forecast: Treasury Yields Put 50,000 Support at Risk",
+            "title_fa": "پیش بینی داوجونز: بازدهی خزانه داری حمایت ۵۰۰۰۰ را در معرض خطر قرار می دهد",
+            "summary_fa": "پیش بینی داوجونز: بازدهی خزانه داری حمایت ۵۰۰۰۰ را در معرض خطر قرار می دهد",
+            "source": "FXEmpire",
+            "source_kind": "search",
+            "via": "FXEmpire",
+            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOQ1VyV3lrMG1BNUtSX2t3Z0czWGl3ZDRXQm9FbW1rRTNpUkJ4bGhnM3E2b3BJRng4UUFqSUc4Wm5kX3VMLUVKSVM1akV1NEFmV01LY29VMHhKUDFWNG5pdXo2eUJKTDQxc1p5WWdlclM4R3JrNzFIZDEtVHBKNnVnaG5zWFUyMnhEbU80X2s5S1ZCcU5jMVJwLTRoa1ZFdzZGZWNpSXFmM2NkRGxPR2Excw?oc=5",
+            "published_ts": 1791205961.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۶:۴۲",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۴۲",
+            "age_fa": "۲۴ دقیقه پیش",
+            "credibility": 0.82,
+            "credibility_fa": "۸۲٪",
+            "topic_fa": "کلان",
             "assets": [
-              "WTI",
               "SPX"
             ],
             "why_fa": "",
@@ -236,7 +251,7 @@
     [
       "p",
       {
-        "en": "- Goldman’s Bell Backs German Stocks Despite Rising Political Risk. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Dimon Heads to India as Wall Street Steps Up Fight for Deal Boom. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Morgan Stanley’s Wilson Says US Stocks Risk 7% Drop in Near Term. Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first.\n- Why the world’s hottest stock market is a national liability. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
+        "en": "- Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Global pension funds cut US equities over AI concentration risk. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Wall Street Strategists Steer Investors to Cross-Asset Hedges. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- SEC opens tokenized stock path as Tesla tokens trade 99.65% fractional. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Stock market prediction for tomorrow: Sensex, Nifty outlook for Tuesday | Kospi, Taiwan cues to watch | 6 Oct 2026. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
         "fa": ""
       }
     ],
@@ -246,20 +261,21 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
+            "id": "bef18ca53a9f",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Goldman’s Bell Backs German Stocks Despite Rising Political Risk",
-            "title_fa": "گلدمن بل از سهام آلمان با وجود افزایش ریسک سیاسی حمایت می کند",
-            "summary_fa": "به گفته شارون بل از شرکت گلدمن ساکس، که می گوید DAX تا حد زیادی از ریسک های داخلی محافظت می شود، تشدید ناآرامی های سیاسی آلمان نیازی به دردسر برای بازار اصلی سهام این کشور ندارد.",
-            "source": "Bloomberg Markets",
+            "title_en": "Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election",
+            "title_fa": "یورو به پایین ترین سطح ۱۷ ماهه کاهش یافت. بولسونارو در انتخابات برزیل پیشتاز لولا شد",
+            "summary_fa": "در حالی که تحولات سیاسی، یورو را به پایین ترین سطح خود در ۱۷ ماه گذشته می رساند، ارزش سهام جهانی متزلزل می شود. پدرو سانچز، نخست وزیر اسپانیا، در بحبوحه افزایش اعتراضات اجتماعی به مسکن، خواستار برگزاری انتخابات زودهنگام شد. فلاویو بولسونارو",
+            "source": "Bloomberg",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/goldman-s-bell-backs-german-stocks-despite-rising-political-risk",
-            "published_ts": 1789982307.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۲:۴۸",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۲:۴۸",
-            "age_fa": "۱ ساعت پیش",
+            "link": "https://www.bloomberg.com/news/videos/2026-10-05/bloomberg-brief-10-5-2026-video",
+            "published_ts": 1791201579.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۵:۲۹",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۲۹",
+            "age_fa": "۳۶ دقیقه پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -270,71 +286,24 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
           },
           {
+            "id": "539461f8ada2",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Dimon Heads to India as Wall Street Steps Up Fight for Deal Boom",
-            "title_fa": "زمانی که وال استریت مبارزه برای رونق معامله را آغاز می کند، دیمون به هند می رود",
-            "summary_fa": "جیمی دیمون از جی پی مورگان چیس و شرکت این هفته به هند می رود، دیداری که در حالی انجام می شود که غول وال استریت به سمت کشوری که انتظار رونق بیشتری در معاملات دارد، افزایش یافته است.",
-            "source": "Bloomberg Markets",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/dimon-heads-to-india-as-wall-street-steps-up-fight-for-deal-boom",
-            "published_ts": 1789979360.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۱:۵۹",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۵۹",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
-            "topic_fa": "نهادی",
-            "assets": [
-              "SPX"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
-          },
-          {
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Morgan Stanley’s Wilson Says US Stocks Risk 7% Drop in Near Term",
-            "title_fa": "ویلسون مورگان استنلی می گوید ریسک سهام ایالات متحده در کوتاه مدت ۷ درصد کاهش می یابد",
-            "summary_fa": "به گفته استراتژیست های مورگان استنلی که پیش بینی می کنند در چنین سناریویی، شاخص S&P ۵۰۰ تا ۷ درصد کاهش یابد، سهام ایالات متحده در برابر افزایش بیشتر قیمت انرژی و نوسانات بازار اوراق قرضه آسیب پذیر هستند.",
-            "source": "Bloomberg Markets",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-09-21/morgan-stanley-s-wilson-says-us-stocks-risk-7-drop-in-near-term",
-            "published_ts": 1789979033.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۱:۵۳",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۵۳",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
-            "topic_fa": "امنیت",
-            "assets": [
-              "SPX"
-            ],
-            "why_fa": "",
-            "why_en": "Security incidents are a standing tail-risk: they rarely move the whole complex alone, but they hit sentiment for affected venues and protocols first."
-          },
-          {
-            "index": 4,
-            "index_fa": "۴",
-            "title_en": "Why the world’s hottest stock market is a national liability",
-            "title_fa": "چرا داغ ترین بازار سهام جهان یک مسئولیت ملی است",
-            "summary_fa": "نوسانات وحشی قیمت سهام کره جنوبی به وجهه این کشور لطمه می زند",
+            "title_en": "Global pension funds cut US equities over AI concentration risk",
+            "title_fa": "صندوق های بازنشستگی جهانی سهام ایالات متحده را به دلیل خطر تمرکز هوش مصنوعی کاهش دادند",
+            "summary_fa": "با افزایش نگرانی‌ها در مورد ارزش‌گذاری‌های «کشیده»، به تنوع‌سازی فشار بیاورید",
             "source": "Financial Times Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.ft.com/content/6f0ceb7d-597d-4c83-ac8b-0fe7c8bd74f9?syn-25a6b1a6=1",
-            "published_ts": 1789963218.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
+            "link": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad?syn-25a6b1a6=1",
+            "published_ts": 1791172812.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۰۷:۳۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۳۰",
-            "age_fa": "۶ ساعت پیش",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۳۰",
+            "age_fa": "۱۰ ساعت پیش",
             "credibility": 0.864,
             "credibility_fa": "۸۶٪",
-            "topic_fa": "بازار",
+            "topic_fa": "نهادی",
             "assets": [
               "SPX"
             ],
@@ -342,25 +311,75 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
           },
           {
-            "index": 5,
-            "index_fa": "۵",
-            "title_en": "investingLive Asia-Pacific market news: Oil gapped higher at open but soon fell",
-            "title_fa": "InvestingLive اخبار بازار آسیا و اقیانوسیه: قیمت نفت در بازه زمانی باز افزایش یافت اما به زودی سقوط کرد",
-            "summary_fa": "ترامپ پس از تماس با ولیعهد عربستان، دو بار حملات هوایی حوثی‌ها را تغییر داد war-e",
-            "source": "ForexLive",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-gapped-higher-at-open-but-soon-fell/",
-            "published_ts": 1789962492.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۷:۱۸",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۱۸",
-            "age_fa": "۷ ساعت پیش",
-            "credibility": 0.71,
-            "credibility_fa": "۷۱٪",
+            "id": "76d2d6db674d",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "Wall Street Strategists Steer Investors to Cross-Asset Hedges",
+            "title_fa": "استراتژیست های وال استریت سرمایه گذاران را به سمت پوشش دارایی های متقابل هدایت می کنند",
+            "summary_fa": "استراتژیست های وال استریت سرمایه گذاران را به سمت پوشش دارایی های متقابل هدایت می کنند",
+            "source": "bloomberg.com",
+            "source_kind": "metals",
+            "via": "Bloomberg Metals",
+            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOTGhPakQyb05QaC1FUHowbWdmeTlyZVFYQTE5LWRuaXRPeGZYT0NxdWZsSDNaUU5YTGlaZ2tua3I2dk04RzRoVzBqYVRTOXhnNV9tTFpEYnI3VDdYcEljU1lTU1Rja3Rpa2swdmt5bDFBZHNLZW85dWxKb1FTWFhvQjlRTWNNMi1GQzhNYnE1YnhqcDNfUVowLWt1LVhCU1pSV1hvZ21YQndrWjlPMjlKVjRB?oc=5",
+            "published_ts": 1791122400.0,
+            "date_fa": "۱۲ مهر ۱۴۰۵",
+            "time_fa": "۱۷:۳۰",
+            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
+            "age_fa": "۲۴ ساعت پیش",
+            "credibility": 0.826,
+            "credibility_fa": "۸۳٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "SPX"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
+          },
+          {
+            "id": "9a3cf139afd2",
+            "index": 4,
+            "index_fa": "۴",
+            "title_en": "SEC opens tokenized stock path as Tesla tokens trade 99.65% fractional",
+            "title_fa": "SEC مسیر سهام توکن شده را باز می کند زیرا توکن های تسلا ۹۹.۶۵٪ کسری معامله می شوند.",
+            "summary_fa": "SEC مسیر سهام توکن شده را باز می کند زیرا توکن های تسلا ۹۹.۶۵٪ کسری معامله می شوند.",
+            "source": "FXStreet",
+            "source_kind": "crypto",
+            "via": "FXStreet Crypto",
+            "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQazNmNDBHdXMyVFdPY0VfYkhXa29IdkhQMkQ3YWxhQUVlQ1VZZmoxaWRtU2lVbXFQeWNQaUVpNk9hTkoyU0wyU293SDl0SnYzdExlUnNLMjZ6OUJ6d2NXTVd0SHY2Rk1TcW5xVW94c3VmMzBrOFZSWFozMnlzZGY4ZlJaWnRHcURIZFdBTjNmbmp5REY3TGdtMlJOdzZVSXgza0x0ZEVqQ09LcGdvQmV0QTdtbFl4TzB3RWJxQjEyNml3V1p0eGtB?oc=5",
+            "published_ts": 1791141256.0,
+            "date_fa": "۱۲ مهر ۱۴۰۵",
+            "time_fa": "۲۲:۴۴",
+            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۲۲:۴۴",
+            "age_fa": "۱۸ ساعت پیش",
+            "credibility": 0.787,
+            "credibility_fa": "۷۹٪",
             "topic_fa": "مقررات",
             "assets": [
-              "WTI",
+              "SPX"
+            ],
+            "why_fa": "",
+            "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
+          },
+          {
+            "id": "d0b880ad1983",
+            "index": 5,
+            "index_fa": "۵",
+            "title_en": "Stock market prediction for tomorrow: Sensex, Nifty outlook for Tuesday | Kospi, Taiwan cues to watch | 6 Oct 2026",
+            "title_fa": "پیش بینی بازار سهام برای فردا: چشم انداز Sensex، Nifty برای سه شنبه | کوسپی، تایوان نشانه هایی برای تماشا | ۶ اکتبر ۲۰۲۶",
+            "summary_fa": "بازار سهام هند در ۵ اکتبر رشد کرد و Nifty ۵۰ و Sensex بیش از ۰.۵ درصد رشد کردند. قدرت بخش فناوری و کاهش قیمت نفت خام احساسات را تقویت کرد، در حالی که تصمیمات سیاستی آتی RBI پس از ۲۵ سال باخت مورد توجه قرار گرفت.",
+            "source": "LiveMint Markets",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.livemint.com/market/stock-market-news/stock-market-prediction-for-tomorrow-sensex-nifty-outlook-for-tuesday-kospi-taiwan-cues-to-watch-6-oct-2026-11791193571147.html",
+            "published_ts": 1791195764.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۳:۵۲",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۵۲",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "مقررات",
+            "assets": [
               "SPX"
             ],
             "why_fa": "",
@@ -379,7 +398,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $7,650 versus EMA20 $7,645, EMA50 $7,605 and EMA200 $7,223 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $7,641 (recent swing low); the lower Bollinger band $7,563 as the 2σ downside envelope; first resistance at $7,653 (recent swing high); upper band $7,755 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $66.10 implies a typical daily range of roughly 0.9 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 50.7 — neutral territory; MACD (12/26/9) sits below its signal line (-6.735 vs 3.616, histogram -10.35), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 11%; the 20-day band spans 3% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 1.20x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned -0.77% over 30 days and +3.21% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.19%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $7,735 versus EMA20 $7,686, EMA50 $7,642 and EMA200 $7,267 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $7,731 (recent swing low); the lower Bollinger band $7,556 as the 2σ downside envelope; first resistance at $7,737 (recent swing high); upper band $7,786 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $63.96 implies a typical daily range of roughly 0.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 55.9 — neutral territory; MACD (12/26/9) sits above its signal line (14.09 vs 11.72, histogram +2.369), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 11%; the 20-day band spans 3% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.86x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +0.79% over 30 days and +2.86% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.40%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -389,23 +408,24 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
+            "id": "fcabc46f6a12",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Why the world’s hottest stock market is a national liability",
-            "title_fa": "چرا داغ ترین بازار سهام جهان یک مسئولیت ملی است",
-            "summary_fa": "نوسانات وحشی قیمت سهام کره جنوبی به وجهه این کشور لطمه می زند",
-            "source": "Financial Times Markets",
+            "title_en": "US Market: Record equity exposure leaves systematic funds exposed to pullback",
+            "title_fa": "بازار ایالات متحده: قرار گرفتن در معرض سهام بی سابقه، وجوه سیستماتیک را در معرض عقب نشینی قرار می دهد",
+            "summary_fa": "سهام ایالات متحده با خطرات نزولی روبرو هستند زیرا صندوق های کنترل نوسانات و CTA ها پس از صعود S&P ۵۰۰ به طور تاریخی در معرض ارزش سهام قرار دارند. افزایش نوسانات می‌تواند استراتژی‌های سیستماتیک را مجبور به فروش سنگین کند و به طور بالقوه افت ",
+            "source": "Economic Times Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.ft.com/content/6f0ceb7d-597d-4c83-ac8b-0fe7c8bd74f9?syn-25a6b1a6=1",
-            "published_ts": 1789963218.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۰۷:۳۰",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۰۷:۳۰",
-            "age_fa": "۶ ساعت پیش",
-            "credibility": 0.864,
-            "credibility_fa": "۸۶٪",
-            "topic_fa": "بازار",
+            "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-market-record-equity-exposure-leaves-systematic-funds-exposed-to-pullback/articleshow/134686346.cms",
+            "published_ts": 1791176475.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۰۸:۳۱",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۸:۳۱",
+            "age_fa": "۸ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "تحلیل",
             "assets": [
               "SPX"
             ],
@@ -413,25 +433,25 @@
             "why_en": ""
           },
           {
+            "id": "e323f28d4647",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Stock market today: Dow, S&P 500, Nasdaq futures rise as oil falls, anticipation builds for Trump-Xi summit",
-            "title_fa": "بازار سهام امروز: داو، اس اند پی ۵۰۰، قیمت آتی نزدک با کاهش قیمت نفت، افزایش پیش بینی ها برای نشست ترامپ و شی",
-            "summary_fa": "",
-            "source": "Yahoo Finance",
+            "title_en": "Sensex today | Stock Market Highlights: Sensex rises 472 pts to end at 72,382, Nifty settles at 22,555; ITC, Eternal lead gainers",
+            "title_fa": "سکس امروز | نکات برجسته بازار سهام: Sensex با افزایش ۴۷۲ واحدی به ۷۲,۳۸۲ رسید، Nifty در ۲۲,۵۵۵ تثبیت شد. ITC، جذب کنندگان سرب ابدی",
+            "summary_fa": "Sensex، Nifty، قیمت سهام: Sensex در روز دوشنبه با ۴۷۲.۷۷ امتیاز یا ۰.۶۶ درصد افزایش به ۷۲۳۸۲.۴۷ واحد رسید و Nifty ۵۰ با ۱۳۳.۸۰ امتیاز یا ۰.۶۰ درصد افزایش به ۲۲۵۵۵.۷۵ رسید.",
+            "source": "Hindu BusinessLine",
             "source_kind": "macro",
             "via": "",
-            "link": "https://finance.yahoo.com/markets/live/stock-market-today-monday-september-21-dow-sp-500-nasdaq-080214605.html",
-            "published_ts": 1789977734.0,
-            "date_fa": "۳۰ شهریور ۱۴۰۵",
-            "time_fa": "۱۱:۳۲",
-            "datetime_fa": "۳۰ شهریور ۱۴۰۵، ساعت ۱۱:۳۲",
+            "link": "https://www.thehindubusinessline.com/markets/sensex-nifty50-today-stock-market-highlights-5th-october-2026/article71544056.ece",
+            "published_ts": 1791199115.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۴:۴۸",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۴۸",
             "age_fa": "۲ ساعت پیش",
-            "credibility": 0.58,
-            "credibility_fa": "۵۸٪",
+            "credibility": 0.7,
+            "credibility_fa": "۷۰٪",
             "topic_fa": "بازار",
             "assets": [
-              "WTI",
               "SPX"
             ],
             "why_fa": "",
@@ -450,7 +470,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $7,653 on expanding turnover; continued holds of the 50-day average ($7,605). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $7,641. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $7,737 on expanding turnover; continued holds of the 50-day average ($7,642). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $7,731. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -464,11 +484,11 @@
     [
       "p",
       {
-        "en": "Net take on S&P 500: spot $7,650 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.17%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on S&P 500: spot $7,735 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.16%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-09-21T10:22:56.139394+00:00",
-  "news_used": 4
+  "generated_at": "2026-10-05T13:39:23.045961+00:00",
+  "news_used": 10
 }

@@ -21,7 +21,7 @@ import json
 import random
 import re
 import time
-from urllib.parse import urlparse, quote_plus
+from urllib.parse import urlparse, quote_plus, quote
 
 import requests
 from requests.adapters import HTTPAdapter
@@ -265,7 +265,10 @@ class EnhancedNewsBypassReader:
     def __init__(self, debug=False):
         self.debug = debug
         self.session = self._create_session()
-        self.scraper = cloudscraper.create_scraper() if cloudscraper else None
+        try:
+            self.scraper = cloudscraper.create_scraper() if cloudscraper else None
+        except Exception:
+            self.scraper = None
 
     # -- session ------------------------------------------------------------
     def _create_session(self):
@@ -356,7 +359,7 @@ class EnhancedNewsBypassReader:
         return out
 
     def _google_cache(self, url):
-        return f"https://webcache.googleusercontent.com/search?q=cache:{url}&strip=1"
+        return f"https://webcache.googleusercontent.com/search?q=cache:{quote_plus(url)}&strip=1"
 
     # -- main ladder --------------------------------------------------------
     def read_article(self, url, max_retries=2):
@@ -445,7 +448,7 @@ class EnhancedNewsBypassReader:
         # 6) r.jina.ai reader — headless-browser rendering, no key needed;
         #    beats JS shells AND many paywalls in one hop
         try:
-            r = self.session.get(f"https://r.jina.ai/{url}", timeout=45)
+            r = self.session.get(f'https://r.jina.ai/{quote(url, safe=":/?#[]@!$&\'()*+,;=-_.~")}', timeout=45)
             if r.status_code == 200 and len(r.text) > 300:
                 title, text = self._parse_reader_text(r.text)
                 consider("jina-reader", title, text, {"resolved_url": url})
@@ -595,6 +598,75 @@ class EnhancedNewsBypassReader:
 
         return title, text
 
+    def _extract_nytimes_content(self, html):
+        """NYT stores article text in JSON ld+json and in <section name='articleBody'>."""
+        title = ""
+        m = re.search(r'<title[^>]*>(.*?)</title>', html, re.S | re.I)
+        if m:
+            title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+        # try ld+json first (usually has full articleBody)
+        for lm in re.finditer(r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', html, re.S):
+            try:
+                ld = json.loads(lm.group(1))
+                stack = ld if isinstance(ld, list) else [ld]
+                for node in stack:
+                    ab = node.get("articleBody", "")
+                    if isinstance(ab, str) and len(ab) > 200:
+                        title = title or node.get("headline", "")
+                        return title, self._clean_text_enhanced(ab)
+            except (json.JSONDecodeError, AttributeError):
+                continue
+        # fallback: <section name="articleBody"> or <article> paragraphs
+        stripped = re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', html, flags=re.S | re.I)
+        for sel in (r'<section[^>]*name="articleBody"[^>]*>(.*?)</section>',
+                    r'<article[^>]*>(.*?)</article>'):
+            m = re.search(sel, stripped, re.S | re.I)
+            if m:
+                ps = [" ".join(re.sub(r'<[^>]+>', ' ', p).split())
+                      for p in re.findall(r'<p[^>]*>(.*?)</p>', m.group(1), re.S | re.I)]
+                long_ps = [p for p in ps if len(p) > 80]
+                if long_ps:
+                    return title, self._clean_text_enhanced(" ".join(long_ps))
+        return title, ""
+
+    def _extract_seekingalpha_content(self, html, url=""):
+        """SeekingAlpha stores article in data-test-id='article-content' or ld+json."""
+        title = ""
+        m = re.search(r'<title[^>]*>(.*?)</title>', html, re.S | re.I)
+        if m:
+            title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+        # ld+json
+        for lm in re.finditer(r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>', html, re.S):
+            try:
+                ld = json.loads(lm.group(1))
+                stack = ld if isinstance(ld, list) else [ld]
+                for node in stack:
+                    ab = node.get("articleBody", "")
+                    if isinstance(ab, str) and len(ab) > 200:
+                        title = title or node.get("headline", "")
+                        return title, self._clean_text_enhanced(ab)
+            except (json.JSONDecodeError, AttributeError):
+                continue
+        # DOM: data-test-id="article-content"
+        stripped = re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', html, flags=re.S | re.I)
+        m = re.search(r'<div[^>]*data-test-id="article-content"[^>]*>(.*?)</div>\s*</div>',
+                       stripped, re.S | re.I)
+        if m:
+            ps = [" ".join(re.sub(r'<[^>]+>', ' ', p).split())
+                  for p in re.findall(r'<p[^>]*>(.*?)</p>', m.group(1), re.S | re.I)]
+            long_ps = [p for p in ps if len(p) > 60]
+            if long_ps:
+                return title, self._clean_text_enhanced(" ".join(long_ps))
+        # fallback: article tag
+        m = re.search(r'<article[^>]*>(.*?)</article>', stripped, re.S | re.I)
+        if m:
+            ps = [" ".join(re.sub(r'<[^>]+>', ' ', p).split())
+                  for p in re.findall(r'<p[^>]*>(.*?)</p>', m.group(1), re.S | re.I)]
+            long_ps = [p for p in ps if len(p) > 60]
+            if long_ps:
+                return title, self._clean_text_enhanced(" ".join(long_ps))
+        return title, ""
+
     def _extract_from_json_enhanced(self, raw):
         try:
             data = json.loads(raw)
@@ -705,16 +777,6 @@ def _reader():
     if _READER is None:
         _READER = EnhancedNewsBypassReader()
     return _READER
-
-
-def web_extract(urls):
-    """Compatibility helper: [{url, title, content}] per URL."""
-    out = []
-    for u in urls:
-        r = smart_extract(u)
-        out.append({"url": u, "title": r.get("title", ""),
-                    "content": "\n\n".join(r.get("paragraphs", []))})
-    return out
 
 
 def smart_extract(url, title="", publisher=""):

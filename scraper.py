@@ -15,6 +15,7 @@ research report keeps English (as requested).
 
 import json
 import re
+import threading
 import time
 import traceback
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -31,6 +32,7 @@ from sources import (SOURCES, MAX_ARTICLES_PER_FEED, MAX_AGE_HOURS, TOPICS,
                      validate_article, SPONSORED_MARKERS, publisher_trust,
                      is_relevant)
 from translate import translate_many, save_cache
+from reddit_scores import attach_scores
 
 # ---------------------------------------------------------------------------
 # FEED OVERRIDES — when deep recovery finds the variant that actually works
@@ -158,6 +160,7 @@ def _entry_publisher(entry) -> str:
 # boot cycle stays fast; never raises, returns '' on failure.
 # ---------------------------------------------------------------------------
 _OG_CACHE = {}
+_OG_LOCK = threading.Lock()
 _OG_HEADERS = {
     "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                    "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"),
@@ -169,12 +172,13 @@ _OG_HEADERS = {
 def _og_image_fallback(link: str) -> str:
     if not link or not link.startswith(("http://", "https://")):
         return ""
-    if link in _OG_CACHE:
-        return _OG_CACHE[link]
+    with _OG_LOCK:
+        if link in _OG_CACHE:
+            return _OG_CACHE[link]
     img = ""
     try:
         r = requests.get(link, headers={**_OG_HEADERS, "Referer": link.split("/")[2]},
-                         timeout=6, allow_redirects=True)
+                         timeout=4, allow_redirects=True)
         if r.status_code == 200:
             m = (re.search(r'property=["\']og:image(?::secure_url)?["\'][^>]+content=["\']([^"\']+)', r.text)
                  or re.search(r'name=["\']twitter:image(?::src)?["\'][^>]+content=["\']([^"\']+)', r.text))
@@ -184,7 +188,8 @@ def _og_image_fallback(link: str) -> str:
                     img = u
     except Exception:
         pass
-    _OG_CACHE[link] = img
+    with _OG_LOCK:
+        _OG_CACHE[link] = img
     return img
 
 
@@ -252,18 +257,21 @@ def _fetch_one(key: str, src: dict) -> tuple:
     ladder = []
 
     # rate-limited → back off briefly, then the reader/bot UAs that Reddit &
-    # friends whitelist (these are what deep recovery usually wins with)
-    if diag.get("http") in (429, 503) or diag.get("reason") == "rate_limited":
-        time.sleep(4.0)
-        arts2, st2 = _fetch_attempt(key, src)
-        ladder.append("backoff-4s")
+    # friends whitelist (these are what deep recovery usually wins with).
+    # 415 rides along: cryip's edge answers it at random (every 3rd request or
+    # so) while the very same URL returns a perfect feed the next second — for
+    # a flaky code a plain second try is the whole fix.
+    if diag.get("http") in (415, 429, 503) or diag.get("reason") == "rate_limited":
+        time.sleep(3.0)
+        arts2, st2 = _fetch_attempt(key, src, timeout=8)
+        ladder.append("backoff-3s")
         if st2["ok"]:
             st2["recovered"] = True; st2["recovery"] = ladder
             return key, arts2, st2
         ladder.append(f"fail({st2.get('reason')})")
         for label, ua in (("feedfetcher", DEEP_UAS[10][1]),
                           ("telegrambot", DEEP_UAS[13][1])):
-            arts2, st2 = _fetch_attempt(key, src, ua=ua)
+            arts2, st2 = _fetch_attempt(key, src, ua=ua, timeout=8)
             ladder.append(label)
             if st2["ok"]:
                 st2["recovered"] = True; st2["recovery"] = ladder
@@ -273,7 +281,7 @@ def _fetch_one(key: str, src: dict) -> tuple:
     if diag.get("http") in (401, 403, 418) or diag.get("reason") in ("bot_blocked", "auth_required"):
         for label, ua in (("feedreader", "Feedly/1.0 (+https://feedly.com)"),
                           ("inoreader", "inoreader.com RSS reader")):
-            arts2, st2 = _fetch_attempt(key, src, ua=ua)
+            arts2, st2 = _fetch_attempt(key, src, ua=ua, timeout=8)
             ladder.append(label)
             if st2["ok"]:
                 st2["recovered"] = True; st2["recovery"] = ladder
@@ -281,15 +289,19 @@ def _fetch_one(key: str, src: dict) -> tuple:
 
     # SSL problem → re-fetch trusting only this hop (older chains fail urllib/CA)
     if diag.get("reason") == "ssl_error":
-        arts2, st2 = _fetch_attempt(key, src, insecure=True)
+        arts2, st2 = _fetch_attempt(key, src, insecure=True, timeout=8)
         ladder.append("ssl-lenient")
         if st2["ok"]:
             st2["recovered"] = True; st2["recovery"] = ladder
             return key, arts2, st2
 
     # dead URL (404/empty) → same-publisher Google News mirror as a lifeline
-    if diag.get("reason") in ("not_found", "empty_feed"):
-        arts2, st2 = _fetch_attempt(key, {**src, "rss": _mirror_url(src)}, ua=None)
+    # (a flaky 415 edge that ate every direct attempt joins it: the headline
+    # stream is the same publisher through a pipe that never blocks us)
+    if diag.get("reason") in ("not_found", "empty_feed") \
+            or (diag.get("reason") == "http_error" and diag.get("http") == 415):
+        arts2, st2 = _fetch_attempt(key, {**src, "rss": _mirror_url(src)}, ua=None,
+                                    timeout=8)
         ladder.append("gn-mirror")
         if st2["ok"]:
             st2["recovered"] = True; st2["recovery"] = ladder
@@ -297,7 +309,7 @@ def _fetch_one(key: str, src: dict) -> tuple:
             return key, arts2, st2
 
     # generic failure → one plain retry with googlebot UA as the last resort
-    arts2, st2 = _fetch_attempt(key, src,
+    arts2, st2 = _fetch_attempt(key, src, timeout=8,
                                 ua="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)")
     ladder.append("googlebot-UA")
     if st2["ok"]:
@@ -323,7 +335,10 @@ def _mirror_url(src: dict) -> str:
     m = _re.search(r"https?://([^/]+)/", src.get("rss") or "")
     if m:
         host = _re.sub(r"^www\.", "", m.group(1))
-    q = f"when:48h site:{host}" if host else (src.get("name") or "news")
+    # `when:48h` is not a window Google News understands (valid: 1h/1d/7d/30d)
+    # — it silently returned zero entries, so the lifeline never fired. The bare
+    # site: query is the one that actually comes back.
+    q = f"site:{host}" if host else (src.get("name") or "news")
     return f"https://news.google.com/rss/search?q={quote_plus(q)}&hl=en-US"
 
 
@@ -570,9 +585,6 @@ def _fetch_attempt(key: str, src: dict, ua: str | None = None,
         # chain breaks urllib's (zycrypto, thecryptobasic, ...). Raw
         # feedparser.parse(url) stays as the fallback path.
         try:
-            if insecure:
-                import urllib3
-                urllib3.disable_warnings()
             # ── DL2: conditional request. Publishers that honour ETag/Last-Modified
             # answer 304 (a few hundred bytes) instead of re-sending the whole feed;
             # with ~106 feeds per cycle this is the cheapest cycle-time win there is.
@@ -606,14 +618,22 @@ def _fetch_attempt(key: str, src: dict, ua: str | None = None,
                 or getattr(ex, "status", None)
             if reason not in futile and not http_level:
                 import socket
+                old_timeout = socket.getdefaulttimeout()
                 socket.setdefaulttimeout(12)   # guards feedparser's own fetch
-                feed = feedparser.parse(rss_url, agent=headers["User-Agent"],
-                                        request_headers=headers)
+                try:
+                    feed = feedparser.parse(rss_url, agent=headers["User-Agent"],
+                                            request_headers=headers)
+                finally:
+                    socket.setdefaulttimeout(old_timeout)
             else:
                 raise
         status["http"] = getattr(feed, "status", None) or status["http"]
         entries = (feed.entries or [])[:MAX_ARTICLES_PER_FEED + 8]
-        _og_budget = [12]     # max og:image page fetches per feed per cycle
+        # og:image costs a whole extra HTTP GET on the article page (4s timeout
+        # each) — done inline in the feed worker, so a generous budget here is
+        # what made the fetch phase take minutes. Only the first few
+        # image-less entries per feed are worth the round trip.
+        _og_budget = [4]      # max og:image page fetches per feed per cycle
         for e in entries:
             title = (e.get("title") or "").strip()
             link = (e.get("link") or "").strip()
@@ -621,7 +641,9 @@ def _fetch_attempt(key: str, src: dict, ua: str | None = None,
                 continue
 
             publisher = ""
-            if src.get("kind") == "search":
+            # a Google News mirror is fetched *as* this source when the direct
+            # feed is down, so the " - Publisher" suffix has to come off here too
+            if src.get("kind") == "search" or "news.google.com" in (rss_url or ""):
                 publisher = _entry_publisher(e)
                 # Google News titles end with " - Publisher"
                 if publisher and title.endswith(publisher):
@@ -683,7 +705,18 @@ def _fetch_attempt(key: str, src: dict, ua: str | None = None,
         else:
             status["reason"] = None
     except Exception as ex:
-        reason, detail = _classify_failure(exc=ex, http=status.get("http"))
+        # an HTTPError never carried its status into `status`, so every
+        # status-driven rung of the ladder below (_fetch_one's 429 backoff,
+        # 403 reader-UAs, 404 → Google News mirror) was unreachable: the code
+        # classified a 415/403/404 as a generic "exception" and only the plain
+        # googlebot retry ever ran. Pull the code off the response first.
+        code = getattr(getattr(ex, "response", None), "status_code", None) \
+            or getattr(ex, "status", None)
+        if code:
+            status["http"] = code
+            reason, detail = _classify_failure(http=code)
+        else:
+            reason, detail = _classify_failure(exc=ex, http=status.get("http"))
         status["reason"] = reason
         status["error"] = detail or f"{type(ex).__name__}: {ex}"
         log(f"  x {src['name']}: {type(ex).__name__}")
@@ -694,14 +727,17 @@ def _fetch_attempt(key: str, src: dict, ua: str | None = None,
 # main entry
 # ---------------------------------------------------------------------------
 
-def scrape_all(max_workers: int = 14, now=None, enabled=None, custom=None,
+def scrape_all(max_workers: int = 32, now=None, enabled=None, custom=None,
                custom_assets=None, translate: bool = True,
-               max_age_hours: float = MAX_AGE_HOURS) -> dict:
+               max_age_hours: float = MAX_AGE_HOURS,
+               social_score_min: int = 0, social_comments_min: int = 0) -> dict:
     """
     enabled:   set of enabled builtin source keys (None = all)
     custom:    {key: {name, rss, trust}} user-added feeds
     custom_assets: {SYM: {fa, name, keywords, yahoo, coingecko}}
     max_age_hours: hard freshness cutoff — older news is dropped outright
+    social_score_min: drop social posts with fewer upvotes (0 = off)
+    social_comments_min: drop social posts with fewer comments (0 = off)
     Returns {"articles": [...], "stats": {...}, "sources": {key: status}}
     """
     from sources import build_custom_patterns
@@ -750,6 +786,28 @@ def scrape_all(max_workers: int = 14, now=None, enabled=None, custom=None,
     log(f"Fetched {fetched} raw entries from {len(raw)}/{len(run_sources)} feeds "
         f"in {time.time()-t0:.1f}s")
 
+    # ---- social popularity gate (min upvotes / comments) -----------------
+    # Reddit's RSS carries no score field, so live upvote counts are pulled
+    # from the arctic-shift archive (reddit_scores.py, cached) and the posts
+    # below the configured minimums are dropped before validation.
+    social_raw = [a for arts in raw.values() for a in arts
+                  if a.get("source_kind") == "social"]
+    social_min_score = int(social_score_min or 0)
+    social_min_comments = int(social_comments_min or 0)
+    social_dropped = 0
+    if social_raw and (social_min_score > 0 or social_min_comments > 0):
+        log(f"Scoring {len(social_raw)} social posts "
+            f"(min {social_min_score} upvotes / {social_min_comments} comments)...")
+        kept_social, social_dropped = attach_scores(
+            social_raw, min_score=social_min_score,
+            min_comments=social_min_comments, max_age_hours=max_age_hours)
+        if social_dropped:
+            log(f"  social gate: {social_dropped} posts below the minimum")
+        kept_set = {id(a) for a in kept_social}      # same dict objects
+        for a in social_raw:
+            if id(a) not in kept_set:
+                a["_social_below_min"] = True        # marked, filtered below
+
     # ---- normalize + validate + dedupe ----
     articles, rejected, stale, irrelevant = [], 0, 0, 0
     seen_titles, seen_links = set(), set()
@@ -757,7 +815,10 @@ def scrape_all(max_workers: int = 14, now=None, enabled=None, custom=None,
     for key, arts in raw.items():
         src = run_sources[key]
         for art in arts:
-            th = re.sub(r"[^a-z0-9]", "", art["title"].lower())[:64]
+            if art.get("_social_below_min"):
+                rejected += 1
+                continue
+            th = re.sub(r"[^a-z0-9]", "", art["title"].lower())[:128]
             if th in seen_titles or art["base_link"] in seen_links:
                 continue
             seen_titles.add(th)
@@ -774,10 +835,30 @@ def scrape_all(max_workers: int = 14, now=None, enabled=None, custom=None,
                 rejected += 1
                 continue
 
-            assets = detect_assets(art["title"], art["summary"], custom_patterns)
-            if not is_relevant(assets, art["title"], art["summary"]):
+            # headline wins: a stray "oil" in a summary must not tag an
+            # unrelated story WTI when its headline already names an asset
+            title_assets = detect_assets(art["title"], "", custom_patterns)
+            assets = (title_assets or
+                      detect_assets(art["title"], art["summary"], custom_patterns))
+            is_dedicated = ("fxempire" in (art.get("source_key") or "").lower() or
+                            "fxstreet" in (art.get("source_key") or "").lower() or
+                            "fxempire" in (art.get("source_name") or "").lower() or
+                            "fxstreet" in (art.get("source_name") or "").lower())
+            if not is_dedicated and not is_relevant(assets, art["title"], art["summary"], custom_patterns):
                 irrelevant += 1
                 continue
+            if not assets and is_dedicated:
+                txt = f"{art['title']} {art.get('summary', '')}".lower()
+                if any(w in txt for w in ('dollar', 'dxy', 'currency', 'forex', 'eur', 'gbp', 'jpy', 'fed', 'rate')):
+                    assets = ["DXY"]
+                elif any(w in txt for w in ('gold', 'silver', 'metal', 'bullion')):
+                    assets = ["XAU"]
+                elif any(w in txt for w in ('oil', 'crude', 'brent', 'wti')):
+                    assets = ["WTI"]
+                elif any(w in txt for w in ('crypto', 'bitcoin', 'btc', 'eth')):
+                    assets = ["BTC"]
+                elif any(w in txt for w in ('stock', 'index', 'spx', 's&p', 'nasdaq', 'dow')):
+                    assets = ["SPX"]
             topic = classify_topic(art["title"], art["summary"])
             art.update({
                 "id": make_id(art["title"], art["link"]),
