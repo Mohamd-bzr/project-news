@@ -9,14 +9,14 @@
       {
         "title": "S&P 500 — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار اس‌اند‌پی ۵۰۰",
-        "asof": "2026-10-05 17:09 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
+        "asof": "2026-10-05 17:40 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
         "symbol": "SPX",
         "name": "S&P 500",
         "fa_name": "اس‌اند‌پی ۵۰۰",
         "icon": "🏛",
-        "price": 7735.220215,
-        "change_24h": 0.16,
+        "price": 7746.529785,
+        "change_24h": 0.31,
         "news_window_hours": 24.0,
         "news_used": 10,
         "sources_used": [
@@ -25,12 +25,12 @@
             "count": 9
           },
           {
-            "name": "Finwire",
-            "count": 7
+            "name": "ForexLive",
+            "count": 8
           },
           {
-            "name": "ForexLive",
-            "count": 7
+            "name": "Finwire",
+            "count": 8
           },
           {
             "name": "Hindu BusinessLine",
@@ -41,7 +41,7 @@
             "count": 4
           },
           {
-            "name": "Bloomberg",
+            "name": "Economic Times Markets",
             "count": 2
           },
           {
@@ -65,7 +65,7 @@
             "count": 2
           },
           {
-            "name": "MarketWatch",
+            "name": "Blockchain Reporter",
             "count": 1
           }
         ],
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "S&P 500 is changing hands near $7,735, +0.16% over the past 24 hours and +0.40% on a 7-day view. Spot trades above the 50-day average ($7,642) and above the 200-day average ($7,267), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (+0.79%), suggesting the market is still rotating within a range.",
+        "en": "S&P 500 is changing hands near $7,747, +0.31% over the past 24 hours and +0.55% on a 7-day view. Spot trades above the 50-day average ($7,642) and above the 200-day average ($7,267), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (+0.94%), suggesting the market is still rotating within a range.",
         "fa": ""
       }
     ],
@@ -123,7 +123,7 @@
             "title_en": "Emerging-Market Equities Jump, Brazil Assets Soar on Elections",
             "title_fa": "جهش سهام بازارهای نوظهور، افزایش دارایی های برزیل در انتخابات",
             "summary_fa": "شاخصی که سهام بازارهای نوظهور را ردیابی می کند در آغاز هفته افزایش می یابد، در حالی که رئال برزیل به دنبال یک نتیجه غیرمنتظره انتخابات پسند بازار در روز یکشنبه، پیشتاز رشد ارز است.",
-            "source": "Bloomberg",
+            "source": "Bloomberg Markets",
             "source_kind": "macro",
             "via": "",
             "link": "https://www.bloomberg.com/news/articles/2026-10-05/emerging-market-assets-climb-as-fed-hike-bets-cool-oil-drops",
@@ -131,7 +131,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۰۵:۵۳",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۵:۵۳",
-            "age_fa": "۱۱ ساعت پیش",
+            "age_fa": "۱۲ ساعت پیش",
             "credibility": 0.912,
             "credibility_fa": "۹۱٪",
             "topic_fa": "عمومی",
@@ -228,7 +228,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۶:۴۲",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۴۲",
-            "age_fa": "۲۴ دقیقه پیش",
+            "age_fa": "۵۴ دقیقه پیش",
             "credibility": 0.82,
             "credibility_fa": "۸۲٪",
             "topic_fa": "کلان",
@@ -251,7 +251,7 @@
     [
       "p",
       {
-        "en": "- Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Global pension funds cut US equities over AI concentration risk. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Wall Street Strategists Steer Investors to Cross-Asset Hedges. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- SEC opens tokenized stock path as Tesla tokens trade 99.65% fractional. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Stock market prediction for tomorrow: Sensex, Nifty outlook for Tuesday | Kospi, Taiwan cues to watch | 6 Oct 2026. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
+        "en": "- Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Global pension funds cut US equities over AI concentration risk. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Equities: Strong earnings cycle offsets yield shock – Danske Bank. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- SEC opens tokenized stock path as Tesla tokens trade 99.65% fractional. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- US stocks: US market opens muted as tech stocks take a breather. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
         "fa": ""
       }
     ],
@@ -311,23 +311,23 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
           },
           {
-            "id": "76d2d6db674d",
+            "id": "9391fa4b09a7",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Wall Street Strategists Steer Investors to Cross-Asset Hedges",
-            "title_fa": "استراتژیست های وال استریت سرمایه گذاران را به سمت پوشش دارایی های متقابل هدایت می کنند",
-            "summary_fa": "استراتژیست های وال استریت سرمایه گذاران را به سمت پوشش دارایی های متقابل هدایت می کنند",
-            "source": "bloomberg.com",
-            "source_kind": "metals",
-            "via": "Bloomberg Metals",
-            "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOTGhPakQyb05QaC1FUHowbWdmeTlyZVFYQTE5LWRuaXRPeGZYT0NxdWZsSDNaUU5YTGlaZ2tua3I2dk04RzRoVzBqYVRTOXhnNV9tTFpEYnI3VDdYcEljU1lTU1Rja3Rpa2swdmt5bDFBZHNLZW85dWxKb1FTWFhvQjlRTWNNMi1GQzhNYnE1YnhqcDNfUVowLWt1LVhCU1pSV1hvZ21YQndrWjlPMjlKVjRB?oc=5",
-            "published_ts": 1791122400.0,
-            "date_fa": "۱۲ مهر ۱۴۰۵",
-            "time_fa": "۱۷:۳۰",
-            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
-            "age_fa": "۲۴ ساعت پیش",
-            "credibility": 0.826,
-            "credibility_fa": "۸۳٪",
+            "title_en": "Equities: Strong earnings cycle offsets yield shock – Danske Bank",
+            "title_fa": "سهام: چرخه سود قوی، شوک بازده را جبران می کند - Danske Bank",
+            "summary_fa": "سهام: چرخه سود قوی، شوک بازده را جبران می کند - Danske Bank",
+            "source": "FXStreet",
+            "source_kind": "macro",
+            "via": "FXStreet News",
+            "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQYnFQLTBkdmhuQ3lNSDcxd2V1cEFPU1VPWmRFeGltTkVhNnZaOHczQTEtT3ZNRjI3YVd0WVBBR0JoRVlmTWxUWnVORzNJeXB0T19UX1Q2bzJadjBYWEdfRjVaS252YnJEdzFJZUU4eVViaVFyN1lHdFl3NHRhSmp1TDRncUtraWtDYUMyYWUxRVEzclMyUGdlWFJwRFhuWV9uMXBxSHlzaDE?oc=5",
+            "published_ts": 1791184145.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۰:۳۹",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۰:۳۹",
+            "age_fa": "۷ ساعت پیش",
+            "credibility": 0.787,
+            "credibility_fa": "۷۹٪",
             "topic_fa": "نهادی",
             "assets": [
               "SPX"
@@ -350,7 +350,7 @@
             "date_fa": "۱۲ مهر ۱۴۰۵",
             "time_fa": "۲۲:۴۴",
             "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۲۲:۴۴",
-            "age_fa": "۱۸ ساعت پیش",
+            "age_fa": "۱۹ ساعت پیش",
             "credibility": 0.787,
             "credibility_fa": "۷۹٪",
             "topic_fa": "مقررات",
@@ -361,25 +361,26 @@
             "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
           },
           {
-            "id": "d0b880ad1983",
+            "id": "c328afcff3b7",
             "index": 5,
             "index_fa": "۵",
-            "title_en": "Stock market prediction for tomorrow: Sensex, Nifty outlook for Tuesday | Kospi, Taiwan cues to watch | 6 Oct 2026",
-            "title_fa": "پیش بینی بازار سهام برای فردا: چشم انداز Sensex، Nifty برای سه شنبه | کوسپی، تایوان نشانه هایی برای تماشا | ۶ اکتبر ۲۰۲۶",
-            "summary_fa": "بازار سهام هند در ۵ اکتبر رشد کرد و Nifty ۵۰ و Sensex بیش از ۰.۵ درصد رشد کردند. قدرت بخش فناوری و کاهش قیمت نفت خام احساسات را تقویت کرد، در حالی که تصمیمات سیاستی آتی RBI پس از ۲۵ سال باخت مورد توجه قرار گرفت.",
-            "source": "LiveMint Markets",
+            "title_en": "US stocks: US market opens muted as tech stocks take a breather",
+            "title_fa": "سهام ایالات متحده: با نفس کشیدن سهام های فناوری، بازار ایالات متحده خاموش می شود",
+            "summary_fa": "با توجه به افزایش بازدهی خزانه داری و قیمت نفت، سرمایه گذاران همچنان به شاخص های جدید در مسیر سیاست پولی توجه می کنند. S&P ۵۰۰ اندکی افزایش داشت، در حالی که میانگین صنعتی داوجونز کاهش اندکی را تجربه کرد.",
+            "source": "Economic Times Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.livemint.com/market/stock-market-news/stock-market-prediction-for-tomorrow-sensex-nifty-outlook-for-tuesday-kospi-taiwan-cues-to-watch-6-oct-2026-11791193571147.html",
-            "published_ts": 1791195764.0,
+            "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-us-market-opens-muted-as-tech-stocks-take-a-breather/articleshow/134707900.cms",
+            "published_ts": 1791208580.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۳:۵۲",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۵۲",
-            "age_fa": "۳ ساعت پیش",
+            "time_fa": "۱۷:۲۶",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۲۶",
+            "age_fa": "۱۲ دقیقه پیش",
             "credibility": 0.72,
             "credibility_fa": "۷۲٪",
             "topic_fa": "مقررات",
             "assets": [
+              "WTI",
               "SPX"
             ],
             "why_fa": "",
@@ -398,7 +399,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $7,735 versus EMA20 $7,686, EMA50 $7,642 and EMA200 $7,267 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $7,731 (recent swing low); the lower Bollinger band $7,556 as the 2σ downside envelope; first resistance at $7,737 (recent swing high); upper band $7,786 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $63.96 implies a typical daily range of roughly 0.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 55.9 — neutral territory; MACD (12/26/9) sits above its signal line (14.09 vs 11.72, histogram +2.369), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 11%; the 20-day band spans 3% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.86x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +0.79% over 30 days and +2.86% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.40%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $7,747 versus EMA20 $7,687, EMA50 $7,642 and EMA200 $7,267 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $7,745 (recent swing low); the lower Bollinger band $7,555 as the 2σ downside envelope; first resistance at $7,748 (recent swing high); upper band $7,788 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $64.59 implies a typical daily range of roughly 0.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 56.9 — neutral territory; MACD (12/26/9) sits above its signal line (14.99 vs 11.9, histogram +3.091), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 11%; the 20-day band spans 3% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.87x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +0.94% over 30 days and +3.01% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.55%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -470,7 +471,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $7,737 on expanding turnover; continued holds of the 50-day average ($7,642). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $7,731. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $7,748 on expanding turnover; continued holds of the 50-day average ($7,642). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $7,745. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -484,11 +485,11 @@
     [
       "p",
       {
-        "en": "Net take on S&P 500: spot $7,735 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.16%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on S&P 500: spot $7,747 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.31%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T13:39:23.045961+00:00",
+  "generated_at": "2026-10-05T14:10:59.580703+00:00",
   "news_used": 10
 }

@@ -9,32 +9,36 @@
       {
         "title": "US Dollar Index — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار دلار DXY",
-        "asof": "2026-10-05 17:09 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
+        "asof": "2026-10-05 17:40 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
         "symbol": "DXY",
         "name": "US Dollar Index",
         "fa_name": "دلار DXY",
         "icon": "💵",
-        "price": 102.291,
-        "change_24h": 0.35,
+        "price": 102.327003,
+        "change_24h": 0.39,
         "news_window_hours": 24.0,
-        "news_used": 7,
+        "news_used": 9,
         "sources_used": [
           {
             "name": "FXStreet",
-            "count": 23
+            "count": 26
           },
           {
             "name": "FXEmpire",
-            "count": 5
-          },
-          {
-            "name": "fxstreet.com",
-            "count": 3
+            "count": 4
           },
           {
             "name": "ForexLive",
             "count": 2
+          },
+          {
+            "name": "fxstreet.com",
+            "count": 2
+          },
+          {
+            "name": "Bloomberg Markets",
+            "count": 1
           },
           {
             "name": "Euronews Business",
@@ -66,7 +70,7 @@
     [
       "p",
       {
-        "en": "US Dollar Index is changing hands near $102.29, +0.35% over the past 24 hours and +0.99% on a 7-day view. Spot trades above the 50-day average ($100.32) and above the 200-day average ($99.49), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+3.53%), suggesting the market is still repairing.",
+        "en": "US Dollar Index is changing hands near $102.33, +0.39% over the past 24 hours and +1.02% on a 7-day view. Spot trades above the 50-day average ($100.33) and above the 200-day average ($99.49), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+3.57%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -76,9 +80,34 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
-            "id": "0118fb4cae75",
+            "id": "18c1d6ab6849",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "Uganda Shilling Weakens to Record Low as Dollar Demand Persists",
+            "title_fa": "با تداوم تقاضای دلار، شیلینگ اوگاندا به پایین ترین سطح خود رسید",
+            "summary_fa": "شیلینگ اوگاندا به پایین‌ترین سطح خود در برابر دلار تضعیف شد زیرا تقاضا برای دلار از سوی سرمایه‌گذاران و واردکنندگان فراساحلی فشار جدیدی بر پول محلی وارد کرد.",
+            "source": "Bloomberg Markets",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/uganda-shilling-weakens-to-record-low-as-dollar-demand-persists",
+            "published_ts": 1791208453.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۷:۲۴",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۲۴",
+            "age_fa": "۱۸ دقیقه پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "عمومی",
+            "assets": [
+              "DXY"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "0118fb4cae75",
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "Kraken parent adds 24/7 dollar settlement with Singapore Gulf Bank",
             "title_fa": "والدین Kraken تسویه حساب دلاری ۲۴/۷ با بانک خلیج سنگاپور اضافه می کند",
             "summary_fa": "این مشارکت به مؤسسات منتخب در آسیا و منطقه خلیج‌فارس این امکان را می‌دهد تا فوراً تراکنش‌های دلار آمریکا را از طریق SGB Net بانک تسویه کنند.",
@@ -101,49 +130,24 @@
             "why_en": ""
           },
           {
-            "id": "52b47e292b8d",
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Natural Gas Price Forecast – Natural Gas Continues to Test 3 Dollars",
-            "title_fa": "پیش بینی قیمت گاز طبیعی – گاز طبیعی به آزمایش ۳ دلار ادامه می دهد",
-            "summary_fa": "پیش بینی قیمت گاز طبیعی – گاز طبیعی به آزمایش ۳ دلار ادامه می دهد",
-            "source": "FXEmpire",
-            "source_kind": "search",
-            "via": "FXEmpire",
-            "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQX2FWZEUxWGpOQjVVTzVNaG10VFRSWVY2NXRrSTNHY0NfczBCdlFiV2JlQXdZQVdGM0c5dmwySnZwejNpSU13UFltZHRkRWFtMXBPRWdfT0JEVUNSTjhDRTBKVjNwVmotcFhuM1A4QVlNa1FHVG1yRk5udTZNamdFUmd1RERJWWZPN2FNV0UxRk9uMk9LOFBHMHloMGtzaDdZQWE3bVdMRjItbnR3emFQWmZYclFqSXAw?oc=5",
-            "published_ts": 1791205281.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۶:۳۱",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۳۱",
-            "age_fa": "۳۶ دقیقه پیش",
-            "credibility": 0.82,
-            "credibility_fa": "۸۲٪",
-            "topic_fa": "تحلیل",
-            "assets": [
-              "DXY"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "id": "0b213e8e5b08",
+            "id": "3db172123fc0",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Why is the US Dollar rising despite October Fed hike odds fading?",
-            "title_fa": "چرا با وجود کاهش احتمال افزایش فدرال رزرو در ماه اکتبر، دلار آمریکا در حال افزایش است؟",
-            "summary_fa": "چرا با وجود کاهش احتمال افزایش فدرال رزرو در ماه اکتبر، دلار آمریکا در حال افزایش است؟",
+            "title_en": "Swiss Franc slips as US Dollar holds near yearly high after mixed PMI data",
+            "title_fa": "فرانک سوئیس سقوط کرد زیرا دلار آمریکا پس از داده‌های PMI مختلط نزدیک به بالاترین سطح سالانه خود نگه داشت",
+            "summary_fa": "فرانک سوئیس سقوط کرد زیرا دلار آمریکا پس از داده‌های PMI مختلط نزدیک به بالاترین سطح سالانه خود نگه داشت",
             "source": "FXStreet",
-            "source_kind": "macro",
-            "via": "FXStreet Forex",
-            "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQOURLT1lhaUlyZy12ekxpNjNLUmJrMUxPZHFDTjFkbjUwcXQ4MU5GM3AtS2ZiV19lTkcxTmNTeF9tQ096Mzl0WUJWLUoxUTVnRTZVSi1oUlNiVUtaXzZCRFdzQ1dXdm80WWxYc0wzYlBqYzFSR2hHSmdncW9oQXZwUFhSbllVaTQ5MVZkM1NabzJPakk4SHdieEliY29VUFFndW1WUTIxN0hhR2s?oc=5",
-            "published_ts": 1791196642.0,
+            "source_kind": "crypto",
+            "via": "FXStreet Crypto",
+            "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPZHp1S1I0Xy11UlBaQzBQbDBXb01Sa2x5NVVpVEh2eTV2LS1rM051NlZBTnd0SjBBcF9qUUtwM3FoQy00d09qeHp4YkJLRGJLWnpwZU9RZG9YNnRNSlZBZFpVekpNQV9LQUxNTmVKVUJqMENSaldrWGQ1ZmozMFloM1l1bTUwN0dpWTk4ZUlneTUweXhwT3dla3VubDBKcEVkTEgtVlhaMWRsYUpqTE8ySEFld1RKVXJt?oc=5",
+            "published_ts": 1791209087.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۴:۰۷",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۰۷",
-            "age_fa": "۳ ساعت پیش",
+            "time_fa": "۱۷:۳۴",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۴",
+            "age_fa": "۶ دقیقه پیش",
             "credibility": 0.82,
             "credibility_fa": "۸۲٪",
-            "topic_fa": "کلان",
+            "topic_fa": "عمومی",
             "assets": [
               "DXY"
             ],
@@ -180,14 +184,14 @@
             "title_fa": "چرا با وجود کاهش احتمال افزایش فدرال رزرو در ماه اکتبر، دلار آمریکا در حال افزایش است؟",
             "summary_fa": "چرا با وجود کاهش احتمال افزایش فدرال رزرو در ماه اکتبر، دلار آمریکا در حال افزایش است؟",
             "source": "FXStreet",
-            "source_kind": "macro",
-            "via": "FXStreet Forex",
+            "source_kind": "metals",
+            "via": "FXStreet Metals",
             "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQOURLT1lhaUlyZy12ekxpNjNLUmJrMUxPZHFDTjFkbjUwcXQ4MU5GM3AtS2ZiV19lTkcxTmNTeF9tQ096Mzl0WUJWLUoxUTVnRTZVSi1oUlNiVUtaXzZCRFdzQ1dXdm80WWxYc0wzYlBqYzFSR2hHSmdncW9oQXZwUFhSbllVaTQ5MVZkM1NabzJPakk4SHdieEliY29VUFFndW1WUTIxN0hhR2s?oc=5",
             "published_ts": 1791196642.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۴:۰۷",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۰۷",
-            "age_fa": "۳ ساعت پیش",
+            "age_fa": "۴ ساعت پیش",
             "credibility": 0.82,
             "credibility_fa": "۸۲٪",
             "topic_fa": "کلان",
@@ -277,14 +281,14 @@
             "title_fa": "اقتصاد ایالات متحده: تصویر ترکیبی کار و تورم - اقتصاد و استراتژی NBC",
             "summary_fa": "اقتصاد ایالات متحده: تصویر ترکیبی کار و تورم - اقتصاد و استراتژی NBC",
             "source": "FXStreet",
-            "source_kind": "macro",
-            "via": "FXStreet News",
+            "source_kind": "metals",
+            "via": "FXStreet Metals",
             "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOb0JNcXJIN0FrUkpyemx1eVBSQVBsMG9IbkdGZThnX0NvNDNIeHRRUWx3cjZoVzdEYzk3clkxaGpDakxSdXA5SkQ5UExxT1JacXlSQ0VZWDYwT2k3YjZZQ1dtNUdOR05CZWRQWkFKYWFoUHA1QlI4NXp3Ymgzc1dvSnlsS2JQMGhfdnVnWUlwb3NxTlRXOC04TVE3N1NUd2xHNTdxNEdUVjk4Vk52eWZOVjZsTXpsZw?oc=5",
             "published_ts": 1791170266.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۰۶:۴۷",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۶:۴۷",
-            "age_fa": "۱۰ ساعت پیش",
+            "age_fa": "۱۱ ساعت پیش",
             "credibility": 0.787,
             "credibility_fa": "۷۹٪",
             "topic_fa": "نهادی",
@@ -302,14 +306,14 @@
             "title_fa": "چشم انداز قیمت USD/CHF: دلار آمریکا/فرانک سوئیس از ۱ (۱۰۰%) افزایش یافت. کاهش احتمالی تا ۰.۸۲۵۷",
             "summary_fa": "چشم انداز قیمت USD/CHF: دلار آمریکا/فرانک سوئیس از ۱ (۱۰۰%) افزایش یافت. کاهش احتمالی تا ۰.۸۲۵۷",
             "source": "FXStreet",
-            "source_kind": "crypto",
-            "via": "FXStreet Crypto",
+            "source_kind": "metals",
+            "via": "FXStreet Metals",
             "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNR1ZRRFBQaEZhV1VEU1FLZmJ3dGw5X1FxRVU3YlpHLWFlT2RJbnZwMVQ4MWVhclVhU0VfTTZKY0Y5cDJkRy0ybmtUQjdIbEgzb0RodkhZajZxSXRhRm91VXZMY01MVFBzbnktcFlERnFKbGVWbmFtdlEyWWprSEJDZDIybXlsekhXcG5lc1JHV2UyemZlcUdwZDhtWkRtV0pjUEd4YV9VU194VXRPV3A0SXR1RjNCNjRROGdwbXZaLWdYaEl6UTRmaWY4MVl1eFMxcUQxVzVsUWpTWi1EZkE?oc=5",
             "published_ts": 1791140887.0,
             "date_fa": "۱۲ مهر ۱۴۰۵",
             "time_fa": "۲۲:۳۸",
             "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۲۲:۳۸",
-            "age_fa": "۱۸ ساعت پیش",
+            "age_fa": "۱۹ ساعت پیش",
             "credibility": 0.787,
             "credibility_fa": "۷۹٪",
             "topic_fa": "بازار",
@@ -332,7 +336,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $102.29 versus EMA20 $100.87, EMA50 $100.32 and EMA200 $99.49 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $102.10 (recent swing low); the lower Bollinger band $98.38 as the 2σ downside envelope; upper band $102.66 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.4788 implies a typical daily range of roughly 0.5 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 74.6 — overbought territory; MACD (12/26/9) sits above its signal line (0.6301 vs 0.4365, histogram +0.1936), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 5%; the 20-day band spans 4% of the mid — compressed, which often precedes a volatility expansion. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +3.53% over 30 days and +3.11% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.99%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $102.33 versus EMA20 $100.87, EMA50 $100.33 and EMA200 $99.49 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $102.10 (recent swing low); the lower Bollinger band $98.38 as the 2σ downside envelope; upper band $102.66 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.4788 implies a typical daily range of roughly 0.5 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 74.8 — overbought territory; MACD (12/26/9) sits above its signal line (0.633 vs 0.4371, histogram +0.1959), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 5%; the 20-day band spans 4% of the mid — compressed, which often precedes a volatility expansion. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +3.57% over 30 days and +3.14% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.02%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -356,7 +360,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۶:۳۱",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۳۱",
-            "age_fa": "۳۶ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.82,
             "credibility_fa": "۸۲٪",
             "topic_fa": "تحلیل",
@@ -404,7 +408,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($100.32); RSI holding above 60 (currently 75). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $102.10. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($100.33); RSI holding above 60 (currently 75). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $102.10. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -418,11 +422,11 @@
     [
       "p",
       {
-        "en": "Net take on US Dollar Index: spot $102.29 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.35%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on US Dollar Index: spot $102.33 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.39%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T13:39:23.044273+00:00",
-  "news_used": 7
+  "generated_at": "2026-10-05T14:10:59.579078+00:00",
+  "news_used": 9
 }

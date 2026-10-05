@@ -575,4 +575,49 @@ def test_phase12_freemium_and_billing():
 
 
 
-
+
+
+# ── iran_market (TGJU domestic quotes) ──────────────────────────────────────
+
+def test_iran_market_parses_tgju_rows(monkeypatch):
+    import iran_market
+    iran_market._CACHE["ts"], iran_market._CACHE["data"] = 0.0, None
+
+    class _R:
+        status_code = 200
+        def raise_for_status(self): pass
+        def json(self):
+            return {"current": {
+                "price_dollar_rl": {"p": "2,695,000", "dp": "0.45"},
+                "geram18":         {"p": "265,125,000", "dp": "0.70"},
+                "sekee":           {"p": "2,712,250,000", "dp": "-0.06"},
+                "ons":             {"p": "4,144.74", "dp": "0.11"},
+                "tether":          {"p": "271,300", "dp": "0.02"},
+            }}
+    monkeypatch.setattr(iran_market.requests, "get", lambda *a, **k: _R())
+    snap = iran_market.snapshot(force=True)
+    assert snap["ok"] is True
+    by_key = {i["key"]: i for i in snap["items"]}
+    # rial -> toman
+    assert by_key["dollar"]["price"] == 269500.0
+    assert by_key["gold18"]["price"] == 26512500.0
+    assert by_key["coin_emami"]["change_pct"] == -0.06
+    # the ounce stays in dollars
+    assert by_key["gold_ounce"]["unit"] == "dollar"
+    assert by_key["gold_ounce"]["price"] == 4144.74
+
+
+def test_iran_market_serves_stale_on_failure(monkeypatch):
+    import time
+    import iran_market
+    # a good snapshot in the cache, then a dead network
+    iran_market._CACHE["ts"] = time.time()          # fresh ts, but force=1 re-fetches
+    iran_market._CACHE["data"] = {"ok": True, "items": [{"key": "dollar", "label": "دلار",
+                                                        "price": 269500.0, "change_pct": 0.45,
+                                                        "unit": "toman", "stale": False}],
+                                  "ts": time.time(), "source": "tgju"}
+    def _boom(*a, **k): raise IOError("network down")
+    monkeypatch.setattr(iran_market.requests, "get", _boom)
+    snap = iran_market.snapshot(force=True)
+    assert snap["ok"] is True
+    assert snap["items"][0]["stale"] is True

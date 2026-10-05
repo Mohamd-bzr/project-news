@@ -9,20 +9,20 @@
       {
         "title": "WTI Crude Oil — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار نفت WTI",
-        "asof": "2026-10-05 17:09 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
+        "asof": "2026-10-05 17:40 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
         "symbol": "WTI",
         "name": "WTI Crude Oil",
         "fa_name": "نفت WTI",
         "icon": "🛢",
-        "price": 89.580002,
-        "change_24h": -1.68,
+        "price": 89.709999,
+        "change_24h": -1.54,
         "news_window_hours": 24.0,
-        "news_used": 9,
+        "news_used": 10,
         "sources_used": [
           {
             "name": "Reuters",
-            "count": 11
+            "count": 12
           },
           {
             "name": "ForexLive",
@@ -30,7 +30,11 @@
           },
           {
             "name": "Bloomberg Markets",
-            "count": 8
+            "count": 9
+          },
+          {
+            "name": "Economic Times Markets",
+            "count": 7
           },
           {
             "name": "Hindu BusinessLine",
@@ -41,19 +45,19 @@
             "count": 6
           },
           {
-            "name": "bloomberg.com",
+            "name": "Bloomberg.com",
             "count": 6
           },
           {
-            "name": "FXStreet",
-            "count": 5
+            "name": "Finwire",
+            "count": 4
           },
           {
             "name": "Bloomberg",
             "count": 4
           },
           {
-            "name": "Economic Times Markets",
+            "name": "FXStreet",
             "count": 4
           },
           {
@@ -61,11 +65,7 @@
             "count": 3
           },
           {
-            "name": "Finwire",
-            "count": 3
-          },
-          {
-            "name": "ZeroHedge",
+            "name": "Financial Times Markets",
             "count": 2
           }
         ],
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "WTI Crude Oil is changing hands near $89.58, -1.68% over the past 24 hours and -5.32% on a 7-day view. Spot trades below the 50-day average ($90.18) and above the 200-day average ($80.80), keeping the medium-term structure mixed. The 30-day tape reads as a recovery phase (+2.89%), suggesting the market is still repairing.",
+        "en": "WTI Crude Oil is changing hands near $89.71, -1.54% over the past 24 hours and -5.18% on a 7-day view. Spot trades below the 50-day average ($90.19) and above the 200-day average ($80.80), keeping the medium-term structure mixed. The 30-day tape reads as a recovery phase (+3.04%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -92,9 +92,34 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
-            "id": "d66d06a21a77",
+            "id": "64cef8f8418c",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "Replenishing crude and fuel stocks could take two years, Saudi Aramco CEO says",
+            "title_fa": "مدیرعامل آرامکوی سعودی می گوید که تکمیل ذخایر نفت خام و سوخت ممکن است دو سال طول بکشد",
+            "summary_fa": "مدیرعامل آرامکوی سعودی می گوید که تکمیل ذخایر نفت خام و سوخت ممکن است دو سال طول بکشد",
+            "source": "Reuters",
+            "source_kind": "search",
+            "via": "Google News · REUTERS wire",
+            "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQRFBWUXdRbEpSdW95M2JsWlZMNF9VRXhZdUp2eVBoSXJYYllUbmZ2anNWMFFrQ3lGWFU2cnNxUW1zWTk2alRMS2VhVUtqdndlVi0xc21BT3Fwa2hnd0tjZWxQZDJtaGNvQk41c2lfSWZQR0FaampUcHpFQXdvbG1vUElBZmhuU3FRbC1fNW9MZ2c3eS12dHM5a05QeHVtR3VCYXhmcTZ3TW9CYjdZa1JhdlZWLWVMOHNGM1dQVUhHNTVCQi1fNkE?oc=5",
+            "published_ts": 1791207503.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۷:۰۸",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۸",
+            "age_fa": "۳۰ دقیقه پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "عمومی",
+            "assets": [
+              "WTI"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "d66d06a21a77",
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "South Africa Gasoline Prices Head to Record High After Oil Shock",
             "title_fa": "قیمت بنزین آفریقای جنوبی پس از شوک نفتی به رکورد بالایی رسید",
             "summary_fa": "در حالی که آخرین شوک های نفتی ناشی از جنگ ایران با تعدیل های ماهانه دولت در پمپاژ انجام می شود، آفریقای جنوبی قیمتی بی سابقه برای بنزین خواهند پرداخت.",
@@ -118,8 +143,8 @@
           },
           {
             "id": "7713bdf972de",
-            "index": 2,
-            "index_fa": "۲",
+            "index": 3,
+            "index_fa": "۳",
             "title_en": "Kuwait Is Pumping Oil at About 75% of Prewar Rate, KPC CEO Says",
             "title_fa": "مدیرعامل KPC می گوید کویت نفت را با حدود ۷۵ درصد نرخ قبل از جنگ پمپاژ می کند.",
             "summary_fa": "مدیر اجرایی شرکت نفت دولتی کویت گفت: کویت در حال پمپاژ نفت در حدود ۷۵ درصد از سطحی است که قبل از شروع جنگ ایران بود، زیرا نفت‌کش‌های بیشتری خطر حرکت در تنگه هرمز را می‌پذیرند.",
@@ -132,31 +157,6 @@
             "time_fa": "۱۵:۵۰",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۵۰",
             "age_fa": "۴۲ دقیقه پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
-            "topic_fa": "بازار",
-            "assets": [
-              "WTI"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "id": "a58a19451992",
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Russia's oil earnings fall despite price jump as output drops, rouble rises",
-            "title_fa": "درآمد نفت روسیه با وجود جهش قیمت به دلیل کاهش تولید و افزایش روبل کاهش می یابد",
-            "summary_fa": "درآمد نفت روسیه با وجود جهش قیمت به دلیل کاهش تولید و افزایش روبل کاهش می یابد",
-            "source": "Reuters",
-            "source_kind": "search",
-            "via": "Google News · REUTERS wire",
-            "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQWXVBVEdSV0VCSHNQZ0lMMkpoWV9ZQzVKZ1h4TXNUUWJDWldiWXU0cWt5NWNGYTZJZnM1SERHTTdyU1RFekV5Y3NNQmo4czFaUWZWRk8xVlNZUnBpWGFNYlh5VVB1M1pCMER3czZzUVZCS1J1WG5meldjTy1FTTdVLXdtN1FsZDFtcy1FSDFwd0RhbEV1X01wVlZial9xaUlkRFR2VVR0dmotcElabjExUko5bW5VbjgxUGZlYkZKUQ?oc=5",
-            "published_ts": 1791201080.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۵:۲۱",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۲۱",
-            "age_fa": "۲ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "بازار",
@@ -342,7 +342,7 @@
             "title_en": "Big Oil goes to US Supreme Court over pivotal climate damages claim",
             "title_fa": "Big Oil به دلیل ادعای اصلی خسارات آب و هوایی به دادگاه عالی ایالات متحده رفت",
             "summary_fa": "اکسون موبیل و سانکور انرژی به دادگاه عالی نگاه می کنند تا جلوی اقدامات دولت را بگیرند",
-            "source": "Financial Times News",
+            "source": "Financial Times Markets",
             "source_kind": "macro",
             "via": "",
             "link": "https://www.ft.com/content/4d2078c4-4773-4d4c-8544-c17169362579?syn-25a6b1a6=1",
@@ -398,7 +398,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $89.58 versus EMA20 $92.83, EMA50 $90.18 and EMA200 $80.80 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $89.38 (recent swing low); the lower Bollinger band $86.14 as the 2σ downside envelope; first resistance at $90.22 (recent swing high); upper band $105.75 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.552 implies a typical daily range of roughly 5.1 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 44.9 — neutral territory; MACD (12/26/9) sits below its signal line (0.2247 vs 1.501, histogram -1.277), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 52%; the 20-day band spans 20% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.00x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +2.89% over 30 days and +1.01% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (-5.32%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $89.71 versus EMA20 $92.85, EMA50 $90.19 and EMA200 $80.80 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $89.38 (recent swing low); the lower Bollinger band $86.17 as the 2σ downside envelope; first resistance at $90.22 (recent swing high); upper band $105.74 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.552 implies a typical daily range of roughly 5.1 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 45.1 — neutral territory; MACD (12/26/9) sits below its signal line (0.2351 vs 1.504, histogram -1.268), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 52%; the 20-day band spans 20% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.01x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +3.04% over 30 days and +1.16% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (-5.18%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -470,7 +470,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $90.22 on expanding turnover. Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $89.38; failed reclaims of the 50-day average ($90.18). In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $90.22 on expanding turnover. Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $89.38; failed reclaims of the 50-day average ($90.19). In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -484,11 +484,11 @@
     [
       "p",
       {
-        "en": "Net take on WTI Crude Oil: spot $89.58 with the medium-term bias defensive while price holds the relevant side of the 50-day average. The 24-hour tape (-1.68%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on WTI Crude Oil: spot $89.71 with the medium-term bias defensive while price holds the relevant side of the 50-day average. The 24-hour tape (-1.54%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T13:39:23.042086+00:00",
-  "news_used": 9
+  "generated_at": "2026-10-05T14:10:59.577068+00:00",
+  "news_used": 10
 }

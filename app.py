@@ -2735,6 +2735,13 @@ def _channel_board(force: bool = False):
         "min_credibility": float(cfg.get("min_credibility") or 0.55),
         "corpus": len(articles),
     }
+    # domestic quotes (dollar / gold 18k / Emami coin) — the price strip the
+    # page's readers actually check; fails soft to an empty strip
+    try:
+        import iran_market
+        result["domestic"] = iran_market.snapshot()
+    except Exception:
+        result["domestic"] = {"ok": False, "items": []}
 
     with _CHANNEL_LOCK:
         _CHANNEL_CACHE["ts"], _CHANNEL_CACHE["payload"] = now, result
@@ -2744,6 +2751,63 @@ def _channel_board(force: bool = False):
 def _channel_feed(limit: int = 40, force: bool = False):
     import channel_profile
     return channel_profile.slice_board(_channel_board(force=force), limit)
+
+
+_WHALE_CACHE = {"ts": 0.0, "data": None}
+
+@app.route("/api/whales/live")
+def api_whales_live():
+    """Real on-chain whale moves — mempool.space public API (free, key-less).
+
+    The mempool *is* the whale wire: every large transfer sits there for the
+    ~10 minutes it takes to confirm, with its exact satoshi value. Big BTC
+    moves only (>= 1 BTC); USD via the live BTC quote when available.
+    60s cache — the mempool churns every second, the tab does not need to.
+    """
+    now = time.time()
+    if _WHALE_CACHE["data"] and now - _WHALE_CACHE["ts"] < 60:
+        return jsonify({"ok": True, **_WHALE_CACHE["data"]})
+    try:
+        r = requests.get("https://mempool.space/api/mempool/recent",
+                         headers=HEADERS, timeout=10)
+        r.raise_for_status()
+        txs = r.json() or []
+        btc_price = ((live_prices() or {}).get("BTC") or {}).get("price")
+        sats_btc = 1e8
+        whales = []
+        for t in txs:
+            val_btc = (t.get("value") or 0) / sats_btc
+            if val_btc < 1.0:
+                continue
+            whales.append({
+                "id": "live-" + str(t.get("txid", ""))[:12],
+                "asset": "BTC",
+                "amount": round(val_btc, 2),
+                "usd": round(val_btc * btc_price) if btc_price else None,
+                "fee_sat": t.get("fee"),
+                "hash": str(t.get("txid", ""))[:10],
+                "tag": "میم‌پول — در انتظار تأیید",
+            })
+        whales.sort(key=lambda x: -x["amount"])
+        whales = whales[:12]
+        data = {"whales": whales, "count": len(whales), "ts": now}
+        _WHALE_CACHE["ts"], _WHALE_CACHE["data"] = now, data
+        return jsonify({"ok": True, **data})
+    except Exception as e:
+        if _WHALE_CACHE["data"]:
+            return jsonify({"ok": True, **_WHALE_CACHE["data"], "stale": True})
+        return jsonify({"ok": False, "whales": [], "error": str(e)})
+
+
+@app.route("/api/iran")
+def api_iran_market():
+    """Domestic Iranian quotes (TGJU feed, 5-min TTL): dollar, gold 18k,
+    Emami coin, global ounce. Free, key-less; last-good on failure."""
+    try:
+        import iran_market
+        return jsonify({"ok": True, **iran_market.snapshot()})
+    except Exception as e:
+        return jsonify({"ok": False, "items": [], "error": str(e)})
 
 
 @app.route("/api/channel/feed")
@@ -5888,6 +5952,37 @@ def fetch_article_content(url, title=None, publisher=None):
     except Exception:
         pass
 
+    # 2b) trafilatura — the best open-source article extractor (Apache-2.0,
+    #     key-less): readability + justext fallbacks built in. One second on
+    #     live feeds where the DOM pass returned thin text, so it goes right
+    #     before the parallel deep burst and also re-tries the paywall hosts.
+    def _trafilatura_rung():
+        try:
+            import trafilatura
+            r = requests.get(url, headers=HEADERS, timeout=12, allow_redirects=True)
+            if r.status_code != 200 or len(r.text) < 500:
+                return None
+            txt = trafilatura.extract(r.text, include_comments=False,
+                                      include_tables=False, favor_recall=True,
+                                      url=url) or ""
+            paras = [p.strip() for p in txt.splitlines() if len(p.strip()) > 40]
+            if not paras:
+                return None
+            wc = sum(len(p.split()) for p in paras)
+            return {"paragraphs": paras[:150], "word_count": wc, "partial": wc < 120,
+                    "title": title or "", "site": publisher or "", "published": "",
+                    "url": url, "resolved_url": url, "via": "trafilatura"}
+        except ImportError:
+            return None
+        except Exception:
+            return None
+
+    tr = _bounded(_trafilatura_rung, 16)
+    if tr:
+        if _consider(tr):
+            return best
+        # even a thin trafilatura body usually beats nothing; keep it as `best`
+
     # 3) deep sources — all fetched IN PARALLEL (worst case ≈ slowest source,
     #    not the sum), so a thin article never stalls the modal for minutes
     _GBOT = {**HEADERS, "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}
@@ -6382,4 +6477,12 @@ if __name__ == "__main__":
     # trusted network, and set MOHMD_TOKEN to require ?token=... on every call.
     import os as _os
     host = _os.environ.get("MOHMD_HOST") or ("0.0.0.0" if "--public" in sys.argv else "127.0.0.1")
-    app.run(host=host, port=port, debug=False, threaded=True)
+    try:
+        # waitress — a real production WSGI server, pure-python, no extra deps.
+        # The Werkzeug dev server is thin on threading; waitress holds up
+        # under the dashboard's polling + SSE load.
+        from waitress import serve
+        log(f"waitress: serving on http://{host}:{port} (16 threads)")
+        serve(app, host=host, port=port, threads=16)
+    except ImportError:
+        app.run(host=host, port=port, debug=False, threaded=True)

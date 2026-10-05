@@ -6,5 +6,13 @@ requests>=2.31
 psutil>=5.9.0
 vaderSentiment>=3.3.2
 
+# best-in-class article text extraction (readability/justext built in) —
+# a rung of the full-text ladder in app.py; degrades gracefully if absent
+trafilatura>=1.12
+
+# production WSGI server (Windows-friendly, no deps) — app.py falls back
+# to the Werkzeug dev server when it is not installed
+waitress>=3.0
+
 # optional: helps the paywall reader on Cloudflare-protected sites
-# cloudscraper>=1.2.71
+# cloudscraper>=1.2.71

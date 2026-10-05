@@ -158,6 +158,32 @@ const Channel = (function () {
     '</article>';
   }
 
+  function fmtDomestic(it) {
+    const n = Number(it.price) || 0;
+    if (it.unit === 'dollar') return '$' + num(n, 2);
+    return num(n, 0);
+  }
+
+  function renderDomestic(dom) {
+    const host = el('cbDomestic');
+    if (!host) return;
+    const items = (dom && dom.items) || [];
+    if (!items.length) { host.style.display = 'none'; return; }
+    host.style.display = '';
+    host.innerHTML = items.map(function (it) {
+      const chg = (it.change_pct === null || it.change_pct === undefined) ? '' :
+        Number(it.change_pct);
+      const cls = chg === '' ? '' : (chg >= 0 ? 'up' : 'dn');
+      const arrow = chg === '' ? '' : (chg >= 0 ? '▲' : '▼');
+      return '<span class="cb-dom' + (cls ? ' ' + cls : '') + (it.stale ? ' stale' : '') + '" title="' +
+        (it.stale ? 'آخرین دادهٔ در دسترس' : 'بازار داخلی — TGJU') + '">' +
+        '<span class="lbl">' + esc(it.label) + '</span>' +
+        '<span class="val">' + fmtDomestic(it) + (it.unit === 'dollar' ? '' : ' تومان') + '</span>' +
+        (chg === '' ? '' : '<span class="chg">' + arrow + ' ' + fa(Math.abs(chg).toFixed(2)) + '٪</span>') +
+      '</span>';
+    }).join('') + '<span class="cb-dom-src">بازار داخلی</span>';
+  }
+
   function renderKPIs() {
     const feed = S.feed || {};
     const items = feed.items || [];
@@ -174,6 +200,8 @@ const Channel = (function () {
     set('cbRejectedSub', fa(rej.off_profile || 0) + ' خارج از موضوع · ' +
                         fa(rej.no_bucket || 0) + ' بی‌ربط · ' +
                         fa(rej.low_credibility || 0) + ' کم‌اعتبار');
+
+    renderDomestic(feed.domestic);
 
     const lanes = el('cbLanes');
     if (lanes) lanes.innerHTML = laneChips();

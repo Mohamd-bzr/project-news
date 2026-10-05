@@ -2018,6 +2018,15 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .cb-item h4{ margin:0; font-size:var(--t-md); color:var(--ink-1); line-height:var(--lh-fa); font-weight:700; }
 .cb-rank{ min-width:30px; height:24px; border-radius:var(--r-pill); background:var(--wash); color:var(--ink-3); font-size:11px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
 .cb-fit{ display:flex; flex-direction:column; align-items:center; padding:4px 10px; background:var(--wash); border:1px solid var(--rule); border-radius:var(--r2); flex-shrink:0; }
+.cb-domestic{ display:flex; flex-wrap:wrap; gap:var(--s2); align-items:center; padding:var(--s2) var(--s3); margin-block-end:var(--s3); background:var(--panel); border:1px solid var(--rule); border-radius:var(--r2); }
+.cb-dom{ display:inline-flex; align-items:baseline; gap:6px; padding:3px 10px; border-radius:var(--r-pill); background:var(--wash); border:1px solid var(--rule); }
+.cb-dom .lbl{ font-size:10.5px; color:var(--ink-4); }
+.cb-dom .val{ font-family:var(--font-mono); font-size:var(--t-sm); font-weight:700; color:var(--ink-1); font-variant-numeric:tabular-nums; direction:ltr; }
+.cb-dom .chg{ font-family:var(--font-mono); font-size:10px; font-weight:700; font-variant-numeric:tabular-nums; direction:ltr; }
+.cb-dom.up .chg{ color:var(--up); }
+.cb-dom.dn .chg{ color:var(--dn); }
+.cb-dom.stale{ opacity:.6; }
+.cb-dom-src{ font-size:10px; color:var(--ink-4); margin-inline-start:auto; }
 .cb-viral{ display:flex; flex-direction:column; align-items:center; padding:6px 14px; border-radius:var(--r2); flex-shrink:0; border:1px solid; }
 .cb-viral.hot{ background:rgba(238,106,88,.14); border-color:rgba(238,106,88,.4); }
 .cb-viral.warm{ background:rgba(232,162,60,.13); border-color:rgba(232,162,60,.38); }
@@ -3493,6 +3502,8 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
                 <span class="cb-kpi-sub">هر ۶۰ ثانیه به‌روزرسانی می‌شود</span>
               </div>
             </div>
+
+            <div class="cb-domestic" id="cbDomestic" style="display:none" role="status" aria-label="قیمت‌های بازار داخلی"></div>
 
             <div class="cb-bar">
               <div class="cb-lanes" id="cbLanes" role="group" aria-label="فیلتر دستهٔ پیشنهاد"></div>
@@ -8961,6 +8972,32 @@ class WhaleTracker {
     this.filterAsset = 'ALL';
     this.filterFlow = 'ALL';
     this.txs = this.initSeedData();
+    this.loadLive();
+  }
+
+  /* real on-chain BTC moves from the mempool (/api/whales/live) prepended to
+     the seed rows; a failed fetch just leaves the seed board as it is */
+  async loadLive() {
+    try {
+      const r = await fetch('/api/whales/live');
+      const j = await r.json();
+      if (!j || j.ok === false || !(j.whales || []).length) return;
+      const now = Date.now();
+      const live = j.whales.map((w, i) => ({
+        id: w.id || ('live-' + i),
+        ts: now - i * 30000,
+        asset: w.asset || 'BTC',
+        amount: w.amount || 0,
+        usd: w.usd || 0,
+        from: 'Unknown (on-chain)',
+        to: 'Mempool — در انتظار تأیید',
+        type: 'mempool',
+        tag: w.tag || 'میم‌پول',
+        hash: w.hash || '',
+      }));
+      this.txs = live.concat(this.txs.filter(t => t.type !== 'mempool'));
+      this.render();
+    } catch (e) { /* seed stays */ }
   }
 
   initSeedData() {

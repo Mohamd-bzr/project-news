@@ -9,14 +9,14 @@
       {
         "title": "CBOE Volatility Index — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار شاخص ترس VIX",
-        "asof": "2026-10-05 17:09 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
+        "asof": "2026-10-05 17:40 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
         "symbol": "VIX",
         "name": "CBOE Volatility Index",
         "fa_name": "شاخص ترس VIX",
         "icon": "😰",
-        "price": 16.01,
-        "change_24h": 4.57,
+        "price": 15.87,
+        "change_24h": 3.66,
         "news_window_hours": 24.0,
         "news_used": 1,
         "sources_used": [
@@ -38,7 +38,7 @@
     [
       "p",
       {
-        "en": "CBOE Volatility Index is changing hands near $16.01, +4.57% over the past 24 hours and +2.17% on a 7-day view. Spot trades above the 50-day average ($15.97) and below the 200-day average ($17.53), keeping the medium-term structure mixed. The 30-day tape reads as a consolidation phase (+1.01%), suggesting the market is still rotating within a range.",
+        "en": "CBOE Volatility Index is changing hands near $15.87, +3.66% over the past 24 hours and +1.28% on a 7-day view. Spot trades below the 50-day average ($15.97) and below the 200-day average ($17.53), keeping the medium-term structure defensive. The 30-day tape reads as a consolidation phase (+0.13%), suggesting the market is still rotating within a range.",
         "fa": ""
       }
     ],
@@ -62,7 +62,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۰۷:۴۸",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۴۸",
-            "age_fa": "۹ ساعت پیش",
+            "age_fa": "۱۰ ساعت پیش",
             "credibility": 0.634,
             "credibility_fa": "۶۳٪",
             "topic_fa": "ETF",
@@ -109,7 +109,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۰۷:۴۸",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۴۸",
-            "age_fa": "۹ ساعت پیش",
+            "age_fa": "۱۰ ساعت پیش",
             "credibility": 0.634,
             "credibility_fa": "۶۳٪",
             "topic_fa": "ETF",
@@ -132,7 +132,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $16.01 versus EMA20 $15.76, EMA50 $15.97 and EMA200 $17.53 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $15.99 (recent swing low); the lower Bollinger band $14.04 as the 2σ downside envelope; first resistance at $16.04 (recent swing high); upper band $17.86 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $1.276 implies a typical daily range of roughly 8.0 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 51.3 — neutral territory; MACD (12/26/9) sits above its signal line (0.02534 vs -0.01674, histogram +0.04208), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 108%; the 20-day band spans 24% of the mid — expanded, which favors trend continuation tactics. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +1.01% over 30 days and +1.72% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+2.17%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $15.87 versus EMA20 $15.75, EMA50 $15.97 and EMA200 $17.53 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $15.86 (recent swing low); the lower Bollinger band $14.04 as the 2σ downside envelope; first resistance at $15.99 (recent swing high); upper band $17.86 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $1.276 implies a typical daily range of roughly 8.0 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 50.6 — neutral territory; MACD (12/26/9) sits above its signal line (0.01418 vs -0.01897, histogram +0.03315), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 108%; the 20-day band spans 24% of the mid — expanded, which favors trend continuation tactics. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +0.13% over 30 days and +0.83% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.28%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -146,7 +146,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $16.04 on expanding turnover; continued holds of the 50-day average ($15.97). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $15.99. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $15.99 on expanding turnover. Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $15.86; failed reclaims of the 50-day average ($15.97). In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -160,11 +160,11 @@
     [
       "p",
       {
-        "en": "Net take on CBOE Volatility Index: spot $16.01 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+4.57%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on CBOE Volatility Index: spot $15.87 with the medium-term bias defensive while price holds the relevant side of the 50-day average. The 24-hour tape (+3.66%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T13:39:23.049228+00:00",
+  "generated_at": "2026-10-05T14:10:59.583118+00:00",
   "news_used": 1
 }

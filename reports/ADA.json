@@ -9,16 +9,16 @@
       {
         "title": "Cardano — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Cardano",
-        "asof": "2026-10-05 17:09 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۹",
+        "asof": "2026-10-05 17:40 Tehran",
+        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
         "symbol": "ADA",
         "name": "Cardano",
         "fa_name": "Cardano",
         "icon": "₳",
-        "price": 0.274346,
-        "change_24h": 11.45,
+        "price": 0.275034,
+        "change_24h": 12.6,
         "news_window_hours": 24.0,
-        "news_used": 8,
+        "news_used": 7,
         "sources_used": [
           {
             "name": "The Crypto Basic",
@@ -31,6 +31,18 @@
           {
             "name": "CoinCu",
             "count": 2
+          },
+          {
+            "name": "AMBCrypto",
+            "count": 1
+          },
+          {
+            "name": "Cryptonews.net",
+            "count": 1
+          },
+          {
+            "name": "BeInCrypto",
+            "count": 1
           },
           {
             "name": "Invezz",
@@ -55,18 +67,6 @@
           {
             "name": "Finbold",
             "count": 1
-          },
-          {
-            "name": "CryptoPotato",
-            "count": 1
-          },
-          {
-            "name": "Cryptonews",
-            "count": 1
-          },
-          {
-            "name": "CoinPedia",
-            "count": 1
           }
         ],
         "market_stale": false
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Cardano is changing hands near $0.2743, +11.45% over the past 24 hours and +10.98% on a 7-day view. Spot trades above the 50-day average ($0.2245) and above the 200-day average ($0.2416), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+25.51%), suggesting the market is still repairing.",
+        "en": "Cardano is changing hands near $0.2750, +12.60% over the past 24 hours and +11.21% on a 7-day view. Spot trades above the 50-day average ($0.2245) and above the 200-day average ($0.2417), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+25.76%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -144,26 +144,25 @@
             "why_en": ""
           },
           {
-            "id": "9ffd9cbae8f5",
+            "id": "823ab39f077e",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Bitcoin (BTC) Rejected at $87K Again, Cardano (ADA) Soars 11%: Market Watch",
-            "title_fa": "دیده بان بازار: بیت کوین (BTC) دوباره با قیمت ۸۷ هزار دلار رد شد، کاردانو (ADA) ۱۱ درصد افزایش یافت",
-            "summary_fa": "سایر سودآورهای قابل توجه در ۲۴ ساعت گذشته عبارتند از FET و VIRTUAL.",
-            "source": "CryptoPotato",
+            "title_en": "Cardano jumps 10% to 5 month high – Can ADA shorts fuel $0.30 move?",
+            "title_fa": "کاردانو با جهش ۱۰ درصدی به بالاترین سطح ۵ ماهه رسید - آیا شورت ADA می تواند سوخت ۰.۳۰ دلاری داشته باشد؟",
+            "summary_fa": "سرمایه بیشتری وارد بازار آتی Cardano شد. سوال بی پاسخ این است که بعداً چه کسی مجبور به خروج می شود.",
+            "source": "AMBCrypto",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://cryptopotato.com/bitcoin-btc-rejected-at-87k-again-cardano-ada-soars-11-market-watch/",
-            "published_ts": 1791193043.0,
+            "link": "https://ambcrypto.com/cardano-jumps-10-to-5-month-high-can-ada-shorts-fuel-0-30-move/",
+            "published_ts": 1791208836.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۳:۰۷",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۰۷",
-            "age_fa": "۴ ساعت پیش",
-            "credibility": 0.72,
-            "credibility_fa": "۷۲٪",
-            "topic_fa": "عمومی",
+            "time_fa": "۱۷:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
+            "age_fa": "۶ دقیقه پیش",
+            "credibility": 0.75,
+            "credibility_fa": "۷۵٪",
+            "topic_fa": "بازار",
             "assets": [
-              "BTC",
               "ADA"
             ],
             "why_fa": "",
@@ -182,7 +181,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- “What the Hell Else Can I Do?”—Cardano Founder Defends ADA Progress.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Europeans Could Face Spending Caps Under a Digital Euro, Cardano's Hoskinson Warns.\n- “What the Hell Else Can I Do?”—Cardano Founder Defends ADA Progress.",
         "fa": ""
       }
     ],
@@ -192,9 +191,34 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
-            "id": "e6c2667e947b",
+            "id": "cc61b0c47db3",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "Europeans Could Face Spending Caps Under a Digital Euro, Cardano's Hoskinson Warns",
+            "title_fa": "هاسکینسون Cardano هشدار می دهد که اروپایی ها ممکن است تحت یک یورو دیجیتال با سقف هزینه مواجه شوند",
+            "summary_fa": "چارلز هاسکینسون در نشست سران سازمان ملل گفت که یورو دیجیتال باعث کاهش هزینه ها می شود. ببینید پیش نویس قانون اتحادیه اروپا در واقع چه می گوید.",
+            "source": "BeInCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://beincrypto.com/hoskinson-digital-euro-asset-discrimination/",
+            "published_ts": 1791207211.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۷:۰۳",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۳",
+            "age_fa": "۳۶ دقیقه پیش",
+            "credibility": 0.75,
+            "credibility_fa": "۷۵٪",
+            "topic_fa": "مقررات",
+            "assets": [
+              "ADA"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "e6c2667e947b",
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "“What the Hell Else Can I Do?”—Cardano Founder Defends ADA Progress",
             "title_fa": "«چه جهنمی دیگر می توانم انجام دهم؟» - بنیانگذار کاردانو از پیشرفت ADA دفاع می کند",
             "summary_fa": "چارلز هاسکینسون با اشاره به RealFi، Midnight، Pogun و ادغام های اصلی، از پیشرفت کاردانو پس از انتقاد در مورد نقدینگی و استفاده دفاع می کند. چارلز هاسکینسون، بنیانگذار Cardano، پس از اینکه منتقدی در مورد اینکه آیا سالها توسعه نقدینگی کافی و ",
@@ -206,7 +230,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۰۹:۵۶",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۹:۵۶",
-            "age_fa": "۶ ساعت پیش",
+            "age_fa": "۸ ساعت پیش",
             "credibility": 0.576,
             "credibility_fa": "۵۸٪",
             "topic_fa": "کلان",
@@ -229,7 +253,7 @@
     [
       "p",
       {
-        "en": "- Machine learning algorithm sets Cardano (ADA) price for October 31, 2026. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.\n- Cardano (ADA) price jumps 10.81% after T. Rowe Price adds ADA to a crypto ETF, boosting institutional interest.. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.\n- Why Is Cardano (ADA) Price Surging Today? Key Drivers. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.",
+        "en": "- Cardano jumps 10% to 5 month high – Can ADA shorts fuel $0.30 move?. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.\n- Europeans Could Face Spending Caps Under a Digital Euro, Cardano's Hoskinson Warns. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Machine learning algorithm sets Cardano (ADA) price for October 31, 2026. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano.",
         "fa": ""
       }
     ],
@@ -239,9 +263,59 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
-            "id": "7074004c0734",
+            "id": "823ab39f077e",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "Cardano jumps 10% to 5 month high – Can ADA shorts fuel $0.30 move?",
+            "title_fa": "کاردانو با جهش ۱۰ درصدی به بالاترین سطح ۵ ماهه رسید - آیا شورت ADA می تواند سوخت ۰.۳۰ دلاری داشته باشد؟",
+            "summary_fa": "سرمایه بیشتری وارد بازار آتی Cardano شد. سوال بی پاسخ این است که بعداً چه کسی مجبور به خروج می شود.",
+            "source": "AMBCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://ambcrypto.com/cardano-jumps-10-to-5-month-high-can-ada-shorts-fuel-0-30-move/",
+            "published_ts": 1791208836.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۷:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
+            "age_fa": "۶ دقیقه پیش",
+            "credibility": 0.75,
+            "credibility_fa": "۷۵٪",
+            "topic_fa": "بازار",
+            "assets": [
+              "ADA"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano."
+          },
+          {
+            "id": "cc61b0c47db3",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Europeans Could Face Spending Caps Under a Digital Euro, Cardano's Hoskinson Warns",
+            "title_fa": "هاسکینسون Cardano هشدار می دهد که اروپایی ها ممکن است تحت یک یورو دیجیتال با سقف هزینه مواجه شوند",
+            "summary_fa": "چارلز هاسکینسون در نشست سران سازمان ملل گفت که یورو دیجیتال باعث کاهش هزینه ها می شود. ببینید پیش نویس قانون اتحادیه اروپا در واقع چه می گوید.",
+            "source": "BeInCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://beincrypto.com/hoskinson-digital-euro-asset-discrimination/",
+            "published_ts": 1791207211.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۷:۰۳",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۳",
+            "age_fa": "۳۶ دقیقه پیش",
+            "credibility": 0.75,
+            "credibility_fa": "۷۵٪",
+            "topic_fa": "مقررات",
+            "assets": [
+              "ADA"
+            ],
+            "why_fa": "",
+            "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
+          },
+          {
+            "id": "7074004c0734",
+            "index": 3,
+            "index_fa": "۳",
             "title_en": "Machine learning algorithm sets Cardano (ADA) price for October 31, 2026",
             "title_fa": "الگوریتم یادگیری ماشین قیمت کاردانو (ADA) را برای ۳۱ اکتبر ۲۰۲۶ تعیین می کند",
             "summary_fa": "الگوریتم یادگیری ماشین قیمت کاردانو (ADA) را برای ۳۱ اکتبر ۲۰۲۶ تعیین می کند",
@@ -262,56 +336,6 @@
             ],
             "why_fa": "",
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano."
-          },
-          {
-            "id": "a191d596818e",
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Cardano (ADA) price jumps 10.81% after T. Rowe Price adds ADA to a crypto ETF, boosting institutional interest.",
-            "title_fa": "قیمت Cardano (ADA) پس از افزودن ADA به ETF کریپتو، ۱۰.۸۱٪ جهش کرد و علاقه سازمانی را افزایش داد.",
-            "summary_fa": "قیمت Cardano (ADA) ۱۰.۸۱٪ جهش کرد پس از T. Rowe Price که ADA را به ETF کریپتو اضافه کرد و علاقه سازمانی را افزایش داد.",
-            "source": "Pluang",
-            "source_kind": "search",
-            "via": "Google News · ADA",
-            "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPUXRmU1NULVRPMy1pWmk0NDZQNDVDOF9US1hXQkpsR0dEZXlQOU9kdUczaVNkazZSaHRyQmFOMnhHSmRybVVUNDQ0WjJqNFhIa2NPNzBRaGNhV3VMMkx2NGwzZXRhNWJMdVdnY0hnQTljMXFjS1B6bWRMVzRtT3c3QUFn?oc=5",
-            "published_ts": 1791190517.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۲:۲۵",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۵",
-            "age_fa": "۵ ساعت پیش",
-            "credibility": 0.66,
-            "credibility_fa": "۶۶٪",
-            "topic_fa": "ETF",
-            "assets": [
-              "ADA"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano."
-          },
-          {
-            "id": "bb43fe445635",
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Why Is Cardano (ADA) Price Surging Today? Key Drivers",
-            "title_fa": "چرا قیمت Cardano (ADA) امروز افزایش می یابد؟ درایورهای کلیدی",
-            "summary_fa": "Cardano (ADA) در تاریخ ۵ اکتبر ۲۰۲۶، سودهای روزانه شدیدی را منتشر می کند و توجه معامله گران را در میان بازار آلت کوین گسترده تر که در جلسات اخیر پویایی چرخش را نشان داده است، به خود جلب می کند، اگرچه کاتالیزور خاصی که باعث این حرکت می شود ن",
-            "source": "CoinCu",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://www.coincu.com/why-is-cardano-price-surging-today-3/",
-            "published_ts": 1791190255.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۲:۲۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۰",
-            "age_fa": "۵ ساعت پیش",
-            "credibility": 0.66,
-            "credibility_fa": "۶۶٪",
-            "topic_fa": "بازار",
-            "assets": [
-              "ADA"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Cardano."
           }
         ]
       }
@@ -326,7 +350,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $10.3B (CoinGecko). Reported 24-hour spot volume is $1.18B with 7-day average turnover elevated versus the trailing month (1.17x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "en": "Total market capitalization stands near $10.3B (CoinGecko). Reported 24-hour spot volume is $1.20B with 7-day average turnover elevated versus the trailing month (1.17x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
         "fa": ""
       }
     ],
@@ -354,7 +378,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.2743 versus EMA20 $0.2430, EMA50 $0.2245 and EMA200 $0.2416 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.2592 (recent swing low); the lower Bollinger band $0.2056 as the 2σ downside envelope; upper band $0.2783 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0146 implies a typical daily range of roughly 5.3 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 70.7 — overbought territory; MACD (12/26/9) sits above its signal line (0.01182 vs 0.01083, histogram +0.0009962), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 71%; the 20-day band spans 30% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.17x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +25.51% over 30 days and +57.18% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+10.98%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.2748 versus EMA20 $0.2430, EMA50 $0.2245 and EMA200 $0.2417 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.2592 (recent swing low); the lower Bollinger band $0.2056 as the 2σ downside envelope; upper band $0.2784 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0146 implies a typical daily range of roughly 5.3 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 70.9 — overbought territory; MACD (12/26/9) sits above its signal line (0.01187 vs 0.01084, histogram +0.001031), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 72%; the 20-day band spans 30% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.17x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +25.76% over 30 days and +57.50% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+11.21%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -440,11 +464,11 @@
     [
       "p",
       {
-        "en": "Net take on Cardano: spot $0.2743 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+11.45%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Cardano: spot $0.2750 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+12.60%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T13:39:18.312384+00:00",
-  "news_used": 8
+  "generated_at": "2026-10-05T14:10:54.877919+00:00",
+  "news_used": 7
 }
