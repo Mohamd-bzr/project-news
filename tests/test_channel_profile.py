@@ -399,3 +399,21 @@ def test_board_ranks_by_viral_first_fit_second():
     assert ids.index("hot") < ids.index("mild")
     top = board["items"][0]
     assert top["rank"] == round(0.6 * top["viral"] + 0.4 * top["fit"], 1)
+
+
+def test_a_crypto_story_never_wears_the_coin_badge():
+    """The Persian translator renders the English "coins" inside crypto
+    summaries as «سکه» - a Bitcoin story must still badge کریپتو, not سکه."""
+    a = art("استریو ۱۶۹ میلیون دلار بیت کوین خرید",
+            "در معاملات امروز سکه‌های دیجیتال و ارزهای دیجیتال رشد کردند.")
+    res = cp.score_article(a, now=NOW)
+    assert res["publishable"]
+    assert res["primary_bucket"] == "crypto"
+
+
+def test_a_bare_doge_mention_is_meme_excluded():
+    """«دوج» alone - not only «دوج کوین» - is the meme lane's hard exclude."""
+    res = cp.score_article(
+        art("قیمت دوج امروز جهش کرد", "بازار میم‌کوین‌ها داغ است."), now=NOW)
+    assert not res["publishable"]
+    assert res["off_profile"].get("meme")

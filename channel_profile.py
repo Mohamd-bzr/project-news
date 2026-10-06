@@ -130,8 +130,8 @@ OFF_PROFILE: Dict[str, Dict[str, Any]] = {
     "meme": {
         "label": "میم و توکن طنز",
         "words": (
-            "میم کوین", "میم‌کوین", "شیبا", "دوج کوین", "پپه", "bonk",
-            "meme coin", "shiba", "dogecoin", "pepe coin", "pump up",
+            "میم کوین", "میم‌کوین", "شیبا", "دوج کوین", "دوج", "پپه", "bonk",
+            "meme coin", "shiba", "dogecoin", "doge", "pepe coin", "pump up",
         ),
     },
     "celebrity": {
@@ -403,7 +403,14 @@ def score_article(article: Dict[str, Any], now: Optional[float] = None,
     fit *= (1.0 - penalty)
     fit = max(0.0, min(1.0, fit)) * 100.0
 
-    primary = max(buckets, key=lambda b: (BUCKETS[b]["weight"], len(buckets[b])))
+    if "crypto" in buckets:
+        # a story that names real crypto is a crypto story: the translator
+        # renders the English "coins"/"digital currency" inside crypto
+        # summaries as «سکه»/«ارز», which must never out-badge the lane the
+        # story actually belongs to
+        primary = "crypto"
+    else:
+        primary = max(buckets, key=lambda b: (BUCKETS[b]["weight"], len(buckets[b])))
     spec = BUCKETS[primary]
 
     why: List[str] = [f"در «{spec['label']}»", f"{len(nums)} عدد قابل استناد" if nums else "بدون عدد"]
