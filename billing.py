@@ -139,23 +139,15 @@ def _is_expired(value) -> bool:
         return False
 
 
-DASHBOARD_PRO_KEY = "fb_pro_dashboard_default"
-
-
 def get_user_tier(api_key: str) -> Dict:
-    """Get user tier and limits from API key."""
+    """Get user tier and limits from API key.
+
+    No hardcoded master keys: a constant in source is public the moment the
+    repo ships. The dashboard's own caller uses the randomly-generated key
+    persisted in data/api_keys.json like everyone else.
+    """
     if not api_key:
         return {'tier': 'free', **TIERS['free']}
-    
-    if api_key in (DASHBOARD_PRO_KEY, "fb_pro_master"):
-        return {
-            'tier': 'pro',
-            'user_id': 0,
-            'email': 'dashboard@localhost',
-            'api_limit': TIERS['pro']['api_limit'],
-            'alerts_limit': TIERS['pro']['alerts_limit'],
-            'features': TIERS['pro']['features'],
-        }
 
     key_hash = hashlib.sha256(api_key.encode()).hexdigest()[:16]
     
@@ -196,7 +188,7 @@ def check_feature(api_key: str, feature: str):
 
 def track_usage(api_key: str, feature: str):
     """Track feature usage."""
-    if not api_key or api_key in (DASHBOARD_PRO_KEY, "fb_pro_master"):
+    if not api_key:
         return
     key_hash = hashlib.sha256(api_key.encode()).hexdigest()[:16]
     with _lock:

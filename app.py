@@ -342,6 +342,11 @@ _RECOVER_LOCK = threading.Lock()
 _sse_subscribers = {}  # id -> queue
 _sse_lock = threading.Lock()
 _sse_counter = [0]
+# each open SSE stream pins one waitress worker thread for its whole life:
+# without a cap, ~30 open tabs drain the pool and the whole site stops
+# answering. Excess connections get a fast 503 and the client falls back to
+# its polling path (SM does this already).
+_SSE_SLOTS = threading.BoundedSemaphore(20)
 
 
 def _sse_broadcast(event_type, data):
@@ -599,7 +604,9 @@ def all_assets_meta() -> dict:
     out = {}
     for sym, meta in ASSETS.items():
         out[sym] = {**meta, "custom": False, "is_crypto": sym in BUILTIN_CRYPTO}
-    for sym, meta in (CONFIG.get("custom_assets") or {}).items():
+    with _CONFIG_LOCK:
+        custom_assets = list((CONFIG.get("custom_assets") or {}).items())
+    for sym, meta in custom_assets:
         out[sym] = {
             "fa": meta.get("fa") or sym,
             "name": meta.get("name") or sym,
@@ -1027,7 +1034,11 @@ def all_sources_view():
             "last_count": st.get("count"), "last_ok": st.get("ok"),
             "error": st.get("error"),
         })
-    for key, s in CONFIG["custom_sources"].items():
+    # CONFIG mutates under /api/settings on other threads: iterate a snapshot
+    # taken under the lock (STATE -> CONFIG ordering matches /api/data)
+    with _CONFIG_LOCK:
+        custom_sources = list(CONFIG["custom_sources"].items())
+    for key, s in custom_sources:
         st = STATE["sources_status"].get(key, {})
         out.append({
             "key": key, "name": s["name"], "url": s["rss"],
@@ -1257,6 +1268,9 @@ def api_stream_info():
 @app.route("/api/stream")
 def api_stream():
     """SSE endpoint for real-time updates."""
+    if not _SSE_SLOTS.acquire(blocking=False):
+        return jsonify({"ok": False, "error": "stream limit reached"}), 503
+
     def event_stream():
         with _sse_lock:
             client_id = _sse_counter[0]
@@ -1278,6 +1292,7 @@ def api_stream():
         finally:
             with _sse_lock:
                 _sse_subscribers.pop(client_id, None)
+            _SSE_SLOTS.release()
 
     return Response(
         event_stream(),
@@ -1295,6 +1310,9 @@ def api_stream():
 @app.route("/api/stream/prices")
 def api_stream_prices():
     """SSE endpoint for price-only updates (lightweight, fast)."""
+    if not _SSE_SLOTS.acquire(blocking=False):
+        return jsonify({"ok": False, "error": "stream limit reached"}), 503
+
     def price_stream():
         with _sse_lock:
             client_id = f"price_{_sse_counter[0]}"
@@ -1316,6 +1334,7 @@ def api_stream_prices():
         finally:
             with _sse_lock:
                 _sse_subscribers.pop(client_id, None)
+            _SSE_SLOTS.release()
 
     return Response(
         price_stream(),
@@ -3086,51 +3105,6 @@ def api_studio_config():
 
  
  
-@app.route("/api/ai/config", methods=["GET", "POST"])
-def api_ai_config():
-    """Inspect or update AI configuration (OpenAI / OpenRouter API key and model)."""
-    if request.method == "POST":
-        data = request.get_json(silent=True) or {}
-        key = (data.get("openai_key") or data.get("openrouter_key") or data.get("api_key") or "").strip()
-        model = (data.get("openai_model") or data.get("model") or "").strip()
-        base_url = (data.get("base_url") or "").strip()
-        with _CONFIG_LOCK:
-            ai_cfg = CONFIG.setdefault("ai", {})
-            if _is_secret_mask(key):
-                pass  # round-tripped masked field — keep the stored key
-            elif "openai_key" in data or "openrouter_key" in data or "api_key" in data:
-                ai_cfg["openai_key"] = key
-                ai_cfg["enabled"] = bool(key)
-            if model:
-                ai_cfg["openai_model"] = model
-            if "base_url" in data:
-                ai_cfg["base_url"] = base_url
-            save_config()
-            _init_ai_config()
-        key_eff = (CONFIG.get("ai", {}).get("openai_key") or os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY") or "").strip()
-        base_eff = CONFIG.get("ai", {}).get("base_url") or os.environ.get("OPENAI_BASE_URL") or ""
-        provider = "OpenRouter" if (key_eff.startswith("sk-or-") or "openrouter" in base_eff.lower()) else ("OpenAI" if key_eff else "None")
-        return jsonify({
-            "ok": True,
-            "has_key": bool(key_eff),
-            "provider": provider,
-            "model": CONFIG.get("ai", {}).get("openai_model", "gpt-4o-mini")
-        })
-
-    ai_cfg = CONFIG.get("ai", {})
-    key = (ai_cfg.get("openai_key") or os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY") or "").strip()
-    base_url = ai_cfg.get("base_url") or os.environ.get("OPENAI_BASE_URL") or ""
-    masked = (key[:8] + "..." + key[-4:]) if len(key) > 14 else ("***" if key else "")
-    provider = "OpenRouter" if (key.startswith("sk-or-") or "openrouter" in base_url.lower()) else ("OpenAI" if key else "None")
-    return jsonify({
-        "ok": True,
-        "has_key": bool(key),
-        "key_masked": masked,
-        "provider": provider,
-        "model": ai_cfg.get("openai_model", "gpt-4o-mini")
-    })
-
-
 # ---------------------------------------------------------------------------
 # Phase 12 — Freemium & Billing APIs
 # ---------------------------------------------------------------------------
@@ -3167,7 +3141,13 @@ def api_billing_upgrade():
         return jsonify({"error": "email required"}), 400
 
     remote = (request.remote_addr or "")
-    loopback = remote in ("127.0.0.1", "::1", "localhost") or remote.startswith("127.")
+    # behind the cloudflared tunnel every request's peer is 127.0.0.1; a
+    # forwarded request must never count as loopback or anyone on the
+    # internet could mint Pro keys
+    tunneled = bool(request.headers.get("X-Forwarded-For")
+                    or request.headers.get("CF-Connecting-IP"))
+    loopback = (not tunneled) and (
+        remote in ("127.0.0.1", "::1", "localhost") or remote.startswith("127."))
     if not loopback:
         expected = (os.environ.get("MOHMD_UPGRADE_TOKEN") or _MOHMD_TOKEN or "").strip()
         given = (request.headers.get("X-Upgrade-Token") or data.get("upgrade_token") or "").strip()
@@ -4816,6 +4796,7 @@ def api_recover_status():
 def api_settings():
     data = request.get_json(silent=True) or {}
     added = []
+    welcome_sends = []
 
     with _CONFIG_LOCK:
         if "interval" in data:
@@ -4945,10 +4926,7 @@ def api_settings():
             if "language" in tg_in and tg_in["language"] in ("fa", "en"):
                 tg["language"] = tg_in["language"]
             if tok and chat:
-                try:
-                    _tg_send(tok, chat, "MOHMD NEWS — digest connected ✓ از این بعد بعد از هر چرخه خلاصه خبری می‌آید.")
-                except Exception:
-                    pass
+                welcome_sends.append((tok, chat))
 
         if "bale" in data and isinstance(data["bale"], dict):
             bale_in = data["bale"]
@@ -5003,10 +4981,7 @@ def api_settings():
             if "language" in bale_in and bale_in["language"] in ("fa", "en"):
                 bale["language"] = bale_in["language"]
             if tok and chat:
-                try:
-                    _bale_send(tok, chat, "MOHMD NEWS — اتصال به پیام‌رسان بله برقرار شد ✓")
-                except Exception:
-                    pass
+                welcome_sends.append((tok, chat, "bale"))
 
         if data.get("add_source"):
             add = data["add_source"]
@@ -5049,10 +5024,25 @@ def api_settings():
 
         save_config()
 
-        if hygiene_touched or gate_touched:
-            refilter_state()
-
         safe_config = _mask_secrets(CONFIG)
+
+    # refilter_state takes STATE_LOCK — running it inside _CONFIG_LOCK here
+    # created an ABBA inversion with /api/data (STATE then CONFIG) and could
+    # deadlock every waitress thread. Lock ordering is now STATE -> CONFIG
+    # everywhere, so the refilter happens after the config lock is released.
+    # welcome pings do live network I/O — off the config lock
+    for entry in welcome_sends:
+        tok, chat = entry[0], entry[1]
+        try:
+            if len(entry) > 2 and entry[2] == "bale":
+                _bale_send(tok, chat, "MOHMD NEWS — اتصال به پیام‌رسان بله برقرار شد ✓")
+            else:
+                _tg_send(tok, chat, "MOHMD NEWS — digest connected ✓ از این بعد بعد از هر چرخه خلاصه خبری می‌آید.")
+        except Exception:
+            pass
+
+    if hygiene_touched or gate_touched:
+        refilter_state()
 
     CYCLE_EVENT.set()  # wake the scheduler so changes apply quickly
     return jsonify({"ok": True, "config": safe_config, "added": added})
@@ -6423,7 +6413,7 @@ _shutdown_flag = False
 def _graceful_shutdown(signum=None, frame=None):
     global _shutdown_flag
     if _shutdown_flag:
-        return
+        os._exit(0)          # second Ctrl+C: no more waiting
     _shutdown_flag = True
     logger.info("Graceful shutdown initiated...")
 
@@ -6443,7 +6433,13 @@ def _graceful_shutdown(signum=None, frame=None):
 
     # 3. Log final stats
     logger.info(f"Final stats: {STATE['stats']}")
-    logger.info("Shutdown complete")
+
+    # 4. Actually stop: waitress's serve() has no clean shutdown handle and
+    # the signal handler replaced KeyboardInterrupt, so without this the
+    # port kept serving a frozen snapshot after "shutdown".
+    import threading as _th
+    _th.Timer(1.5, lambda: os._exit(0)).start()
+    logger.info("Shutdown complete (exiting in 1.5s)")
 
 
 
@@ -6465,6 +6461,15 @@ if __name__ == "__main__":
     import sys
     load_config()
     _warn_token_gate_exemptions()
+
+    # launch guards — loud, at boot, before anyone depends on the defaults
+    _host_eff = os.environ.get("MOHMD_HOST") or ("0.0.0.0" if "--public" in sys.argv else "127.0.0.1")
+    if _host_eff == "0.0.0.0" and not (os.environ.get("MOHMD_TOKEN", "").strip() or _MOHMD_TOKEN):
+        log("WARNING: bound to 0.0.0.0 with no MOHMD_TOKEN — every endpoint "
+            "is open. Set MOHMD_TOKEN, or drop --public.")
+    if (CONFIG.get("tv_webhook_secret") or "") == "change-me-to-a-random-string":
+        log("WARNING: tv_webhook_secret is still the factory default — set a "
+            "real secret before exposing /webhook/tv.")
 
     # Pre-warm the macro / Fear&Greed strips in the background: on a cold
     # cache they cost four Yahoo round trips, which used to add ~2.5s to the
@@ -6549,7 +6554,7 @@ if __name__ == "__main__":
         # The Werkzeug dev server is thin on threading; waitress holds up
         # under the dashboard's polling + SSE load.
         from waitress import serve
-        log(f"waitress: serving on http://{host}:{port} (16 threads)")
-        serve(app, host=host, port=port, threads=16)
+        log(f"waitress: serving on http://{host}:{port} (32 threads)")
+        serve(app, host=host, port=port, threads=32)
     except ImportError:
         app.run(host=host, port=port, debug=False, threaded=True)
