@@ -2633,7 +2633,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
             </div>
             <h4><svg class="ic"><use href="#i-file"/></svg> قالب پیام</h4>
             <div class="tg-vars">
-              متغیرها: <code class="ltr">{index} {title} {summary_fa} {source} {cred} {stars} {assets} {tags} {time_fa} {link_line}</code>
+              متغیرها: <code class="ltr">{index} {title} {summary_blocks} {summary_fa} {source} {cred} {stars} {assets} {tags} {time_fa} {link_line}</code>
               — قالب خالی = پیش‌فرض
             </div>
             <textarea id="tgTemplate" class="tg-template" rows="5" aria-label="قالب پیام تلگرام"></textarea>
@@ -2706,7 +2706,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
             </div>
             <h4><svg class="ic"><use href="#i-file"/></svg> قالب پیام در بله</h4>
             <div class="tg-vars">
-              متغیرها: <code class="ltr">{index} {title} {summary_fa} {source} {cred} {stars} {assets} {tags} {time_fa} {link_line}</code>
+              متغیرها: <code class="ltr">{index} {title} {summary_blocks} {summary_fa} {source} {cred} {stars} {assets} {tags} {time_fa} {link_line}</code>
               — قالب خالی = پیش‌فرض
             </div>
             <textarea id="baleTemplate" class="tg-template" rows="5" aria-label="قالب پیام بله"></textarea>
@@ -6415,7 +6415,7 @@ async function openBlurb(id){
 }
 
 /* ═══════════ telegram digest settings ═══════════ */
-const TG_TPL_DEFAULT='🏅 <b>{index}. {title}</b>\n{summary_fa}\n📰 {source} · ⭐ {cred}% {stars} · {assets}\n🕒 {time_fa}\n{link_line}';
+const TG_TPL_DEFAULT='<b>{title}</b>\n\n{summary_blocks}{key_point}{link_line}';
 function tgPayload(){
   return {telegram:{
     token: document.getElementById('tgToken').value.trim(),
@@ -7131,7 +7131,7 @@ async function previewTelegram(){
 }
 
 /* ═══════════ Bale Messenger Settings ═══════════ */
-const BALE_TPL_DEFAULT='🏅 {index}. {title}\n{summary_fa}\n📰 {source} · ⭐ {cred}% {stars} · {assets}\n🕒 {time_fa}\n{link_line}';
+const BALE_TPL_DEFAULT='**{title}**\n\n{summary_blocks}{key_point}{link_line}';
 
 function switchMessengerTab(type){
   const tgPanel = document.getElementById('panel-messenger-tg');

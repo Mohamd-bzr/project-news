@@ -67,16 +67,17 @@ REPORTS_DIR.mkdir(exist_ok=True)
 
 IRAN_TZ = timezone(timedelta(hours=3, minutes=30))
 
-TG_TEMPLATE_DEFAULT = ("{market_emoji} <b>{title}</b>\n\n"
-                       "{summary_fa}"
+# Editorial default (operator-approved format): headline, then a 🪙 lead
+# paragraph and a ‼️ caveat paragraph — {summary_blocks} builds both from the
+# article's own summary; nothing is rewritten, only grouped.
+TG_TEMPLATE_DEFAULT = ("<b>{title}</b>\n\n"
+                       "{summary_blocks}"
                        "{key_point}"
-                       "📰 {source} · ⭐ {cred}% · 🕒 {time_fa}\n"
                        "{link_line}")
 
-BALE_TEMPLATE_DEFAULT = ("{market_emoji} **{title}**\n\n"
-                         "{summary_fa}"
+BALE_TEMPLATE_DEFAULT = ("**{title}**\n\n"
+                         "{summary_blocks}"
                          "{key_point}"
-                         "📰 {source} · ⭐ {cred}% · 🕒 {time_fa}\n"
                          "{link_line}")
 
 DEFAULT_CONFIG = {
@@ -3851,7 +3852,23 @@ def _tg_render_digest(articles, tg):
         summ = _tg_escape(summ_clean)
 
         market_tag = news_editorial.detect_market_emoji(a) if emoji else ""
-        lead = "" if ("{market_emoji}" in tpl or "{emoji}" in tpl) else (f"{market_tag} " if market_tag else "")
+        lead = "" if ("{market_emoji}" in tpl or "{emoji}" in tpl or "{summary_blocks}" in tpl) else (f"{market_tag} " if market_tag else "")
+
+        # editorial blocks: 🪙 lead + ‼️ caveat, straight from the summary
+        blocks = (summ + "\n\n") if (include_summary and summ) else ""
+        if include_summary and summ_clean:
+            try:
+                b_lead, b_caveat = news_editorial.editorial_blocks(summ_clean)
+                lead_emoji = market_tag or "🪙"
+                parts = []
+                if b_lead:
+                    parts.append(f"{_tg_escape(lead_emoji)} {_tg_escape(b_lead)}")
+                if b_caveat:
+                    parts.append(f"‼️ {_tg_escape(b_caveat)}")
+                if parts:
+                    blocks = "\n\n".join(parts) + "\n\n"
+            except Exception:
+                pass   # fall back to the plain summary above
 
         key_point_str = f"📌 <b>نکته کلیدی:</b> {_tg_escape(takeaway)}\n\n" if (takeaway and "{key_point}" in tpl) else ""
         link_line = ("🔗 " + url) if (include_link and url and tg.get("link_on_own_line")) else ""
@@ -3859,6 +3876,7 @@ def _tg_render_digest(articles, tg):
         msg = tpl.format(index=fa_digits(i) if fa else i,
                          title=title_html,
                          summary_fa=(summ + "\n\n") if (include_summary and summ) else "",
+                         summary_blocks=blocks,
                          source=_tg_escape(a.get("source_name", "")),
                          cred=(str(fa_digits(cred)) if fa else str(cred)),
                          stars=stars, assets=_tg_escape(assets_txt), tags=tags,
@@ -4007,7 +4025,23 @@ def _bale_render_digest(articles, bale):
         summ = summ_clean
 
         market_tag = news_editorial.detect_market_emoji(a) if emoji else ""
-        lead = "" if ("{market_emoji}" in tpl or "{emoji}" in tpl) else (f"{market_tag} " if market_tag else "")
+        lead = "" if ("{market_emoji}" in tpl or "{emoji}" in tpl or "{summary_blocks}" in tpl) else (f"{market_tag} " if market_tag else "")
+
+        # editorial blocks: 🪙 lead + ‼️ caveat (plain text for Bale)
+        blocks = (summ + "\n\n") if (include_summary and summ) else ""
+        if include_summary and summ_clean:
+            try:
+                b_lead, b_caveat = news_editorial.editorial_blocks(summ_clean)
+                lead_emoji = market_tag or "🪙"
+                parts = []
+                if b_lead:
+                    parts.append(f"{lead_emoji} {b_lead}")
+                if b_caveat:
+                    parts.append(f"‼️ {b_caveat}")
+                if parts:
+                    blocks = "\n\n".join(parts) + "\n\n"
+            except Exception:
+                pass   # fall back to the plain summary above
 
         key_point_str = f"📌 **نکته کلیدی:** {takeaway}\n\n" if (takeaway and "{key_point}" in tpl) else ""
         link_line = ("🔗 " + url) if (include_link and url) else ""
@@ -4015,6 +4049,7 @@ def _bale_render_digest(articles, bale):
         msg = tpl.format(index=fa_digits(i) if fa else i,
                          title=title,
                          summary_fa=(summ + "\n\n") if (include_summary and summ) else "",
+                         summary_blocks=blocks,
                          source=a.get("source_name", ""),
                          cred=(str(fa_digits(cred)) if fa else str(cred)),
                          stars=stars, assets=assets_txt, tags=tags,

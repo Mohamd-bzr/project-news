@@ -144,6 +144,36 @@ def clean_editorial_title(title: str, max_words: int = 15) -> str:
     return title
 
 
+# Contrast markers: the sentence that turns the story («با این حال»…) opens
+# the caveat block — the ‼️ paragraph of the editorial template.
+_CONTRAST_MARKERS = (
+    "بااین‌حال", "با این حال", "بااین حال", "با این‌حال",
+    "اما ", "اما،", "هرچند", "هر چند", "درحالی‌که", "در حالی که",
+    "با وجود", "در عین حال", "البته", "با این وجود", "در مقابل",
+    "از سوی دیگر", "در عوض", " nevertheless",
+)
+
+
+def editorial_blocks(summary_text: str) -> Tuple[str, str]:
+    """Split a summary into (lead, caveat) paragraphs for the editorial
+    template: every sentence before the first contrast marker is the lead,
+    that marker's sentence onward is the caveat. Formatting only — no word
+    of the summary is rewritten."""
+    sents = [x.strip() for x in re.split(r"(?<=[.!?؟])\s+", str(summary_text or "")) if x.strip()]
+    if len(sents) < 2:
+        return (str(summary_text or "").strip(), "")
+    cut = None
+    for idx, sent in enumerate(sents[1:], start=1):
+        if any(m in sent for m in _CONTRAST_MARKERS):
+            cut = idx
+            break
+    if cut is None:
+        return (" ".join(sents), "")
+    lead = " ".join(sents[:cut])
+    caveat = " ".join(sents[cut:])
+    return (lead, caveat)
+
+
 def format_editorial_summary(summary_text: str, min_sents: int = 2, max_sents: int = 4) -> Tuple[str, Optional[str]]:
     """Organize summary text into 2-4 key sentences, retaining numbers and drivers.
     Returns (summary_text, optional_key_takeaway).
