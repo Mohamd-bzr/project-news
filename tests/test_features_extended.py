@@ -44,7 +44,10 @@ def test_whale_liquidity_tracker_components():
     assert 'class WhaleTracker' in content
     assert 'window.whaleTracker = new WhaleTracker()' in content
     assert 'setFilter' in content
-    assert 'generateTick' in content
+    # the fabricated-data machinery must stay gone: no seeds, no random ticks
+    assert 'generateTick' not in content
+    assert 'initSeedData' not in content
+    assert 'whale-tick-35s' not in content
 
 
 def test_workspace_removed():

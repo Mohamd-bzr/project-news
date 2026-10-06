@@ -1898,6 +1898,14 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .wtag-accum{ background:rgba(87,177,131,0.2); color:var(--up); border:1px solid var(--up); }
 .wtag-mint{ background:rgba(200,150,93,0.2); color:var(--cu-txt); border:1px solid var(--cu); }
 .wtag-flow{ font-variant-numeric:tabular-nums; direction:ltr; display:inline-block; font-weight:600; }
+.wtag-inflow{ background:rgba(217,106,85,0.12); color:var(--dn); border:1px solid rgba(217,106,85,0.4); }
+/* whale toolbar layout (tb-left/group/lbl/right/cnt had no rules at all) */
+.tb-left{ display:flex; flex-wrap:wrap; gap:var(--s3); align-items:center; min-width:0; }
+.tb-group{ display:flex; flex-wrap:wrap; gap:4px; align-items:center; }
+.tb-lbl{ font-size:var(--t-xs); color:var(--ink-4); }
+.tb-right{ margin-inline-start:auto; display:flex; align-items:center; }
+.tb-cnt{ font-size:var(--t-xs); color:var(--ink-4); font-variant-numeric:tabular-nums; }
+.tb-chip.active{ background:var(--cu-wash); border-color:var(--cu-line); color:var(--cu-txt); font-weight:700; }
 
 @media (max-width:860px){ .phud{ inline-size:min(94vw,420px); inset-inline-start:3vw; } }
 
@@ -3001,21 +3009,21 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
             <!-- Whale Hero KPIs: 24h Netflows -->
             <div class="whale-hero" id="whaleHero">
               <div class="whale-kpi">
-                <div class="whale-kpi-title"><span>خالص جریان ۲۴ ساعته بیت‌کوین (BTC)</span><span class="wtag wtag-accum">خروج / انباشت</span></div>
-                <div class="whale-kpi-val pos" id="wkpiBtc">-$184.2M (خروج از صرافی)</div>
-                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 72%;"></div></div>
+                <div class="whale-kpi-title"><span>جریان خالص بیت‌کوین (BTC) — نمونهٔ میم‌پول</span><span class="wtag wtag-accum">خروج / انباشت</span></div>
+                <div class="whale-kpi-val pos" id="wkpiBtc">—</div>
+                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 0%;"></div></div>
                 <div class="hint">کاهش موجودی صرافی‌ها = شوک عرضه صعودی</div>
               </div>
               <div class="whale-kpi">
-                <div class="whale-kpi-title"><span>خالص جریان ۲۴ ساعته اتریوم (ETH)</span><span class="wtag wtag-accum">خروج / استیکینگ</span></div>
-                <div class="whale-kpi-val pos" id="wkpiEth">-$96.5M (خروج از صرافی)</div>
-                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 65%;"></div></div>
+                <div class="whale-kpi-title"><span>جریان خالص اتریوم (ETH) — نمونهٔ میم‌پول</span><span class="wtag wtag-accum">خروج / استیکینگ</span></div>
+                <div class="whale-kpi-val pos" id="wkpiEth">—</div>
+                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 0%;"></div></div>
                 <div class="hint">انتقال به قراردادهای استیکینگ و لایه ۲</div>
               </div>
               <div class="whale-kpi">
                 <div class="whale-kpi-title"><span>صدور / سوزاندن استیبل‌کوین‌ها (USDT/USDC)</span><span class="wtag wtag-mint">تزریق نقدینگی</span></div>
-                <div class="whale-kpi-val pos" id="wkpiStable">+$320.0M (مینت خالص)</div>
-                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 80%;"></div></div>
+                <div class="whale-kpi-val pos" id="wkpiStable">—</div>
+                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 0%;"></div></div>
                 <div class="hint">ورود نقدینگی فیات به خزانه‌داری تتر و سیرکل</div>
               </div>
             </div>
@@ -3041,7 +3049,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
                   </div>
                 </div>
                 <div class="tb-right">
-                  <span class="tb-cnt" id="whaleCount">نمایش ۱۵ از ۱۵ جابه‌جایی سنگین</span>
+                  <span class="tb-cnt" id="whaleCount">در حال دریافت از میم‌پول…</span>
                 </div>
               </div>
             </div>
@@ -3061,97 +3069,10 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
                   </tr>
                 </thead>
                 <tbody id="whaleTableBody">
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۳ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">BTC</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$228.5M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۳,۴۵۰ BTC</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Binance (Hot Wallet)</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Cold Storage (0x1f9...c4)</span></td>
-                    <td><span class="wtag wtag-ultra">🚨 Ultra Large</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x7e8...b12</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۹ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">USDT</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$150.0M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۱۵۰,۰۰۰,۰۰۰ USDT</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Tether Treasury</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Binance</span></td>
-                    <td><span class="wtag wtag-ultra">🚨 Ultra Large</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x4a1...99f</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۱۶ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">ETH</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$134.8M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۳۸,۲۰۰ ETH</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Unknown Whale (0x8b3...de)</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Lido Staking Contract</span></td>
-                    <td><span class="wtag wtag-ultra">🚨 Ultra Large</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x99c...32a</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۲۴ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">BTC</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$79.4M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۱,۲۰۰ BTC</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Kraken</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Institutional Custody (Fidelity)</span></td>
-                    <td><span class="wtag wtag-accum">انباشت نهادی</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x12c...4df</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۳۵ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">BTC</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$58.9M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۸۹۰ BTC</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Unknown Whale (0x334...a1)</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Coinbase Pro</span></td>
-                    <td><span class="wtag wtag-inflow">فشار فروش</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0xbb2...5e8</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۴۸ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">SOL</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$52.5M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۳۵۰,۰۰۰ SOL</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Solana Foundation</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Unknown Staking Validator</span></td>
-                    <td><span class="wtag wtag-accum">انباشت / استیکینگ</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">5xY9...p1q</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۶۲ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">USDC</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$85.0M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۸۵,۰۰۰,۰۰۰ USDC</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Circle Reserve</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Coinbase Prime</span></td>
-                    <td><span class="wtag wtag-mint">تزریق نقدینگی</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x6e2...18b</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۸۰ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">ETH</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$77.7M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۲۲,۰۰۰ ETH</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Bitfinex</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Arbitrum Bridge</span></td>
-                    <td><span class="wtag wtag-accum">انتقال به L2</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x22f...81c</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۱۰۵ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">BTC</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$43.0M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۶۵۰ BTC</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Foundry USA Pool</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">Binance Deposit</span></td>
-                    <td><span class="wtag wtag-inflow">فشار فروش ماینر</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x33a...ff2</code></td>
-                  </tr>
-                  <tr>
-                    <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">۱۲۲ دقیقه پیش</td>
-                    <td><strong style="color:var(--cu-txt);font-weight:700">USDT</strong></td>
-                    <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">$70.0M</span></td>
-                    <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">۷۰,۰۰۰,۰۰۰ USDT</td>
-                    <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)"><span style="color:var(--ink-1)">Tether Treasury</span> <span style="color:var(--cu);margin:0 4px">➔</span> <span style="color:var(--ink-1)">OKX</span></td>
-                    <td><span class="wtag wtag-mint">تزریق نقدینگی</span></td>
-                    <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">0x55d...01e</code></td>
-                  </tr>
-                </tbody>
+                  <tr><td colspan="7" style="text-align:center;padding:24px;color:var(--ink-4)">
+                    <span class="spinner" style="width:14px;height:14px"></span> در حال دریافت تراکنش‌های زندهٔ میم‌پول…
+                  </td></tr>
+</tbody>
               </table>
             </div>
             <div class="hint" style="margin-top:12px">
@@ -8624,17 +8545,19 @@ class WhaleTracker {
   constructor() {
     this.filterAsset = 'ALL';
     this.filterFlow = 'ALL';
-    this.txs = this.initSeedData();
+    /* live mempool data only — nothing is ever fabricated here: when the
+       feed is down the board says so instead of showing sample rows */
+    this.txs = [];
     this.loadLive();
   }
 
-  /* real on-chain BTC moves from the mempool (/api/whales/live) prepended to
-     the seed rows; a failed fetch just leaves the seed board as it is */
+  /* real on-chain moves from the mempool (/api/whales/live); a failed fetch
+     renders an honest empty state, never demo data */
   async loadLive() {
     try {
       const r = await fetch('/api/whales/live');
       const j = await r.json();
-      if (!j || j.ok === false || !(j.whales || []).length) return;
+      if (!j || j.ok === false) throw new Error(j && j.error || 'feed unavailable');
       const now = Date.now();
       const live = j.whales.map((w, i) => ({
         id: w.id || ('live-' + i),
@@ -8648,30 +8571,14 @@ class WhaleTracker {
         tag: w.tag || 'میم‌پول',
         hash: w.hash || '',
       }));
-      this.txs = live.concat(this.txs.filter(t => t.type !== 'mempool'));
+      this.txs = live;
       this.render();
-    } catch (e) { /* seed stays */ }
-  }
-
-  initSeedData() {
-    const now = Date.now();
-    return [
-      { id: 'wtx-1', ts: now - 3 * 60000, asset: 'BTC', amount: 3450, usd: 228500000, from: 'Binance (Hot Wallet)', to: 'Cold Storage (0x1f9...c4)', type: 'outflow', tag: '🚨 Ultra Large', hash: '0x7e8...b12' },
-      { id: 'wtx-2', ts: now - 9 * 60000, asset: 'USDT', amount: 150000000, usd: 150000000, from: 'Tether Treasury', to: 'Binance', type: 'mint', tag: '🚨 Ultra Large', hash: '0x4a1...99f' },
-      { id: 'wtx-3', ts: now - 16 * 60000, asset: 'ETH', amount: 38200, usd: 134800000, from: 'Unknown Whale (0x8b3...de)', to: 'Lido Staking Contract', type: 'outflow', tag: '🚨 Ultra Large', hash: '0x99c...32a' },
-      { id: 'wtx-4', ts: now - 24 * 60000, asset: 'BTC', amount: 1200, usd: 79440000, from: 'Kraken', to: 'Institutional Custody (Fidelity)', type: 'outflow', tag: 'انباشت نهادی', hash: '0x12c...4df' },
-      { id: 'wtx-5', ts: now - 35 * 60000, asset: 'BTC', amount: 890, usd: 58910000, from: 'Unknown Whale (0x334...a1)', to: 'Coinbase Pro', type: 'inflow', tag: 'فشار فروش', hash: '0xbb2...5e8' },
-      { id: 'wtx-6', ts: now - 48 * 60000, asset: 'SOL', amount: 350000, usd: 52500000, from: 'Solana Foundation', to: 'Unknown Staking Validator', type: 'outflow', tag: 'انباشت / استیکینگ', hash: '5xY9...p1q' },
-      { id: 'wtx-7', ts: now - 62 * 60000, asset: 'USDC', amount: 85000000, usd: 85000000, from: 'Circle Reserve', to: 'Coinbase Prime', type: 'mint', tag: 'تزریق نقدینگی', hash: '0x6e2...18b' },
-      { id: 'wtx-8', ts: now - 80 * 60000, asset: 'ETH', amount: 22000, usd: 77660000, from: 'Bitfinex', to: 'Arbitrum Bridge', type: 'outflow', tag: 'انتقال به L2', hash: '0x22f...81c' },
-      { id: 'wtx-9', ts: now - 105 * 60000, asset: 'BTC', amount: 650, usd: 43030000, from: 'Foundry USA Pool', to: 'Binance Deposit', type: 'inflow', tag: 'فشار فروش ماینر', hash: '0x33a...ff2' },
-      { id: 'wtx-10', ts: now - 122 * 60000, asset: 'USDT', amount: 70000000, usd: 70000000, from: 'Tether Treasury', to: 'OKX', type: 'mint', tag: 'تزریق نقدینگی', hash: '0x55d...01e' },
-      { id: 'wtx-11', ts: now - 150 * 60000, asset: 'SOL', amount: 180000, usd: 27000000, from: 'Binance', to: 'Whale Vault (0x77a...99)', type: 'outflow', tag: 'انباشت', hash: '4uK8...88j' },
-      { id: 'wtx-12', ts: now - 175 * 60000, asset: 'ETH', amount: 15400, usd: 54360000, from: 'OKX', to: 'Unknown Wallet (0xcc1...44)', type: 'outflow', tag: 'انباشت', hash: '0xaa7...04b' },
-      { id: 'wtx-13', ts: now - 210 * 60000, asset: 'BTC', amount: 520, usd: 34420000, from: 'Unknown Whale', to: 'Bybit', type: 'inflow', tag: 'ورود به صرافی', hash: '0x00f...e2a' },
-      { id: 'wtx-14', ts: now - 250 * 60000, asset: 'USDC', amount: 65000000, usd: 65000000, from: 'Circle Treasury', to: 'Kraken', type: 'mint', tag: 'تزریق نقدینگی', hash: '0x44c...91b' },
-      { id: 'wtx-15', ts: now - 290 * 60000, asset: 'BTC', amount: 1850, usd: 122470000, from: 'Coinbase Custody', to: 'BlackRock iShares (IBIT)', type: 'outflow', tag: '🚨 Ultra Large', hash: '0x99a...67c' }
-    ];
+    } catch (e) {
+      this.txs = [];
+      this.render();
+      const cnt = document.getElementById('whaleCount');
+      if (cnt) cnt.textContent = 'دریافت از میم‌پول ناموفق بود — بعداً دوباره تلاش می‌شود';
+    }
   }
 
   setFilter(type, val) {
@@ -8694,67 +8601,6 @@ class WhaleTracker {
     this.render();
   }
 
-  generateTick() {
-    const assets = ['BTC', 'ETH', 'SOL', 'USDT', 'USDC'];
-    const asset = assets[Math.floor(Math.random() * assets.length)];
-    const isStable = (asset === 'USDT' || asset === 'USDC');
-    const flowTypes = isStable ? ['mint', 'outflow'] : ['outflow', 'inflow', 'outflow'];
-    const type = flowTypes[Math.floor(Math.random() * flowTypes.length)];
-
-    let usd, amount;
-    if (asset === 'BTC') {
-      amount = Math.round(300 + Math.random() * 2500);
-      usd = amount * 66500;
-    } else if (asset === 'ETH') {
-      amount = Math.round(5000 + Math.random() * 35000);
-      usd = amount * 3500;
-    } else if (asset === 'SOL') {
-      amount = Math.round(80000 + Math.random() * 400000);
-      usd = amount * 150;
-    } else {
-      usd = Math.round((20 + Math.random() * 120) * 1000000);
-      amount = usd;
-    }
-
-    const exch = ['Binance', 'Coinbase Prime', 'Kraken', 'OKX', 'Bybit'][Math.floor(Math.random() * 5)];
-    let from, to, tag;
-    if (type === 'outflow') {
-      from = exch;
-      to = 'کیف پول ناشناس (0x' + Math.random().toString(16).substr(2, 6) + '...)';
-      tag = 'انباشت نهادی';
-    } else if (type === 'inflow') {
-      from = 'نهنگ ناشناس (0x' + Math.random().toString(16).substr(2, 6) + '...)';
-      to = exch;
-      tag = 'فشار فروش';
-    } else {
-      from = (asset === 'USDT' ? 'Tether Treasury' : 'Circle Reserve');
-      to = exch;
-      tag = 'تزریق نقدینگی';
-    }
-
-    if (usd >= 100000000) {
-      tag = '🚨 Ultra Large';
-    }
-
-    const newTx = {
-      id: 'wtx-' + Date.now(),
-      ts: Date.now(),
-      asset,
-      amount,
-      usd,
-      from,
-      to,
-      type,
-      tag,
-      hash: '0x' + Math.random().toString(16).substr(2, 8) + '...'
-    };
-
-    this.txs.unshift(newTx);
-    if (this.txs.length > 60) this.txs.pop();
-
-    this.render();
-  }
-
   render() {
     const list = this.txs.filter(tx => {
       if (this.filterAsset !== 'ALL') {
@@ -8768,11 +8614,7 @@ class WhaleTracker {
       return true;
     });
 
-    if (!this.txs || !this.txs.length) {
-      this.txs = this.initSeedData();
-    }
-
-    // Calculate 24h Netflows
+    // Calculate netflows across the LIVE sample only
     let btcNet = 0, ethNet = 0, stableMint = 0;
     this.txs.forEach(tx => {
       if (tx.asset === 'BTC') {
@@ -8786,22 +8628,24 @@ class WhaleTracker {
       }
     });
 
+    const fmtM = (v, label) => {
+      const m = (Math.abs(v) / 1e6).toFixed(1);
+      return (v < 0 ? '-$' : '+$') + m + 'M ' + label;
+    };
+    const has = this.txs.length > 0;
     const btcEl = document.getElementById('wkpiBtc');
     if (btcEl) {
-      const btcM = (Math.abs(btcNet) / 1e6).toFixed(1);
-      btcEl.textContent = (btcNet < 0 ? `-$${btcM}M (خروج / انباشت صرافی)` : `+$${btcM}M (ورود به صرافی)`);
+      btcEl.textContent = has ? fmtM(btcNet, btcNet <= 0 ? '(خروج / انباشت صرافی)' : '(ورود به صرافی)') : '—';
       btcEl.className = 'whale-kpi-val ' + (btcNet <= 0 ? 'pos' : 'neg');
     }
     const ethEl = document.getElementById('wkpiEth');
     if (ethEl) {
-      const ethM = (Math.abs(ethNet) / 1e6).toFixed(1);
-      ethEl.textContent = (ethNet < 0 ? `-$${ethM}M (خروج / استیکینگ)` : `+$${ethM}M (ورود به صرافی)`);
+      ethEl.textContent = has ? fmtM(ethNet, ethNet <= 0 ? '(خروج / استیکینگ)' : '(ورود به صرافی)') : '—';
       ethEl.className = 'whale-kpi-val ' + (ethNet <= 0 ? 'pos' : 'neg');
     }
     const stEl = document.getElementById('wkpiStable');
     if (stEl) {
-      const stM = (stableMint / 1e6).toFixed(1);
-      stEl.textContent = `+$${stM}M (مینت خالص)`;
+      stEl.textContent = has ? fmtM(stableMint, '(مینت خالص)') : '—';
     }
 
     // Update counts
@@ -8820,7 +8664,10 @@ class WhaleTracker {
     const tbody = document.getElementById('whaleTableBody');
     if (tbody) {
       if (!list.length) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--ink-4)">تراکنشی با این فیلتر یافت نشد.</td></tr>';
+        const msg = this.txs.length
+          ? 'تراکنشی با این فیلتر یافت نشد.'
+          : 'فعلاً تراکنش سنگینی در میم‌پول ثبت نشده — دادهٔ جعلی نمایش داده نمی‌شود.';
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--ink-4)">' + msg + '</td></tr>';
       } else {
         tbody.innerHTML = list.map(tx => {
           const agoMin = Math.max(1, Math.round((Date.now() - tx.ts) / 60000));
@@ -8833,18 +8680,20 @@ class WhaleTracker {
           else if (tx.type === 'inflow') tagCls = 'wtag-inflow';
           else if (tx.type === 'mint') tagCls = 'wtag-mint';
 
+          const e = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, c =>
+            ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
           return `<tr>
             <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">${timeStr}</td>
-            <td><strong style="color:var(--cu-txt);font-weight:700">${tx.asset}</strong></td>
+            <td><strong style="color:var(--cu-txt);font-weight:700">${e(tx.asset)}</strong></td>
             <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">${usdStr}</span></td>
             <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">${amtStr}</td>
             <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)">
-              <span style="color:var(--ink-1)">${tx.from}</span>
+              <span style="color:var(--ink-1)">${e(tx.from)}</span>
               <span style="color:var(--cu);margin:0 4px">➔</span>
-              <span style="color:var(--ink-1)">${tx.to}</span>
+              <span style="color:var(--ink-1)">${e(tx.to)}</span>
             </td>
-            <td><span class="wtag ${tagCls}">${tx.tag}</span></td>
-            <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">${tx.hash}</code></td>
+            <td><span class="wtag ${tagCls}">${e(tx.tag)}</span></td>
+            <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">${e(tx.hash)}</code></td>
           </tr>`;
         }).join('');
       }
@@ -8856,11 +8705,11 @@ class WhaleTracker {
 // Instantiate singletons and hook into window
 window.whaleTracker = new WhaleTracker();
 
-// Clock tick for whale tracking (every 35 seconds)
+// live refresh (real feed, no synthesis)
 if (typeof Clock !== 'undefined' && Clock.every) {
-  Clock.every(35000, () => {
-    if (window.whaleTracker) window.whaleTracker.generateTick();
-  }, { label: 'whale-tick-35s' });
+  Clock.every(60000, () => {
+    if (window.whaleTracker) window.whaleTracker.loadLive();
+  }, { label: 'whale-live-60s' });
 }
 
 if (document.readyState === 'loading') {
