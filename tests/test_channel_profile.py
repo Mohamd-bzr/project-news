@@ -208,10 +208,10 @@ def test_caption_carries_the_lane_badge_and_no_invented_numbers():
 
 
 def test_caption_quotes_the_money_sentence_when_there_is_one():
-    a = art("نرخ سود سپرده تغییر کرد",
-            "نرخ سود سپرده‌های بانکی از ۲۳ به ۲۵ درصد افزایش یافت. پیش‌بینی‌ها ادامه دارد.")
+    a = art("قیمت طلای آب شده تغییر کرد",
+            "هر گرم طلای آب شده از ۲۳ به ۲۵ میلیون تومان افزایش یافت. پیش‌بینی‌ها ادامه دارد.")
     item = cp.rank_for_channel([a], now=NOW)["items"][0]
-    assert "درصد" in item["caption"]["body"]
+    assert "تومان" in item["caption"]["body"]
 
 
 # ───────────────────────────── 6 · the board ─────────────────────────────

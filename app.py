@@ -2761,14 +2761,6 @@ def _channel_board(force: bool = False):
         "min_credibility": float(cfg.get("min_credibility") or 0.55),
         "corpus": len(articles),
     }
-    # domestic quotes (dollar / gold 18k / Emami coin) — the price strip the
-    # page's readers actually check; fails soft to an empty strip
-    try:
-        import iran_market
-        result["domestic"] = iran_market.snapshot()
-    except Exception:
-        result["domestic"] = {"ok": False, "items": []}
-
     with _CHANNEL_LOCK:
         _CHANNEL_CACHE["ts"], _CHANNEL_CACHE["payload"] = now, result
     return result
@@ -2865,17 +2857,6 @@ def api_studio_card():
         return jsonify({"ok": False, "error": str(e)}), 500
     return Response(png, mimetype="image/png",
                     headers={"Cache-Control": "no-cache"})
-
-
-@app.route("/api/iran")
-def api_iran_market():
-    """Domestic Iranian quotes (TGJU feed, 5-min TTL): dollar, gold 18k,
-    Emami coin, global ounce. Free, key-less; last-good on failure."""
-    try:
-        import iran_market
-        return jsonify({"ok": True, **iran_market.snapshot()})
-    except Exception as e:
-        return jsonify({"ok": False, "items": [], "error": str(e)})
 
 
 @app.route("/api/channel/feed")

@@ -78,20 +78,6 @@ BUCKETS: Dict[str, Dict[str, Any]] = {
             "exchange rate", "forex", "rial", "toman",
         ),
     },
-    "domestic": {
-        "label": "بازار داخلی",
-        "badge": "اخبار داخلی",
-        "emoji": "🏦",
-        "weight": 0.85,
-        "words": (
-            "بانک مرکزی", "بانک‌ها", "بانک", "سود سپرده", "نرخ سود", "وام",
-            "تسهیلات", "بودجه", "مالیات", "قانون", "بورس تهران", "فرابورس",
-            "بورس", "سیاست اقتصادی", "تورم", "تعرفه", "صادرات", "واردات",
-            "خزانه", "بیمه", "مسکن", "بازار مسکن",
-            "central bank", "interest rate", "inflation", "budget",
-            "tehran stock", "subsid", "mortgage",
-        ),
-    },
     "global": {
         "label": "بازارهای جهانی",
         "badge": "بازارهای جهانی",
