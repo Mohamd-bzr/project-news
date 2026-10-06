@@ -512,35 +512,41 @@ def test_config_endpoint_ignores_unknown_and_bad_values(client):
 
 # ───────────────────────────── client contract ─────────────────────────────
 
-def test_studio_client_is_escaped_and_served():
-    js = (pathlib.Path(__file__).resolve().parent.parent / "web" / "studio.js").read_text(encoding="utf-8")
-    assert "esc(" in js and "safeUrl(" in js, "untrusted text and URLs must be gated"
-    assert "confirm" in js and "dry_run" in js, "publishing must be confirmed, not implicit"
-    assert "/api/studio/" in js
-
+def test_studio_ui_is_merged_into_the_channel_tab():
+    """The studio view was merged away (2026-10): one tab shows the ranked
+    news, plain. The studio *backend* stays as API surface; its client file,
+    nav entry and view section must all be gone from the shell."""
     from dashboard_html import APP_HTML
-    for needle in ('id="nav-studio"', 'id="view-studio"', 'id="stList"', "/studio.js"):
-        assert needle in APP_HTML, f"{needle} is missing from the dashboard"
+    for gone in ('id="nav-studio"', 'id="view-studio"', 'id="stList"', "/studio.js"):
+        assert gone not in APP_HTML, f"{gone} should have been removed with the studio view"
+
+    js = (pathlib.Path(__file__).resolve().parent.parent / "web" / "channel.js").read_text(encoding="utf-8")
+    assert "esc(" in js, "untrusted text must stay gated in the merged client"
+    assert "/api/channel/feed" in js
+    assert "confirm" not in js and "draft" not in js, "the merged tab shows news, nothing else"
+
+    client = pathlib.Path(__file__).resolve().parent.parent / "web" / "studio.js"
+    assert not client.exists(), "the studio client file is dead code now"
 
 
-def test_studio_client_does_not_double_quote_jsarg():
+def test_merged_client_does_not_double_quote_jsarg():
     """jsArg() already returns a complete, attribute-safe JS string literal
     (see dashboard_html.jsArg). Wrapping it in extra quotes hands the handler
     the id *with* quote characters, so every lookup 404s. Reuse it unquoted."""
-    js = (pathlib.Path(__file__).resolve().parent.parent / "web" / "studio.js").read_text(encoding="utf-8")
+    js = (pathlib.Path(__file__).resolve().parent.parent / "web" / "channel.js").read_text(encoding="utf-8")
     assert "jsArg(" in js, "the client should reuse the shared attribute-safe literal helper"
     assert not re.search(r"\\'\s*\+\s*jsArg\(", js), "jsArg() must not be preceded by an opening quote"
-    assert not re.search(r"jsArg\([^()]*\)\s*\+\s*'\\'\)", js), "jsArg() must not be closed by an extra quote"
+    assert not re.search(r"jsArg\([^()]*\)\s*\+\s*\'\\'\)", js), "jsArg() must not be closed by an extra quote"
 
 
-def test_service_worker_precaches_the_new_client():
+def test_service_worker_precaches_the_merged_client():
     sw = (pathlib.Path(__file__).resolve().parent.parent / "web" / "sw.js").read_text(encoding="utf-8")
-    assert "'/studio.js'" in sw, "a shell asset that is not precached breaks offline boot"
-    assert "'/channel.js'" in sw, "the channel board's client ships in the same shell"
+    assert "'/studio.js'" not in sw, "the studio client is gone from the shell"
+    assert "'/channel.js'" in sw, "the merged tab's client ships in the shell"
     # The version is the update mechanism (see the header comment in sw.js): it
     # cannot stay behind the last shell change, or every installed worker keeps
-    # serving the previous asset from its cache. v7 scoped the studio client,
-    # v8 added the channel client — a bump below that is a stale shell.
+    # serving the previous asset from its cache. v13 dropped studio.js from the
+    # shell — a bump below that is a stale shell.
     m = re.search(r"const SW_VERSION = 'v(\d+)'", sw)
-    assert m and int(m.group(1)) >= 8, \
+    assert m and int(m.group(1)) >= 13, \
         "the shell list changed, so the cache version must move with it"

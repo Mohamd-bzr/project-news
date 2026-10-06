@@ -1154,14 +1154,6 @@ def pwa_storage_engine():
     return _web_response("storage_engine.js", "application/javascript", "no-cache, must-revalidate")
 
 
-@app.route("/studio.js")
-def studio_client():
-    """The content studio's client half (ranked list, draft panes, slide export).
-    Its own file keeps dashboard_html.py from growing another thousand lines;
-    the service worker precaches it, so it is part of the offline shell."""
-    return _web_response("studio.js", "application/javascript", "no-cache, must-revalidate")
-
-
 @app.route("/channel.js")
 def channel_client():
     """The gold/coin page board's client half — same reasoning as /studio.js."""

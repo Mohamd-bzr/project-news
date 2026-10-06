@@ -341,7 +341,7 @@ def test_client_escape_helper_does_not_shadow_the_global_one():
 def test_client_is_wired_into_the_dashboard():
     from dashboard_html import APP_HTML
     for needle in ('id="nav-channel"', 'id="view-channel"', 'id="cbList"',
-                   'id="cbSearch"', '/channel.js'):
+                   '/channel.js'):
         assert needle in APP_HTML, f"{needle} is missing from the dashboard"
 
 

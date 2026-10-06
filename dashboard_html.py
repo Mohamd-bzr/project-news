@@ -1897,194 +1897,17 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 @media (max-width:860px){ .phud{ inline-size:min(94vw,420px); inset-inline-start:3vw; } }
 
 .tone-up{ color:var(--up); } .tone-dn{ color:var(--dn); } .tone-warn{ color:var(--warn); }
-/* ══ CONTENT STUDIO — Redesigned 2026 Standard ══ */
-.st-hero{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:var(--s3); margin-bottom:var(--s4); padding-bottom:var(--s3); border-bottom:1px solid var(--rule); }
-.st-hero-main{ display:flex; flex-direction:column; gap:4px; }
-.st-hero-title{ display:flex; align-items:center; gap:8px; font-size:var(--t-lg); font-weight:800; color:var(--ink-1); margin:0; }
-.st-hero-sub{ font-size:var(--t-xs); color:var(--ink-3); margin:0; line-height:var(--lh-fa); }
-.st-hero-badge{ font-size:11px; padding:2px 8px; border-radius:var(--r-pill); background:rgba(200,150,93,0.15); color:var(--cu-txt); border:1px solid var(--cu-line); font-weight:600; display:inline-flex; align-items:center; gap:4px; }
-.st-hero-actions{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-
-/* KPI Grid */
-.st-kpi-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:var(--s2) var(--s3); margin-bottom:var(--s4); }
-.st-kpi-card{ background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--r2); padding:10px 14px; display:flex; flex-direction:column; gap:4px; transition:border-color 0.2s; }
-.st-kpi-card:hover{ border-color:var(--rule-2); }
-.st-kpi-label{ font-size:11px; color:var(--ink-4); display:flex; align-items:center; justify-content:space-between; }
-.st-kpi-val{ font-size:var(--t-lg); font-weight:800; color:var(--ink-1); font-variant-numeric:tabular-nums; }
-.st-kpi-sub{ font-size:10.5px; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
-/* Filter Bar */
-.st-filter-panel{ background:var(--bg-deep); border:1px solid var(--rule); border-radius:var(--r3); padding:var(--s3); margin-bottom:var(--s4); display:flex; flex-direction:column; gap:var(--s3); }
-.st-filter-row{ display:flex; flex-wrap:wrap; gap:var(--s2) var(--s3); align-items:center; justify-content:space-between; }
-.st-format-tabs{ display:flex; flex-wrap:wrap; gap:6px; }
-.st-format-btn{ background:var(--panel); border:1px solid var(--rule); color:var(--ink-2); border-radius:var(--r-pill); padding:5px 12px; font:inherit; font-size:var(--t-xs); cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all 0.15s ease; }
-.st-format-btn:hover{ border-color:var(--rule-2); color:var(--ink-1); }
-.st-format-btn.active{ background:var(--cu-wash); border-color:var(--cu-line); color:var(--cu-txt); font-weight:700; box-shadow:0 0 8px rgba(200,150,93,0.18); }
-.st-search-box{ position:relative; min-width:220px; flex:1; max-width:340px; }
-.st-search-box input{ width:100%; box-sizing:border-box; background:var(--bg); border:1px solid var(--rule); color:var(--ink-1); border-radius:var(--r-pill); padding:6px 30px 6px 12px; font:inherit; font-size:var(--t-xs); }
-.st-search-box input:focus{ outline:none; border-color:var(--cu-line); box-shadow:0 0 0 2px var(--cu-wash); }
-.st-search-icon{ position:absolute; right:10px; top:50%; transform:translateY(-50%); color:var(--ink-4); pointer-events:none; }
-.st-select{ background:var(--bg); border:1px solid var(--rule); color:var(--ink-2); border-radius:var(--r2); padding:5px 10px; font:inherit; font-size:var(--t-xs); cursor:pointer; }
-.st-select:focus{ outline:none; border-color:var(--cu-line); }
-.st-filter-meta{ font-size:11px; color:var(--ink-4); display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-
-/* Item Cards */
-.st-item{ border:1px solid var(--rule); border-radius:var(--r3); background:var(--panel-2); padding:var(--s4); margin-bottom:var(--s3); transition:transform 0.15s, border-color 0.15s, box-shadow 0.15s; position:relative; overflow:hidden; }
-.st-item:hover{ border-color:var(--rule-2); box-shadow:0 4px 14px rgba(0,0,0,0.06); }
-.st-item.rank-1{ border-inline-start:4px solid #f59e0b; }
-.st-item.rank-2{ border-inline-start:4px solid #94a3b8; }
-.st-item.rank-3{ border-inline-start:4px solid #b45309; }
-.st-item-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:var(--s3); margin-bottom:8px; }
-.st-item-rank-title{ display:flex; align-items:baseline; gap:var(--s2); flex:1; }
-.st-rank-badge{ min-width:28px; height:28px; border-radius:var(--r-pill); background:var(--wash); color:var(--ink-3); font-size:12px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
-.rank-1 .st-rank-badge{ background:#f59e0b; color:#000; box-shadow:0 0 10px rgba(245,158,11,0.35); }
-.rank-2 .st-rank-badge{ background:#94a3b8; color:#000; }
-.rank-3 .st-rank-badge{ background:#b45309; color:#fff; }
-.st-item h4{ margin:0; font-size:var(--t-md); color:var(--ink-1); line-height:var(--lh-fa); font-weight:700; }
-.st-item-score-pill{ display:flex; flex-direction:column; align-items:center; padding:4px 10px; background:var(--wash); border:1px solid var(--rule); border-radius:var(--r2); flex-shrink:0; }
-.st-score-val{ font-size:1.35rem; font-weight:800; color:var(--cu-txt); font-variant-numeric:tabular-nums; line-height:1; }
-.st-score-lbl{ font-size:9.5px; color:var(--ink-4); margin-top:2px; }
-
-.st-meta-row{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:8px 0; }
-.st-fmt-tag{ font-size:11px; padding:3px 9px; border-radius:var(--r-pill); font-weight:600; display:inline-flex; align-items:center; gap:5px; }
-.st-fmt-carousel{ background:rgba(59,130,246,0.12); color:#60a5fa; border:1px solid rgba(59,130,246,0.3); }
-.st-fmt-video{ background:rgba(239,68,68,0.12); color:#f87171; border:1px solid rgba(239,68,68,0.3); }
-.st-fmt-text{ background:rgba(16,185,129,0.12); color:#34d399; border:1px solid rgba(16,185,129,0.3); }
-
-/* Heat & Demand Chips */
-.st-heat-strip{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; padding:8px 12px; background:var(--bg); border:1px solid var(--rule-2); border-radius:var(--r2); margin:8px 0; font-size:var(--t-xs); }
-.st-heat-item{ display:inline-flex; align-items:center; gap:5px; color:var(--ink-2); }
-.st-heat-item.yt{ color:#f87171; }
-.st-heat-item.tg{ color:#60a5fa; }
-.st-heat-item.rd{ color:#fb923c; }
-
-/* Factor Bars */
-.st-factors-summary{ margin-top:8px; display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:6px 12px; font-size:11px; }
-.st-factor-bar{ display:flex; align-items:center; gap:6px; }
-.st-factor-bar .k{ color:var(--ink-4); width:45px; flex-shrink:0; }
-.st-factor-bar .meter{ flex:1; height:5px; background:var(--bg-deep); border-radius:3px; overflow:hidden; }
-.st-factor-bar .meter i{ display:block; height:100%; border-radius:3px; background:linear-gradient(90deg, var(--cu-2), var(--cu)); }
-.st-factor-bar .v{ color:var(--ink-3); font-variant-numeric:tabular-nums; font-size:10px; width:25px; text-align:left; }
-
-/* Item Action Footer */
-.st-item-footer{ display:flex; flex-wrap:wrap; gap:var(--s2); align-items:center; justify-content:space-between; margin-top:12px; padding-top:10px; border-top:1px solid var(--rule); }
-.st-draft-btn{ display:inline-flex; align-items:center; gap:6px; font-weight:700; transition:all 0.2s; }
-.st-draft-btn.loading{ opacity:0.8; pointer-events:none; }
-.st-draft-btn.loading svg{ animation:spin 1s linear infinite; }
-
-/* Modern Draft Drawer / Workspace */
-.st-workspace{ background:var(--panel); border:1px solid var(--cu-line); border-radius:var(--r3); padding:var(--s4); margin-bottom:var(--s4); box-shadow:0 8px 30px rgba(0,0,0,0.12); position:relative; scroll-margin-top:20px; }
-.st-workspace-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--s3); margin-bottom:var(--s3); padding-bottom:var(--s3); border-bottom:1px solid var(--rule); }
-.st-workspace-title{ font-size:var(--t-md); font-weight:800; color:var(--ink-1); margin:0; display:flex; align-items:center; gap:8px; }
-.st-tabs-modern{ display:flex; flex-wrap:wrap; gap:6px; margin:var(--s3) 0; }
-.st-tab-btn{ background:var(--wash); border:1px solid var(--rule); color:var(--ink-2); border-radius:var(--r-pill); padding:6px 16px; font:inherit; font-size:var(--t-sm); cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all 0.15s; }
-.st-tab-btn.on{ background:var(--cu-wash); border-color:var(--cu-line); color:var(--cu-txt); font-weight:700; }
-.st-pane-box{ background:var(--bg-deep); border:1px solid var(--rule); border-radius:var(--r2); padding:var(--s4); margin-top:var(--s3); }
-.st-caption-editor{ width:100%; box-sizing:border-box; background:var(--bg); border:1px solid var(--rule-2); color:var(--ink-1); border-radius:var(--r2); padding:12px; font:inherit; font-size:var(--t-sm); line-height:var(--lh-fa); resize:vertical; min-height:160px; direction:rtl; }
-.st-caption-editor:focus{ outline:none; border-color:var(--cu-line); }
-
-/* Slides Grid */
-.st-slides-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(210px, 1fr)); gap:var(--s3); margin:var(--s3) 0; }
-.st-slide-card{ aspect-ratio:4 / 5; background:#0A0F1E; color:#F2F6FC; border:1px solid rgba(154,182,224,.2); border-radius:var(--r2); padding:14px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 4px 12px rgba(0,0,0,0.3); position:relative; overflow:hidden; }
-.st-slide-top-bar{ height:3px; width:40px; background:#4C8DFF; border-radius:2px; margin-bottom:8px; }
-.st-slide-h{ font-size:13px; font-weight:700; color:#EFE8DD; line-height:1.4; margin-bottom:6px; }
-.st-slide-p{ font-size:11px; color:#CFC6B8; line-height:1.5; flex:1; overflow:hidden; }
-.st-slide-bottom{ display:flex; justify-content:space-between; font-size:9.5px; color:#918779; margin-top:8px; border-top:1px solid rgba(255,255,255,0.08); padding-top:6px; }
-
-/* Config details */
-.st-cfgbox{ border:1px solid var(--rule); border-radius:var(--r2); background:var(--bg-deep); padding:var(--s3) var(--s4); margin-bottom:var(--s4); }
-.st-cfgbox summary{ cursor:pointer; color:var(--ink-2); font-size:var(--t-sm); font-weight:600; display:flex; align-items:center; gap:6px; }
-.st-cfg{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); gap:var(--s2) var(--s3); align-items:center; margin-top:var(--s3); }
-.st-cfg label{ font-size:var(--t-xs); color:var(--ink-3); }
-.st-cfg input[type=text], .st-cfg input[type=password], .st-cfg input[type=number]{ inline-size:100%; box-sizing:border-box; background:var(--bg); border:1px solid var(--rule); color:var(--ink-1); border-radius:var(--r2); padding:8px 10px; font:inherit; font-size:var(--t-sm); }
-.st-cfg input:focus{ outline:none; border-color:var(--cu-line); }
-.st-cfg .st-check{ grid-column:1 / -1; display:flex; gap:8px; align-items:center; font-size:var(--t-sm); color:var(--ink-2); }
-
-.st-empty{ color:var(--ink-4); font-size:var(--t-sm); padding:var(--s4); text-align:center; }
-.st-note{ border:1px solid var(--warn); background:var(--warn-wash); color:var(--ink-1); border-radius:var(--r2); padding:10px 14px; font-size:var(--t-sm); margin-bottom:var(--s3); line-height:var(--lh-fa); }
-.st-foot{ margin-top:var(--s4); font-size:var(--t-xs); color:var(--ink-4); line-height:var(--lh-fa); border-top:1px solid var(--rule); padding-top:var(--s3); }
-
-/* ── CHANNEL BOARD · the gold/coin page ─────────────────────────────────
-   Reuses the studio's shapes (.btn, .badge, .spinner) and adds only what this
-   surface needs: a lane tag, the fit meter and the ready-made card text. */
-.cb-hero{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:var(--s3); margin-bottom:var(--s4); padding-bottom:var(--s3); border-bottom:1px solid var(--rule); }
-.cb-hero-title{ display:flex; align-items:center; gap:8px; font-size:var(--t-lg); font-weight:800; color:var(--ink-1); margin:0; }
-.cb-handle{ font-size:11px; padding:2px 8px; border-radius:var(--r-pill); background:rgba(200,150,93,0.15); color:var(--cu-txt); border:1px solid var(--cu-line); font-weight:600; }
-.cb-hero-sub{ font-size:var(--t-xs); color:var(--ink-3); margin:4px 0 0; line-height:var(--lh-fa); }
-.cb-kpis{ display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:var(--s2) var(--s3); margin-bottom:var(--s3); }
-.cb-kpi{ background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--r2); padding:10px 14px; display:flex; flex-direction:column; gap:4px; }
-.cb-kpi-lbl{ font-size:11px; color:var(--ink-4); }
-.cb-kpi-val{ font-size:var(--t-lg); font-weight:800; color:var(--ink-1); font-variant-numeric:tabular-nums; }
-.cb-kpi-sub{ font-size:10.5px; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.cb-bar{ display:flex; flex-wrap:wrap; gap:var(--s2); align-items:center; justify-content:space-between; background:var(--bg-deep); border:1px solid var(--rule); border-radius:var(--r3); padding:var(--s3); margin-bottom:var(--s3); }
-.cb-lanes{ display:flex; flex-wrap:wrap; gap:6px; }
-.cb-chip{ background:var(--panel); border:1px solid var(--rule); color:var(--ink-2); border-radius:var(--r-pill); padding:5px 12px; font:inherit; font-size:var(--t-xs); cursor:pointer; display:inline-flex; align-items:center; gap:6px; }
-.cb-chip:hover{ border-color:var(--rule-2); color:var(--ink-1); }
-.cb-chip.active{ background:var(--cu-wash); border-color:var(--cu-line); color:var(--cu-txt); font-weight:700; }
-.cb-chip b{ font-variant-numeric:tabular-nums; opacity:.8; }
-.cb-search{ background:var(--bg); border:1px solid var(--rule); color:var(--ink-1); border-radius:var(--r-pill); padding:6px 12px; font:inherit; font-size:var(--t-xs); min-width:220px; }
-.cb-item{ border:1px solid var(--rule); border-radius:var(--r3); background:var(--panel-2); padding:var(--s4); margin-bottom:var(--s3); }
+/* ── MERGED SUGGESTIONS TAB · was: content studio + gold/coin board ──────
+   The view is a bare ranked news list now; it reuses the shared shapes
+   (.btn, .badge, .spinner) and the cb-item card block below. */
+/* only the bare card the merged view renders: title, summary, meta line */
+.cb-item{ border:1px solid var(--rule); border-radius:var(--r3); background:var(--panel-2); padding:var(--s3) var(--s4); margin-bottom:var(--s2); }
 .cb-item:hover{ border-color:var(--rule-2); }
-.cb-item.rank-1{ border-inline-start:4px solid #f59e0b; }
-.cb-item.rank-2{ border-inline-start:4px solid #94a3b8; }
-.cb-item.rank-3{ border-inline-start:4px solid #b45309; }
-.cb-item-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:var(--s3); margin-bottom:8px; }
-.cb-item-head{ display:flex; align-items:baseline; gap:var(--s2); flex:1; min-width:0; }
 .cb-item h4{ margin:0; font-size:var(--t-md); color:var(--ink-1); line-height:var(--lh-fa); font-weight:700; }
-.cb-rank{ min-width:30px; height:24px; border-radius:var(--r-pill); background:var(--wash); color:var(--ink-3); font-size:11px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
-.cb-fit{ display:flex; flex-direction:column; align-items:center; padding:4px 10px; background:var(--wash); border:1px solid var(--rule); border-radius:var(--r2); flex-shrink:0; }
-.cb-domestic{ display:flex; flex-wrap:wrap; gap:var(--s2); align-items:center; padding:var(--s2) var(--s3); margin-block-end:var(--s3); background:var(--panel); border:1px solid var(--rule); border-radius:var(--r2); }
-.cb-dom{ display:inline-flex; align-items:baseline; gap:6px; padding:3px 10px; border-radius:var(--r-pill); background:var(--wash); border:1px solid var(--rule); }
-.cb-dom .lbl{ font-size:10.5px; color:var(--ink-4); }
-.cb-dom .val{ font-family:var(--font-mono); font-size:var(--t-sm); font-weight:700; color:var(--ink-1); font-variant-numeric:tabular-nums; direction:ltr; }
-.cb-dom .chg{ font-family:var(--font-mono); font-size:10px; font-weight:700; font-variant-numeric:tabular-nums; direction:ltr; }
-.cb-dom.up .chg{ color:var(--up); }
-.cb-dom.dn .chg{ color:var(--dn); }
-.cb-dom.stale{ opacity:.6; }
-.cb-dom-src{ font-size:10px; color:var(--ink-4); margin-inline-start:auto; }
-.cb-viral{ display:flex; flex-direction:column; align-items:center; padding:6px 14px; border-radius:var(--r2); flex-shrink:0; border:1px solid; }
-.cb-viral.hot{ background:rgba(238,106,88,.14); border-color:rgba(238,106,88,.4); }
-.cb-viral.warm{ background:rgba(232,162,60,.13); border-color:rgba(232,162,60,.38); }
-.cb-viral.cool{ background:var(--wash); border-color:var(--rule); }
-.cb-viral-val{ font-family:var(--font-mono); font-size:1.5rem; font-weight:800; font-variant-numeric:tabular-nums; line-height:1; }
-.cb-viral.hot .cb-viral-val{ color:var(--dn); }
-.cb-viral.warm .cb-viral-val{ color:var(--warn); }
-.cb-viral.cool .cb-viral-val{ color:var(--ink-3); }
-.cb-viral-lbl{ font-size:9.5px; color:var(--ink-4); margin-top:2px; }
-.cb-why-item{ display:inline-block; font-size:11px; padding:2px 9px; margin:2px 0 2px 6px; border-radius:var(--r-pill); background:var(--cu-wash); color:var(--cu-txt); border:1px solid var(--cu-line); }
-.cb-fit-val{ font-size:1.35rem; font-weight:800; color:var(--cu-txt); font-variant-numeric:tabular-nums; line-height:1; }
-.cb-fit-lbl{ font-size:9.5px; color:var(--ink-4); margin-top:2px; }
-.cb-meta{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:8px 0; }
-.cb-lane{ font-size:11px; padding:3px 9px; border-radius:var(--r-pill); font-weight:700; border:1px solid; }
-.cb-lane-gold{ background:rgba(245,158,11,0.12); color:#fbbf24; border-color:rgba(245,158,11,0.35); }
-.cb-lane-fx{ background:rgba(16,185,129,0.12); color:#34d399; border-color:rgba(16,185,129,0.3); }
-.cb-lane-dom{ background:rgba(59,130,246,0.12); color:#60a5fa; border-color:rgba(59,130,246,0.3); }
-.cb-lane-glob{ background:rgba(167,139,250,0.12); color:#a78bfa; border-color:rgba(167,139,250,0.3); }
-.cb-bkt{ font-size:10.5px; padding:2px 8px; border-radius:var(--r-pill); background:var(--panel); border:1px solid var(--rule); color:var(--ink-3); cursor:help; }
-.cb-why{ font-size:11.5px; color:var(--ink-3); margin:6px 0; line-height:var(--lh-fa); }
-.cb-numbers{ display:flex; flex-wrap:wrap; gap:5px; margin:6px 0; }
-.cb-num{ font-size:11px; padding:2px 8px; border-radius:var(--r2); background:var(--bg-deep); border:1px solid var(--rule); color:var(--ink-2); font-variant-numeric:tabular-nums; direction:ltr; }
-.cb-factors{ display:grid; grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); gap:6px 12px; font-size:11px; margin:8px 0; }
-.cb-factor-bar{ display:flex; align-items:center; gap:6px; }
-.cb-factor-bar .k{ color:var(--ink-4); width:58px; flex-shrink:0; }
-.cb-factor-bar .meter{ flex:1; height:5px; background:var(--bg-deep); border-radius:3px; overflow:hidden; }
-.cb-factor-bar .meter i{ display:block; height:100%; border-radius:3px; background:linear-gradient(90deg, var(--cu-2), var(--cu)); }
-.cb-factor-bar .v{ color:var(--ink-3); font-variant-numeric:tabular-nums; font-size:10px; width:25px; text-align:left; }
-.cb-cap{ margin-top:10px; border:1px solid var(--cu-line); background:var(--bg-deep); border-radius:var(--r2); padding:10px 12px; }
-.cb-cap-head{ display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:11px; color:var(--cu-txt); font-weight:700; margin-bottom:6px; }
-.cb-cap-text{ margin:0; font-family:var(--font-fa, inherit); font-size:12.5px; line-height:2; color:var(--ink-1); white-space:pre-wrap; word-break:break-word; text-align:right; }
-.cb-cap-tags{ margin-top:8px; font-size:11px; color:var(--ink-3); direction:ltr; text-align:left; }
-.cb-cap-note{ margin-top:6px; font-size:10px; color:var(--ink-4); }
-.cb-foot{ display:flex; flex-wrap:wrap; gap:var(--s2); align-items:center; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid var(--rule); }
-.cb-nolink{ font-size:11px; color:var(--ink-4); }
+.cb-sum{ margin:6px 0 0; font-size:var(--t-sm); color:var(--ink-2); line-height:var(--lh-fa); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.cb-meta{ display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:10px; }
 .cb-empty{ color:var(--ink-3); font-size:var(--t-sm); padding:var(--s5) var(--s4); text-align:center; line-height:var(--lh-fa); }
-.cb-foot-note{ margin-top:var(--s4); font-size:var(--t-xs); color:var(--ink-4); line-height:var(--lh-fa); border-top:1px solid var(--rule); padding-top:var(--s3); }
 
-@media (max-width:768px){
-  .st-cfg{ grid-template-columns:minmax(0,1fr); }
-  .st-filter-row{ flex-direction:column; align-items:stretch; }
-  .st-search-box{ max-width:100%; }
-}
 
 /* ── Expansion Suite: Reader Mode, Watchlist, Embeds, Offline ── */
 .reader-overlay{ position:fixed; inset:0; z-index:2500; background:var(--bg); color:var(--ink-1); display:none; flex-direction:column; overflow-y:auto; scroll-behavior:smooth; }
@@ -2123,7 +1946,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .chart-head .p, .chart-head .c, .tvhead .p, .ch-price .p, .ch-price .c,
 .cal-countdown, .cal-timer .sg b, .cal-timer .sg small, .cal-day .dd,
 .cal-tr .c-time, .cal-tr .c-ccy, .cal-tr .c-num,
-.whale-kpi-val, .st-kpi-val, .cb-kpi-val,
+.whale-kpi-val, .cb-kpi-val,
 .cr-n, .cr-sur, .cred-badge{
   font-family:var(--font-mono);
   font-variant-numeric:tabular-nums;
@@ -2179,11 +2002,8 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
      Loaded from its own file because the service worker precaches it as a shell
      asset; the offline maquette inlines this exact file at build time. -->
 <script src="/storage-engine.js"></script>
-<!-- content studio client: ranked stories, draft panes, slide export. Separate
-     file so the dashboard string stays readable, precached by the worker. -->
-<script src="/studio.js" defer></script>
-<!-- channel board client: which stories fit the gold/coin page, and the card
-     text each one becomes. Separate file for the same reason as studio.js. -->
+<!-- merged suggestions tab client: the ranked news, plain. Separate file the
+     same way the other big clients are; precached by the worker. -->
 <script src="/channel.js" defer></script>
 </head>
 <body>
@@ -2340,10 +2160,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
       <button id="nav-reports" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-reports" data-view="reports" onclick="showView('reports')">
         <span class="nav-icon"><svg class="ic"><use href="#i-chart"/></svg></span>
         <span class="nav-text">تحلیل و گزارش‌ها</span>
-      </button>
-      <button id="nav-studio" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-studio" data-view="studio" onclick="showView('studio')">
-        <span class="nav-icon"><svg class="ic"><use href="#i-bulb"/></svg></span>
-        <span class="nav-text">استودیو محتوا</span>
       </button>
       <button id="nav-channel" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-channel" data-view="channel" onclick="showView('channel')">
         <span class="nav-icon"><svg class="ic"><use href="#i-coins"/></svg></span>
@@ -3327,220 +3143,11 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
           </div>
         </section>
 
-<!-- ══ 18 · CONTENT STUDIO — Redesigned 2026 Standard ══ -->
-        <section class="view" id="view-studio" role="tabpanel" aria-labelledby="nav-studio">
-          <div class="panelbox">
-            <!-- Hero Header -->
-            <div class="st-hero">
-              <div class="st-hero-main">
-                <h3 class="st-hero-title">
-                  <svg class="ic" style="color:var(--cu-txt);width:22px;height:22px"><use href="#i-bulb"/></svg>
-                  <span>استودیو تولید محتوا</span>
-                  <span class="st-hero-badge">⚡ مجهز به هوش مصنوعی</span>
-                </h3>
-                <p class="st-hero-sub">رتبه‌بندی هوشمند سوژه‌ها بر اساس اعتبار خبر و سیگنال‌های تقاضای شبکه‌های اجتماعی (یوتیوب، تلگرام، ردیت)</p>
-              </div>
-              <div class="st-hero-actions">
-                <button class="btn sm ghost" type="button" onclick="Studio.refresh()" title="به‌روزرسانی داده‌ها و سیگنال‌ها">
-                  <svg class="ic"><use href="#i-refresh"/></svg> <span>تازه‌سازی سیگنال‌ها</span>
-                </button>
-                <button class="btn sm ghost" type="button" onclick="Studio.toggleConfig()" title="تنظیمات درگاه اعتبار و کانال‌ها">
-                  <svg class="ic"><use href="#i-gear"/></svg> <span>تنظیمات الگوریتم</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- KPI Metric Cards -->
-            <div class="st-kpi-grid">
-              <div class="st-kpi-card">
-                <div class="st-kpi-label"><span>سوژه‌های آماده تولید</span><svg class="ic" style="width:14px;height:14px;color:var(--ink-4)"><use href="#i-news"/></svg></div>
-                <div class="st-kpi-val" id="kpiStudioCount">—</div>
-                <div class="st-kpi-sub" id="kpiStudioCorpus">در حال پایش اخبار زنده...</div>
-              </div>
-              <div class="st-kpi-card">
-                <div class="st-kpi-label"><span>داغ‌ترین دارایی امروز</span><svg class="ic" style="width:14px;height:14px;color:#f59e0b"><use href="#i-star"/></svg></div>
-                <div class="st-kpi-val" id="kpiStudioTopAsset">—</div>
-                <div class="st-kpi-sub" id="kpiStudioAssetHeat">بیشترین تقاضای وایرال</div>
-              </div>
-              <div class="st-kpi-card">
-                <div class="st-kpi-label"><span>سیگنال‌های زنده</span><svg class="ic" style="width:14px;height:14px;color:var(--up)"><use href="#i-pulse"/></svg></div>
-                <div class="st-kpi-val" style="color:var(--up);font-size:var(--t-md)" id="kpiStudioSignals">متصل</div>
-                <div class="st-kpi-sub" id="stStamp">به‌روزرسانی لحظه‌ای</div>
-              </div>
-              <div class="st-kpi-card">
-                <div class="st-kpi-label"><span>دروازه اعتبار منبع</span><svg class="ic" style="width:14px;height:14px;color:var(--cu-txt)"><use href="#i-mark"/></svg></div>
-                <div class="st-kpi-val" id="kpiStudioGate">۶۰٪</div>
-                <div class="st-kpi-sub">فیلتر فیک‌نیوز و منابع نامعتبر</div>
-              </div>
-            </div>
-
-            <!-- Filter Panel -->
-            <div class="st-filter-panel">
-              <div class="st-filter-row">
-                <!-- Format Tabs -->
-                <div class="st-format-tabs" role="tablist" aria-label="فیلتر فرمت محتوا">
-                  <button type="button" class="st-format-btn active" data-fmt="all" onclick="Studio.setFilter('format', 'all')">
-                    <span>همه فرمت‌ها</span>
-                  </button>
-                  <button type="button" class="st-format-btn" data-fmt="carousel" onclick="Studio.setFilter('format', 'carousel')">
-                    <span>📑 کاروسل اینستاگرام</span>
-                  </button>
-                  <button type="button" class="st-format-btn" data-fmt="video" onclick="Studio.setFilter('format', 'video')">
-                    <span>🎬 ریلز / ویدیو کوتاه</span>
-                  </button>
-                  <button type="button" class="st-format-btn" data-fmt="text" onclick="Studio.setFilter('format', 'text')">
-                    <span>✍️ پست متنی تلگرام</span>
-                  </button>
-                </div>
-
-                <!-- Live Search -->
-                <div class="st-search-box">
-                  <svg class="ic st-search-icon" style="width:14px;height:14px"><use href="#i-search"/></svg>
-                  <input type="text" id="stSearchInput" placeholder="جستجو در سوژه‌ها و دارایی‌ها..."
-                         aria-label="جستجوی سوژه‌ها" oninput="Studio.setFilter('search', this.value)">
-                </div>
-              </div>
-
-              <div class="st-filter-row">
-                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-                  <!-- Asset Select -->
-                  <select class="st-select" id="stAssetSelect" aria-label="فیلتر دارایی" onchange="Studio.setFilter('asset', this.value)">
-                    <option value="all">💎 همه دارایی‌ها</option>
-                    <option value="BTC">🪙 بیت‌کوین (BTC)</option>
-                    <option value="ETH">⟠ اتریوم (ETH)</option>
-                    <option value="SOL">🟣 سولانا (SOL)</option>
-                    <option value="XAU">🟡 طلا (XAU)</option>
-                    <option value="WTI">🛢️ نفت خام (WTI)</option>
-                    <option value="DXY">💵 شاخص دلار (DXY)</option>
-                    <option value="XAG">⚪ نقره (XAG)</option>
-                    <option value="SPX">📈 بورس آمریکا (S&P)</option>
-                  </select>
-
-                  <!-- Sort Select -->
-                  <select class="st-select" id="stSortSelect" aria-label="مرتب‌سازی" onchange="Studio.setFilter('sortBy', this.value)">
-                    <option value="score">🏆 بالاترین امتیاز کلی</option>
-                    <option value="heat">🔥 بیشترین وایرالی و تقاضا</option>
-                    <option value="credibility">🛡️ بالاترین اعتبار منبع</option>
-                    <option value="age">⏱️ تازه‌ترین اخبار</option>
-                  </select>
-
-                  <!-- Demand Only Toggle -->
-                  <button type="button" class="st-format-btn" id="stDemandToggle" onclick="Studio.toggleDemandOnly()">
-                    <span>🔥 فقط دارای وایرالی</span>
-                  </button>
-                </div>
-
-                <div class="st-filter-meta">
-                  <span id="stResultsCount">در حال بارگذاری...</span>
-                  <div class="st-prov" id="stProv" aria-label="وضعیت منابع تقاضا"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Algorithm Settings Details (Collapsible) -->
-            <details class="st-cfgbox" id="stCfgDetails">
-              <summary><svg class="ic" style="width:14px;height:14px"><use href="#i-gear"/></svg> تنظیمات استودیو (دروازهٔ اعتبار، کانال‌ها، کلیدها)</summary>
-              <div class="st-cfg">
-                <label for="stGate">دروازهٔ اعتبار (۰ تا ۱)</label>
-                <input id="stGate" type="number" min="0" max="1" step="0.05" placeholder="0.6">
-                <label for="stTg">کانال‌های تلگرام (با ویرگول جدا کنید)</label>
-                <input id="stTg" type="text" placeholder="akhbarefori, bourse24">
-                <label for="stYtKey">کلید YouTube Data API (اختیاری — آمار رسمی)</label>
-                <input id="stYtKey" type="password" autocomplete="off" placeholder="AIza…">
-                <label for="stIgToken">توکن اینستاگرام Graph (اختیاری — فقط پیج خودتان)</label>
-                <input id="stIgToken" type="password" autocomplete="off" placeholder="EAAG…">
-                <label for="stIgId">شناسهٔ کاربری اینستاگرام</label>
-                <input id="stIgId" type="text" placeholder="17841400000000000">
-                <label class="st-check"><input id="stAuto" type="checkbox"> ارسال خودکار بهترین خبر به تلگرام در هر چرخه</label>
-                <div class="st-actions">
-                  <button type="button" class="btn sm primary" onclick="Studio.saveConfig()">ذخیرهٔ تنظیمات</button>
-                  <button type="button" class="btn sm" onclick="Studio.autoPostNow()" style="margin-right:8px"><svg class="ic"><use href="#i-send"/></svg> تست ارسال فوری به تلگرام</button>
-                </div>
-                <span class="hint">کلیدها فقط در settings.json همین سرور ذخیره می‌شوند (و در گیت نگه‌داری نمی‌شوند).</span>
-              </div>
-            </details>
-
-            <!-- Draft Workspace / Drawer (appears when drafting) -->
-            <div id="stDetail" aria-live="polite"></div>
-
-            <!-- Ranked Content Feed -->
-            <div id="stList" aria-live="polite">
-              <div class="st-empty"><span class="spinner"></span> در حال رتبه‌بندی هوشمند اخبار…</div>
-            </div>
-
-            <div id="stPublish" aria-live="polite"></div>
-
-            <div class="st-foot">
-              سیگنال‌های تقاضا از یوتیوب (بازدید در ساعت)، کانال‌های عمومی تلگرام (بازدید نسبت به میانگین همان کانال)
-              و ردیت (امتیاز در ساعت) پایش می‌شوند و هر کدام با نام منبع و زمان نمایش داده می‌شود. هیچ‌کدام از خروجی‌ها توصیهٔ سرمایه‌گذاری نیستند.
-            </div>
-          </div>
-        </section>
-
         <!-- ══ CHANNEL BOARD · the @tgjusocialmedia page ══ -->
         <section class="view" id="view-channel" role="tabpanel" aria-labelledby="nav-channel">
           <div class="panelbox">
-            <div class="cb-hero">
-              <div>
-                <h3 class="cb-hero-title">
-                  <svg class="ic" style="color:var(--cu-txt);width:22px;height:22px"><use href="#i-coins"/></svg>
-                  <span>پیشنهادهای وایرال برای پیج</span>
-                </h3>
-                <p class="cb-hero-sub">هر چرخه همهٔ خبرهای سامانه غربال می‌شود؛ آن‌ها که به موضوع پیج طلا، سکه و ارز می‌خورند، با نمرهٔ احتمال وایرال و تفکیک فاکتورهایش مرتب می‌شوند — انتخاب و متن پست با خودت.</p>
-              </div>
-              <div class="cb-hero-actions">
-                <button class="btn sm ghost" type="button" onclick="Channel.refresh()" title="غربال دوبارهٔ کل مخزن اخبار">
-                  <svg class="ic"><use href="#i-refresh"/></svg> <span>غربال دوباره</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="cb-kpis">
-              <div class="cb-kpi">
-                <span class="cb-kpi-lbl">پیشنهادهای این چرخه</span>
-                <span class="cb-kpi-val" id="cbCount">—</span>
-                <span class="cb-kpi-sub" id="cbCorpus">در حال اسکن…</span>
-              </div>
-              <div class="cb-kpi">
-                <span class="cb-kpi-lbl">بالاترین وایرال</span>
-                <span class="cb-kpi-val" id="cbTop">—</span>
-                <span class="cb-kpi-sub" id="cbTopSub">—</span>
-              </div>
-              <div class="cb-kpi">
-                <span class="cb-kpi-lbl">حذف‌شده</span>
-                <span class="cb-kpi-val" id="cbRejected">—</span>
-                <span class="cb-kpi-sub" id="cbRejectedSub">—</span>
-              </div>
-              <div class="cb-kpi">
-                <span class="cb-kpi-lbl">زمان پویش</span>
-                <span class="cb-kpi-val" style="font-size:var(--t-md)" id="cbStamp">—</span>
-                <span class="cb-kpi-sub">هر ۶۰ ثانیه به‌روزرسانی می‌شود</span>
-              </div>
-            </div>
-
-            <div class="cb-domestic" id="cbDomestic" style="display:none" role="status" aria-label="قیمت‌های بازار داخلی"></div>
-
-            <div class="cb-bar">
-              <div class="cb-lanes" id="cbLanes" role="group" aria-label="فیلتر دستهٔ پیشنهاد"></div>
-              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-                <label class="fr-inline"><span>مرتب‌سازی</span>
-                  <select class="fsel" id="cbSort" aria-label="مرتب‌سازی پیشنهادها" onchange="Channel.setSort(this.value)">
-                    <option value="viral">بیشترین احتمال وایرال</option>
-                    <option value="fresh">تازه‌ترین</option>
-                    <option value="fit">بیشترین تناسب با پیج</option>
-                  </select></label>
-                <input class="cb-search" type="text" id="cbSearch" placeholder="جستجو در عنوان، منبع یا دسته..."
-                       aria-label="جستجوی پیشنهادها" oninput="Channel.setSearch(this.value)">
-                <span class="badge sm" id="cbResults">در حال بارگذاری…</span>
-              </div>
-            </div>
-
             <div id="cbList" aria-live="polite">
-              <div class="cb-empty"><span class="spinner"></span> در حال غربال اخبار…</div>
-            </div>
-
-            <div class="cb-foot-note">
-              نمرهٔ وایرال از پنج عامل واقعی ساخته می‌شود: شوک بازار (حرکت واقعی قیمت در ۲۴ ساعت نسبت به نوسان معمول خودش)، جیب مخاطب (ارتباط با قیمت‌های داخلی)، زاویهٔ چشمگیر (رکورد، اولین‌بار، اعداد رند)، تقاضای اجتماعی واقعی و تازگی. خبرهای خارج از موضوع پیج — هک، دی‌فای، میم‌کوین، سلبریتی — پیش از امتیازدهی حذف می‌شوند. هیچ متنی اینجا ساخته نمی‌شود؛ فقط پیشنهاد و دلیلش.
+              <div class="cb-empty"><span class="spinner"></span> در حال بارگذاری اخبار…</div>
             </div>
           </div>
         </section>
@@ -4755,8 +4362,6 @@ function showView(v, skipPick){
     pickReport(UI.repSym, true);   // pickReport calls showView(..., skipPick)
   }
   if(v==='assets') renderAssetTable();
-  /* the studio module lives in web/studio.js and may still be loading: guard it */
-  if(v==='studio'&&window.Studio) window.Studio.mount();
   if(v==='channel'&&window.Channel) window.Channel.mount();
   if(v==='monitor') loadMonitor();
   if(v==='calendar'){ if(ECON) renderCalendar(); else loadCalendar(); }
