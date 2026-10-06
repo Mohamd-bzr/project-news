@@ -14,5 +14,9 @@ trafilatura>=1.12
 # to the Werkzeug dev server when it is not installed
 waitress>=3.0
 
+# optional but recommended: 3-5x faster JSON on the big /api/data payload;
+# app.py silently falls back to the stdlib when it is absent
+orjson>=3.10
+
 # optional: helps the paywall reader on Cloudflare-protected sites
 # cloudscraper>=1.2.71

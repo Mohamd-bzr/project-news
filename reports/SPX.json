@@ -9,64 +9,64 @@
       {
         "title": "S&P 500 — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار اس‌اند‌پی ۵۰۰",
-        "asof": "2026-10-05 17:40 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
+        "asof": "2026-10-06 08:43 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۴۳",
         "symbol": "SPX",
         "name": "S&P 500",
         "fa_name": "اس‌اند‌پی ۵۰۰",
         "icon": "🏛",
-        "price": 7746.529785,
-        "change_24h": 0.31,
+        "price": 7773.950195,
+        "change_24h": 0.66,
         "news_window_hours": 24.0,
-        "news_used": 10,
+        "news_used": 9,
         "sources_used": [
           {
-            "name": "Motley Fool Investing",
-            "count": 9
+            "name": "ForexLive",
+            "count": 11
           },
           {
-            "name": "ForexLive",
-            "count": 8
+            "name": "Motley Fool Investing",
+            "count": 11
           },
           {
             "name": "Finwire",
-            "count": 8
-          },
-          {
-            "name": "Hindu BusinessLine",
-            "count": 5
-          },
-          {
-            "name": "FXStreet",
-            "count": 4
+            "count": 7
           },
           {
             "name": "Economic Times Markets",
-            "count": 2
+            "count": 5
           },
           {
-            "name": "TheStreet",
-            "count": 2
+            "name": "Investor's Business Daily",
+            "count": 4
+          },
+          {
+            "name": "Hindu BusinessLine",
+            "count": 3
+          },
+          {
+            "name": "Bloomberg Markets",
+            "count": 3
           },
           {
             "name": "LiveMint Markets",
+            "count": 3
+          },
+          {
+            "name": "TheStreet",
+            "count": 3
+          },
+          {
+            "name": "Coinpaper",
+            "count": 3
+          },
+          {
+            "name": "Business Standard Markets",
             "count": 2
           },
           {
-            "name": "Market.News",
+            "name": "FXEmpire",
             "count": 2
-          },
-          {
-            "name": "r/CryptoCurrency (شبکه اجتماعی)",
-            "count": 2
-          },
-          {
-            "name": "Financial Times Markets",
-            "count": 2
-          },
-          {
-            "name": "Blockchain Reporter",
-            "count": 1
           }
         ],
         "market_stale": false
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "S&P 500 is changing hands near $7,747, +0.31% over the past 24 hours and +0.55% on a 7-day view. Spot trades above the 50-day average ($7,642) and above the 200-day average ($7,267), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (+0.94%), suggesting the market is still rotating within a range.",
+        "en": "S&P 500 is changing hands near $7,774, +0.66% over the past 24 hours and +0.91% on a 7-day view. Spot trades above the 50-day average ($7,643) and above the 200-day average ($7,267), keeping the medium-term structure constructive. The 30-day tape reads as a consolidation phase (+1.30%), suggesting the market is still rotating within a range.",
         "fa": ""
       }
     ],
@@ -92,21 +92,21 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
-            "id": "bef18ca53a9f",
+            "id": "4a4c923d1674",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election",
-            "title_fa": "یورو به پایین ترین سطح ۱۷ ماهه کاهش یافت. بولسونارو در انتخابات برزیل پیشتاز لولا شد",
-            "summary_fa": "در حالی که تحولات سیاسی، یورو را به پایین ترین سطح خود در ۱۷ ماه گذشته می رساند، ارزش سهام جهانی متزلزل می شود. پدرو سانچز، نخست وزیر اسپانیا، در بحبوحه افزایش اعتراضات اجتماعی به مسکن، خواستار برگزاری انتخابات زودهنگام شد. فلاویو بولسونارو",
-            "source": "Bloomberg",
+            "title_en": "Copper Rises for Third Day as Tech Rally Lifts Risk Appetite",
+            "title_fa": "مس برای سومین روز افزایش می یابد زیرا رالی فناوری ریسک اشتها را افزایش می دهد",
+            "summary_fa": "مس برای سومین روز افزایش یافت و پس از افزایش قیمت در وال استریت به رهبری فناوری، رشد سهام آسیایی را دنبال کرد.",
+            "source": "Bloomberg Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/videos/2026-10-05/bloomberg-brief-10-5-2026-video",
-            "published_ts": 1791201579.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۵:۲۹",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۲۹",
-            "age_fa": "۳۶ دقیقه پیش",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-06/copper-rises-for-third-day-as-tech-rally-lifts-risk-appetite",
+            "published_ts": 1791254856.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۶:۱۷",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۱۷",
+            "age_fa": "۲ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -117,24 +117,24 @@
             "why_en": ""
           },
           {
-            "id": "aeac43df1e7a",
+            "id": "97b5db560630",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Emerging-Market Equities Jump, Brazil Assets Soar on Elections",
-            "title_fa": "جهش سهام بازارهای نوظهور، افزایش دارایی های برزیل در انتخابات",
-            "summary_fa": "شاخصی که سهام بازارهای نوظهور را ردیابی می کند در آغاز هفته افزایش می یابد، در حالی که رئال برزیل به دنبال یک نتیجه غیرمنتظره انتخابات پسند بازار در روز یکشنبه، پیشتاز رشد ارز است.",
+            "title_en": "S&P 500 Closes In on Record High as Tech Rallies: Markets Wrap",
+            "title_fa": "S&P ۵۰۰ با افزایش فناوری: بازارها به رکورد بالایی رسید",
+            "summary_fa": "در حالی که سرمایه گذاران از نگرانی در مورد افزایش قیمت نفت و بازده اوراق قرضه نزدیک به بالاترین سطح چند دهه گذشته خودداری کردند، سهام جهانی به سمت بالاترین رکورد حرکت کردند.",
             "source": "Bloomberg Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-10-05/emerging-market-assets-climb-as-fed-hike-bets-cool-oil-drops",
-            "published_ts": 1791167006.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۵:۵۳",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۵:۵۳",
-            "age_fa": "۱۲ ساعت پیش",
-            "credibility": 0.912,
-            "credibility_fa": "۹۱٪",
-            "topic_fa": "عمومی",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz",
+            "published_ts": 1791242024.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۲:۴۳",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۲:۴۳",
+            "age_fa": "۶ ساعت پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "کلان",
             "assets": [
               "SPX"
             ],
@@ -142,23 +142,23 @@
             "why_en": ""
           },
           {
-            "id": "539461f8ada2",
+            "id": "975eba035665",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Global pension funds cut US equities over AI concentration risk",
-            "title_fa": "صندوق های بازنشستگی جهانی سهام ایالات متحده را به دلیل خطر تمرکز هوش مصنوعی کاهش دادند",
-            "summary_fa": "با افزایش نگرانی‌ها در مورد ارزش‌گذاری‌های «کشیده»، به تنوع‌سازی فشار بیاورید",
-            "source": "Financial Times Markets",
+            "title_en": "Goldman’s Bid for CLO Manager Highlights Wall Street’s Fee Hunt",
+            "title_fa": "پیشنهاد گلدمن برای مدیر CLO بر شکار هزینه وال استریت تاکید دارد",
+            "summary_fa": "مدیران دارایی‌های بزرگ‌تر از جمله Goldman Sachs Group Inc. در جستجوی جریان‌های کارمزد سودآور در بازار یک تریلیون دلاری آمریکا، به دنبال جذب کسب‌وکارهای مدیریت CLO بوده‌اند.",
+            "source": "Bloomberg Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad?syn-25a6b1a6=1",
-            "published_ts": 1791172812.0,
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/goldman-s-bid-for-clo-manager-highlights-wall-street-s-fee-hunt",
+            "published_ts": 1791208824.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۷:۳۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۳۰",
-            "age_fa": "۱۰ ساعت پیش",
-            "credibility": 0.864,
-            "credibility_fa": "۸۶٪",
+            "time_fa": "۱۷:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
+            "age_fa": "۱۵ ساعت پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
             "assets": [
               "SPX"
@@ -179,7 +179,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Bull run for Japan stocks at risk, warns boss of biggest trading house.\n- Dow Jones Forecast: Treasury Yields Put 50,000 Support at Risk.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- S&P 500 Closes In on Record High as Tech Rallies: Markets Wrap.\n- Lyn Alden: Nothing Stops This Train – BTC, AI Equities, Bond Market Analysis.",
         "fa": ""
       }
     ],
@@ -189,23 +189,23 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
-            "id": "130f6cabbc1b",
+            "id": "97b5db560630",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Bull run for Japan stocks at risk, warns boss of biggest trading house",
-            "title_fa": "رئیس بزرگترین خانه تجاری هشدار داد که گاو نر برای سهام ژاپن در معرض خطر است",
-            "summary_fa": "رئیس شرکت میتسوبیشی می‌گوید که شرکت‌ها باید پول نقد را کارآمدتر به کار گیرند، زیرا نگران هستند که بازده اوراق قرضه ممکن است به سهام آسیب برساند.",
-            "source": "Financial Times Markets",
+            "title_en": "S&P 500 Closes In on Record High as Tech Rallies: Markets Wrap",
+            "title_fa": "S&P ۵۰۰ با افزایش فناوری: بازارها به رکورد بالایی رسید",
+            "summary_fa": "در حالی که سرمایه گذاران از نگرانی در مورد افزایش قیمت نفت و بازده اوراق قرضه نزدیک به بالاترین سطح چند دهه گذشته خودداری کردند، سهام جهانی به سمت بالاترین رکورد حرکت کردند.",
+            "source": "Bloomberg Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.ft.com/content/1fdb8380-2fac-474a-a184-616c0a29feb6?syn-25a6b1a6=1",
-            "published_ts": 1791147600.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۰:۳۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۰:۳۰",
-            "age_fa": "۱۷ ساعت پیش",
-            "credibility": 0.864,
-            "credibility_fa": "۸۶٪",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz",
+            "published_ts": 1791242024.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۲:۴۳",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۲:۴۳",
+            "age_fa": "۶ ساعت پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
             "topic_fa": "کلان",
             "assets": [
               "SPX"
@@ -214,25 +214,26 @@
             "why_en": ""
           },
           {
-            "id": "74820b5e9604",
+            "id": "56721bf0114e",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Dow Jones Forecast: Treasury Yields Put 50,000 Support at Risk",
-            "title_fa": "پیش بینی داوجونز: بازدهی خزانه داری حمایت ۵۰۰۰۰ را در معرض خطر قرار می دهد",
-            "summary_fa": "پیش بینی داوجونز: بازدهی خزانه داری حمایت ۵۰۰۰۰ را در معرض خطر قرار می دهد",
-            "source": "FXEmpire",
-            "source_kind": "search",
-            "via": "FXEmpire",
-            "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOQ1VyV3lrMG1BNUtSX2t3Z0czWGl3ZDRXQm9FbW1rRTNpUkJ4bGhnM3E2b3BJRng4UUFqSUc4Wm5kX3VMLUVKSVM1akV1NEFmV01LY29VMHhKUDFWNG5pdXo2eUJKTDQxc1p5WWdlclM4R3JrNzFIZDEtVHBKNnVnaG5zWFUyMnhEbU80X2s5S1ZCcU5jMVJwLTRoa1ZFdzZGZWNpSXFmM2NkRGxPR2Excw?oc=5",
-            "published_ts": 1791205961.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۶:۴۲",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۴۲",
-            "age_fa": "۵۴ دقیقه پیش",
-            "credibility": 0.82,
-            "credibility_fa": "۸۲٪",
+            "title_en": "Lyn Alden: Nothing Stops This Train – BTC, AI Equities, Bond Market Analysis",
+            "title_fa": "لین آلدن: هیچ چیز این قطار را متوقف نمی کند - بیت کوین، سهام هوش مصنوعی، تحلیل بازار اوراق قرضه",
+            "summary_fa": "مجله بیت کوین لین آلدن: هیچ چیز این قطار را متوقف نمی کند - بیت کوین، سهام هوش مصنوعی، تحلیل بازار اوراق قرضه آیا هوش مصنوعی به تورم پایان می دهد؟ لین آلدن چگونگی کاهش قیمت خدمات توسط هوش مصنوعی را توضیح می دهد در حالی که تورم پولی و دارایی",
+            "source": "Bitcoin Magazine",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://bitcoinmagazine.com/videos/lyn-alden-nothing-stops-this-train-btc-ai-equities-bond-market-analysis",
+            "published_ts": 1791233928.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۰:۲۸",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۰:۲۸",
+            "age_fa": "۸ ساعت پیش",
+            "credibility": 0.787,
+            "credibility_fa": "۷۹٪",
             "topic_fa": "کلان",
             "assets": [
+              "BTC",
               "SPX"
             ],
             "why_fa": "",
@@ -251,7 +252,7 @@
     [
       "p",
       {
-        "en": "- Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Global pension funds cut US equities over AI concentration risk. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Equities: Strong earnings cycle offsets yield shock – Danske Bank. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- SEC opens tokenized stock path as Tesla tokens trade 99.65% fractional. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- US stocks: US market opens muted as tech stocks take a breather. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
+        "en": "- Copper Rises for Third Day as Tech Rally Lifts Risk Appetite. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Goldman’s Bid for CLO Manager Highlights Wall Street’s Fee Hunt. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- S&P 500 defies midterm slump as Bank of America says history favours post-election gains. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- NYSE owner and OKX plan 24/7 tokenized stock trading using Uniswap. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
         "fa": ""
       }
     ],
@@ -261,9 +262,59 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
-            "id": "bef18ca53a9f",
+            "id": "4a4c923d1674",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "Copper Rises for Third Day as Tech Rally Lifts Risk Appetite",
+            "title_fa": "مس برای سومین روز افزایش می یابد زیرا رالی فناوری ریسک اشتها را افزایش می دهد",
+            "summary_fa": "مس برای سومین روز افزایش یافت و پس از افزایش قیمت در وال استریت به رهبری فناوری، رشد سهام آسیایی را دنبال کرد.",
+            "source": "Bloomberg Markets",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-06/copper-rises-for-third-day-as-tech-rally-lifts-risk-appetite",
+            "published_ts": 1791254856.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۶:۱۷",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۱۷",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "SPX"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
+          },
+          {
+            "id": "975eba035665",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Goldman’s Bid for CLO Manager Highlights Wall Street’s Fee Hunt",
+            "title_fa": "پیشنهاد گلدمن برای مدیر CLO بر شکار هزینه وال استریت تاکید دارد",
+            "summary_fa": "مدیران دارایی‌های بزرگ‌تر از جمله Goldman Sachs Group Inc. در جستجوی جریان‌های کارمزد سودآور در بازار یک تریلیون دلاری آمریکا، به دنبال جذب کسب‌وکارهای مدیریت CLO بوده‌اند.",
+            "source": "Bloomberg Markets",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/goldman-s-bid-for-clo-manager-highlights-wall-street-s-fee-hunt",
+            "published_ts": 1791208824.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۷:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
+            "age_fa": "۱۵ ساعت پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "SPX"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
+          },
+          {
+            "id": "bef18ca53a9f",
+            "index": 3,
+            "index_fa": "۳",
             "title_en": "Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election",
             "title_fa": "یورو به پایین ترین سطح ۱۷ ماهه کاهش یافت. بولسونارو در انتخابات برزیل پیشتاز لولا شد",
             "summary_fa": "در حالی که تحولات سیاسی، یورو را به پایین ترین سطح خود در ۱۷ ماه گذشته می رساند، ارزش سهام جهانی متزلزل می شود. پدرو سانچز، نخست وزیر اسپانیا، در بحبوحه افزایش اعتراضات اجتماعی به مسکن، خواستار برگزاری انتخابات زودهنگام شد. فلاویو بولسونارو",
@@ -275,7 +326,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۵:۲۹",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۲۹",
-            "age_fa": "۳۶ دقیقه پیش",
+            "age_fa": "۱۷ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -286,73 +337,23 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
           },
           {
-            "id": "539461f8ada2",
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Global pension funds cut US equities over AI concentration risk",
-            "title_fa": "صندوق های بازنشستگی جهانی سهام ایالات متحده را به دلیل خطر تمرکز هوش مصنوعی کاهش دادند",
-            "summary_fa": "با افزایش نگرانی‌ها در مورد ارزش‌گذاری‌های «کشیده»، به تنوع‌سازی فشار بیاورید",
-            "source": "Financial Times Markets",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://www.ft.com/content/18e475be-1012-43e9-a0ff-ef0181b772ad?syn-25a6b1a6=1",
-            "published_ts": 1791172812.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۷:۳۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۷:۳۰",
-            "age_fa": "۱۰ ساعت پیش",
-            "credibility": 0.864,
-            "credibility_fa": "۸۶٪",
-            "topic_fa": "نهادی",
-            "assets": [
-              "SPX"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
-          },
-          {
-            "id": "9391fa4b09a7",
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Equities: Strong earnings cycle offsets yield shock – Danske Bank",
-            "title_fa": "سهام: چرخه سود قوی، شوک بازده را جبران می کند - Danske Bank",
-            "summary_fa": "سهام: چرخه سود قوی، شوک بازده را جبران می کند - Danske Bank",
-            "source": "FXStreet",
-            "source_kind": "macro",
-            "via": "FXStreet News",
-            "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQYnFQLTBkdmhuQ3lNSDcxd2V1cEFPU1VPWmRFeGltTkVhNnZaOHczQTEtT3ZNRjI3YVd0WVBBR0JoRVlmTWxUWnVORzNJeXB0T19UX1Q2bzJadjBYWEdfRjVaS252YnJEdzFJZUU4eVViaVFyN1lHdFl3NHRhSmp1TDRncUtraWtDYUMyYWUxRVEzclMyUGdlWFJwRFhuWV9uMXBxSHlzaDE?oc=5",
-            "published_ts": 1791184145.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۰:۳۹",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۰:۳۹",
-            "age_fa": "۷ ساعت پیش",
-            "credibility": 0.787,
-            "credibility_fa": "۷۹٪",
-            "topic_fa": "نهادی",
-            "assets": [
-              "SPX"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
-          },
-          {
-            "id": "9a3cf139afd2",
+            "id": "d54ca0eea5d4",
             "index": 4,
             "index_fa": "۴",
-            "title_en": "SEC opens tokenized stock path as Tesla tokens trade 99.65% fractional",
-            "title_fa": "SEC مسیر سهام توکن شده را باز می کند زیرا توکن های تسلا ۹۹.۶۵٪ کسری معامله می شوند.",
-            "summary_fa": "SEC مسیر سهام توکن شده را باز می کند زیرا توکن های تسلا ۹۹.۶۵٪ کسری معامله می شوند.",
-            "source": "FXStreet",
-            "source_kind": "crypto",
-            "via": "FXStreet Crypto",
-            "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQazNmNDBHdXMyVFdPY0VfYkhXa29IdkhQMkQ3YWxhQUVlQ1VZZmoxaWRtU2lVbXFQeWNQaUVpNk9hTkoyU0wyU293SDl0SnYzdExlUnNLMjZ6OUJ6d2NXTVd0SHY2Rk1TcW5xVW94c3VmMzBrOFZSWFozMnlzZGY4ZlJaWnRHcURIZFdBTjNmbmp5REY3TGdtMlJOdzZVSXgza0x0ZEVqQ09LcGdvQmV0QTdtbFl4TzB3RWJxQjEyNml3V1p0eGtB?oc=5",
-            "published_ts": 1791141256.0,
-            "date_fa": "۱۲ مهر ۱۴۰۵",
-            "time_fa": "۲۲:۴۴",
-            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۲۲:۴۴",
-            "age_fa": "۱۹ ساعت پیش",
-            "credibility": 0.787,
-            "credibility_fa": "۷۹٪",
+            "title_en": "S&P 500 defies midterm slump as Bank of America says history favours post-election gains",
+            "title_fa": "S&P ۵۰۰ با رکود میان دوره ای مخالفت می کند زیرا بانک آمریکا می گوید تاریخ به نفع دستاوردهای پس از انتخابات است.",
+            "summary_fa": "تحلیل تاریخی بانک آمریکا از این موضوع حمایت می‌کند که سرمایه‌گذاری‌ها در رای میان‌دوره‌ای باقی بماند، که می‌تواند خرید در مورد هرگونه ضعف قبل از انتخابات در سهام ایالات متحده را تشویق کند. همانطور که S&P ۵۰۰ نزدیک به رکوردها معامله می شود، ",
+            "source": "ForexLive",
+            "source_kind": "metals",
+            "via": "",
+            "link": "https://investinglive.com/stock-market-update/s-p-500-defies-midterm-slump-as-bank-of-america-says-history-favours-post-election-gains/",
+            "published_ts": 1791249119.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۴:۴۱",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۴:۴۱",
+            "age_fa": "۴ ساعت پیش",
+            "credibility": 0.74,
+            "credibility_fa": "۷۴٪",
             "topic_fa": "مقررات",
             "assets": [
               "SPX"
@@ -361,26 +362,25 @@
             "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
           },
           {
-            "id": "c328afcff3b7",
+            "id": "202a1deaf837",
             "index": 5,
             "index_fa": "۵",
-            "title_en": "US stocks: US market opens muted as tech stocks take a breather",
-            "title_fa": "سهام ایالات متحده: با نفس کشیدن سهام های فناوری، بازار ایالات متحده خاموش می شود",
-            "summary_fa": "با توجه به افزایش بازدهی خزانه داری و قیمت نفت، سرمایه گذاران همچنان به شاخص های جدید در مسیر سیاست پولی توجه می کنند. S&P ۵۰۰ اندکی افزایش داشت، در حالی که میانگین صنعتی داوجونز کاهش اندکی را تجربه کرد.",
-            "source": "Economic Times Markets",
-            "source_kind": "macro",
+            "title_en": "NYSE owner and OKX plan 24/7 tokenized stock trading using Uniswap",
+            "title_fa": "مالک NYSE و OKX با استفاده از Uniswap، معاملات سهام توکنیزه شده ۲۴/۷ را برنامه ریزی می کنند",
+            "summary_fa": "صرافی بین قاره ای و OKX در حال آماده سازی یک بازار همیشه باز هستند که در آن سهام های توکن دار ایالات متحده می توانند پس از بسته شدن وال استریت به قیمت گذاری مجدد ادامه دهند. در ۴ اکتبر، OKXICE، سرمایه‌گذاری مشترک ۵۰-۵۰ این شرکت‌ها، به کمیسی",
+            "source": "CryptoSlate",
+            "source_kind": "crypto",
             "via": "",
-            "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-stocks-us-market-opens-muted-as-tech-stocks-take-a-breather/articleshow/134707900.cms",
-            "published_ts": 1791208580.0,
+            "link": "https://cryptoslate.com/nyse-owner-and-okx-plan-24-7-tokenized-stock-trading-using-uniswap/",
+            "published_ts": 1791214248.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۷:۲۶",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۲۶",
-            "age_fa": "۱۲ دقیقه پیش",
+            "time_fa": "۱۹:۰۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۹:۰۰",
+            "age_fa": "۱۴ ساعت پیش",
             "credibility": 0.72,
             "credibility_fa": "۷۲٪",
             "topic_fa": "مقررات",
             "assets": [
-              "WTI",
               "SPX"
             ],
             "why_fa": "",
@@ -399,7 +399,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $7,747 versus EMA20 $7,687, EMA50 $7,642 and EMA200 $7,267 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $7,745 (recent swing low); the lower Bollinger band $7,555 as the 2σ downside envelope; first resistance at $7,748 (recent swing high); upper band $7,788 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $64.59 implies a typical daily range of roughly 0.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 56.9 — neutral territory; MACD (12/26/9) sits above its signal line (14.99 vs 11.9, histogram +3.091), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 11%; the 20-day band spans 3% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.87x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +0.94% over 30 days and +3.01% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.55%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $7,774 versus EMA20 $7,689, EMA50 $7,643 and EMA200 $7,267 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $7,765 (recent swing low); the lower Bollinger band $7,553 as the 2σ downside envelope; first resistance at $7,786 (recent swing high); upper band $7,793 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $67.91 implies a typical daily range of roughly 0.9 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 59.0 — neutral territory; MACD (12/26/9) sits above its signal line (17.18 vs 12.33, histogram +4.841), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 12%; the 20-day band spans 3% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 1.03x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +1.30% over 30 days and +3.37% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.91%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -409,21 +409,21 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
-            "id": "fcabc46f6a12",
+            "id": "889ddf31741b",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "US Market: Record equity exposure leaves systematic funds exposed to pullback",
-            "title_fa": "بازار ایالات متحده: قرار گرفتن در معرض سهام بی سابقه، وجوه سیستماتیک را در معرض عقب نشینی قرار می دهد",
-            "summary_fa": "سهام ایالات متحده با خطرات نزولی روبرو هستند زیرا صندوق های کنترل نوسانات و CTA ها پس از صعود S&P ۵۰۰ به طور تاریخی در معرض ارزش سهام قرار دارند. افزایش نوسانات می‌تواند استراتژی‌های سیستماتیک را مجبور به فروش سنگین کند و به طور بالقوه افت ",
-            "source": "Economic Times Markets",
+            "title_en": "Stock Market LIVE: Sensex up 200 pts, Nifty tops 22,600; Nifty Chemical rises over 1%",
+            "title_fa": "بازار سهام زنده: Sensex ۲۰۰ امتیاز، Nifty بالای ۲۲۶۰۰; Nifty Chemical بیش از ۱ درصد افزایش یافت",
+            "summary_fa": "سکس امروز | به‌روزرسانی‌های زنده بازار سهام سه‌شنبه: GIFT Nifty باز شدن مثبت Nifty۵۰ را نشان داد. بیشتر بازارهای آسیایی با حمایت از سهام فناوری پیشرفت کردند",
+            "source": "Business Standard Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://economictimes.indiatimes.com/markets/us-stocks/wall-street-guide/us-market-record-equity-exposure-leaves-systematic-funds-exposed-to-pullback/articleshow/134686346.cms",
-            "published_ts": 1791176475.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۸:۳۱",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۸:۳۱",
-            "age_fa": "۸ ساعت پیش",
+            "link": "https://www.business-standard.com/markets/news/stock-market-live-october-6-bse-sensex-today-nifty50-gift-nifty-crude-oil-prices-srit-india-ipo-listing-126100600087_1.html",
+            "published_ts": 1791253373.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۵:۵۲",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۵:۵۲",
+            "age_fa": "۳ ساعت پیش",
             "credibility": 0.72,
             "credibility_fa": "۷۲٪",
             "topic_fa": "تحلیل",
@@ -434,24 +434,24 @@
             "why_en": ""
           },
           {
-            "id": "e323f28d4647",
+            "id": "84597b57ddbd",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Sensex today | Stock Market Highlights: Sensex rises 472 pts to end at 72,382, Nifty settles at 22,555; ITC, Eternal lead gainers",
-            "title_fa": "سکس امروز | نکات برجسته بازار سهام: Sensex با افزایش ۴۷۲ واحدی به ۷۲,۳۸۲ رسید، Nifty در ۲۲,۵۵۵ تثبیت شد. ITC، جذب کنندگان سرب ابدی",
-            "summary_fa": "Sensex، Nifty، قیمت سهام: Sensex در روز دوشنبه با ۴۷۲.۷۷ امتیاز یا ۰.۶۶ درصد افزایش به ۷۲۳۸۲.۴۷ واحد رسید و Nifty ۵۰ با ۱۳۳.۸۰ امتیاز یا ۰.۶۰ درصد افزایش به ۲۲۵۵۵.۷۵ رسید.",
-            "source": "Hindu BusinessLine",
+            "title_en": "Stock market outlook today, 6 Oct: Sensex, Nifty prediction - DJIA, S&amp;P, NASDAQ, GIFT Nifty, Nikkei, Taiwan cues",
+            "title_fa": "چشم انداز بازار سهام امروز، ۶ اکتبر: Sensex، پیش بینی خوب - نشانه های DJIA، S&P، NASDAQ، GIFT Nifty، Nikkei، تایوان",
+            "summary_fa": "پیش‌بینی بازار سهام برای سه‌شنبه، ۶ اکتبر ۲۰۲۶: Gift Nifty در حدود سطح ۲۲۶۶۳ معامله می‌شد که نزدیک به ۸۱ واحد نسبت به بسته شدن قبلی معاملات آتی Nifty افزایش داشت، که نشان‌دهنده شروع مثبت شاخص‌های بازار سهام هند است.",
+            "source": "LiveMint Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.thehindubusinessline.com/markets/sensex-nifty50-today-stock-market-highlights-5th-october-2026/article71544056.ece",
-            "published_ts": 1791199115.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۴:۴۸",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۴۸",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.7,
-            "credibility_fa": "۷۰٪",
-            "topic_fa": "بازار",
+            "link": "https://www.livemint.com/market/stock-market-news/stock-market-outlook-today-6-oct-sensex-nifty-prediction-djia-s-p-nasdaq-gift-nifty-nikkei-taiwan-cues-11791247193944.html",
+            "published_ts": 1791249599.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۴:۴۹",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۴:۴۹",
+            "age_fa": "۴ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "تحلیل",
             "assets": [
               "SPX"
             ],
@@ -471,7 +471,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $7,748 on expanding turnover; continued holds of the 50-day average ($7,642). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $7,745. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $7,786 on expanding turnover; continued holds of the 50-day average ($7,643). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $7,765. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -485,11 +485,11 @@
     [
       "p",
       {
-        "en": "Net take on S&P 500: spot $7,747 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.31%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on S&P 500: spot $7,774 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.66%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T14:10:59.580703+00:00",
-  "news_used": 10
+  "generated_at": "2026-10-06T05:13:42.721185+00:00",
+  "news_used": 9
 }

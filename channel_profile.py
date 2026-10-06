@@ -196,7 +196,10 @@ def normalize(text: Any) -> str:
     s = _ZWNJ_RE.sub(" ", s)
     for a, b in _PERSIAN_MAP.items():
         s = s.replace(a, b)
-    return _SPACE_RE.sub(" ", s).strip().lower()
+    # fold what the maps above don't cover: diacritics, tatweel, ZWNJ —
+    # «نیم‌سکه» and «نیم سکه» must land on the same matching text
+    from fa_format import fa_fold
+    return _SPACE_RE.sub(" ", fa_fold(s)).strip().lower()
 
 
 def article_text(article: Any) -> str:

@@ -133,3 +133,19 @@ if __name__ == "__main__":
     print(gregorian_to_jalali(2024, 3, 20))   # 1403-01-01
     print(fa_datetime(datetime(2026, 9, 15, 10, 5, tzinfo=timezone.utc)))
     print(fa_ago(3.4), "|", fa_ago(0.3), "|", fa_ago(30))
+
+# ── matching-only normalization ─────────────────────────────────────────────
+# Not for display: folds the characters Persian keyword matching trips over —
+# Arabic yeh/keh -> Persian, diacritics and tatweel stripped, ZWNJ -> space
+# (so «نیم‌سکه» and «نیم سکه» match the same pattern, whichever spelling the
+# feed uses). The goal hazm serves, without hazm's heavyweight dependencies.
+import re as _re
+_FA_DIACRITICS = _re.compile(r"[ً-ْٰـ]")
+
+def fa_fold(text) -> str:
+    if not text:
+        return ""
+    t = str(text)
+    t = t.replace("ي", "ی").replace("ى", "ی").replace("ك", "ک")
+    t = t.replace("‌", " ")
+    return _FA_DIACRITICS.sub("", t)

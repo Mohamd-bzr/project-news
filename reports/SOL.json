@@ -9,27 +9,55 @@
       {
         "title": "Solana — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Solana",
-        "asof": "2026-10-05 17:40 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
+        "asof": "2026-10-06 08:43 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۴۳",
         "symbol": "SOL",
         "name": "Solana",
         "fa_name": "Solana",
         "icon": "◎",
-        "price": 121.06,
-        "change_24h": -0.46,
+        "price": 120.21,
+        "change_24h": -0.15,
         "news_window_hours": 24.0,
-        "news_used": 8,
+        "news_used": 6,
         "sources_used": [
           {
-            "name": "U.Today",
-            "count": 3
-          },
-          {
             "name": "r/solana (شبکه اجتماعی)",
+            "count": 7
+          },
+          {
+            "name": "streetinsider.com",
+            "count": 6
+          },
+          {
+            "name": "Crypto Briefing",
             "count": 3
           },
           {
-            "name": "StreetInsider",
+            "name": "ForexLive",
+            "count": 2
+          },
+          {
+            "name": "CoinPedia",
+            "count": 2
+          },
+          {
+            "name": "TechBullion",
+            "count": 2
+          },
+          {
+            "name": "Decrypt",
+            "count": 2
+          },
+          {
+            "name": "finance.biggo.com",
+            "count": 2
+          },
+          {
+            "name": "r/DeFi (شبکه اجتماعی)",
+            "count": 2
+          },
+          {
+            "name": "AMBCrypto",
             "count": 2
           },
           {
@@ -37,36 +65,8 @@
             "count": 2
           },
           {
-            "name": "bloomingbit",
+            "name": "U.Today",
             "count": 2
-          },
-          {
-            "name": "FXEmpire",
-            "count": 1
-          },
-          {
-            "name": "Crypto Briefing",
-            "count": 1
-          },
-          {
-            "name": "AMBCrypto",
-            "count": 1
-          },
-          {
-            "name": "CoinPedia",
-            "count": 1
-          },
-          {
-            "name": "BeInCrypto",
-            "count": 1
-          },
-          {
-            "name": "Finwire",
-            "count": 1
-          },
-          {
-            "name": "TradingView",
-            "count": 1
           }
         ],
         "market_stale": false
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Solana is changing hands near $121.06, -0.46% over the past 24 hours and +1.87% on a 7-day view. Spot trades above the 50-day average ($106.14) and above the 200-day average ($97.72), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+17.32%), suggesting the market is still repairing.",
+        "en": "Solana is changing hands near $120.21, -0.15% over the past 24 hours and +1.12% on a 7-day view. Spot trades above the 50-day average ($106.10) and above the 200-day average ($97.65), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+16.46%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -92,49 +92,51 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
-            "id": "456f521c9992",
+            "id": "b223d205a017",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Solana Price Prediction: SOL Eyes Break Above $120 as ETF Inflows Rise by 40%",
-            "title_fa": "پیش‌بینی قیمت سولانا: با افزایش ۴۰ درصدی ورودی ETF، چشم‌های SOL به بالای ۱۲۰ دلار می‌رسند.",
-            "summary_fa": "پیش‌بینی قیمت سولانا: با افزایش ۴۰ درصدی ورودی ETF، چشم‌های SOL به بالای ۱۲۰ دلار می‌رسند.",
-            "source": "FXEmpire",
+            "title_en": "BTC, ETH, SOL price news: Bitcoin hits $87,000 wall for third time as stocks near records",
+            "title_fa": "اخبار قیمت BTC، ETH، SOL: بیت کوین برای سومین بار به دیوار ۸۷۰۰۰ دلاری رسید که سهام به رکورد نزدیک شد.",
+            "summary_fa": "اخبار قیمت BTC، ETH، SOL: بیت کوین برای سومین بار به دیوار ۸۷۰۰۰ دلاری رسید که سهام به رکورد نزدیک شد.",
+            "source": "CoinDesk",
             "source_kind": "search",
-            "via": "Google News · SOL",
-            "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNcmppQWpMa1dFLVIwUXhkMW11cFlxREpoS0J1SUc2QlpNYlIyZjBvRmRvaElhM2FJZDczVnVhcVhlRFhTWUJTRzhIYml2Sml4TUN3aTNiMVcxSE90aWtpTVlteGZKRHRvMkZsMG1VV1F4ZDdmVGt5cFVHYTlEa3U3cTVGSHdXcUJXLVd4OWxmNFJsRXVWZm54VE9WbDczSHdxMGU4NldJODJoeTU5MXhFQk5Gd3VOVmNTSmktSkZPRG5NNkk?oc=5",
-            "published_ts": 1791203546.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۶:۰۲",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۰۲",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.82,
-            "credibility_fa": "۸۲٪",
-            "topic_fa": "ETF",
+            "via": "Google News · BTC",
+            "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOTzVwLW1mVm5YVDhXQ1VRMGE2TUFZcVZhRmdaeDFRRnRrRlEzZjRnUkpIM2hNaTRkelZiZEN0WENIdFlMckp0YkFya2hFaE1tT1BUanUtWWJhV185eVZMdzR0cC0xYUNZZk1rblhvQWpHdkxTQ2xoWklleURuMk1tWEpRYmVwQ3EwMTBhZnFxdUZBdFZrcWxfRkVqeU1TQkd4YUNuXzhyR3QwMlhMOHNsYzBFSHAxRFk?oc=5",
+            "published_ts": 1791261670.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۸:۱۱",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۱۱",
+            "age_fa": "۳۰ دقیقه پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "بازار",
             "assets": [
+              "BTC",
+              "ETH",
               "SOL"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
-            "id": "2769d1b6d631",
+            "id": "2bef09f7ac68",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Solana trails Robinhood Chain with 35% vs 39% tokenized equity market share",
-            "title_fa": "سولانا با ۳۵ درصد در مقابل ۳۹ درصد سهم بازار سهام توکن شده زنجیره رابینهود را دنبال می کند.",
-            "summary_fa": "تجدید حیات سولانا در بازارهای توکن شده، تقاضای فزاینده برای معاملات ۲۴ ساعته را برجسته می‌کند و مدل‌های دلالی سنتی را به چالش می‌کشد.",
-            "source": "Crypto Briefing",
+            "title_en": "Solana Debuts Institutional Settlement Standard With J.P. Morgan Input",
+            "title_fa": "سولانا استاندارد تسویه حساب نهادی را با ورودی J.P. Morgan معرفی کرد",
+            "summary_fa": "برنامه منبع باز \"DvP\" که با ورودی J.P. Morgan ساخته شده است، به مؤسسات اجازه می دهد معاملات را به صورت اتمی در Solana با قطعیت در چند ثانیه به جای چند روز انجام دهند.",
+            "source": "Decrypt",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://cryptobriefing.com/solana-overtakes-robinhood-tokenized-equities-volume/",
-            "published_ts": 1791202247.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۵:۴۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۴۰",
-            "age_fa": "۲۴ دقیقه پیش",
-            "credibility": 0.78,
-            "credibility_fa": "۷۸٪",
-            "topic_fa": "دی‌فای",
+            "link": "https://decrypt.co/380126/solana-institutional-settlement-standard-jp-morgan",
+            "published_ts": 1791252063.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۵:۳۱",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۵:۳۱",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.85,
+            "credibility_fa": "۸۵٪",
+            "topic_fa": "نهادی",
             "assets": [
               "SOL"
             ],
@@ -142,24 +144,24 @@
             "why_en": ""
           },
           {
-            "id": "4cc8b19016e0",
+            "id": "5ac1cf2d0bb5",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Shiba Inu lands on Solana after $190B DEX quarter – Q4 memecoin cycle next?",
-            "title_fa": "شیبا اینو پس از ۱۹۰ میلیارد دلار DEX به سولانا فرود می آید - چرخه بعدی memecoin Q۴؟",
-            "summary_fa": "حرکت SHIB به سولانا می تواند تقاضا را با افزایش فعالیت memecoin احیا کند، اما عرضه سنگین مبادلات همچنان یک ریسک کلیدی برای Q۴ است.",
-            "source": "AMBCrypto",
+            "title_en": "DeFi Development Corp Adds $3 Million in Solana as SOL Buys Slow",
+            "title_fa": "شرکت DeFi Development Corp ۳ میلیون دلار به Solana اضافه می کند زیرا SOL کند خرید می کند",
+            "summary_fa": "آخرین پرونده SEC شرکت DeFi Development Corp که در فهرست نزدک قرار دارد نشان می دهد که ذخیره Solana آن ۱٪ رشد کرده و به حدود ۲.۵۶ میلیون SOL و معادل SOL رسیده است - تقریباً نیمی از سود هفته قبل و بسیار کمتر از سرعت اواسط سپتامبر.",
+            "source": "Decrypt",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://ambcrypto.com/shiba-inu-lands-on-solana-after-190b-dex-quarter-q4-memecoin-cycle-next/",
-            "published_ts": 1791201624.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۵:۳۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۳۰",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.75,
-            "credibility_fa": "۷۵٪",
-            "topic_fa": "عمومی",
+            "link": "https://decrypt.co/380125/defi-development-corp-adds-3m-solana",
+            "published_ts": 1791236883.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۱:۱۸",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۱:۱۸",
+            "age_fa": "۷ ساعت پیش",
+            "credibility": 0.816,
+            "credibility_fa": "۸۲٪",
+            "topic_fa": "مقررات",
             "assets": [
               "SOL"
             ],
@@ -179,7 +181,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Solana Tokenized Stock Volume Hits Record $4.4B in September.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- DeFi Development Corp Adds $3 Million in Solana as SOL Buys Slow.",
         "fa": ""
       }
     ],
@@ -189,24 +191,24 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
-            "id": "7901f42b463e",
+            "id": "5ac1cf2d0bb5",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Solana Tokenized Stock Volume Hits Record $4.4B in September",
-            "title_fa": "حجم سهام توکن شده سولانا در ماه سپتامبر به رکورد ۴.۴ میلیارد دلار رسید",
-            "summary_fa": "معاملات سهام توکنیزه شده سولانا در ماه سپتامبر به رکورد ۴.۴ میلیارد دلار رسید زیرا رایدیم و افزایش نقدینگی DEX باعث تسریع سهام زنجیره ای شد.",
-            "source": "Crypto News Flash",
+            "title_en": "DeFi Development Corp Adds $3 Million in Solana as SOL Buys Slow",
+            "title_fa": "شرکت DeFi Development Corp ۳ میلیون دلار به Solana اضافه می کند زیرا SOL کند خرید می کند",
+            "summary_fa": "آخرین پرونده SEC شرکت DeFi Development Corp که در فهرست نزدک قرار دارد نشان می دهد که ذخیره Solana آن ۱٪ رشد کرده و به حدود ۲.۵۶ میلیون SOL و معادل SOL رسیده است - تقریباً نیمی از سود هفته قبل و بسیار کمتر از سرعت اواسط سپتامبر.",
+            "source": "Decrypt",
             "source_kind": "crypto",
             "via": "",
-            "link": "https://www.crypto-news-flash.com/solana-tokenized-stock-volume-hits-record-4-4b-in-september/",
-            "published_ts": 1791136840.0,
-            "date_fa": "۱۲ مهر ۱۴۰۵",
-            "time_fa": "۲۱:۳۰",
-            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۲۱:۳۰",
-            "age_fa": "۲۰ ساعت پیش",
-            "credibility": 0.634,
-            "credibility_fa": "۶۳٪",
-            "topic_fa": "کلان",
+            "link": "https://decrypt.co/380125/defi-development-corp-adds-3m-solana",
+            "published_ts": 1791236883.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۱:۱۸",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۱:۱۸",
+            "age_fa": "۷ ساعت پیش",
+            "credibility": 0.816,
+            "credibility_fa": "۸۲٪",
+            "topic_fa": "مقررات",
             "assets": [
               "SOL"
             ],
@@ -226,7 +228,7 @@
     [
       "p",
       {
-        "en": "- Solana Price Prediction: SOL Eyes Break Above $120 as ETF Inflows Rise by 40%. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.\n- Solana ETF inflows collapsed 99% but SOL holds firm: what are bulls seeing. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.\n- Solana Price Ripe for More Gains as ETF, Staking Inflows Jump Ahead of Alpenglow Upgrade. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.",
+        "en": "- BTC, ETH, SOL price news: Bitcoin hits $87,000 wall for third time as stocks near records. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.\n- Solana Debuts Institutional Settlement Standard With J.P. Morgan Input. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.\n- DeFi Development Corp Adds $3 Million in Solana as SOL Buys Slow. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- Solana Price Prediction: SOL Eyes Break Above $120 as ETF Inflows Rise by 40%. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana.",
         "fa": ""
       }
     ],
@@ -236,9 +238,86 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
-            "id": "456f521c9992",
+            "id": "b223d205a017",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "BTC, ETH, SOL price news: Bitcoin hits $87,000 wall for third time as stocks near records",
+            "title_fa": "اخبار قیمت BTC، ETH، SOL: بیت کوین برای سومین بار به دیوار ۸۷۰۰۰ دلاری رسید که سهام به رکورد نزدیک شد.",
+            "summary_fa": "اخبار قیمت BTC، ETH، SOL: بیت کوین برای سومین بار به دیوار ۸۷۰۰۰ دلاری رسید که سهام به رکورد نزدیک شد.",
+            "source": "CoinDesk",
+            "source_kind": "search",
+            "via": "Google News · BTC",
+            "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOTzVwLW1mVm5YVDhXQ1VRMGE2TUFZcVZhRmdaeDFRRnRrRlEzZjRnUkpIM2hNaTRkelZiZEN0WENIdFlMckp0YkFya2hFaE1tT1BUanUtWWJhV185eVZMdzR0cC0xYUNZZk1rblhvQWpHdkxTQ2xoWklleURuMk1tWEpRYmVwQ3EwMTBhZnFxdUZBdFZrcWxfRkVqeU1TQkd4YUNuXzhyR3QwMlhMOHNsYzBFSHAxRFk?oc=5",
+            "published_ts": 1791261670.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۸:۱۱",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۱۱",
+            "age_fa": "۳۰ دقیقه پیش",
+            "credibility": 0.95,
+            "credibility_fa": "۹۵٪",
+            "topic_fa": "بازار",
+            "assets": [
+              "BTC",
+              "ETH",
+              "SOL"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana."
+          },
+          {
+            "id": "2bef09f7ac68",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Solana Debuts Institutional Settlement Standard With J.P. Morgan Input",
+            "title_fa": "سولانا استاندارد تسویه حساب نهادی را با ورودی J.P. Morgan معرفی کرد",
+            "summary_fa": "برنامه منبع باز \"DvP\" که با ورودی J.P. Morgan ساخته شده است، به مؤسسات اجازه می دهد معاملات را به صورت اتمی در Solana با قطعیت در چند ثانیه به جای چند روز انجام دهند.",
+            "source": "Decrypt",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://decrypt.co/380126/solana-institutional-settlement-standard-jp-morgan",
+            "published_ts": 1791252063.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۵:۳۱",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۵:۳۱",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.85,
+            "credibility_fa": "۸۵٪",
+            "topic_fa": "نهادی",
+            "assets": [
+              "SOL"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana."
+          },
+          {
+            "id": "5ac1cf2d0bb5",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "DeFi Development Corp Adds $3 Million in Solana as SOL Buys Slow",
+            "title_fa": "شرکت DeFi Development Corp ۳ میلیون دلار به Solana اضافه می کند زیرا SOL کند خرید می کند",
+            "summary_fa": "آخرین پرونده SEC شرکت DeFi Development Corp که در فهرست نزدک قرار دارد نشان می دهد که ذخیره Solana آن ۱٪ رشد کرده و به حدود ۲.۵۶ میلیون SOL و معادل SOL رسیده است - تقریباً نیمی از سود هفته قبل و بسیار کمتر از سرعت اواسط سپتامبر.",
+            "source": "Decrypt",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://decrypt.co/380125/defi-development-corp-adds-3m-solana",
+            "published_ts": 1791236883.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۱:۱۸",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۱:۱۸",
+            "age_fa": "۷ ساعت پیش",
+            "credibility": 0.816,
+            "credibility_fa": "۸۲٪",
+            "topic_fa": "مقررات",
+            "assets": [
+              "SOL"
+            ],
+            "why_fa": "",
+            "why_en": "Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event."
+          },
+          {
+            "id": "456f521c9992",
+            "index": 4,
+            "index_fa": "۴",
             "title_en": "Solana Price Prediction: SOL Eyes Break Above $120 as ETF Inflows Rise by 40%",
             "title_fa": "پیش‌بینی قیمت سولانا: با افزایش ۴۰ درصدی ورودی ETF، چشم‌های SOL به بالای ۱۲۰ دلار می‌رسند.",
             "summary_fa": "پیش‌بینی قیمت سولانا: با افزایش ۴۰ درصدی ورودی ETF، چشم‌های SOL به بالای ۱۲۰ دلار می‌رسند.",
@@ -250,59 +329,9 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۶:۰۲",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۰۲",
-            "age_fa": "۲ ساعت پیش",
-            "credibility": 0.82,
-            "credibility_fa": "۸۲٪",
-            "topic_fa": "ETF",
-            "assets": [
-              "SOL"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana."
-          },
-          {
-            "id": "e1118c42aa46",
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Solana ETF inflows collapsed 99% but SOL holds firm: what are bulls seeing",
-            "title_fa": "جریان ورودی ETF Solana ۹۹٪ سقوط کرد، اما SOL ثابت است: گاوها چه می بینند",
-            "summary_fa": "",
-            "source": "Finwire",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://finwire.io/news/crypto-news/solana-etf-inflows-collapsed-99-but-sol-holds-firm-what-are-bulls-seeing",
-            "published_ts": 1791181416.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۹:۵۳",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۹:۵۳",
-            "age_fa": "۶ ساعت پیش",
-            "credibility": 0.7,
-            "credibility_fa": "۷۰٪",
-            "topic_fa": "ETF",
-            "assets": [
-              "SOL"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Solana."
-          },
-          {
-            "id": "bde779514c50",
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Solana Price Ripe for More Gains as ETF, Staking Inflows Jump Ahead of Alpenglow Upgrade",
-            "title_fa": "قیمت سولانا برای سودهای بیشتر به عنوان ETF رسیده است، جهش ورودی‌ها در آستانه ارتقای Alpenglow",
-            "summary_fa": "قیمت سولانا برای سودهای بیشتر به عنوان ETF رسیده است، جهش ورودی‌ها در آستانه ارتقای Alpenglow",
-            "source": "Benzinga",
-            "source_kind": "search",
-            "via": "Google News · SOL",
-            "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNUWFsT1M5b2NuMEo4UzFmLUZ3ZzVrUU11SHJmaTY2QzZQSk81UTBNU1FpUmlBbzVUUFBmN3ZEZFNtak50VGlNaWM4WDZ1M3JZQlo5elBlNGZZaFhPd1pjcmM1UlUwcDIzeXI4Mm5JT0ZqZGU4QXRoNlFDUEctZmpqSnpJQnc3STJqR2NjalN3Wnl1SU1lQUlqMzYxeVN2Vm9yZmFJNkx1RWpZV3lLdFlKcmJPYV9vUFV4U2Z3U2s3UVZ2TlI2SXhYZVNHWjJ1TWM?oc=5",
-            "published_ts": 1791130533.0,
-            "date_fa": "۱۲ مهر ۱۴۰۵",
-            "time_fa": "۱۹:۴۵",
-            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۱۹:۴۵",
-            "age_fa": "۲۲ ساعت پیش",
-            "credibility": 0.672,
-            "credibility_fa": "۶۷٪",
+            "age_fa": "۱۷ ساعت پیش",
+            "credibility": 0.787,
+            "credibility_fa": "۷۹٪",
             "topic_fa": "ETF",
             "assets": [
               "SOL"
@@ -323,7 +352,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $71.2B (CoinGecko). Reported 24-hour spot volume is $2.54B with 7-day average turnover subdued versus the trailing month (0.82x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "en": "Total market capitalization stands near $70.7B (CoinGecko). Reported 24-hour spot volume is $2.42B with 7-day average turnover subdued versus the trailing month (0.81x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
         "fa": ""
       }
     ],
@@ -351,7 +380,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $121.06 versus EMA20 $115.85, EMA50 $106.14 and EMA200 $97.72 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $119.65 (recent swing low); the lower Bollinger band $103.68 as the 2σ downside envelope; first resistance at $121.43 (recent swing high); upper band $128.81 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.283 implies a typical daily range of roughly 3.5 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 65.0 — neutral territory; MACD (12/26/9) sits below its signal line (4.837 vs 5.239, histogram -0.4021), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 60%; the 20-day band spans 22% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.82x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +17.32% over 30 days and +50.11% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.87%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $120.17 versus EMA20 $115.76, EMA50 $106.10 and EMA200 $97.65 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $119.65 (recent swing low); the lower Bollinger band $103.70 as the 2σ downside envelope; first resistance at $121.43 (recent swing high); upper band $128.70 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.274 implies a typical daily range of roughly 3.6 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 62.9 — neutral territory; MACD (12/26/9) sits below its signal line (4.766 vs 5.224, histogram -0.4589), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 60%; the 20-day band spans 22% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.81x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +16.46% over 30 days and +49.00% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.12%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -361,48 +390,49 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
-            "id": "94209ef43563",
+            "id": "e536ecb90c8d",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Solana Price Prediction: Can SOL Target $250 Before Remittix Makes Its November Exchange Debut?",
-            "title_fa": "پیش‌بینی قیمت سولانا: آیا SOL می‌تواند قبل از عرضه Remittix در ماه نوامبر، ۲۵۰ دلار را هدف قرار دهد؟",
-            "summary_fa": "پیش‌بینی قیمت سولانا: آیا SOL می‌تواند قبل از عرضه Remittix در ماه نوامبر، ۲۵۰ دلار را هدف قرار دهد؟",
-            "source": "StreetInsider",
-            "source_kind": "search",
-            "via": "Google News · SOL",
-            "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPZllod2NzTm1VYkw5YWlsRzBJdkwyUElDZU1mbmtsaEtlUGZuQ3VUZlBtdXNWZm1fVjViOGVaNTdtYjZkazZTVEdLS3FSVkRqa2tUaENTQ1VxTDFmNEN1VlQyM0RGbkFqQW5lN3BabERORTZWaFZuMDBEaUprMnRtdk5wd0ZFS29BTWRfb2VSS1JLc0owYWJDb2JPSHFjdWduc21pcFYxY2ZuQUM2d1RrNll1NmItSVRvbVhMSWFaak5fMmlSaXFhbnlhMGx6TnY2LWRJcFFNWUJTVjlMbW1UbW43ZEVSLWJDS3loUEVXTQ?oc=5",
-            "published_ts": 1791207233.0,
+            "title_en": "Solana lost ground to Ethereum in Q3 DEX volume – An early sign of SOL/ETH’s Q4 breakout?",
+            "title_fa": "سولانا در حجم Q۳ DEX جایگاه خود را به اتریوم از دست داد - نشانه اولیه شکست Q۴ SOL/ETH؟",
+            "summary_fa": "سولانا پیشتاز اتریوم در حجم DEX است، زیرا فعالیت سهام توکن‌سازی شده رکورد، احتمال شکست SOL/ETH را در سه ماهه چهارم افزایش می‌دهد.",
+            "source": "AMBCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://ambcrypto.com/solana-lost-ground-to-ethereum-in-q3-dex-volume-an-early-sign-of-sol-eths-q4-breakout/",
+            "published_ts": 1791223215.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۷:۰۳",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۰۳",
-            "age_fa": "۳۶ دقیقه پیش",
-            "credibility": 0.66,
-            "credibility_fa": "۶۶٪",
+            "time_fa": "۲۱:۳۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۱:۳۰",
+            "age_fa": "۱۱ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
             "topic_fa": "تحلیل",
             "assets": [
+              "ETH",
               "SOL"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
-            "id": "660401f18d01",
+            "id": "2bd43b346496",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Solana (SOLUSD) Price Forecast & Predictions for 2026, 2027, 2028–2030, 2040 and Beyond",
-            "title_fa": "پیش‌بینی و پیش‌بینی قیمت سولانا (SOLUSD) برای سال‌های ۲۰۲۶، ۲۰۲۷، ۲۰۲۸–۲۰۳۰، ۲۰۴۰ و پس از آن",
-            "summary_fa": "پیش‌بینی و پیش‌بینی قیمت سولانا (SOLUSD) برای سال‌های ۲۰۲۶، ۲۰۲۷، ۲۰۲۸–۲۰۳۰، ۲۰۴۰ و پس از آن",
-            "source": "LiteFinance",
+            "title_en": "Solana Price Prediction: Even $200 Would Fall Short of 2x as AlphaPepe Targets Over 200% Gains With Its Presale Entry",
+            "title_fa": "پیش‌بینی قیمت سولانا: حتی ۲۰۰ دلار هم دو برابر کاهش می‌یابد زیرا AlphaPepe بیش از ۲۰۰ درصد سود را با ورود پیش‌فروش هدف قرار می‌دهد.",
+            "summary_fa": "پیش‌بینی قیمت سولانا: حتی ۲۰۰ دلار هم دو برابر کاهش می‌یابد زیرا AlphaPepe بیش از ۲۰۰ درصد سود را با ورود پیش‌فروش هدف قرار می‌دهد.",
+            "source": "TechBullion",
             "source_kind": "search",
             "via": "Google News · SOL",
-            "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQY3NwRVZEazFMTWI1Xy1lTEpmWDRBNk55QXhxMk9JbjAxazFCOFJOT3pod0pjbmRUcWVHXy10MEFfOTVzcEdTbHRCenpKcXZYcWRnbEF1cEJwZ1RZbHFjS3YyM25HWUFWSDdCZjVpZXNfOXVlSlFwUlBUZ2xmdzhURw?oc=5",
-            "published_ts": 1791176362.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۸:۲۹",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۸:۲۹",
-            "age_fa": "۹ ساعت پیش",
-            "credibility": 0.634,
-            "credibility_fa": "۶۳٪",
+            "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOS29sLUFwM3ZvT2xSVjM3d2tzU0pnaHhYQ0Jja041Y1NGSU5Ic01ZWnNHdWZYd0xONHI1aVA5UUx2THFRVkZVSUw5cS1CMUNFY0p2NkwyWU1ydUNwcjNHU3llMEZFSEhaRzNiNkgyZlpJVy16UVNETndQREl3Q1QtYWNWMDN4WndodjdLVDBIbkZuT216ankxbjFlaWJGanpiQUxnS1hiMGdkRFJPUjVxLWo1Mm1OTFBEcmN5TlRzUks0NlJ2TmlIVGVnYS0tYnIxVkxoM19B?oc=5",
+            "published_ts": 1791256217.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۶:۴۰",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۴۰",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
             "topic_fa": "تحلیل",
             "assets": [
               "SOL"
@@ -423,7 +453,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $121.43 on expanding turnover; continued holds of the 50-day average ($106.14); RSI holding above 60 (currently 65). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $119.65. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $121.43 on expanding turnover; continued holds of the 50-day average ($106.10); RSI holding above 60 (currently 63). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $119.65. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -437,11 +467,11 @@
     [
       "p",
       {
-        "en": "Net take on Solana: spot $121.06 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.46%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Solana: spot $120.21 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.15%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T14:10:51.696990+00:00",
-  "news_used": 8
+  "generated_at": "2026-10-06T05:13:29.893797+00:00",
+  "news_used": 6
 }

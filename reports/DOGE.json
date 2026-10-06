@@ -9,43 +9,51 @@
       {
         "title": "Dogecoin — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Dogecoin",
-        "asof": "2026-10-05 17:40 Tehran",
-        "asof_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۴۰",
+        "asof": "2026-10-06 08:43 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۴۳",
         "symbol": "DOGE",
         "name": "Dogecoin",
         "fa_name": "Dogecoin",
         "icon": "Ð",
-        "price": 0.096324,
-        "change_24h": 3.02,
+        "price": 0.095025,
+        "change_24h": -0.26,
         "news_window_hours": 24.0,
-        "news_used": 6,
+        "news_used": 7,
         "sources_used": [
           {
-            "name": "U.Today",
-            "count": 2
-          },
-          {
-            "name": "Pluang",
-            "count": 2
+            "name": "TechBullion",
+            "count": 3
           },
           {
             "name": "Benzinga",
             "count": 2
           },
           {
-            "name": "Crypto News",
+            "name": "Financial Times News",
+            "count": 1
+          },
+          {
+            "name": "streetinsider.com",
+            "count": 1
+          },
+          {
+            "name": "AMBCrypto",
+            "count": 1
+          },
+          {
+            "name": "U.Today",
+            "count": 1
+          },
+          {
+            "name": "Pluang",
+            "count": 1
+          },
+          {
+            "name": "crypto.news",
             "count": 1
           },
           {
             "name": "CoinJournal",
-            "count": 1
-          },
-          {
-            "name": "r/dogecoin (شبکه اجتماعی)",
-            "count": 1
-          },
-          {
-            "name": "Coinpaper",
             "count": 1
           }
         ],
@@ -62,7 +70,7 @@
     [
       "p",
       {
-        "en": "Dogecoin is changing hands near $0.0963, +3.02% over the past 24 hours and +2.60% on a 7-day view. Spot trades above the 50-day average ($0.0882) and above the 200-day average ($0.0939), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+7.40%), suggesting the market is still repairing.",
+        "en": "Dogecoin is changing hands near $0.0950, -0.26% over the past 24 hours and +1.19% on a 7-day view. Spot trades above the 50-day average ($0.0881) and above the 200-day average ($0.0938), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+5.92%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -72,24 +80,24 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
-            "id": "9464431e2fd8",
+            "id": "289adc603b59",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Dogecoin tops $0.096 as ETF inflows and derivatives signal improving sentiment",
-            "title_fa": "Dogecoin به بالای ۰.۰۹۶ دلار رسید زیرا ورودی ETF و مشتقات سیگنال بهبود احساسات هستند",
-            "summary_fa": "نکات مهم ETF های Spot DOGE ۳۲۷,۳۶۰ دلار جذب کردند و جریان ورودی آنها را به سه هفته افزایش داد. نسبت بلند به کوتاه CoinGlass به ۱.۰۱ رسید که نشان دهنده یک شیب صعودی خفیف است. نگه داشتن متحرک نمایی ۲۰۰ روزه نزدیک به ۰.۰۹۳ دلار، چشم انداز بهبو",
-            "source": "CoinJournal",
-            "source_kind": "crypto",
+            "title_en": "Blockers: Rebels in the Deep State by Michael Lewis — Doge’s wrecking ball",
+            "title_fa": "Blockers: Rebels in the Deep State اثر مایکل لوئیس - توپ ویرانگر دوج",
+            "summary_fa": "آخرین اثر نویسنده «The Big Short» داستان افرادی را روایت می‌کند که در برابر مأموریت ۱۸ هفته‌ای ایلان ماسک برای نابودی بیشتر ایالت آمریکا مقاومت کردند.",
+            "source": "Financial Times News",
+            "source_kind": "macro",
             "via": "",
-            "link": "https://coinjournal.net/news/dogecoin-tops-0-096-as-etf-inflows-and-derivatives-signal-improving-sentiment/",
-            "published_ts": 1791185763.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۱:۰۶",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۱:۰۶",
-            "age_fa": "۶ ساعت پیش",
-            "credibility": 0.691,
-            "credibility_fa": "۶۹٪",
-            "topic_fa": "ETF",
+            "link": "https://www.ft.com/content/968d9928-fedc-4f33-9d3e-48d54d421c68?syn-25a6b1a6=1",
+            "published_ts": 1791259208.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۳۰",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۷:۳۰",
+            "age_fa": "۱ ساعت پیش",
+            "credibility": 0.9,
+            "credibility_fa": "۹۰٪",
+            "topic_fa": "عمومی",
             "assets": [
               "DOGE"
             ],
@@ -97,53 +105,53 @@
             "why_en": ""
           },
           {
-            "id": "c7d4ada261f8",
+            "id": "1e47aee485fc",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Bitcoin, Ethereum, XRP, Dogecoin Rise Amid Treasury Yields Pressure: Analyst Flags BTC's Sunday Spikes Th",
-            "title_fa": "بیت کوین، اتریوم، XRP و Dogecoin در میان فشار بازدهی خزانه داری افزایش یافتند: تحلیلگر افزایش روز یکشنبه BTC را اعلام کرد",
-            "summary_fa": "بیت کوین، اتریوم، XRP و Dogecoin در میان فشار بازدهی خزانه داری افزایش یافتند: تحلیلگر افزایش روز یکشنبه BTC را اعلام کرد",
+            "title_en": "Here’s why Dogecoin’s price needs a clean break above $0.10 right now",
+            "title_fa": "در اینجا دلیلی است که قیمت Dogecoin در حال حاضر به یک شکست تمیز بالای ۰.۱۰ دلار نیاز دارد",
+            "summary_fa": "خریداران رالی سپتامبر نرفته اند، اما با ماندن هم تفاوتی ایجاد نمی کنند.",
+            "source": "AMBCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://ambcrypto.com/heres-why-dogecoins-price-needs-a-clean-break-above-0-10-right-now/",
+            "published_ts": 1791224274.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۲۱:۴۷",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۱:۴۷",
+            "age_fa": "۱۱ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
+            "topic_fa": "تحلیل",
+            "assets": [
+              "DOGE"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "6887540f4003",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "Bitcoin, Ethereum, XRP, Dogecoin Slide After Fresh Macro Data: Analyst Says This BTC 'Trigger' Could Pote",
+            "title_fa": "بیت کوین، اتریوم، XRP، Dogecoin پس از داده‌های ماکرو جدید کاهش می‌یابد: تحلیل‌گر می‌گوید این «محرک» بیت‌کوین می‌تواند منجر به تولید شود",
+            "summary_fa": "بیت کوین، اتریوم، XRP، Dogecoin پس از داده‌های ماکرو جدید کاهش می‌یابد: تحلیل‌گر می‌گوید این «محرک» بیت‌کوین می‌تواند منجر به تولید شود",
             "source": "Benzinga",
             "source_kind": "search",
             "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQWXBSLVlCMDZGTnJhWlgxZlE4TGdMTWxwa2VqRlJib3g1X0Y4YzdCUml6S3JrT2NSLW5wS29JOW1jb1FEeTJtSmdkSDF1S2hGcEZKYTRrWk5mbC1OVlh6NzFvTVBKenhYREI1M0xxQTBiTFh2R09tazV5SWFNQWFmRDhGSUlTRTdETy1lSGNQWUdJV0x5UTJ6SVJRaThVLUJuSDM3ak93bThFQ0RINW5xRi1IUGlwVUFKdDFPWUtVN3U4QlpZOV9Pdi12OGRtdlBCNnhQVFhWQ2pxbHFxWEdj?oc=5",
-            "published_ts": 1791164926.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۵:۱۸",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۵:۱۸",
-            "age_fa": "۱۲ ساعت پیش",
-            "credibility": 0.672,
-            "credibility_fa": "۶۷٪",
+            "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQX0ZQS3dhSFJhWlZiTF82UTkzRlZUNE00MjFZZU1vd2VHNGZYTGlsSmVFZXBwODJpS2dERzhjaUtBQl82SWdiWG1odTd0MVZRcmV1ZDM2ZWV6Y1pOWjdJYkhsWUhBSlVZaEJObVB1YTEwSWM1QjJsTWxaclhtZmFQN3hRTW10ZlIyMy1zQmdEWnNoN1VwV0lPdm1qWk16T2tfTWZCajNENGhab3pHTjVSaktUQUVwX1VlaFFQalJ3ZzgyWEwx?oc=5",
+            "published_ts": 1791252091.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۵:۳۱",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۵:۳۱",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.7,
+            "credibility_fa": "۷۰٪",
             "topic_fa": "کلان",
             "assets": [
               "BTC",
               "ETH",
               "XRP",
-              "DOGE"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "id": "e2fb887f9153",
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "Dogecoin Price Prediction as DOGE ETF Inflows and Open Interest Fall",
-            "title_fa": "پیش بینی قیمت Dogecoin به عنوان ورودی ETF DOGE و کاهش بهره باز",
-            "summary_fa": "پیش بینی قیمت Dogecoin به عنوان ورودی ETF DOGE و کاهش بهره باز",
-            "source": "Benzinga",
-            "source_kind": "search",
-            "via": "Google News · DOGE",
-            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPOE5RMjhiZU9BTWNuQlZHdW9hYlhpV2xSaHFEMmdrZjBfTnR5bTJtLW5BN2x4X3hUS2QxU3NVV0J0eWdfZmlyMHltQi1RSC0zY1o1Ri1tMHliU1ZBUzI4NHlrTUxDSHk2ZkJicjkzNW5GbW13anczc3JFM18ya0E4QUExekhiS0NGUXR3U2IyQjg5T3ZQTGVjdWk3YV96UkR2c1RtbGY0MnQ0cTMtbTJHX0FKZTAyZw?oc=5",
-            "published_ts": 1791134166.0,
-            "date_fa": "۱۲ مهر ۱۴۰۵",
-            "time_fa": "۲۰:۴۶",
-            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۲۰:۴۶",
-            "age_fa": "۲۱ ساعت پیش",
-            "credibility": 0.672,
-            "credibility_fa": "۶۷٪",
-            "topic_fa": "ETF",
-            "assets": [
               "DOGE"
             ],
             "why_fa": "",
@@ -162,7 +170,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Bitcoin, Ethereum, XRP, Dogecoin Rise Amid Treasury Yields Pressure: Analyst Flags BTC's Sunday Spikes Th.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Bitcoin, Ethereum, XRP, Dogecoin Slide After Fresh Macro Data: Analyst Says This BTC 'Trigger' Could Pote.",
         "fa": ""
       }
     ],
@@ -172,23 +180,23 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
-            "id": "c7d4ada261f8",
+            "id": "6887540f4003",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Bitcoin, Ethereum, XRP, Dogecoin Rise Amid Treasury Yields Pressure: Analyst Flags BTC's Sunday Spikes Th",
-            "title_fa": "بیت کوین، اتریوم، XRP و Dogecoin در میان فشار بازدهی خزانه داری افزایش یافتند: تحلیلگر افزایش روز یکشنبه BTC را اعلام کرد",
-            "summary_fa": "بیت کوین، اتریوم، XRP و Dogecoin در میان فشار بازدهی خزانه داری افزایش یافتند: تحلیلگر افزایش روز یکشنبه BTC را اعلام کرد",
+            "title_en": "Bitcoin, Ethereum, XRP, Dogecoin Slide After Fresh Macro Data: Analyst Says This BTC 'Trigger' Could Pote",
+            "title_fa": "بیت کوین، اتریوم، XRP، Dogecoin پس از داده‌های ماکرو جدید کاهش می‌یابد: تحلیل‌گر می‌گوید این «محرک» بیت‌کوین می‌تواند منجر به تولید شود",
+            "summary_fa": "بیت کوین، اتریوم، XRP، Dogecoin پس از داده‌های ماکرو جدید کاهش می‌یابد: تحلیل‌گر می‌گوید این «محرک» بیت‌کوین می‌تواند منجر به تولید شود",
             "source": "Benzinga",
             "source_kind": "search",
             "via": "Google News · CRYPTO",
-            "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQWXBSLVlCMDZGTnJhWlgxZlE4TGdMTWxwa2VqRlJib3g1X0Y4YzdCUml6S3JrT2NSLW5wS29JOW1jb1FEeTJtSmdkSDF1S2hGcEZKYTRrWk5mbC1OVlh6NzFvTVBKenhYREI1M0xxQTBiTFh2R09tazV5SWFNQWFmRDhGSUlTRTdETy1lSGNQWUdJV0x5UTJ6SVJRaThVLUJuSDM3ak93bThFQ0RINW5xRi1IUGlwVUFKdDFPWUtVN3U4QlpZOV9Pdi12OGRtdlBCNnhQVFhWQ2pxbHFxWEdj?oc=5",
-            "published_ts": 1791164926.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۰۵:۱۸",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۰۵:۱۸",
-            "age_fa": "۱۲ ساعت پیش",
-            "credibility": 0.672,
-            "credibility_fa": "۶۷٪",
+            "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQX0ZQS3dhSFJhWlZiTF82UTkzRlZUNE00MjFZZU1vd2VHNGZYTGlsSmVFZXBwODJpS2dERzhjaUtBQl82SWdiWG1odTd0MVZRcmV1ZDM2ZWV6Y1pOWjdJYkhsWUhBSlVZaEJObVB1YTEwSWM1QjJsTWxaclhtZmFQN3hRTW10ZlIyMy1zQmdEWnNoN1VwV0lPdm1qWk16T2tfTWZCajNENGhab3pHTjVSaktUQUVwX1VlaFFQalJ3ZzgyWEwx?oc=5",
+            "published_ts": 1791252091.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۵:۳۱",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۵:۳۱",
+            "age_fa": "۳ ساعت پیش",
+            "credibility": 0.7,
+            "credibility_fa": "۷۰٪",
             "topic_fa": "کلان",
             "assets": [
               "BTC",
@@ -212,7 +220,7 @@
     [
       "p",
       {
-        "en": "- Dogecoin tops $0.096 as ETF inflows and derivatives signal improving sentiment. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Dogecoin.\n- Dogecoin Price Prediction as DOGE ETF Inflows and Open Interest Fall. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Dogecoin.\n- Dogecoin price hovers near $0.0955 amid Bitwise fund closure and DogeOS testnet launch. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Dogecoin.",
+        "en": "- Dogecoin tops $0.096 as ETF inflows and derivatives signal improving sentiment. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Dogecoin.\n- Dogecoin Price Made Early Buyers Rich as AlphaPepe Bets on Adding AI Trading to the Meme-Coin Formula. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Dogecoin.\n- Dogecoin price hovers near $0.0955 amid Bitwise fund closure and DogeOS testnet launch. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Dogecoin.",
         "fa": ""
       }
     ],
@@ -236,7 +244,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۱:۰۶",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۱:۰۶",
-            "age_fa": "۶ ساعت پیش",
+            "age_fa": "۲۱ ساعت پیش",
             "credibility": 0.691,
             "credibility_fa": "۶۹٪",
             "topic_fa": "ETF",
@@ -247,24 +255,24 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Dogecoin."
           },
           {
-            "id": "e2fb887f9153",
+            "id": "91997a26e22d",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Dogecoin Price Prediction as DOGE ETF Inflows and Open Interest Fall",
-            "title_fa": "پیش بینی قیمت Dogecoin به عنوان ورودی ETF DOGE و کاهش بهره باز",
-            "summary_fa": "پیش بینی قیمت Dogecoin به عنوان ورودی ETF DOGE و کاهش بهره باز",
-            "source": "Benzinga",
+            "title_en": "Dogecoin Price Made Early Buyers Rich as AlphaPepe Bets on Adding AI Trading to the Meme-Coin Formula",
+            "title_fa": "قیمت Dogecoin خریداران اولیه را به عنوان AlphaPepe غنی ​​کرد، شرط‌بندی برای افزودن تجارت هوش مصنوعی به فرمول Meme-Coin",
+            "summary_fa": "قیمت Dogecoin خریداران اولیه را به عنوان AlphaPepe غنی ​​کرد، شرط‌بندی برای افزودن تجارت هوش مصنوعی به فرمول Meme-Coin",
+            "source": "TechBullion",
             "source_kind": "search",
             "via": "Google News · DOGE",
-            "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPOE5RMjhiZU9BTWNuQlZHdW9hYlhpV2xSaHFEMmdrZjBfTnR5bTJtLW5BN2x4X3hUS2QxU3NVV0J0eWdfZmlyMHltQi1RSC0zY1o1Ri1tMHliU1ZBUzI4NHlrTUxDSHk2ZkJicjkzNW5GbW13anczc3JFM18ya0E4QUExekhiS0NGUXR3U2IyQjg5T3ZQTGVjdWk3YV96UkR2c1RtbGY0MnQ0cTMtbTJHX0FKZTAyZw?oc=5",
-            "published_ts": 1791134166.0,
-            "date_fa": "۱۲ مهر ۱۴۰۵",
-            "time_fa": "۲۰:۴۶",
-            "datetime_fa": "۱۲ مهر ۱۴۰۵، ساعت ۲۰:۴۶",
-            "age_fa": "۲۱ ساعت پیش",
-            "credibility": 0.672,
-            "credibility_fa": "۶۷٪",
-            "topic_fa": "ETF",
+            "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNenVwQUFVa29DYklpX2R5WVBvelVhSzR2dXJWNGRBVWY0SnlKOUVjM3JSWjJhS3Q3emNnRHdzbHJabUMwVTNhNVNzcWt0UF94Rmt3SWNiWkpuZnA1MTRGUWxJdndTdW1WT0JfM2ZQanlTendsM0duODFyUUtSb213VXJTMVQyWHRtclgyZ2hJbFdLb1A3dzBkY2I5dmlpVU5yS0tJMndQa3lTSlVlWHFneGRtc004bnpibHpPZVpUeU5LaUx2?oc=5",
+            "published_ts": 1791247183.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۴:۰۹",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۴:۰۹",
+            "age_fa": "۴ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
+            "topic_fa": "بازار",
             "assets": [
               "DOGE"
             ],
@@ -286,9 +294,9 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۳:۵۹",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۵۹",
-            "age_fa": "۴ ساعت پیش",
-            "credibility": 0.66,
-            "credibility_fa": "۶۶٪",
+            "age_fa": "۱۹ ساعت پیش",
+            "credibility": 0.634,
+            "credibility_fa": "۶۳٪",
             "topic_fa": "بازار",
             "assets": [
               "DOGE"
@@ -309,7 +317,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $15.0B (CoinGecko). Reported 24-hour spot volume is $0.86B with 7-day average turnover subdued versus the trailing month (0.79x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 70 (Greed).",
+        "en": "Total market capitalization stands near $14.8B (CoinGecko). Reported 24-hour spot volume is $0.59B with 7-day average turnover subdued versus the trailing month (0.76x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
         "fa": ""
       }
     ],
@@ -337,7 +345,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.0963 versus EMA20 $0.0929, EMA50 $0.0882 and EMA200 $0.0939 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.0959 (recent swing low); the lower Bollinger band $0.0824 as the 2σ downside envelope; first resistance at $0.0968 (recent swing high); upper band $0.1036 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0046 implies a typical daily range of roughly 4.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 59.0 — neutral territory; MACD (12/26/9) sits below its signal line (0.002459 vs 0.002741, histogram -0.0002825), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 72%; the 20-day band spans 23% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.79x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +7.40% over 30 days and +29.84% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+2.60%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.0950 versus EMA20 $0.0928, EMA50 $0.0881 and EMA200 $0.0938 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.0945 (recent swing low); the lower Bollinger band $0.0824 as the 2σ downside envelope; first resistance at $0.0958 (recent swing high); upper band $0.1035 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0046 implies a typical daily range of roughly 4.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 56.6 — neutral territory; MACD (12/26/9) sits below its signal line (0.002352 vs 0.00272, histogram -0.0003674), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 72%; the 20-day band spans 23% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.76x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +5.92% over 30 days and +28.05% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.19%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -347,23 +355,23 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
-            "id": "5747b5b904a4",
+            "id": "1e47aee485fc",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Dogecoin price prediction for October: Can DOGE regain $0.10?",
-            "title_fa": "پیش بینی قیمت Dogecoin در ماه اکتبر: آیا DOGE می تواند ۰.۱۰ دلار را دوباره به دست آورد؟",
-            "summary_fa": "پیش بینی قیمت Dogecoin در ماه اکتبر: آیا DOGE می تواند ۰.۱۰ دلار را دوباره به دست آورد؟",
-            "source": "Crypto News",
-            "source_kind": "search",
-            "via": "Google News · DOGE",
-            "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPSWoxTmhHT0RIMDFLLU9KTEdlUmQ3eGRDQWpmaG5tSXJjTVZPLTNXM25vT0tIQkpQU2pqTGhXM1JBY0w4V2xXaXB2eUJCTmU2TjhlU2V6bVdXcHBzaXh5cWlDMjFxZzV6R1ZJZnBTcy1hcWNiRGQtM216Wm9JYUpJcW5XYVctUQ?oc=5",
-            "published_ts": 1791194927.0,
+            "title_en": "Here’s why Dogecoin’s price needs a clean break above $0.10 right now",
+            "title_fa": "در اینجا دلیلی است که قیمت Dogecoin در حال حاضر به یک شکست تمیز بالای ۰.۱۰ دلار نیاز دارد",
+            "summary_fa": "خریداران رالی سپتامبر نرفته اند، اما با ماندن هم تفاوتی ایجاد نمی کنند.",
+            "source": "AMBCrypto",
+            "source_kind": "crypto",
+            "via": "",
+            "link": "https://ambcrypto.com/heres-why-dogecoins-price-needs-a-clean-break-above-0-10-right-now/",
+            "published_ts": 1791224274.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۳:۳۸",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۳:۳۸",
-            "age_fa": "۴ ساعت پیش",
-            "credibility": 0.66,
-            "credibility_fa": "۶۶٪",
+            "time_fa": "۲۱:۴۷",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۱:۴۷",
+            "age_fa": "۱۱ ساعت پیش",
+            "credibility": 0.72,
+            "credibility_fa": "۷۲٪",
             "topic_fa": "تحلیل",
             "assets": [
               "DOGE"
@@ -372,25 +380,26 @@
             "why_en": ""
           },
           {
-            "id": "6bd27b3c2c9f",
+            "id": "e9ab1f46ee2e",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Dogecoin (DOGE) Breaks 14-Month Pause With New Golden Cross: What Comes After?",
-            "title_fa": "Dogecoin (DOGE) با صلیب طلایی جدید توقف ۱۴ ماهه را می شکند: بعد از چه می آید؟",
-            "summary_fa": "Dogecoin اولین صلیب طلایی سال ۲۰۲۶ را در بازه زمانی روزانه نشان می‌دهد، و آنچه در ادامه خواهد آمد اکنون در حال تماشا است.",
-            "source": "U.Today",
-            "source_kind": "crypto",
-            "via": "",
-            "link": "https://u.today/dogecoin-doge-breaks-14-month-pause-with-new-golden-cross-what-comes-after",
-            "published_ts": 1791197400.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۴:۲۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۲۰",
-            "age_fa": "۳ ساعت پیش",
-            "credibility": 0.62,
-            "credibility_fa": "۶۲٪",
+            "title_en": "Dogecoin Price Prediction and XRP Price Prediction: Can DOGE or XRP Beat Remittix’s Post-Launch Potential?",
+            "title_fa": "پیش بینی قیمت Dogecoin و پیش بینی قیمت XRP: آیا DOGE یا XRP می توانند پتانسیل پس از راه اندازی Remittix را شکست دهند؟",
+            "summary_fa": "پیش بینی قیمت Dogecoin و پیش بینی قیمت XRP: آیا DOGE یا XRP می توانند پتانسیل پس از راه اندازی Remittix را شکست دهند؟",
+            "source": "TechBullion",
+            "source_kind": "search",
+            "via": "Google News · DOGE",
+            "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNNEJ5QmpjRm8zY25qRUxxSnJPUk01eEJoV0UzdHNHQjdrZlRVZTl4TTBUZktNTmxVRWI1OEhnTE5SUHkxa3kxTFR4ZlVoOFJkTXAzbERNYmluamRmOUdoQ2FvYl9ieFhOOXk0WG1pbXd3d2xNRVRGRTYydVR4aV82VmVvaUdhc2FTNkVVbjk3Q09GcVNGQ0VaZklqZ1JNby1NLVRVME90OXMxUTUzdDI2LW5tTUtLbEpBWE96Um4wbVZfS1Y5Zkxj?oc=5",
+            "published_ts": 1791255925.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۶:۳۵",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۳۵",
+            "age_fa": "۲ ساعت پیش",
+            "credibility": 0.66,
+            "credibility_fa": "۶۶٪",
             "topic_fa": "تحلیل",
             "assets": [
+              "XRP",
               "DOGE"
             ],
             "why_fa": "",
@@ -409,7 +418,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $0.0968 on expanding turnover; continued holds of the 50-day average ($0.0882). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $0.0959. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $0.0958 on expanding turnover; continued holds of the 50-day average ($0.0881). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $0.0945. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -423,11 +432,11 @@
     [
       "p",
       {
-        "en": "Net take on Dogecoin: spot $0.0963 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+3.02%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Dogecoin: spot $0.0950 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.26%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-05T14:10:57.988769+00:00",
-  "news_used": 6
+  "generated_at": "2026-10-06T05:13:41.100136+00:00",
+  "news_used": 7
 }
