@@ -155,6 +155,32 @@ TARGETS = [
 ]
 
 
+def _png_pixels(png: bytes) -> tuple[int, int, bytes]:
+    """Decode OUR own icon PNGs (filter-0 rows, 8-bit RGBA) back to raw rows.
+
+    Comparing decoded pixels instead of the file bytes: the container is
+    zlib-compressed by whichever CPython built the interpreter, and different
+    builds/platforms ship different zlib versions — byte-identical output is
+    impossible across environments even when the image is identical.
+    """
+    assert png[:8] == b"\x89PNG\r\n\x1a\n"
+    pos, idat, dims = 8, b"", None
+    while pos < len(png):
+        (length,) = struct.unpack(">I", png[pos:pos + 4])
+        tag = png[pos + 4:pos + 8]
+        data = png[pos + 8:pos + 8 + length]
+        if tag == b"IHDR":
+            w, h = struct.unpack(">II", data[:8])
+            dims = (w, h)
+            assert data[12] == 0, "non-filter-0 icon — decode path invalid"
+        elif tag == b"IDAT":
+            idat += data
+        pos += 12 + length
+        if tag == b"IEND":
+            break
+    return dims[0], dims[1], zlib.decompress(idat)
+
+
 def main() -> int:
     check = "--check" in sys.argv
     OUT.mkdir(parents=True, exist_ok=True)
@@ -164,10 +190,30 @@ def main() -> int:
         path = OUT / name
         if check:
             have = path.read_bytes() if path.is_file() else b""
-            ok = have == blob
+            ok, note = False, ""
+            if not have:
+                note = "missing"
+            else:
+                try:
+                    hw, hh, hpix = _png_pixels(have)
+                    rw, rh, rpix = _png_pixels(blob)
+                    if (hw, hh) != (rw, rh):
+                        note = f"size {hw}x{hh} != {rw}x{rh}"
+                    else:
+                        # tiny byte drift is libm rounding noise on a
+                        # different platform's float math; real staleness
+                        # (mark/colour/size changes) moves orders of
+                        # magnitude more
+                        diff = sum(a != b for a, b in zip(hpix, rpix))
+                        drift = diff / max(1, len(rpix))
+                        ok = drift <= 0.001
+                        note = f"pixel drift {drift*100:.4f}%"
+                except Exception as e:
+                    note = f"undecodable: {e}"
             stale += 0 if ok else 1
             print(f"  [{'ok' if ok else 'STALE'}] {name} "
-                  f"({len(have)/1024:.1f} KB on disk, {len(blob)/1024:.1f} KB rendered)")
+                  f"({len(have)/1024:.1f} KB on disk, {len(blob)/1024:.1f} KB rendered"
+                  + (f" — {note}" if note else "") + ")")
             continue
         path.write_bytes(blob)
         print(f"wrote web/icons/{name}  {size}×{size}  {len(blob)/1024:.1f} KB")
