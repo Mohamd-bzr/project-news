@@ -1,44 +1,35 @@
-# Push this project to GitHub — 2 commands
+# Push this project to GitHub — current state
 
-The repository is already initialized, committed (3 commits on `main`),
-and clean. Only the remote + push remain, because the fine-grained token
-available to the agent has no write permissions.
+The repo is committed and ready: **5 commits on `main`** (redesign, security
+fixes, viral tab, integrations, orjson/normalization). Only the remote + the
+first push remain.
 
-## 1. Create the repo (if not already)
+## Easiest path — double-click `push.bat`
 
-Open https://github.com/new
+1. Create the repo at https://github.com/new if it doesn't exist yet
+   (name: `mohmd-news`, do NOT tick "Add a README").
+2. Double-click `push.bat` in the project folder.
+3. First run only: a browser window opens → sign in to GitHub once → done.
 
-- Repository name: `mohmd-news`
-- Visibility: **Private** (or Public — your choice)
-- **Do NOT** tick "Add a README" (the local repo already has commits)
-- Click **Create repository**
+The script asks for the repo URL the first time and remembers it.
 
-## 2. Connect and push
-
-In a terminal opened at `E:\freebuff` run:
+## Or manually
 
 ```
 git remote add origin https://github.com/<YOUR-USERNAME>/mohmd-news.git
 git push -u origin main
 ```
 
-A browser window (Git Credential Manager) will open → sign in to GitHub
-once → done. No token needed; the browser login is the easiest path.
+(Git Credential Manager opens the browser login on the first push.)
 
-If you prefer a token instead of the browser login, create one at
-https://github.com/settings/tokens/new (tick `repo`), then:
+## What is excluded on purpose (.gitignore)
 
-```
-git remote add origin https://<YOUR-USERNAME>:<YOUR-TOKEN>@github.com/<YOUR-USERNAME>/mohmd-news.git
-git push -u origin main
-```
+- `.venv/`, `backups/` (94 MB of pre-redesign copies), `*.bak`
+- `.mohmd_news.db*`, all caches (`*.json` dot-caches, `correlation.json`), `logs/`
+- **`settings.json`** and **`data/api_keys.json`** — a Telegram token or the
+  API keystore can never reach GitHub by accident
 
-## What is already excluded (on purpose)
+## CI
 
-- `.venv/` (200 MB), `freebuff.rar` / `freebuff.zip` (217 MB)
-- `.mohmd_news.db`, caches, `.freebuff/`, logs
-- `settings.json` and `backups/settings.json*` — so a future Telegram
-  token pasted into the dashboard can never reach GitHub by accident
-
-Everything else (55 files, ~36k lines: app, dashboard, scrapers, tests,
-docs) is committed and ready.
+`.github/workflows/ci.yml` runs on every push: full pytest + the
+inline-dashboard-JS syntax gate. If it fails, GitHub emails you.
