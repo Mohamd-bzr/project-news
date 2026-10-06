@@ -2795,53 +2795,7 @@ def _fast_json(payload):
             pass          # something orjson refuses — the stdlib path is lenient
     return jsonify(payload)
 
-_WHALE_CACHE = {"ts": 0.0, "data": None}
 
-@app.route("/api/whales/live")
-def api_whales_live():
-    """Real on-chain whale moves — mempool.space public API (free, key-less).
-
-    The mempool *is* the whale wire: every large transfer sits there for the
-    ~10 minutes it takes to confirm, with its exact satoshi value. Big BTC
-    moves only (>= 1 BTC); USD via the live BTC quote when available.
-    60s cache — the mempool churns every second, the tab does not need to.
-    """
-    now = time.time()
-    if _WHALE_CACHE["data"] and now - _WHALE_CACHE["ts"] < 60:
-        return jsonify({"ok": True, **_WHALE_CACHE["data"]})
-    try:
-        r = requests.get("https://mempool.space/api/mempool/recent",
-                         headers=HEADERS, timeout=10)
-        r.raise_for_status()
-        txs = r.json() or []
-        btc_price = ((live_prices() or {}).get("BTC") or {}).get("price")
-        sats_btc = 1e8
-        whales = []
-        for t in txs:
-            val_btc = (t.get("value") or 0) / sats_btc
-            if val_btc < 1.0:
-                continue
-            whales.append({
-                "id": "live-" + str(t.get("txid", ""))[:12],
-                "asset": "BTC",
-                "amount": round(val_btc, 2),
-                "usd": round(val_btc * btc_price) if btc_price else None,
-                "fee_sat": t.get("fee"),
-                "hash": str(t.get("txid", ""))[:10],
-                "tag": "میم‌پول — در انتظار تأیید",
-            })
-        whales.sort(key=lambda x: -x["amount"])
-        whales = whales[:12]
-        data = {"whales": whales, "count": len(whales), "ts": now}
-        _WHALE_CACHE["ts"], _WHALE_CACHE["data"] = now, data
-        return jsonify({"ok": True, **data})
-    except Exception as e:
-        if _WHALE_CACHE["data"]:
-            return jsonify({"ok": True, **_WHALE_CACHE["data"], "stale": True})
-        return jsonify({"ok": False, "whales": [], "error": str(e)})
-
-
-@app.route("/api/studio/card")
 def api_studio_card():
     """The story as a ready-to-post Persian PNG (1080×1350, DL6 palette).
 

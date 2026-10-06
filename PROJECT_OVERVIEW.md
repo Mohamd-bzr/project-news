@@ -10,7 +10,7 @@ Windows-first, built to run free: no API keys, no paid services, no build step.
 > * **README.md** — what the product is, how to run it, the module map
 > * **docs/related-projects.md** — vendored/borrowed components and why
 > * the git history — the full audit trail (launch audit 2026-10-06: lock
->   ordering, auth hardening, whale-data honesty, dead-code removal)
+>   ordering, auth hardening, whale tracker removal, dead-code removal)
 
 ## The shape of it (current)
 

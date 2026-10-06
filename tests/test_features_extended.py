@@ -28,26 +28,13 @@ def test_on_demand_audio_reader():
     assert 'id="btnAudioReport"' not in content
 
 
-def test_whale_liquidity_tracker_components():
+def test_whale_tracker_is_fully_removed():
+    """Removed per operator request (2026-10-06): nav, view, controller,
+    endpoint and icon must all be gone from the shipped page."""
     content = SOURCE.read_text(encoding="utf-8")
-    # Sidebar nav and view panel
-    assert 'id="nav-whales"' in content
-    assert 'id="view-whales"' in content
-    assert 'id="whaleHero"' in content
-    assert 'id="wkpiBtc"' in content
-    assert 'id="wkpiEth"' in content
-    assert 'id="wkpiStable"' in content
-    assert 'id="whaleTB"' in content
-    assert 'id="whaleTableBody"' in content
-    assert 'id="whaleCount"' in content
-    # JS controller
-    assert 'class WhaleTracker' in content
-    assert 'window.whaleTracker = new WhaleTracker()' in content
-    assert 'setFilter' in content
-    # the fabricated-data machinery must stay gone: no seeds, no random ticks
-    assert 'generateTick' not in content
-    assert 'initSeedData' not in content
-    assert 'whale-tick-35s' not in content
+    for gone in ('id="nav-whales"', 'id="view-whales"', 'class WhaleTracker',
+                 'whaleTracker', 'i-whale', '/api/whales/live'):
+        assert gone not in content, f"{gone} should be removed"
 
 
 def test_workspace_removed():

@@ -1809,20 +1809,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
    day in the non-windowed fallback path */
 .vs-row.vs-full > .calday.archday{ margin:0; }
 
-.whale-table tr:hover td{ background:var(--wash); }
-.wtag{ display:inline-flex; align-items:center; gap:3px; padding:1px 6px; border-radius:var(--r1); font-size:var(--t-xs); font-weight:600; }
-.wtag-ultra{ background:rgba(217,106,85,0.2); color:var(--dn); border:1px solid var(--dn); }
-.wtag-accum{ background:rgba(87,177,131,0.2); color:var(--up); border:1px solid var(--up); }
-.wtag-mint{ background:rgba(200,150,93,0.2); color:var(--cu-txt); border:1px solid var(--cu); }
-.wtag-flow{ font-variant-numeric:tabular-nums; direction:ltr; display:inline-block; font-weight:600; }
-.wtag-inflow{ background:rgba(217,106,85,0.12); color:var(--dn); border:1px solid rgba(217,106,85,0.4); }
-/* whale toolbar layout (tb-left/group/lbl/right/cnt had no rules at all) */
-.tb-left{ display:flex; flex-wrap:wrap; gap:var(--s3); align-items:center; min-width:0; }
-.tb-group{ display:flex; flex-wrap:wrap; gap:4px; align-items:center; }
-.tb-lbl{ font-size:var(--t-xs); color:var(--ink-4); }
-.tb-right{ margin-inline-start:auto; display:flex; align-items:center; }
-.tb-cnt{ font-size:var(--t-xs); color:var(--ink-4); font-variant-numeric:tabular-nums; }
-.tb-chip.active{ background:var(--cu-wash); border-color:var(--cu-line); color:var(--cu-txt); font-weight:700; }
 
 .tone-up{ color:var(--up); } .tone-dn{ color:var(--dn); } .tone-warn{ color:var(--warn); }
 /* ── MERGED SUGGESTIONS TAB · was: content studio + gold/coin board ──────
@@ -1867,7 +1853,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .chart-head .p, .chart-head .c, .tvhead .p, .ch-price .p, .ch-price .c,
 .cal-countdown, .cal-timer .sg b, .cal-timer .sg small, .cal-day .dd,
 .cal-tr .c-time, .cal-tr .c-ccy, .cal-tr .c-num,
-.whale-kpi-val,
 .cr-n, .cr-sur, .cred-badge{
   font-family:var(--font-mono);
   font-variant-numeric:tabular-nums;
@@ -2000,7 +1985,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="M9.6 6.4 15.2 12l-5.6 5.6"/></symbol>
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
 <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9.6 5.6v12.8M14.4 5.6v12.8"/></symbol>
-<symbol id="i-whale" viewBox="0 0 24 24"><path d="M3 14c0 3 3 5 7 5s8-1 11-4c-2-1-4-1-6 0-1-3-4-5-8-5-3 0-4 2-4 4z"/><circle cx="7" cy="13" r="1"/><path d="M18 9c1-2 3-3 5-3-1 2-1 4 0 6"/></symbol>
 </defs></svg>
 
 <!-- ══ AMBIENT STAGE (a quiet lit backdrop, never animated away) ══ -->
@@ -2097,11 +2081,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
       <button id="nav-etf" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-etf" data-view="etf" onclick="showView('etf')">
         <span class="nav-icon"><svg class="ic"><use href="#i-bank"/></svg></span>
         <span class="nav-text">نرخ زندهٔ ETF</span>
-      </button>
-      <button id="nav-whales" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-whales" data-view="whales" onclick="showView('whales')">
-        <span class="nav-icon"><svg class="ic"><use href="#i-whale"/></svg></span>
-        <span class="nav-text">ردیاب نهنگ‌ها</span>
-        <span class="cnt" id="cntWhales" style="display:none">۰</span>
       </button>
       <button id="nav-archive" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-archive" data-view="archive" onclick="showView('archive')">
         <span class="nav-icon"><svg class="ic"><use href="#i-archive"/></svg></span>
@@ -2890,90 +2869,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
           </div>
         </section>
 
-        <!-- ══ 13 · WHALE LIQUIDITY TRACKER — on-chain large capital flows ══ -->
-        <section class="view" id="view-whales" role="tabpanel" aria-labelledby="nav-whales">
-          <div class="panelbox">
-            <h3><svg class="ic"><use href="#i-whale"/></svg> ردیاب نقدینگی و جابه‌جایی نهنگ‌ها (Whale Liquidity Tracker)
-              <span class="hint" id="whalesSummary">تراکنش‌های بالای ۱۰ میلیون دلار</span>
-              <span class="live-pill" style="margin-inline-start:auto">
-                <span class="live-dot"></span> جریان زندهٔ آن‌چین و صرافی‌ها
-              </span>
-            </h3>
-
-            <!-- Whale Hero KPIs: 24h Netflows -->
-            <div class="whale-hero" id="whaleHero">
-              <div class="whale-kpi">
-                <div class="whale-kpi-title"><span>جریان خالص بیت‌کوین (BTC) — نمونهٔ میم‌پول</span><span class="wtag wtag-accum">خروج / انباشت</span></div>
-                <div class="whale-kpi-val pos" id="wkpiBtc">—</div>
-                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 0%;"></div></div>
-                <div class="hint">کاهش موجودی صرافی‌ها = شوک عرضه صعودی</div>
-              </div>
-              <div class="whale-kpi">
-                <div class="whale-kpi-title"><span>جریان خالص اتریوم (ETH) — نمونهٔ میم‌پول</span><span class="wtag wtag-accum">خروج / استیکینگ</span></div>
-                <div class="whale-kpi-val pos" id="wkpiEth">—</div>
-                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 0%;"></div></div>
-                <div class="hint">انتقال به قراردادهای استیکینگ و لایه ۲</div>
-              </div>
-              <div class="whale-kpi">
-                <div class="whale-kpi-title"><span>صدور / سوزاندن استیبل‌کوین‌ها (USDT/USDC)</span><span class="wtag wtag-mint">تزریق نقدینگی</span></div>
-                <div class="whale-kpi-val pos" id="wkpiStable">—</div>
-                <div class="whale-netflow-bar"><div class="whale-netflow-fill pos" style="width: 0%;"></div></div>
-                <div class="hint">ورود نقدینگی فیات به خزانه‌داری تتر و سیرکل</div>
-              </div>
-            </div>
-
-            <!-- Toolbar & Filters -->
-            <div class="tb-wrap">
-              <div class="tb" id="whaleTB">
-                <div class="tb-left">
-                  <div class="tb-group">
-                    <span class="tb-lbl">دارایی:</span>
-                    <button type="button" class="tb-chip active" data-asset="ALL" onclick="whaleTracker.setFilter('asset','ALL')">همه</button>
-                    <button type="button" class="tb-chip" data-asset="BTC" onclick="whaleTracker.setFilter('asset','BTC')">BTC</button>
-                    <button type="button" class="tb-chip" data-asset="ETH" onclick="whaleTracker.setFilter('asset','ETH')">ETH</button>
-                    <button type="button" class="tb-chip" data-asset="SOL" onclick="whaleTracker.setFilter('asset','SOL')">SOL</button>
-                    <button type="button" class="tb-chip" data-asset="STABLE" onclick="whaleTracker.setFilter('asset','STABLE')">USDT / USDC</button>
-                  </div>
-                  <div class="tb-group">
-                    <span class="tb-lbl">نوع جریان:</span>
-                    <button type="button" class="tb-chip active" data-flow="ALL" onclick="whaleTracker.setFilter('flow','ALL')">همه</button>
-                    <button type="button" class="tb-chip" data-flow="outflow" onclick="whaleTracker.setFilter('flow','outflow')">خروج از صرافی (انباشت)</button>
-                    <button type="button" class="tb-chip" data-flow="inflow" onclick="whaleTracker.setFilter('flow','inflow')">ورود به صرافی (فشار فروش)</button>
-                    <button type="button" class="tb-chip" data-flow="mint" onclick="whaleTracker.setFilter('flow','mint')">مینت خزانه‌داری</button>
-                  </div>
-                </div>
-                <div class="tb-right">
-                  <span class="tb-cnt" id="whaleCount">در حال دریافت از میم‌پول…</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Whale Transactions Table -->
-            <div class="whale-table-wrap">
-              <table class="whale-table">
-                <thead>
-                  <tr>
-                    <th>زمان</th>
-                    <th>دارایی</th>
-                    <th>مبلغ تراکنش</th>
-                    <th>تعداد واحد</th>
-                    <th>مسیر جریان سرمایه</th>
-                    <th>برچسب وضعیت</th>
-                    <th>تراکنش</th>
-                  </tr>
-                </thead>
-                <tbody id="whaleTableBody">
-                  <tr><td colspan="7" style="text-align:center;padding:24px;color:var(--ink-4)">
-                    <span class="spinner" style="width:14px;height:14px"></span> در حال دریافت تراکنش‌های زندهٔ میم‌پول…
-                  </td></tr>
-</tbody>
-              </table>
-            </div>
-            <div class="hint" style="margin-top:12px">
-              داده‌ها به صورت لحظه‌ای با تیک‌های قیمت همگام می‌شوند. تراکنش‌های بالای ۱۰۰ میلیون دلار با برچسب 🚨 Ultra Large مشخص می‌گردند.
-            </div>
-          </div>
-        </section>
 
         <!-- ══ CHANNEL BOARD · the @tgjusocialmedia page ══ -->
         <!-- ══ MERGED TAB · «ایده‌های محتوا» (was: content studio + channel board) ══ -->
@@ -4217,13 +4112,6 @@ function showView(v, skipPick){
   if(UI.view==='archive'){ renderArchive(); return; }
   if(UI.view==='bookmarks'){ renderBookmarks(); return; }
   if(v==='etf'){ if(!(window.__ETFQ&&Object.keys(window.__ETFQ).length)) pollEtf(); renderEtfLive('etfLive2'); }
-  if(v==='whales'){
-    if(window.whaleTracker) window.whaleTracker.render();
-    else if(typeof WhaleTracker!=='undefined'){
-      window.whaleTracker = new WhaleTracker();
-      window.whaleTracker.render();
-    }
-  }
   if(v==='ideas') loadIdeas();
   if(v==='reports'){
     /* coming back to the tab: the widget may have been mounted while hidden
@@ -4468,7 +4356,6 @@ function renderAll(){
     pickReport(UI.repSym||orderedAssets()[0], true);
   if(UI.view==='monitor') loadMonitor();
   if(UI.view==='calendar'&&ECON) renderCalendar();
-  if(UI.view==='whales'&&window.whaleTracker) window.whaleTracker.render();
 }
 /* ── bookmarks tab ── */
 function renderBookmarks(){
@@ -8436,194 +8323,6 @@ function jumpRepSec(id){
   const wrap=document.getElementById('cmdk');
   if(wrap) wrap.addEventListener('mousedown', function(e){ if(e.target===wrap) close(); });
 })();
-</script>
-<script>
-/* ═══════════════════════════════════════════════════════════════════════════
-   MOHMD NEWS — ON-CHAIN WHALE TRACKER CONTROLLER
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* Audio reader removed per specification */
-
-
-/* ── 2 · ON-CHAIN WHALE LIQUIDITY TRACKER ── */
-class WhaleTracker {
-  constructor() {
-    this.filterAsset = 'ALL';
-    this.filterFlow = 'ALL';
-    /* live mempool data only — nothing is ever fabricated here: when the
-       feed is down the board says so instead of showing sample rows */
-    this.txs = [];
-    this.loadLive();
-  }
-
-  /* real on-chain moves from the mempool (/api/whales/live); a failed fetch
-     renders an honest empty state, never demo data */
-  async loadLive() {
-    try {
-      const r = await fetch('/api/whales/live');
-      const j = await r.json();
-      if (!j || j.ok === false) throw new Error(j && j.error || 'feed unavailable');
-      const now = Date.now();
-      const live = j.whales.map((w, i) => ({
-        id: w.id || ('live-' + i),
-        ts: now - i * 30000,
-        asset: w.asset || 'BTC',
-        amount: w.amount || 0,
-        usd: w.usd || 0,
-        from: 'Unknown (on-chain)',
-        to: 'Mempool — در انتظار تأیید',
-        type: 'mempool',
-        tag: w.tag || 'میم‌پول',
-        hash: w.hash || '',
-      }));
-      this.txs = live;
-      this.render();
-    } catch (e) {
-      this.txs = [];
-      this.render();
-      const cnt = document.getElementById('whaleCount');
-      if (cnt) cnt.textContent = 'دریافت از میم‌پول ناموفق بود — بعداً دوباره تلاش می‌شود';
-    }
-  }
-
-  setFilter(type, val) {
-    if (type === 'asset') this.filterAsset = val;
-    if (type === 'flow') this.filterFlow = val;
-
-    const tb = document.getElementById('whaleTB');
-    if (tb) {
-      if (type === 'asset') {
-        tb.querySelectorAll('[data-asset]').forEach(b => {
-          b.classList.toggle('active', b.getAttribute('data-asset') === val);
-        });
-      }
-      if (type === 'flow') {
-        tb.querySelectorAll('[data-flow]').forEach(b => {
-          b.classList.toggle('active', b.getAttribute('data-flow') === val);
-        });
-      }
-    }
-    this.render();
-  }
-
-  render() {
-    const list = this.txs.filter(tx => {
-      if (this.filterAsset !== 'ALL') {
-        if (this.filterAsset === 'STABLE') {
-          if (tx.asset !== 'USDT' && tx.asset !== 'USDC') return false;
-        } else if (tx.asset !== this.filterAsset) {
-          return false;
-        }
-      }
-      if (this.filterFlow !== 'ALL' && tx.type !== this.filterFlow) return false;
-      return true;
-    });
-
-    // Calculate netflows across the LIVE sample only
-    let btcNet = 0, ethNet = 0, stableMint = 0;
-    this.txs.forEach(tx => {
-      if (tx.asset === 'BTC') {
-        if (tx.type === 'outflow') btcNet -= tx.usd;
-        else if (tx.type === 'inflow') btcNet += tx.usd;
-      } else if (tx.asset === 'ETH') {
-        if (tx.type === 'outflow') ethNet -= tx.usd;
-        else if (tx.type === 'inflow') ethNet += tx.usd;
-      } else if (tx.asset === 'USDT' || tx.asset === 'USDC') {
-        if (tx.type === 'mint') stableMint += tx.usd;
-      }
-    });
-
-    const fmtM = (v, label) => {
-      const m = (Math.abs(v) / 1e6).toFixed(1);
-      return (v < 0 ? '-$' : '+$') + m + 'M ' + label;
-    };
-    const has = this.txs.length > 0;
-    const btcEl = document.getElementById('wkpiBtc');
-    if (btcEl) {
-      btcEl.textContent = has ? fmtM(btcNet, btcNet <= 0 ? '(خروج / انباشت صرافی)' : '(ورود به صرافی)') : '—';
-      btcEl.className = 'whale-kpi-val ' + (btcNet <= 0 ? 'pos' : 'neg');
-    }
-    const ethEl = document.getElementById('wkpiEth');
-    if (ethEl) {
-      ethEl.textContent = has ? fmtM(ethNet, ethNet <= 0 ? '(خروج / استیکینگ)' : '(ورود به صرافی)') : '—';
-      ethEl.className = 'whale-kpi-val ' + (ethNet <= 0 ? 'pos' : 'neg');
-    }
-    const stEl = document.getElementById('wkpiStable');
-    if (stEl) {
-      stEl.textContent = has ? fmtM(stableMint, '(مینت خالص)') : '—';
-    }
-
-    // Update counts
-    const cntEl = document.getElementById('whaleCount');
-    if (cntEl) {
-      cntEl.textContent = 'نمایش ' + (typeof toFa === 'function' ? toFa(list.length) : list.length) +
-        ' از ' + (typeof toFa === 'function' ? toFa(this.txs.length) : this.txs.length) + ' جابه‌جایی سنگین';
-    }
-    const sideCnt = document.getElementById('cntWhales');
-    if (sideCnt) {
-      sideCnt.textContent = (typeof toFa === 'function' ? toFa(this.txs.length) : this.txs.length);
-      sideCnt.style.display = 'inline-block';
-    }
-
-    // Render Table Body
-    const tbody = document.getElementById('whaleTableBody');
-    if (tbody) {
-      if (!list.length) {
-        const msg = this.txs.length
-          ? 'تراکنشی با این فیلتر یافت نشد.'
-          : 'فعلاً تراکنش سنگینی در میم‌پول ثبت نشده — دادهٔ جعلی نمایش داده نمی‌شود.';
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--ink-4)">' + msg + '</td></tr>';
-      } else {
-        tbody.innerHTML = list.map(tx => {
-          const agoMin = Math.max(1, Math.round((Date.now() - tx.ts) / 60000));
-          const timeStr = typeof toFa === 'function' ? (toFa(agoMin) + ' دقیقه پیش') : (agoMin + 'm ago');
-          const usdStr = '$' + (tx.usd >= 1e9 ? (tx.usd / 1e9).toFixed(2) + 'B' : (tx.usd / 1e6).toFixed(1) + 'M');
-          const amtStr = (typeof toFa === 'function' ? toFa(tx.amount.toLocaleString()) : tx.amount.toLocaleString()) + ' ' + tx.asset;
-
-          let tagCls = 'wtag-accum';
-          if (tx.tag.includes('Ultra')) tagCls = 'wtag-ultra';
-          else if (tx.type === 'inflow') tagCls = 'wtag-inflow';
-          else if (tx.type === 'mint') tagCls = 'wtag-mint';
-
-          const e = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, c =>
-            ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-          return `<tr>
-            <td style="color:var(--ink-3);font-size:var(--t-xs);white-space:nowrap">${timeStr}</td>
-            <td><strong style="color:var(--cu-txt);font-weight:700">${e(tx.asset)}</strong></td>
-            <td><span class="wtag-flow" style="color:var(--ink-1);font-weight:700">${usdStr}</span></td>
-            <td style="font-variant-numeric:tabular-nums;color:var(--ink-2)">${amtStr}</td>
-            <td style="direction:ltr;text-align:start;font-size:var(--t-xs);color:var(--ink-2)">
-              <span style="color:var(--ink-1)">${e(tx.from)}</span>
-              <span style="color:var(--cu);margin:0 4px">➔</span>
-              <span style="color:var(--ink-1)">${e(tx.to)}</span>
-            </td>
-            <td><span class="wtag ${tagCls}">${e(tx.tag)}</span></td>
-            <td><code style="font-size:10px;color:var(--ink-4);direction:ltr;display:inline-block">${e(tx.hash)}</code></td>
-          </tr>`;
-        }).join('');
-      }
-    }
-
-  }
-}
-
-// Instantiate singletons and hook into window
-window.whaleTracker = new WhaleTracker();
-
-// live refresh (real feed, no synthesis)
-if (typeof Clock !== 'undefined' && Clock.every) {
-  Clock.every(60000, () => {
-    if (window.whaleTracker) window.whaleTracker.loadLive();
-  }, { label: 'whale-live-60s' });
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.whaleTracker) window.whaleTracker.render();
-  });
-} else {
-  if (window.whaleTracker) window.whaleTracker.render();
-}
 </script>
 <script>
 /* ═══════════════════════════════════════════════════════════════════════════
