@@ -447,6 +447,27 @@ def sec_derivatives(snap, sym, name, is_crypto=True):
             f"squeeze dynamics in {name}.")
 
 
+def _local_stance(snap):
+    """The same stance sec_technical states in prose, as one word.
+
+    bull/bear only when the moving averages are fully stacked (the textbook
+    configurations the technical section names); anything interleaved is
+    mixed. Used to surface a disagreement with the TradingView crowd vote
+    instead of letting two contradicting readings sit side by side silently
+    (concept borrowed from the Kavosh project's deterministic-analysis
+    principles: disagreement is itself information).
+    """
+    spot, e20, e50, e200 = (snap.get("spot"), snap.get("ema20"),
+                            snap.get("ema50"), snap.get("ema200"))
+    if None in (spot, e20, e50, e200):
+        return "mixed"
+    if spot > e20 > e50 > e200:
+        return "bull"
+    if spot < e20 < e50 < e200:
+        return "bear"
+    return "mixed"
+
+
 def sec_technical(snap, name):
     """
     MANDATORY: at least 4 paragraphs, built only from computed indicators.
@@ -765,6 +786,26 @@ def build_report(sym, md, articles, now=None, name=None, fa_name=None,
             f"{vote['rec'].replace('_', ' ').title()}; oscillators {osc}, moving averages {ma}. "
             f"A crowd-signal quoted alongside, not in place of, the local computation above."
         )
+        # Disagreement flag (Kavosh principle): when the crowd vote and the
+        # local moving-average stack point opposite ways, say so plainly —
+        # two contradicting readings presented without comment would read as
+        # a false certainty either way.
+        rec = str(vote.get("rec") or "").lower()
+        vdir = ("bull" if rec in ("strong_buy", "buy")
+                else "bear" if rec in ("strong_sell", "sell") else "mixed")
+        stance = _local_stance(snap)
+        if vdir == "bull" and stance == "bear":
+            para(
+                "Disagreement flag: TradingView's vote reads bullish while the local "
+                "moving averages are fully inverted — treat the technical picture as "
+                "mixed until one side confirms the other."
+            )
+        elif vdir == "bear" and stance == "bull":
+            para(
+                "Disagreement flag: TradingView's vote reads bearish while the local "
+                "moving averages are in perfect bullish alignment — treat the technical "
+                "picture as mixed until one side confirms the other."
+            )
 
     # 8 — scenarios
     head("scenarios")

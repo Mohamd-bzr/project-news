@@ -643,3 +643,53 @@ def test_card_render_rejects_empty_title():
     from card_render import render_news_card, CardUnavailable
     with pytest.raises(CardUnavailable):
         render_news_card({"title": "", "summary": "x"})
+
+
+def test_persian_words_loader_loads_and_filters_memes():
+    import persian_words
+    ph = persian_words.load()
+    assert len(ph) > 200, "coin lexicon should be substantial"
+    # meme lane is off-profile; its names must not open the crypto lane
+    joined = " ".join(ph.keys())
+    assert "دوج کوین" not in joined
+    assert "شیبا" not in joined
+    assert "ریپل" in joined
+
+
+def test_persian_words_crypto_evidence_matching():
+    import persian_words
+    from channel_profile import normalize
+    ev = persian_words.crypto_evidence(normalize("صرافی ریپل را در فهرست خود قرار داد"))
+    assert "ریپل" in ev
+    # multi-word names survive ZWNJ folding
+    assert "بیت کوین" in persian_words.crypto_evidence(normalize("بیت‌کوین رکورد زد"))
+    # a Jerusalem headline must not hit: bare «بیت» is vendor-only, not wired
+    assert persian_words.crypto_evidence(normalize("وضعیت بیت المقدس")) == []
+    # jargon: funding/whale fire, generic words don't
+    assert "فاندینگ" in persian_words.crypto_evidence(normalize("نرخ فاندینگ مثبت شد"))
+    assert persian_words.crypto_evidence(normalize("قیمت خودرو و بازار تهران")) == []
+
+
+def test_channel_detect_buckets_uses_lexicon_evidence():
+    import channel_profile as cp
+    art = {"title_fa": "آلت کوین ریپل در برابر دلار رشد کرد",
+           "summary_fa": "پولکادات هم صعودی بود", "title": "", "summary": ""}
+    b = cp.detect_buckets(art)
+    assert "crypto" in b
+    assert any("ریپل" in w or "پولکادات" in w for w in b["crypto"])
+    # a plain FX story must stay FX — the lexicon never opens other lanes
+    fx = cp.detect_buckets({"title_fa": "نرخ دلار در بازار آزاد ثابت ماند",
+                            "summary_fa": "", "title": "", "summary": ""})
+    assert "crypto" not in fx
+
+
+def test_report_local_stance_flags_disagreement():
+    from report_generator import _local_stance
+    bull = {"spot": 105, "ema20": 100, "ema50": 90, "ema200": 80}
+    bear = {"spot": 80, "ema20": 90, "ema50": 100, "ema200": 105}
+    mixed = {"spot": 95, "ema20": 100, "ema50": 90, "ema200": 80}
+    gap = {"spot": 100, "ema20": None, "ema50": 90, "ema200": 80}
+    assert _local_stance(bull) == "bull"
+    assert _local_stance(bear) == "bear"
+    assert _local_stance(mixed) == "mixed"
+    assert _local_stance(gap) == "mixed"

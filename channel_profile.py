@@ -30,6 +30,8 @@ import re
 import time
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
+import persian_words
+
 # ──────────────────────────────────────────────────────────────────────────
 # The page profile, as observed on the grid
 # ──────────────────────────────────────────────────────────────────────────
@@ -277,6 +279,19 @@ def detect_buckets(article: Dict[str, Any]) -> Dict[str, List[str]]:
     for key, hits in ambiguous.items():
         if key not in found and not found:
             found[key] = hits[:6]
+
+    # Vendored Persian coin vocabulary (mohamadkhalaj/persian-crypto-words,
+    # MIT — see persian_words): the static bucket words above know «بیت کوین»
+    # but not «ریپل» or «پولکادات». Lexicon hits join the crypto lane as
+    # *evidence*, keeping the board's why-explainable. A «دلار»-only story
+    # stays FX — the lexicon only ever opens the crypto lane itself.
+    extra = persian_words.crypto_evidence(text)
+    if extra:
+        cur = found.setdefault("crypto", [])
+        for w in extra:
+            if w not in cur:
+                cur.append(w)
+        found["crypto"] = cur[:8]
     return found
 
 
