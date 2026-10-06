@@ -60,3 +60,4 @@ tools/_*.py
 tools/theme_v3_*.css
 BUG_REPORT*.md
 MARKET_LAB_RESEARCH*.md
+mockup/
