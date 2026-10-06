@@ -2891,6 +2891,7 @@ def api_channel_feed():
         "summary_fa": it.get("summary_fa", ""),
         "source": it.get("source", ""),
         "link": it.get("link", ""),
+        "image": it.get("image") or "",
         "age_hours": it.get("age_hours"),
         "published_ts": it.get("published_ts"),
         "primary_bucket": it.get("primary_bucket", ""),

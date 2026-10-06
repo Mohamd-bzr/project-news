@@ -1900,12 +1900,11 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 /* ── MERGED SUGGESTIONS TAB · was: content studio + gold/coin board ──────
    The view is a bare ranked news list now; it reuses the shared shapes
    (.btn, .badge, .spinner) and the cb-item card block below. */
-/* ── «ایده‌های محتوا» — editorial idea board ──────────────────────────────
-   The first idea leads full-width like a paper's top story; the rest sit in
-   a responsive grid, each with a lane-tinted edge and a ghost mono index.
-   The chrome is visual only — no scores, no factor text, nothing explained.
-   Mono surfaces here use Latin digits on purpose: IBM Plex Mono has no
-   Persian digits, and a fallback font inside a mono run reads broken. */
+/* ── «ایده‌های محتوا» — the feed's own card, re-used ──────────────────────
+   The board renders .ncard (the news feed's card) so the two surfaces match
+   pixel for pixel: same thumb material, same badge tags, same rows. Only
+   three additions: a lane-tinted accent edge, a full-width lead card, and a
+   ghost mono rank at the end of the meta row. */
 .cb-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--s3); margin-bottom:var(--s3); }
 .cb-head .h{ display:flex; align-items:center; gap:10px; min-width:0; }
 .cb-head .bar{ width:4px; block-size:30px; border-radius:2px; background:linear-gradient(180deg, var(--cu), transparent); flex-shrink:0; }
@@ -1914,40 +1913,17 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .cb-head-actions{ display:flex; align-items:center; gap:8px; }
 .cb-count{ font-size:var(--t-sm); font-weight:700; color:var(--cu-txt); background:var(--cu-wash); border:1px solid var(--cu-line); border-radius:var(--r-pill); padding:3px 12px; }
 
-#cbList{ display:grid; grid-template-columns:repeat(auto-fill, minmax(340px,1fr)); gap:var(--s2); align-items:stretch; }
-.cb-item{ position:relative; overflow:hidden; display:flex; flex-direction:column; gap:7px; border:1px solid var(--rule); border-inline-start:3px solid var(--lane, var(--cu)); border-radius:var(--r3); background:var(--panel-2); padding:var(--s3) var(--s4); transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease; animation:cbIn .35s ease both; animation-delay:var(--d, 0s); }
-.cb-item:hover{ transform:translateY(-2px); border-color:var(--rule-2); box-shadow:0 8px 22px rgba(0,0,0,.28); }
-.cb-item[data-lane="gold"]{ --lane:#f59e0b; }
-.cb-item[data-lane="coin"]{ --lane:#e8a23c; }
-.cb-item[data-lane="currency"]{ --lane:#34d399; }
-.cb-item[data-lane="global"]{ --lane:#a78bfa; }
-.cb-item[data-lane="crypto"]{ --lane:var(--cu); }
-@keyframes cbIn{ from{ opacity:0; transform:translateY(6px); } }
-
-.cb-idx{ position:absolute; inset-inline-end:var(--s3); top:var(--s3); font-family:var(--font-mono); font-size:1.25rem; font-weight:800; color:var(--ink-4); opacity:.38; direction:ltr; line-height:1; pointer-events:none; font-variant-numeric:tabular-nums; letter-spacing:.03em; }
-
-.cb-top{ display:flex; align-items:center; gap:8px; }
-.cb-tag{ display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:800; color:var(--lane, var(--cu-txt)); }
-.cb-tag::before{ content:""; inline-size:6px; block-size:6px; border-radius:50%; background:var(--lane, var(--cu)); }
-.cb-age{ font-size:10.5px; color:var(--ink-4); }
-
-.cb-item h4{ margin:0; padding-inline-end:40px; font-size:var(--t-md); color:var(--ink-1); line-height:var(--lh-fa); font-weight:800; }
-.cb-title{ cursor:pointer; transition:color .15s ease; }
-.cb-title:hover{ color:var(--cu-txt); }
-.cb-sum{ margin:0; font-size:var(--t-sm); color:var(--ink-2); line-height:var(--lh-fa); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-
-.cb-item.lead{ grid-column:1 / -1; padding:var(--s4) var(--s5); }
-.cb-item.lead h4{ font-size:var(--t-lg); padding-inline-end:52px; }
-.cb-item.lead .cb-sum{ -webkit-line-clamp:3; font-size:var(--t-md); }
-.cb-item.lead .cb-idx{ font-size:1.6rem; }
-
-.cb-meta{ display:flex; flex-wrap:wrap; gap:4px 8px; align-items:center; margin-top:auto; padding-top:8px; border-top:1px dashed var(--rule); font-size:var(--t-xs); color:var(--ink-4); }
-.cb-src{ color:var(--ink-2); font-weight:600; }
-.cb-sep{ opacity:.55; }
-.cb-link{ margin-inline-start:auto; color:var(--cu-txt); text-decoration:none; font-weight:700; }
-.cb-link:hover{ text-decoration:underline; }
+#cbList .ncard::before{ background:var(--lane, var(--cu)); opacity:.8; }
+#cbList .ncard[data-lane="gold"]{ --lane:#f59e0b; }
+#cbList .ncard[data-lane="coin"]{ --lane:#e8a23c; }
+#cbList .ncard[data-lane="currency"]{ --lane:#34d399; }
+#cbList .ncard[data-lane="global"]{ --lane:#a78bfa; }
+#cbList .ncard[data-lane="crypto"]{ --lane:var(--cu); }
+#cbList .rank{ margin-inline-start:auto; font-family:var(--font-mono); font-size:10.5px; font-weight:700; color:var(--ink-4); direction:ltr; font-variant-numeric:tabular-nums; letter-spacing:.04em; }
+#cbList .ncard.lead{ grid-column:1 / -1; }
+#cbList .ncard.lead .ttl{ font-size:var(--t-lg); -webkit-line-clamp:3; }
+#cbList .ncard.lead .summ{ -webkit-line-clamp:4; }
 .cb-empty{ grid-column:1 / -1; color:var(--ink-3); font-size:var(--t-sm); padding:var(--s5) var(--s4); text-align:center; line-height:var(--lh-fa); }
-
 /* ── Expansion Suite: Reader Mode, Watchlist, Embeds, Offline ── */
 .reader-overlay{ position:fixed; inset:0; z-index:2500; background:var(--bg); color:var(--ink-1); display:none; flex-direction:column; overflow-y:auto; scroll-behavior:smooth; }
 .reader-overlay.open{ display:flex; }
@@ -3201,7 +3177,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
                 </button>
               </div>
             </div>
-            <div id="cbList" class="cb-list" aria-live="polite">
+            <div id="cbList" class="ngrid" aria-live="polite">
               <div class="cb-empty"><span class="spinner"></span> در حال بارگذاری…</div>
             </div>
           </div>

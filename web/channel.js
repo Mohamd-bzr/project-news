@@ -1,9 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    FREEBUFF — «ایده‌های محتوا» (merged tab; was: content studio + channel)
 
-   An editorial idea board: the top idea leads full-width, the rest sit in a
-   grid with lane-tinted edges and a ghost index. News only — the ranking
-   internals never reach this file (the API ships display fields alone).
+   The board re-uses the news feed's own card (.ncard) and its badge tags, so
+   both surfaces read as one product. News only — the ranking internals never
+   reach this file (the API ships display fields alone).
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
@@ -18,10 +18,10 @@ const Channel = (function () {
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const esc = (s) => (typeof window.esc === 'function' ? window.esc(s) : escFallback(s));
 
-  /* Short lane tags for the board. */
+  /* the feed's badge tags: bucket -> (emoji, label) */
   const TAGS = {
-    gold: 'طلا', coin: 'سکه', currency: 'ارز',
-    global: 'جهانی', crypto: 'کریپتو',
+    gold: ['🟡', 'طلا'], coin: ['🪙', 'سکه'], currency: ['💵', 'ارز'],
+    global: ['🌍', 'جهانی'], crypto: ['₿', 'کریپتو'],
   };
 
   function agoText(hours) {
@@ -32,31 +32,43 @@ const Channel = (function () {
     return fa(Math.round(h / 24)) + ' روز پیش';
   }
 
+  /* same image chain as the feed: direct URL, then the proxy, then noimg */
+  function thumb(it) {
+    const noimg = (typeof ic === 'function')
+      ? '<div class="noimg">' + ic('news') + '</div>'
+      : '<div class="noimg">📰</div>';
+    if (!it.image) return '<div class="thumb">' + noimg + '</div>';
+    const url = (typeof safeUrl === 'function') ? safeUrl(it.image) : '';
+    if (!url) return '<div class="thumb">' + noimg + '</div>';
+    return '<div class="thumb">' +
+      '<img src="' + esc(url) + '" alt="" loading="lazy" referrerpolicy="no-referrer" ' +
+      'data-orig="' + esc(it.image) + '" ' +
+      'onerror="if(!this.dataset.tried){this.dataset.tried=\'1\';this.src=\'/api/proxy-image?url=\'+encodeURIComponent(this.dataset.orig);}else{this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'noimg\',innerHTML:\'📰\'}))}">' +
+      '</div>';
+  }
+
   function itemCard(it, i) {
     const title = it.title_fa || it.title || '';
-    const summary = (it.summary_fa || '').trim();
+    const summary = (it.summary_fa || it.summary || '').trim();
     const lane = esc(it.primary_bucket || 'global');
-    /* mono surfaces take Latin digits: IBM Plex Mono has no Persian set */
-    const idx = String(i + 1).padStart(2, '0');
-    const open = it.id ? ' onclick="Channel.openSource(' + jsArg(it.id) + ')"' : '';
+    /* mono rank takes Latin digits: IBM Plex Mono has no Persian set */
+    const rank = String(i + 1).padStart(2, '0');
     const lead = i === 0 ? ' lead' : '';
-    const delay = i < 12 ? ' style="--d:' + (i * 22) + 'ms"' : '';
-    const tag = esc(TAGS[it.primary_bucket] || it.bucket_label || 'ایده');
+    const tag = TAGS[it.primary_bucket] || ['', it.bucket_label || 'ایده'];
+    const open = it.id ? ' onclick="Channel.openSource(' + jsArg(it.id) + ')"' : '';
 
-    return '<article class="cb-item' + lead + '" data-lane="' + lane + '" data-id="' +
-      esc(it.id || '') + '"' + delay + '>' +
-      '<span class="cb-idx" aria-hidden="true">' + idx + '</span>' +
-      '<div class="cb-top">' +
-        '<span class="cb-tag">' + tag + '</span>' +
-        '<span class="cb-age">' + agoText(it.age_hours) + '</span>' +
-      '</div>' +
-      '<h4 class="cb-title"' + open + '>' + esc(title) + '</h4>' +
-      (summary ? '<p class="cb-sum">' + esc(summary) + '</p>' : '') +
-      '<div class="cb-meta">' +
-        '<span class="cb-src">' + esc(it.source || 'منبع اصلی') + '</span>' +
-        (it.link
-          ? '<a class="cb-link" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">خبر اصلی ↗</a>'
-          : '') +
+    return '<article class="ncard' + lead + '" data-lane="' + lane + '" data-id="' +
+      esc(it.id || '') + '"' + open + '>' +
+      thumb(it) +
+      '<div class="body">' +
+        '<div class="row1"><span class="badge b-asset">' + esc(tag[0]) + ' ' + esc(tag[1]) + '</span></div>' +
+        '<div class="ttl">' + esc(title) + '</div>' +
+        (summary ? '<div class="summ">' + esc(summary) + '</div>' : '') +
+        '<div class="row2">' +
+          '<span class="src">' + esc(it.source || 'منبع اصلی') + '</span>' +
+          '<span class="dt">' + agoText(it.age_hours) + '</span>' +
+          '<span class="rank" aria-hidden="true">' + rank + '</span>' +
+        '</div>' +
       '</div>' +
     '</article>';
   }
