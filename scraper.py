@@ -297,9 +297,15 @@ def _fetch_one(key: str, src: dict) -> tuple:
 
     # dead URL (404/empty) → same-publisher Google News mirror as a lifeline
     # (a flaky 415 edge that ate every direct attempt joins it: the headline
-    # stream is the same publisher through a pipe that never blocks us)
-    if diag.get("reason") in ("not_found", "empty_feed") \
-            or (diag.get("reason") == "http_error" and diag.get("http") == 415):
+    # stream is the same publisher through a pipe that never blocks us).
+    # Bot-blocks (401/403/418) join too: measured 2026-10 — the mirror
+    # answers 100 items for every WAF-blocked feed (Silver Institute, IBD,
+    # Glassnode, Northern Miner, Mining.com, LBMA, WGC) while cloudscraper
+    # won none of them (IP-level blocks, not JS challenges).
+    if diag.get("reason") in ("not_found", "empty_feed",
+                              "bot_blocked", "auth_required") \
+            or (diag.get("reason") == "http_error"
+                and diag.get("http") in (401, 403, 415, 418)):
         arts2, st2 = _fetch_attempt(key, {**src, "rss": _mirror_url(src)}, ua=None,
                                     timeout=8)
         ladder.append("gn-mirror")

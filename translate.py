@@ -160,6 +160,19 @@ def _translate_batch(texts: list) -> list:
 # public API
 # ---------------------------------------------------------------------------
 
+
+_FA_CHAR_RE = re.compile(r"[\u0600-\u06FF]")
+
+
+def _looks_persian(text: str) -> bool:
+    """True when the text is already Persian (native wire sources)."""
+    t = (text or "").strip()
+    if len(t) < 4:
+        return False
+    fa = len(_FA_CHAR_RE.findall(t))
+    return fa / len(t) > 0.25
+
+
 def translate_many(texts, persian_digits: bool = True) -> dict:
     """
     Translate an iterable of English strings to Persian.
@@ -176,19 +189,30 @@ def translate_many(texts, persian_digits: bool = True) -> dict:
     if not wanted:
         return {}
 
+    # native-Persian guard: the Persian wire sources (ایسنا، دنیای اقتصاد…)
+    # arrive already Persian — sending them through the EN→FA endpoint wastes
+    # calls and can mangle the text. Identity-mapped, cached like any other.
     out = {}
     todo = []
+    for t in wanted:
+        if _looks_persian(t):
+            out[t] = fa_digits(t) if persian_digits else t
+        else:
+            todo.append(t)
+    if not todo:
+        return out
+    keep = []
     with _LOCK:
-        for t in wanted:
+        for t in todo:
             hit = _CACHE.get(_cache_key(t))
             if hit is not None:
                 out[t] = hit
                 _STATS["cache_hits"] += 1
             else:
-                todo.append(t)
+                keep.append(t)
 
-    if todo:
-        batches = [todo[i:i + BATCH] for i in range(0, len(todo), BATCH)]
+    if keep:
+        batches = [keep[i:i + BATCH] for i in range(0, len(keep), BATCH)]
         with ThreadPoolExecutor(max_workers=WORKERS) as ex:
             results = list(ex.map(_translate_batch, batches))
         global _DIRTY
