@@ -196,13 +196,20 @@ def fetch_market_data(assets=None, symbols=None, coingecko=None,
             if hist:
                 if resolved and resolved != (yahoo_map.get(sym) or "").upper():
                     print(f"[market] {sym}: {yahoo_map.get(sym)} -> resolved as {resolved}", flush=True)
+                # store a deep snapshot: the enrichment below mutates result
+                # rows, and an aliased cache entry let those mutations leak
+                # back into the stale fallback — a days-old price then
+                # resurrected as "current" on the next outage
                 hist["resolved_symbol"] = resolved
                 result[sym] = hist
-                cache[sym] = {"hist": hist, "ts": time.time()}
+                cache[sym] = {"hist": json.loads(json.dumps(hist)), "ts": time.time()}
             elif sym in cache and cache[sym].get("hist"):
-                # stale fallback
-                h = dict(cache[sym]["hist"])
+                # stale fallback — price/change reflect the *cached* close;
+                # strip enrichment keys so they cannot masquerade as live
+                h = json.loads(json.dumps(cache[sym]["hist"]))
                 h["stale"] = True
+                h.pop("market_cap", None)
+                h.pop("volume_24h", None)
                 result[sym] = h
                 print(f"[market] {sym}: using cached history (stale)", flush=True)
             else:

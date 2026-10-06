@@ -609,8 +609,10 @@ def is_relevant(assets, title: str, summary: str = "", custom=None) -> bool:
 
 
 # keyword separators people actually type: comma, semicolon, pipe, slash,
-# newline, or a spaced dash
-_KW_SPLIT = re.compile(r"[,;|\n\r/]|\s+[-–—]\s*|-\s*")
+# newline, or a dash SET OFF BY A SPACE BEFORE IT ("- kw" and "-kw" both
+# split; a bare hyphen inside a slug does not: "wrapped-bitcoin" stays one
+# keyword, "pepe-usdt" stays one keyword).
+_KW_SPLIT = re.compile(r"[,;|\n\r/]|\s+[-–—]\s*")
 
 
 def split_keywords(raw):

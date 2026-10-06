@@ -45,11 +45,13 @@ _MEME_SYM = ("DOGE", "SHIB", "PEPE", "BONK", "FLOKI")
 # سقوط، سرمایه…) is deliberately NOT wired — it would misfire on ordinary
 # domestic news. Token-launch words (ایردراپ، عرضه اولیه) are excluded too:
 # they belong to the off-profile DeFi lane, not to the crypto lane.
+# Only market-STRUCTURE terms here: generic words (کیف پول، تراکنش، تریدر،
+# هولد…) appear in ordinary gold/FX copy and one hit must not flip a
+# story's lane to crypto via the lexicon-evidence rule.
 JARGON = (
     "رمزارز", "ارز دیجیتال", "کریپتو", "بلاک چین", "بلاکچین",
     "آلت کوین", "الت کوین", "نهنگ", "فاندینگ", "لیکویید", "لیکوییدیتی",
-    "فیوچرز", "ماینینگ", "ماینر", "هولد", "هودل", "دامیننس", "مارکت کپ",
-    "تریدر", "ساتوشی", "کیف پول", "هشریت", "تراکنش",
+    "فیوچرز", "ماینینگ", "ماینر", "دامیننس", "مارکت کپ", "هشریت",
 )
 
 _phrases: Dict[str, str] = {}          # normalized phrase -> display spelling

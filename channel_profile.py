@@ -355,7 +355,10 @@ def score_article(article: Dict[str, Any], now: Optional[float] = None,
     off = detect_off_profile(article)
     nums = numbers_in(article)
 
-    credibility = float(article.get("credibility") or 0.7)
+    _cred_raw = article.get("credibility")
+    # `or 0.7` treated an explicit 0.0 (zero-trust source) as "missing" and
+    # let it through the gate at default credibility
+    credibility = 0.7 if _cred_raw is None else float(_cred_raw)
     age = _age_hours(article, now)
 
     if credibility < min_credibility:
@@ -628,7 +631,10 @@ def build_caption(item: Dict[str, Any]) -> Dict[str, Any]:
 def _dedupe_key(article: Dict[str, Any]) -> str:
     """Same six words = the same story. A page posts one tile per story."""
     toks = normalize(article.get("title_fa") or article.get("title") or "").split()
-    return " ".join(t for t in toks if t not in ("و", "در", "به", "از", "با", "که"))[:6]
+    kept = [t for t in toks if t not in ("و", "در", "به", "از", "با", "که")]
+    # first six WORDS — the old [:6] sliced the joined STRING, so any two
+    # headlines sharing six characters collided as "the same story"
+    return " ".join(kept[:6])
 
 
 def rank_for_channel(articles: Iterable[Dict[str, Any]], now: Optional[float] = None,

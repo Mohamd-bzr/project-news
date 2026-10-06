@@ -2103,6 +2103,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M7.2 4.6h9.6a1 1 0 0 1 1 1v14.2l-5.8-3.5-5.8 3.5V5.6a1 1 0 0 1 1-1z"/></symbol>
 <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="M14.4 6.4 8.8 12l5.6 5.6"/></symbol>
 <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="M9.6 6.4 15.2 12l-5.6 5.6"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
 <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9.6 5.6v12.8M14.4 5.6v12.8"/></symbol>
 <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
 <symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
@@ -6231,7 +6232,7 @@ function ideaCardHTML(x){
   const dir=x.symbol_dir||'';
   const dcls=dir==='Long'?'up':dir==='Short'?'dn':'';
   const dlabel=dir==='Long'?'▲ لانگ':dir==='Short'?'▼ شورت':(dir?(dir==='Neutral'?'خنثی':dir):'ایده بدون جهت');
-  const link=esc(x.link||'https://www.tradingview.com/ideas/');
+  const link=attr(safeUrl(x.link||'https://www.tradingview.com/ideas/'));
   const open=`openIdeaModal(${jsArg(x.asset||ideasSym())},${jsArg(x.id)})`;
   const when=x.iso?faDateFromIso(String(x.iso).slice(0,10)):'';
   const snippet=x.snippet||'', body=x.body||'';
@@ -6563,7 +6564,8 @@ DL2_BASELINE=dl2LastSeen();
    own reading (scored from that asset's last-24 h headlines) right under the
    chart, with the global alternative.me index kept as a reference line. */
 const FNG_LABELS={'Extreme Fear':'ترس شدید','Fear':'ترس','Neutral':'خنثی','Greed':'طمع','Extreme Greed':'طمع شدید'};
-function fngColor(v){ return v>=75?'var(--dn)':v>=55?'var(--cu-hi)':v>=45?'var(--ink-3)':'var(--up)'; }
+function fngColor(v){ /* concrete hex: SVG presentation attributes cannot use var() */
+    return v>=75?'#EE6A58':v>=55?'#8FB4E8':v>=45?'#8A93A6':'#2EBD77'; }
 function fngFaLabel(label){ return (window.__ECON_FA&&window.__ECON_FA[label])||FNG_LABELS[label]||label||''; }
 function fngGauge(v,label){
   /* 0=fear(green) … 100=greed(red) — 270° arc like the old dial */
@@ -7256,33 +7258,42 @@ async function detectTelegramChat(){
       toast('✗ خطا: ' + (d.error || 'ارتباط برقرار نشد'));
       if(box){
         box.style.display = 'block';
-        box.innerHTML = `<div style="background:rgba(235,87,87,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--dn,#eb5757);color:var(--dn,#eb5757);font-size:0.85rem">✗ ${d.error || 'خطا در بررسی توکن'}</div>`;
+        box.innerHTML = `<div style="background:rgba(235,87,87,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--dn,#eb5757);color:var(--dn,#eb5757);font-size:0.85rem">✗ ${esc(d.error || 'خطا در بررسی توکن')}</div>`;
       }
       return;
     }
     if(d.chats && d.chats.length > 0){
       const latest = d.chats[d.chats.length - 1];
       document.getElementById('tgChat').value = latest.id;
-      toast(`✓ چت شناسایی شد: ${latest.title} (${latest.id})`);
+      toast('✓ چت شناسایی شد: ' + (latest.title || latest.id));
       if(box){
         box.style.display = 'block';
+        /* chat titles/usernames are REMOTE-CONTROLLED text (any Telegram user
+           can name a chat) — everything here goes through esc() */
         let html = '<div style="background:var(--bg2,#1c2128);padding:10px 14px;border-radius:8px;border:1px solid var(--border,#30363d);font-size:0.85rem">';
-        html += `<div style="color:var(--up,#2ecc71);margin-bottom:8px">✓ ربات @${d.bot_username || ''} متصل است. چت‌های شناسایی‌شده:</div>`;
-        d.chats.forEach(c => {
+        html += `<div style="color:var(--up,#2ecc71);margin-bottom:8px">✓ ربات @${esc(d.bot_username || '')} متصل است. چت‌های شناسایی‌شده:</div>`;
+        d.chats.forEach((c, ci) => {
+          const cid = String(c.id == null ? '' : c.id);
           html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
-            <span><b>${c.title}</b> <span style="opacity:0.7">(${c.type})</span> <code style="direction:ltr;display:inline-block">${c.id}</code></span>
-            <button class="btn sm" type="button" onclick="document.getElementById('tgChat').value='${c.id}';toast('شناسه چت انتخاب شد');">انتخاب</button>
+            <span><b>${esc(c.title || '')}</b> <span style="opacity:0.7">(${esc(c.type || '')})</span> <code style="direction:ltr;display:inline-block">${esc(cid)}</code></span>
+            <button class="btn sm" type="button" data-chatpick="${esc(cid)}">انتخاب</button>
           </div>`;
         });
         html += '</div>';
         box.innerHTML = html;
+        box.querySelectorAll('[data-chatpick]').forEach(b => {
+          b.addEventListener('click', () => {
+            document.getElementById('tgChat').value = b.getAttribute('data-chatpick');
+            toast('شناسه چت انتخاب شد');
+          });
+        });
       }
     } else {
       toast('ربات متصل است اما پیامی دریافت نکرده است');
       if(box){
         box.style.display = 'block';
         box.innerHTML = `<div style="background:rgba(243,156,18,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--warn,#f39c12);color:var(--warn,#f39c12);font-size:0.85rem">
-          ⚠️ ${d.hint || 'پیامی در ربات یافت نشد.'}
+          ⚠️ ${esc(d.hint || 'پیامی در ربات یافت نشد.')}
         </div>`;
       }
     }
@@ -7630,7 +7641,7 @@ function smFeedFiltered(){
     const src=document.getElementById('srcSel').value, kind=document.getElementById('kindSel').value;
     const minC=+document.getElementById('credSlider').value/100;
     return !!(q||(src&&src!=='all')||(kind&&kind!=='all')||minC>0||
-              UI.topic!=='all'||UI.asset!=='all'||UI.onlyBookmarked);
+              UI.topic!=='all'||UI.asset!=='all'||UI.onlyBookmarked||UI.onlyWatchlist);
   }catch(e){ return true; }
 }
 function smChangeText(chg){ return (chg>=0?'▲':'▼')+Math.abs(Number(chg)).toFixed(2)+'%'; }
@@ -8017,9 +8028,13 @@ Stream.on('news', function(p){
     /* a filter is on: the incremental path would insert a card the filter
        excludes, so the renderer does it (correct beats cheap) */
     if(typeof renderFeed==='function') renderFeed();
+  } else {
+    /* unfiltered path did not re-render — publish the new total here.
+       (renderFeed writes the FILTERED count; writing the raw total
+       unconditionally used to overwrite it.) */
+    const cnt=document.getElementById('feedCount');
+    if(cnt) cnt.textContent=toFa(DATA.articles.length)+' خبر';
   }
-  const cnt=document.getElementById('feedCount');
-  if(cnt) cnt.textContent=toFa(DATA.articles.length)+' خبر';
   const empty=document.getElementById('feedEmpty');
   if(empty&&DATA.articles.length) empty.style.display='none';
   if(typeof renderChips==='function') renderChips();
@@ -8041,8 +8056,8 @@ Stream.on('calendar', function(item){
     }
   }catch(e){}
   if(typeof toast==='function'){
-    toast((item.country?('['+item.country+'] '):'')+(item.title||'')+' — '+(item.actual_fmt||item.actual||'')+
-          (flashed?'':' (رویداد در نمای تقویم نیست)'), item.impact==='High'?'warn':'info');
+    toast((item.impact==='High'?'⚠️ ':'') + (item.country?('['+item.country+'] '):'')+(item.title||'')+' — '+(item.actual_fmt||item.actual||'')+
+          (flashed?'':' (رویداد در نمای تقویم نیست)'));
   }
   if(typeof arTick==='function') arTick();
 });
@@ -9345,7 +9360,7 @@ const FreebuffBookmarks = (function(){
         const mergedBmarks = Array.from(new Set([...curBmarks, ...data.bookmarks]));
         const mergedMeta = Object.assign({}, curMeta, data.metadata || {});
         localStorage.setItem('mohmd_bmarks', JSON.stringify(mergedBmarks));
-        localStorage.setItem('mohmd_bmarks_meta', JSON.stringify(mergedMeta));
+        localStorage.setItem('mohmd_bmark_meta', JSON.stringify(mergedMeta));
         if(typeof renderBookmarks==='function') renderBookmarks();
         if(typeof renderChips==='function') renderChips();
         if(typeof toast==='function') toast('بازیابی موفق: ' + toFa(mergedBmarks.length) + ' خبر نشان‌شده در مرورگر بارگذاری شد');

@@ -376,6 +376,13 @@ def rsi_series(closes, period: int = 14):
     losses = [max(-d, 0.0) for d in deltas]
     ag = sum(gains[:period]) / period
     al = sum(losses[:period]) / period
+    # seed the first computable bar (index=period) from the first `period`
+    # deltas, then Wilder-smooth the rest — the old loop started writing at
+    # period+1, leaving the first RSI value None and shifting the series one
+    # bar late
+    rs0 = 100.0 if al == 0 else 100.0 - 100.0 / (1.0 + (ag / al if al else 0))
+    if len(deltas) >= period:
+        out[period] = rs0
     for i in range(period, len(deltas)):
         ag = (ag * (period - 1) + gains[i]) / period
         al = (al * (period - 1) + losses[i]) / period

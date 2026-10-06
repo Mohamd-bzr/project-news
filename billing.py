@@ -211,8 +211,12 @@ def register_user(email: str, api_key: str, tier: str = 'free') -> Dict:
     with _lock:
         conn = _get_conn()
         try:
+            # idempotent on email (re-register / re-upgrade updates the row)
+            # but a plain INSERT otherwise: REPLACE also matched a colliding
+            # api_key_hash and silently wiped a DIFFERENT user's tier+usage
             conn.execute(
-                "INSERT OR REPLACE INTO users (email, api_key_hash, tier) VALUES (?, ?, ?)",
+                "INSERT INTO users (email, api_key_hash, tier) VALUES (?, ?, ?) "
+                "ON CONFLICT(email) DO UPDATE SET api_key_hash=excluded.api_key_hash, tier=excluded.tier",
                 (email, key_hash, tier)
             )
             conn.commit()

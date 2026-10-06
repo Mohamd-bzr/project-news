@@ -2498,7 +2498,10 @@ def api_admin_keys():
     if request.method == "POST":
         data = request.get_json() or {}
         name = data.get("name", "unnamed")
-        rate_limit = int(data.get("rate_limit", 100))
+        try:
+            rate_limit = int(data.get("rate_limit", 100))
+        except (TypeError, ValueError):
+            rate_limit = 100
         key = _generate_api_key()
         key_hash = _hash_api_key(key)
         _api_keys[key_hash]['name'] = name
@@ -2948,7 +2951,10 @@ def api_studio_publish_telegram():
     data = request.get_json(silent=True) or {}
     text = str(data.get("text") or "").strip()
     photos = data.get("photos") or []
-    content_id = int(data.get("content_id") or 0)
+    try:
+        content_id = int(data.get("content_id") or 0)
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "error": "content_id must be a number"}), 400
     confirm = bool(data.get("confirm"))
     if not text and not photos:
         return jsonify({"ok": False, "error": "nothing to send"}), 400
@@ -2999,7 +3005,10 @@ def api_studio_publish_bale():
     """
     data = request.get_json(silent=True) or {}
     text = str(data.get("text") or "").strip()
-    content_id = int(data.get("content_id") or 0)
+    try:
+        content_id = int(data.get("content_id") or 0)
+    except (TypeError, ValueError):
+        return jsonify({"ok": False, "error": "content_id must be a number"}), 400
     confirm = bool(data.get("confirm"))
     if not text:
         return jsonify({"ok": False, "error": "nothing to send"}), 400
@@ -3199,7 +3208,9 @@ def api_billing_usage():
             if not row:
                 return jsonify({"ok": True, "usage": {}, "tier": "free"})
 
-            today = time.strftime('%Y-%m-%d')
+            # CURRENT_TIMESTAMP is UTC — a local-time day start shifted the
+            # usage window by the server's UTC offset
+            today = time.strftime('%Y-%m-%d', time.gmtime())
             usage = conn.execute(
                 "SELECT feature, COUNT(*) as count FROM usage_log WHERE user_id = ? AND timestamp >= ? GROUP BY feature",
                 (row['id'], today)
@@ -4260,7 +4271,13 @@ def _post_cycle_telegram(articles):
     pin = bool(tg.get("pin"))
     sent_count = 0
     for a in candidates:
-        text = _tg_render_digest([a], tg)
+        try:
+            text = _tg_render_digest([a], tg)
+        except (KeyError, IndexError, ValueError) as e:
+            # a user template with an unknown {placeholder} must degrade to
+            # the default template, not kill the digest or 500 the send button
+            log(f"telegram template error, falling back to default: {e}")
+            text = _tg_render_digest([a], {**tg, "template": ""})
         if not text.strip():
             continue
         with TG_LOCK:
@@ -4479,7 +4496,13 @@ def api_telegram_send_now():
     sent = 0
     last_err = ""
     for a in candidates:
-        text = _tg_render_digest([a], tg)
+        try:
+            text = _tg_render_digest([a], tg)
+        except (KeyError, IndexError, ValueError) as e:
+            # a user template with an unknown {placeholder} must degrade to
+            # the default template, not kill the digest or 500 the send button
+            log(f"telegram template error, falling back to default: {e}")
+            text = _tg_render_digest([a], {**tg, "template": ""})
         if not text.strip():
             continue
         with TG_LOCK:
@@ -4988,7 +5011,11 @@ def api_settings():
             name = (add.get("name") or "").strip()[:48]
             url = (add.get("rss") or "").strip()
             if name and url.startswith(("http://", "https://")):
-                key = "custom_" + str(abs(hash(url)) % 10_000_000)
+                import hashlib as _hl
+                # sha1 of the URL: hash() is salted per process, which used to
+                # re-key every custom feed on each restart (duplicates + broken
+                # removals)
+                key = "custom_" + _hl.sha1(url.encode("utf-8")).hexdigest()[:10]
                 CONFIG["custom_sources"][key] = {"name": name, "rss": url,
                                                  "trust": float(add.get("trust") or 0.6)}
                 CONFIG["sources_enabled"][key] = True
@@ -5012,8 +5039,9 @@ def api_settings():
                     "coingecko": (add.get("coingecko") or "").strip().lower() or None,
                     "keywords": (add.get("keywords") or "").strip() or None,
                 }
-                CONFIG["assets"].append(sym)
-                added.append(sym)
+                if sym not in CONFIG["assets"]:
+                    CONFIG["assets"].append(sym)
+                    added.append(sym)
 
         for sym in (data.get("remove_assets") or []):
             sym = str(sym).upper()
@@ -6347,11 +6375,16 @@ def api_health():
     # Check DB health
     try:
         from database import DB_FILE
-        db_path = DB_FILE if (DB_FILE and DB_FILE.exists()) else Path("E:/freebuff/freebuff.db")
-        conn = sqlite3.connect(str(db_path), timeout=5)
-        conn.execute("SELECT 1")
-        conn.close()
-        health["db"] = "ok"
+        # DB_FILE only — a hardcoded fallback path would silently CREATE a
+        # stray sqlite file on machines where the real DB lives elsewhere
+        if DB_FILE and DB_FILE.exists():
+            conn = sqlite3.connect(str(DB_FILE), timeout=5)
+            conn.execute("SELECT 1")
+            conn.close()
+            health["db"] = "ok"
+        else:
+            health["db"] = "missing"
+            health["status"] = "degraded"
     except Exception as e:
         health["db"] = f"error: {e}"
         health["status"] = "degraded"

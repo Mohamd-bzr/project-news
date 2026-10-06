@@ -106,7 +106,15 @@ class DiscordBot:
         if not anomalies:
             return True
         
-        desc_lines = [f"**{a['symbol']}**: {a['current_count']} articles (avg: {a['avg_count']}, ratio: {a['ratio']}x)" for a in anomalies]
+        # ai_features.detect_anomalies emits z_score/severity (no 'ratio') —
+        # the old line KeyError'd on every real anomaly and the caller's bare
+        # except swallowed it, so this alert never fired once
+        def _line(a):
+            z = a.get('z_score')
+            zs = f", z: {z:.1f}" if isinstance(z, (int, float)) else ""
+            return (f"**{a.get('symbol', '?')}**: {a.get('current_count')} articles "
+                    f"(avg: {a.get('avg_count')}{zs}) — {a.get('severity', 'anomaly')}")
+        desc_lines = [_line(a) for a in anomalies]
         
         embed = {
             "title": "🚨 News Volume Anomaly Detected",
