@@ -1,9 +1,10 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   FREEBUFF — MERGED SUGGESTIONS TAB (was: content studio + channel board)
+   FREEBUFF — «ایده‌های محتوا» (merged tab; was: content studio + channel)
 
-   One view, one job: show the news the engine picked for the page. No factor
-   bars, no scores, no explanation chrome — title, summary, source, time,
-   original link. The ranking lives entirely on the server (channel_profile).
+   One view, one job: show the news the engine picked for the page, styled
+   like an editorial board — numbered cards, lane-tinted edge — but with no
+   explanatory chrome: no scores, no factor bars, no why-text. The ranking
+   lives entirely on the server (channel_profile).
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
@@ -26,18 +27,22 @@ const Channel = (function () {
     return fa(Math.round(h / 24)) + ' روز پیش';
   }
 
-  function itemCard(it) {
+  function itemCard(it, i) {
     const title = it.title_fa || it.title || '';
     const summary = (it.summary_fa || '').trim();
+    const lane = esc(it.primary_bucket || 'global');
+    const idx = fa(String(i + 1).padStart(2, '0'));
     const open = it.id ? ' onclick="Channel.openSource(' + jsArg(it.id) + ')"' : '';
-    return '<article class="cb-item" data-id="' + esc(it.id || '') + '">' +
-      '<h4 class="cb-title" style="cursor:pointer"' + open + '>' + esc(title) + '</h4>' +
+    return '<article class="cb-item" data-lane="' + lane + '" data-id="' + esc(it.id || '') + '">' +
+      '<span class="cb-idx" aria-hidden="true">' + idx + '</span>' +
+      '<h4 class="cb-title"' + open + '>' + esc(title) + '</h4>' +
       (summary ? '<p class="cb-sum">' + esc(summary) + '</p>' : '') +
-      '<div class="cb-meta" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">' +
-        '<span class="badge sm">' + esc(it.source || 'منبع اصلی') + '</span>' +
-        '<span class="badge sm">⏱️ ' + agoText(it.age_hours) + '</span>' +
+      '<div class="cb-meta">' +
+        '<span class="cb-dot" aria-hidden="true"></span>' +
+        '<span class="cb-src">' + esc(it.source || 'منبع اصلی') + '</span>' +
+        '<span class="cb-time">⏱ ' + agoText(it.age_hours) + '</span>' +
         (it.link
-          ? '<a class="btn sm ghost" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">خبر اصلی ↗</a>'
+          ? '<a class="cb-link" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">خبر اصلی ↗</a>'
           : '') +
       '</div>' +
     '</article>';
@@ -48,15 +53,16 @@ const Channel = (function () {
     if (!host) return;
     const items = (S.feed || {}).items || [];
 
-    /* the rail badge, the same way the feed tab does it */
     const rail = el('cntChannel');
     if (rail) {
       rail.textContent = fa(items.length);
       rail.style.display = items.length ? '' : 'none';
     }
+    const count = el('cbCount');
+    if (count) count.textContent = fa(items.length) + ' ایده';
 
     if (!items.length) {
-      host.innerHTML = '<div class="cb-empty">فعلاً خبری برای نشان دادن نیست.</div>';
+      host.innerHTML = '<div class="cb-empty">فعلاً ایده‌ای برای نشان دادن نیست — بعد از چرخهٔ بعدی خبرها دوباره بررسی می‌شود.</div>';
       return;
     }
     host.innerHTML = items.map(itemCard).join('');
@@ -86,10 +92,14 @@ const Channel = (function () {
     else render();
   }
 
+  async function refresh() {
+    await load(true);
+  }
+
   function openSource(id) {
     if (typeof openArticle === 'function') openArticle(id);
   }
 
-  return { mount: mount, load: load, openSource: openSource, _s: S };
+  return { mount: mount, refresh: refresh, openSource: openSource, _s: S };
 })();
 window.Channel = Channel;
