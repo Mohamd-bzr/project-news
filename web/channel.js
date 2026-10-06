@@ -2,8 +2,9 @@
    FREEBUFF — «ایده‌های محتوا» (merged tab; was: content studio + channel)
 
    The board re-uses the news feed's own card (.ncard) and its badge tags, so
-   both surfaces read as one product. News only — the ranking internals never
-   reach this file (the API ships display fields alone).
+   both surfaces read as one product: text-only cards, the virality
+   probability chip and the lane tag on every card. The ranking internals
+   never reach this file (the API ships display fields alone).
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
@@ -32,36 +33,24 @@ const Channel = (function () {
     return fa(Math.round(h / 24)) + ' روز پیش';
   }
 
-  /* same image chain as the feed: direct URL, then the proxy, then noimg */
-  function thumb(it) {
-    const noimg = (typeof ic === 'function')
-      ? '<div class="noimg">' + ic('news') + '</div>'
-      : '<div class="noimg">📰</div>';
-    if (!it.image) return '<div class="thumb">' + noimg + '</div>';
-    const url = (typeof safeUrl === 'function') ? safeUrl(it.image) : '';
-    if (!url) return '<div class="thumb">' + noimg + '</div>';
-    return '<div class="thumb">' +
-      '<img src="' + esc(url) + '" alt="" loading="lazy" referrerpolicy="no-referrer" ' +
-      'data-orig="' + esc(it.image) + '" ' +
-      'onerror="if(!this.dataset.tried){this.dataset.tried=\'1\';this.src=\'/api/proxy-image?url=\'+encodeURIComponent(this.dataset.orig);}else{this.replaceWith(Object.assign(document.createElement(\'div\'),{className:\'noimg\',innerHTML:\'📰\'}))}">' +
-      '</div>';
-  }
-
   function itemCard(it, i) {
     const title = it.title_fa || it.title || '';
     const summary = (it.summary_fa || it.summary || '').trim();
     const lane = esc(it.primary_bucket || 'global');
     /* mono rank takes Latin digits: IBM Plex Mono has no Persian set */
     const rank = String(i + 1).padStart(2, '0');
-    const lead = i === 0 ? ' lead' : '';
     const tag = TAGS[it.primary_bucket] || ['', it.bucket_label || 'ایده'];
     const open = it.id ? ' onclick="Channel.openSource(' + jsArg(it.id) + ')"' : '';
+    const v = Math.max(0, Math.min(100, Number(it.viral) || 0));
+    const vcls = v >= 65 ? 'hot' : (v >= 45 ? 'warm' : 'cool');
 
-    return '<article class="ncard' + lead + '" data-lane="' + lane + '" data-id="' +
+    return '<article class="ncard" data-lane="' + lane + '" data-id="' +
       esc(it.id || '') + '"' + open + '>' +
-      thumb(it) +
       '<div class="body">' +
-        '<div class="row1"><span class="badge b-asset">' + esc(tag[0]) + ' ' + esc(tag[1]) + '</span></div>' +
+        '<div class="row1">' +
+          '<span class="badge b-viral ' + vcls + '" title="احتمال وایرال">🔥 ' + fa(v.toFixed(0)) + '٪</span>' +
+          '<span class="badge b-asset">' + esc(tag[0]) + ' ' + esc(tag[1]) + '</span>' +
+        '</div>' +
         '<div class="ttl">' + esc(title) + '</div>' +
         (summary ? '<div class="summ">' + esc(summary) + '</div>' : '') +
         '<div class="row2">' +

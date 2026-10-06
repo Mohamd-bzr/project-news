@@ -491,6 +491,11 @@ body.dl2-rail-collapsed .dl2-rail-toggle{ align-self:center; }
 .b-asset{ background:var(--cu-wash); color:var(--cu-txt); border:1px solid var(--cu-line); }
 .b-topic{ background:var(--wash); color:var(--ink-3); border:1px solid var(--rule); }
 .b-kind{ background:var(--info-wash); color:var(--info); border:1px solid rgba(127,166,201,.26); }
+/* virality probability chip (idea board): the single number, tier-colored */
+.b-viral{ font-variant-numeric:tabular-nums; }
+.b-viral.hot{ background:rgba(238,106,88,.14); color:var(--dn); border:1px solid rgba(238,106,88,.4); }
+.b-viral.warm{ background:rgba(232,162,60,.13); color:#e8a23c; border:1px solid rgba(232,162,60,.38); }
+.b-viral.cool{ background:var(--wash); color:var(--ink-3); border:1px solid var(--rule); }
 .badge.more{ background:transparent; border:1px dashed var(--rule-3); color:var(--ink-4); }
 
 .cred{
@@ -1902,9 +1907,9 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
    (.btn, .badge, .spinner) and the cb-item card block below. */
 /* ── «ایده‌های محتوا» — the feed's own card, re-used ──────────────────────
    The board renders .ncard (the news feed's card) so the two surfaces match
-   pixel for pixel: same thumb material, same badge tags, same rows. Only
-   three additions: a lane-tinted accent edge, a full-width lead card, and a
-   ghost mono rank at the end of the meta row. */
+   pixel for pixel: same badge tags, same rows - text only, no thumbnail,
+   no enlarged lead card. Additions: a lane-tinted accent edge, the virality
+   probability chip, and a ghost mono rank at the end of the meta row. */
 .cb-head{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--s3); margin-bottom:var(--s3); }
 .cb-head .h{ display:flex; align-items:center; gap:10px; min-width:0; }
 .cb-head .bar{ width:4px; block-size:30px; border-radius:2px; background:linear-gradient(180deg, var(--cu), transparent); flex-shrink:0; }
@@ -1920,9 +1925,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 #cbList .ncard[data-lane="global"]{ --lane:#a78bfa; }
 #cbList .ncard[data-lane="crypto"]{ --lane:var(--cu); }
 #cbList .rank{ margin-inline-start:auto; font-family:var(--font-mono); font-size:10.5px; font-weight:700; color:var(--ink-4); direction:ltr; font-variant-numeric:tabular-nums; letter-spacing:.04em; }
-#cbList .ncard.lead{ grid-column:1 / -1; }
-#cbList .ncard.lead .ttl{ font-size:var(--t-lg); -webkit-line-clamp:3; }
-#cbList .ncard.lead .summ{ -webkit-line-clamp:4; }
 .cb-empty{ grid-column:1 / -1; color:var(--ink-3); font-size:var(--t-sm); padding:var(--s5) var(--s4); text-align:center; line-height:var(--lh-fa); }
 /* ── Expansion Suite: Reader Mode, Watchlist, Embeds, Offline ── */
 .reader-overlay{ position:fixed; inset:0; z-index:2500; background:var(--bg); color:var(--ink-1); display:none; flex-direction:column; overflow-y:auto; scroll-behavior:smooth; }
