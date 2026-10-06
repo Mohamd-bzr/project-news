@@ -202,7 +202,11 @@ def match_signals(article: dict, signals: dict) -> dict:
 
     yt = (signals or {}).get("youtube") or {}
     for video in (yt.get("videos") or []):
-        hits = _overlap(_words(video.get("title")), toks)
+        # "about" carries the transcript keywords the YouTube provider mined —
+        # the audience signal then matches on WHAT the video says, not only
+        # what its title happens to name
+        vtext = (video.get("title") or "") + " " + (video.get("about") or "")
+        hits = _overlap(_words(vtext), toks)
         query_hits = _overlap(_words(video.get("query")), toks)
         if hits < 2 and (hits < 1 or query_hits < 1):
             continue

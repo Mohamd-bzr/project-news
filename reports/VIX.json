@@ -9,8 +9,8 @@
       {
         "title": "CBOE Volatility Index — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار شاخص ترس VIX",
-        "asof": "2026-10-06 08:43 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۴۳",
+        "asof": "2026-10-06 09:07 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۷",
         "symbol": "VIX",
         "name": "CBOE Volatility Index",
         "fa_name": "شاخص ترس VIX",
@@ -52,6 +52,13 @@
       }
     ],
     [
+      "p",
+      {
+        "en": "Independent cross-check — TradingView's technical vote on VIX (1d): 2 buy / 10 neutral / 13 sell of the standard indicator set, summing to Sell; oscillators Buy, moving averages Strong Sell. A crowd-signal quoted alongside, not in place of, the local computation above.",
+        "fa": ""
+      }
+    ],
+    [
       "h",
       {
         "en": "8. Scenario Analysis",
@@ -80,6 +87,6 @@
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:13:42.722879+00:00",
+  "generated_at": "2026-10-06T05:37:08.914687+00:00",
   "news_used": 0
 }

@@ -9,24 +9,20 @@
       {
         "title": "US Dollar Index — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار دلار DXY",
-        "asof": "2026-10-06 08:43 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۴۳",
+        "asof": "2026-10-06 09:07 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۷",
         "symbol": "DXY",
         "name": "US Dollar Index",
         "fa_name": "دلار DXY",
         "icon": "💵",
-        "price": 102.193001,
-        "change_24h": 0.02,
+        "price": 102.198997,
+        "change_24h": 0.03,
         "news_window_hours": 24.0,
         "news_used": 9,
         "sources_used": [
           {
             "name": "FXStreet",
-            "count": 14
-          },
-          {
-            "name": "ForexLive",
-            "count": 3
+            "count": 11
           },
           {
             "name": "FXEmpire",
@@ -34,6 +30,10 @@
           },
           {
             "name": "Hindu BusinessLine",
+            "count": 1
+          },
+          {
+            "name": "ForexLive",
             "count": 1
           },
           {
@@ -61,11 +61,11 @@
             "count": 1
           },
           {
-            "name": "Mitrade",
+            "name": "Euronews Business",
             "count": 1
           },
           {
-            "name": "Euronews Business",
+            "name": "CoinTelegraph",
             "count": 1
           }
         ],
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "US Dollar Index is changing hands near $102.19, +0.02% over the past 24 hours and +1.21% on a 7-day view. Spot trades above the 50-day average ($100.39) and above the 200-day average ($99.51), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+3.23%), suggesting the market is still repairing.",
+        "en": "US Dollar Index is changing hands near $102.20, +0.03% over the past 24 hours and +1.22% on a 7-day view. Spot trades above the 50-day average ($100.39) and above the 200-day average ($99.51), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+3.23%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -106,7 +106,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۷:۲۴",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۲۴",
-            "age_fa": "۱۵ ساعت پیش",
+            "age_fa": "۱۶ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "عمومی",
@@ -131,7 +131,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۲:۲۶",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۶",
-            "age_fa": "۲۰ ساعت پیش",
+            "age_fa": "۲۱ ساعت پیش",
             "credibility": 0.826,
             "credibility_fa": "۸۳٪",
             "topic_fa": "نهادی",
@@ -156,7 +156,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۷:۳۴",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۴",
-            "age_fa": "۱۵ ساعت پیش",
+            "age_fa": "۱۶ ساعت پیش",
             "credibility": 0.82,
             "credibility_fa": "۸۲٪",
             "topic_fa": "عمومی",
@@ -179,7 +179,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Indian Rupee holds early ground as traders trim hawkish Fed bets.\n- US dollar strength to fizzle, FX forecasters unmoved by searing rally: Reuters poll.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- US dollar strength to fizzle, FX forecasters unmoved by searing rally: Reuters poll.\n- Africa's gold powerhouse bypasses US dollar to clear trade with China as Beijing unlocks zero-tariff access for 53 African nations.",
         "fa": ""
       }
     ],
@@ -189,34 +189,9 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
-            "id": "754d03d968a2",
+            "id": "f85f5c44e686",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Indian Rupee holds early ground as traders trim hawkish Fed bets",
-            "title_fa": "روپیه هند در ابتدای راه حفظ می شود زیرا معامله گران شرط های جنگ طلب فدرال رزرو را کاهش می دهند",
-            "summary_fa": "روپیه هند در ابتدای راه حفظ می شود زیرا معامله گران شرط های جنگ طلب فدرال رزرو را کاهش می دهند",
-            "source": "FXStreet",
-            "source_kind": "macro",
-            "via": "FXStreet Forex",
-            "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPYS1oNTU5Y2VTYm05ZUs2U0tPY1ZwOVZqQU92MktUajVDcVZ6c2w1VGpxT2hnWUI2elh0WVRJMFZrXzl2ZWVrbVYyeVdWMVpkdHpBX1E3cndTZ1YyQ2p6VFpGSkpaLUV5enM2Q3lXemJJdHJaWFhtNC1nQURXUzQ2ME9Zekk2YkVzUnZfYWxJdjVGMC1Fbm9JVg?oc=5",
-            "published_ts": 1791190478.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۲:۲۴",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۴",
-            "age_fa": "۲۰ ساعت پیش",
-            "credibility": 0.82,
-            "credibility_fa": "۸۲٪",
-            "topic_fa": "کلان",
-            "assets": [
-              "DXY"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "id": "f85f5c44e686",
-            "index": 2,
-            "index_fa": "۲",
             "title_en": "US dollar strength to fizzle, FX forecasters unmoved by searing rally: Reuters poll",
             "title_fa": "نظرسنجی رویترز: تقویت دلار آمریکا در حال فروپاشی است",
             "summary_fa": "نظرسنجی رویترز: تقویت دلار آمریکا در حال فروپاشی است",
@@ -228,11 +203,37 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۲۱:۲۰",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۱:۲۰",
-            "age_fa": "۱۱ ساعت پیش",
+            "age_fa": "۱۲ ساعت پیش",
             "credibility": 0.806,
             "credibility_fa": "۸۱٪",
             "topic_fa": "کلان",
             "assets": [
+              "DXY"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "b214c404b039",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Africa's gold powerhouse bypasses US dollar to clear trade with China as Beijing unlocks zero-tariff access for 53 African nations",
+            "title_fa": "نیروگاه طلای آفریقا دلار آمریکا را دور می زند تا تجارت با چین را پاک کند زیرا پکن دسترسی بدون تعرفه را برای ۵۳ کشور آفریقایی باز می کند.",
+            "summary_fa": "نیروگاه طلای آفریقا دلار آمریکا را دور می زند تا تجارت با چین را پاک کند زیرا پکن دسترسی بدون تعرفه را برای ۵۳ کشور آفریقایی باز می کند.",
+            "source": "Business Insider Africa",
+            "source_kind": "metals",
+            "via": "China India Gold",
+            "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOZEhzb09kaE5QRk5wQXR1NmNMRDhjWGxoanI0TFo3R2lVbHRpbWFjVS1FZFgzOGJZYXlFOFdpYXNpS000amFjbS04cmVjVXZvX3NqaGZyeHRRZURHc1VFTE05YjRWZHRqNXpTUmNsM1k3Ti1yYm9WVjNuWkRYS0pPZXIxc0dHSl9oNjJ3cUFmUUlHMWl2dGpvXzN5LUdaMkdkQVFLMU9YbjBJWDNSVkZoTFhndEJqeEFRZlJTNVlQRGhCV0p1RHQwUDY5eTJ6XzMyYWc?oc=5",
+            "published_ts": 1791219220.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۲۰:۲۳",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۰:۲۳",
+            "age_fa": "۱۳ ساعت پیش",
+            "credibility": 0.787,
+            "credibility_fa": "۷۹٪",
+            "topic_fa": "کلان",
+            "assets": [
+              "XAU",
               "DXY"
             ],
             "why_fa": "",
@@ -275,7 +276,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۲:۲۶",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۲۶",
-            "age_fa": "۲۰ ساعت پیش",
+            "age_fa": "۲۱ ساعت پیش",
             "credibility": 0.826,
             "credibility_fa": "۸۳٪",
             "topic_fa": "نهادی",
@@ -294,7 +295,7 @@
             "summary_fa": "با افزایش شوک مالی فرانسه دلار آمریکا، پوند انگلیس سقوط کرد",
             "source": "FXStreet",
             "source_kind": "macro",
-            "via": "FXStreet",
+            "via": "FXStreet News",
             "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNQWhKRURuR2FsREM4SUhTaEFISWMyaHJBS1RrU0t0dVFyNFlCN2FnbDlEMm9rYkQzZ0tzRVUzQmNaalFvY2plVm9yUHBBeTJ1ZUtKaXdjdnhjOFhDZGZqM2diMDRMT2JkeDdFbWx5dzVqQnJPYmZnaW9aZW5aTlZDZXNfUDN5d2sxaVRKOXhyVnRfeDIwX3JOOXNzYjFUMkFEdG1fSHpXZlZHUQ?oc=5",
             "published_ts": 1791218174.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
@@ -325,7 +326,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۴:۱۸",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۴:۱۸",
-            "age_fa": "۴ ساعت پیش",
+            "age_fa": "۵ ساعت پیش",
             "credibility": 0.74,
             "credibility_fa": "۷۴٪",
             "topic_fa": "نهادی",
@@ -349,7 +350,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $102.19 versus EMA20 $100.98, EMA50 $100.39 and EMA200 $99.51 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $102.17 (recent swing low); the lower Bollinger band $98.59 as the 2σ downside envelope; upper band $102.77 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.4560 implies a typical daily range of roughly 0.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 73.9 — overbought territory; MACD (12/26/9) sits above its signal line (0.6474 vs 0.4771, histogram +0.1703), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 5%; the 20-day band spans 4% of the mid — compressed, which often precedes a volatility expansion. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +3.23% over 30 days and +3.20% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.21%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $102.20 versus EMA20 $100.98, EMA50 $100.39 and EMA200 $99.51 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $102.17 (recent swing low); the lower Bollinger band $98.59 as the 2σ downside envelope; upper band $102.77 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.4560 implies a typical daily range of roughly 0.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 73.9 — overbought territory; MACD (12/26/9) sits above its signal line (0.6479 vs 0.4772, histogram +0.1707), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 5%; the 20-day band spans 4% of the mid — compressed, which often precedes a volatility expansion. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +3.23% over 30 days and +3.21% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.22%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -359,34 +360,9 @@
         "title_fa": "منابع خبری بخش تحلیل تکنیکال",
         "items": [
           {
-            "id": "3665bc3fecd4",
+            "id": "52b47e292b8d",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "EUR/GBP Forecast: Downtrend extends as bears eye YTD low near 0.8455",
-            "title_fa": "پیش بینی EUR/GBP: روند نزولی با توجه به YTD نزدیک به ۰.۸۴۵۵ ادامه می یابد.",
-            "summary_fa": "پیش بینی EUR/GBP: روند نزولی با توجه به YTD نزدیک به ۰.۸۴۵۵ ادامه می یابد.",
-            "source": "FXStreet",
-            "source_kind": "macro",
-            "via": "FXStreet News",
-            "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPbzR2S1Y0bklpd2ZmMUFjMDR3VnZ3NFk3bEhLbjh1YnpIZEFfT1pMZnZTUE9NclNQODlxZ3c3NkJwMWZWdjFqQnJvaUwwUTFBZVM1SGNLaFRHTlhvbzNiemtJdFFnbnNwMVE3empPUzNBeU9MTVVkLWFPLTZyc3VHUUhnWmxDcm5BTkp6dXJMZHJIWkk0NHI3WWR5OHdvRzdDVzdqNXRTenRJai13V0ZITnd3TWpQVFFlcTY2aVZZSkdHa1pOOUE?oc=5",
-            "published_ts": 1791189058.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۲:۰۰",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۰۰",
-            "age_fa": "۲۰ ساعت پیش",
-            "credibility": 0.82,
-            "credibility_fa": "۸۲٪",
-            "topic_fa": "تحلیل",
-            "assets": [
-              "DXY"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "id": "52b47e292b8d",
-            "index": 2,
-            "index_fa": "۲",
             "title_en": "Natural Gas Price Forecast – Natural Gas Continues to Test 3 Dollars",
             "title_fa": "پیش بینی قیمت گاز طبیعی – گاز طبیعی به آزمایش ۳ دلار ادامه می دهد",
             "summary_fa": "پیش بینی قیمت گاز طبیعی – گاز طبیعی به آزمایش ۳ دلار ادامه می دهد",
@@ -407,8 +383,40 @@
             ],
             "why_fa": "",
             "why_en": ""
+          },
+          {
+            "id": "7d56e40ec05b",
+            "index": 2,
+            "index_fa": "۲",
+            "title_en": "Copper Price Forecast: Strong Dollar Limits Gains Despite Supply Risks",
+            "title_fa": "پیش‌بینی قیمت مس: محدودیت‌های قوی دلار علیرغم ریسک‌های عرضه، افزایش می‌یابد",
+            "summary_fa": "پیش‌بینی قیمت مس: محدودیت‌های قوی دلار علیرغم ریسک‌های عرضه، افزایش می‌یابد",
+            "source": "FXEmpire",
+            "source_kind": "metals",
+            "via": "CFTC Positioning",
+            "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPanFhQUFnV1k5VTVaZzhvV20yWnMxWkRYdjhnV1ZGQlljSzZmeXJEbUQ5OWJjNlNYQURZVXFPQTJ4LVpnZ0YzYlloa2FWalUzM1FuQzVJN0thWXRvcC1FX0xTUHpQMzNCSjUtZ3hwOGxfT1lLbm9zMVpZYXl2LWoyallzWkhlOTZWLWJOcEJxcjQ0YXpob0ExOFpSVWljdUhTT2p2M09HYnF4SGtycUE1Q0lfVmZFNTJCWmdtNWpGVTJiNE8xeXNJ?oc=5",
+            "published_ts": 1791191843.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۱۲:۴۷",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۴۷",
+            "age_fa": "۲۰ ساعت پیش",
+            "credibility": 0.787,
+            "credibility_fa": "۷۹٪",
+            "topic_fa": "تحلیل",
+            "assets": [
+              "DXY"
+            ],
+            "why_fa": "",
+            "why_en": ""
           }
         ]
+      }
+    ],
+    [
+      "p",
+      {
+        "en": "Independent cross-check — TradingView's technical vote on DXY (1d): 13 buy / 8 neutral / 4 sell of the standard indicator set, summing to Buy; oscillators Neutral, moving averages Strong Buy. A crowd-signal quoted alongside, not in place of, the local computation above.",
+        "fa": ""
       }
     ],
     [
@@ -435,11 +443,11 @@
     [
       "p",
       {
-        "en": "Net take on US Dollar Index: spot $102.19 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.02%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on US Dollar Index: spot $102.20 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.03%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:13:42.719605+00:00",
+  "generated_at": "2026-10-06T05:37:04.515307+00:00",
   "news_used": 9
 }

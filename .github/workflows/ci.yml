@@ -30,3 +30,13 @@ jobs:
 
       - name: Syntax-check the inline dashboard JS
         run: python tools/check_dashboard_js.py
+
+      - name: Security lint (bandit)
+        run: |
+          pip install bandit
+          bandit -q -ll -x backups -r . || true
+
+      - name: Dependency audit (pip-audit)
+        run: |
+          pip install pip-audit
+          pip-audit -r requirements.txt --ignore-vuln PYSEC-2020-117 || true

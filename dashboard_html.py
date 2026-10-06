@@ -12,9 +12,8 @@ APP_HTML = r"""<!DOCTYPE html>
 <meta name="description" content="MOHMD NEWS — ترمینال هوش بازار: خوشه‌بندی خبرهای منابع آزاد، تلمتری دارایی‌ها، تقویم اقتصادی و گزارش‌های نهادی (آفلاین‌پذیر)">
 <meta name="theme-color" content="#0C111C">
 <meta name="color-scheme" content="dark">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/Vazirmatn-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/IBMPlexMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" type="image/png" href="/icons/icon-192.png">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -24,6 +23,22 @@ APP_HTML = r"""<!DOCTYPE html>
 <meta name="apple-mobile-web-app-title" content="MOHMD NEWS">
 <title>MOHMD NEWS — Market Intelligence</title>
 <style>
+/* ── 0 · SELF-HOSTED FONTS (OFL) — the offline PWA must not depend on
+   Google Fonts: with the network down the page kept its promise everywhere
+   except its own letterforms. Vazirmatn is a variable font (100–900). ── */
+@font-face{
+  font-family:'Vazirmatn';
+  src:url('/fonts/Vazirmatn-var.woff2') format('woff2-variations'),
+      url('/fonts/Vazirmatn-var.woff2') format('woff2');
+  font-weight:100 900; font-style:normal; font-display:swap;
+}
+@font-face{ font-family:'IBM Plex Mono'; src:url('/fonts/IBMPlexMono-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face{ font-family:'IBM Plex Mono'; src:url('/fonts/IBMPlexMono-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face{ font-family:'IBM Plex Mono'; src:url('/fonts/IBMPlexMono-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+@font-face{ font-family:'IBM Plex Sans'; src:url('/fonts/IBMPlexSans-Regular.woff2') format('woff2'); font-weight:400; font-display:swap; }
+@font-face{ font-family:'IBM Plex Sans'; src:url('/fonts/IBMPlexSans-SemiBold.woff2') format('woff2'); font-weight:600; font-display:swap; }
+@font-face{ font-family:'IBM Plex Sans'; src:url('/fonts/IBMPlexSans-Bold.woff2') format('woff2'); font-weight:700; font-display:swap; }
+
 /* ═══════════════════════════════════════════════════════════════════════════
    MOHMD NEWS — DESIGN LANGUAGE 3 · ENGRAVED INSTRUMENT → DESIGN LANGUAGE 6 "MIDNIGHT TERMINAL"
    Deep midnight navy, cool ink, one electric-blue live accent, saturated market

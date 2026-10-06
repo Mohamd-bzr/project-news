@@ -1162,6 +1162,23 @@ def pwa_manifest():
     return _web_response("manifest.webmanifest", "application/manifest+json", "no-cache")
 
 
+_FONT_FILES = {
+    "Vazirmatn-var.woff2", "IBMPlexMono-Regular.woff2", "IBMPlexMono-SemiBold.woff2",
+    "IBMPlexMono-Bold.woff2", "IBMPlexSans-Regular.woff2", "IBMPlexSans-SemiBold.woff2",
+    "IBMPlexSans-Bold.woff2",
+}
+
+@app.route("/fonts/<name>")
+def pwa_font(name):
+    """Self-hosted webfonts (Vazirmatn + IBM Plex, both OFL). The PWA promises
+    an offline read — a Google-Fonts link broke exactly that promise: with the
+    network down, the whole page fell back to system fonts. Whitelisted names
+    and week-long caching, like the icons."""
+    if name not in _FONT_FILES:
+        return Response("unknown font", status=404, mimetype="text/plain")
+    return _web_response(f"fonts/{name}", "font/woff2", "public, max-age=604800")
+
+
 @app.route("/icons/<name>")
 def pwa_icon(name):
     """Whitelisted: the icons are content-addressed by size and never change,

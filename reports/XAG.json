@@ -9,20 +9,20 @@
       {
         "title": "Silver — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Silver",
-        "asof": "2026-10-06 08:43 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۴۳",
+        "asof": "2026-10-06 09:06 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۶",
         "symbol": "XAG",
         "name": "Silver",
         "fa_name": "Silver",
         "icon": "🥈",
-        "price": 60.845001,
-        "change_24h": -0.04,
+        "price": 60.790001,
+        "change_24h": -0.13,
         "news_window_hours": 24.0,
         "news_used": 8,
         "sources_used": [
           {
             "name": "r/Silverbugs (شبکه اجتماعی)",
-            "count": 8
+            "count": 6
           },
           {
             "name": "FXEmpire",
@@ -33,11 +33,7 @@
             "count": 4
           },
           {
-            "name": "ad-hoc-news.de",
-            "count": 3
-          },
-          {
-            "name": "tradingkey.com",
+            "name": "TradingKey",
             "count": 3
           },
           {
@@ -45,11 +41,23 @@
             "count": 2
           },
           {
+            "name": "AD HOC NEWS",
+            "count": 2
+          },
+          {
             "name": "Kitco",
             "count": 2
           },
           {
-            "name": "Economic Times Markets",
+            "name": "Business Standard Markets",
+            "count": 1
+          },
+          {
+            "name": "DT Next",
+            "count": 1
+          },
+          {
+            "name": "The Economic Times",
             "count": 1
           },
           {
@@ -58,14 +66,6 @@
           },
           {
             "name": "Business Today",
-            "count": 1
-          },
-          {
-            "name": "Yahoo! Finance Canada",
-            "count": 1
-          },
-          {
-            "name": "Shanghai Metals Market",
             "count": 1
           }
         ],
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Silver is changing hands near $60.85, -0.04% over the past 24 hours and -5.29% on a 7-day view. Spot trades below the 50-day average ($63.89) and below the 200-day average ($67.26), keeping the medium-term structure defensive. The 30-day tape reads as a drawdown phase (-11.23%), suggesting the market is still digesting supply.",
+        "en": "Silver is changing hands near $60.79, -0.13% over the past 24 hours and -5.38% on a 7-day view. Spot trades below the 50-day average ($63.88) and below the 200-day average ($67.26), keeping the medium-term structure defensive. The 30-day tape reads as a drawdown phase (-11.31%), suggesting the market is still digesting supply.",
         "fa": ""
       }
     ],
@@ -117,50 +117,52 @@
             "why_en": ""
           },
           {
-            "id": "045b7d31e50e",
+            "id": "8f39487a10a5",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Silver Rate Today in Maharashtra 6th October 2026 : 1 KG, Todays Silver Price in Maharashtra",
-            "title_fa": "نرخ نقره امروز در ماهاراشترا ۶ اکتبر ۲۰۲۶: ۱ کیلوگرم، قیمت نقره امروز در ماهاراشترا",
-            "summary_fa": "نرخ نقره امروز در ماهاراشترا ۶ اکتبر ۲۰۲۶: ۱ کیلوگرم، قیمت نقره امروز در ماهاراشترا",
-            "source": "Business Today",
+            "title_en": "Chennai gold price falls by Rs 120 on October 6, 2026; check today's gold, silver rates",
+            "title_fa": "قیمت طلای چنای در ۶ اکتبر ۲۰۲۶ ۱۲۰ روپیه کاهش یافت. نرخ طلا و نقره امروز را بررسی کنید",
+            "summary_fa": "قیمت طلای چنای در ۶ اکتبر ۲۰۲۶ ۱۲۰ روپیه کاهش یافت. نرخ طلا و نقره امروز را بررسی کنید",
+            "source": "DT Next",
             "source_kind": "metals",
             "via": "Silver Price",
-            "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9xZEdlMzQ4UUtJQ2ZyTUxQWHJNSzhqT0Z0Ql9HQXp0RkJwV3QtX1JyU1U4aWlZVW1fVnI4aE90UkpMYlZNVHFQTW0zMWJxUXBUaDVEX05KalBXY3FlZFdzSzlrcUFMOFJjN1ZnTFJyX09oYmU2bWhPc1dLZw?oc=5",
-            "published_ts": 1791257573.0,
+            "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNNjJFVXp3VE9OZXpGWFdfenR0aHVqRFZyN0ZnYzhTd29GeUc5Vlp6bWd5XzZrY1NyTmxEdHNmZmZ3cElQZC1Ebml5bFRTaU12aG93VDFBZEpmTWZ2RERpQTdsSW9vRXpmRUpVSDZteG9DN2RjVmFMcHBzMFJINnJQQm1tSzdTeUgtYmVUa2xBSmkyazgyMHdvcUx5elhROWlnajVXcVB5cEN0bHJrbkZkVlJ2MEl2ZHpPNUHSAccBQVVfeXFMT3FITkJwby1tVUhNalUwT2pGM0t6U1lQRjI2SGZvQlBYMzFJWFdPRDFVeDdFZjBHbzNfeklBU0VRZkpIV010WEViZGg2V2M5NWlSd0lSZ19xNy13NXJiM00wQ2dDdXBOZDlNdTVTTEFPaEFxdHB6UkdrNDRGOEZScmhnaGVrMlduZE1naVd3LUFSaE8tQV9TU05KVWJVWVJZRHVtZXFOcC1ZZ0NZWVFuOFNDdThFYjFkYzlhTkVuRkRoX3dCalFNZw?oc=5",
+            "published_ts": 1791262501.0,
             "date_fa": "۱۴ مهر ۱۴۰۵",
-            "time_fa": "۰۷:۰۲",
-            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۷:۰۲",
-            "age_fa": "۲ ساعت پیش",
+            "time_fa": "۰۸:۲۵",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۲۵",
+            "age_fa": "۳۶ دقیقه پیش",
             "credibility": 0.85,
             "credibility_fa": "۸۵٪",
             "topic_fa": "بازار",
             "assets": [
+              "XAU",
               "XAG"
             ],
             "why_fa": "",
             "why_en": ""
           },
           {
-            "id": "c5469f9a355e",
+            "id": "c1e511d5f6ed",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Silver (XAG/USD) Price Forecast: $59.69 Support Holds Key to Recovery",
-            "title_fa": "نقره (XAG/USD) پیش بینی قیمت: ۵۹.۶۹ دلار پشتیبانی کلید بازیابی را نگه می دارد",
-            "summary_fa": "نقره (XAG/USD) پیش بینی قیمت: ۵۹.۶۹ دلار پشتیبانی کلید بازیابی را نگه می دارد",
-            "source": "FXEmpire",
+            "title_en": "Gold prices dip Rs 1,500/10g in 2 days; silver down Rs 1,000/kg on strong dollar, rising yields. Here are",
+            "title_fa": "قیمت طلا در ۲ روز ۱۵۰۰/۱۰ گرم کاهش یافت. نقره ۱۰۰۰ روپیه به ازای هر کیلوگرم دلار قوی کاهش یافت و بازدهی افزایش یافت. اینجا هستند",
+            "summary_fa": "قیمت طلا در ۲ روز ۱۵۰۰/۱۰ گرم کاهش یافت. نقره ۱۰۰۰ روپیه به ازای هر کیلوگرم دلار قوی کاهش یافت و بازدهی افزایش یافت. اینجا هستند",
+            "source": "The Economic Times",
             "source_kind": "metals",
-            "via": "Silver Price",
-            "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPaUsxSlkyVGEyMTF1S1ktWk9IbkM5S3dkRHp6dkQxS21wX25FczBzeUNXM3FsQW1hQWxQbjlheGZJcmM1WngwS3pyTUh1RTh4eXlUS0ZRNHUxRzVnY0ZRZmtQNnc0WDU1T3FSVjFERWtudmJKZlVrY2VfRnlkdHMtNHJVQ0RlN2RuUl9XZDlab0FKTndkLXJONWl0V25rRjdHLU4wazhRdW9HNjNadll5TXVHU2Q1X2c?oc=5",
-            "published_ts": 1791256795.0,
+            "via": "Gold Price",
+            "link": "https://news.google.com/rss/articles/CBMipgJBVV95cUxQdHdlZHo3ajd6MHNtcHNXcFZCck5hbWdMd3ZLU2puNFBxMUFMUmlGX1lOWjZmd2ZrWHA4MUk5TmpRbzJaMmVzbFgwNE9mMTRxUU9zRF9OQVFqX3psdVdWeDloWWN4Ynk0M294Wk44YW01cV9IZTJqcURFQXNFdXUxNUlaakh0R1JsOFNCNE9rNFBuLUR2R2w1ZlhwckF4S21wS1VWaGlLRDV3a0lwVjA1UlFzOHZ3MEdhTlpvMENwelpTMzNJRWNqV3VqZi1GNnJjRWg3WVBXYmIyeFItUmhzdGJteDdtcE5LY1ZXWlhjS1pxT2tNeVZCRWVsT3d4RDN1c2RjcmZfNkh0dFVheThYQzJVTmJIU1BWVTZwbkdtWjRrQXNTc2fSAasCQVVfeXFMTmFTckNNYXM1dnhoWWVpWjFJcWlNWGs0eDJMWnA1SDNCWHVVdENSMmIzZV95ZG9UTnpVYXVtWmU2aS02bG1SamtMaVhfSFZzazZpLVFzQktZRXhDNXFaNEtJVDF3RTFWVXFIN19wMTE1MVQwTkJHM19JVzdHRkxydzBYQk9vQXV5ZkwtQi00RVg3QkdMZVhqS2VzbzF4Q3JiTEdkalNGUndvSnNnVUx0U1VpREdRUlo2RU0zYlF0QTV2SkF5TTJGekQ1c29LeGhrejQ4a1VCQ1h5OTFSX05PU3FEVEpOaTlkTUdYVHkzVHNIY013MUlLMTF4Q0FWZDByUHZialJnUGRzcWtGeWR2ZUJNenZ0SWg1dEZwZ2IzbWctTkJRRTFzeG9teFU?oc=5",
+            "published_ts": 1791260441.0,
             "date_fa": "۱۴ مهر ۱۴۰۵",
-            "time_fa": "۰۶:۴۹",
-            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۴۹",
-            "age_fa": "۲ ساعت پیش",
+            "time_fa": "۰۷:۵۰",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۷:۵۰",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.85,
             "credibility_fa": "۸۵٪",
-            "topic_fa": "تحلیل",
+            "topic_fa": "کلان",
             "assets": [
+              "XAU",
               "XAG"
             ],
             "why_fa": "",
@@ -179,7 +181,7 @@
     [
       "p",
       {
-        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Silver Price Forecast: XAG/USD falls to near $60.50 as US Treasury yields rise.\n- Silver Price Forecast: XAG/USD jumps to near $61.80 as hawkish Fed bets recede.",
+        "en": "Cross-asset drivers in today's wire matter for pricing risk in this market; the highest-credibility macro and policy headlines currently in circulation are:\n- Gold prices dip Rs 1,500/10g in 2 days; silver down Rs 1,000/kg on strong dollar, rising yields. Here are.\n- Silver Price Forecast: XAG/USD falls to near $60.50 as US Treasury yields rise.",
         "fa": ""
       }
     ],
@@ -189,9 +191,35 @@
         "title_fa": "منابع این بخش",
         "items": [
           {
-            "id": "4a00aa42de93",
+            "id": "c1e511d5f6ed",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "Gold prices dip Rs 1,500/10g in 2 days; silver down Rs 1,000/kg on strong dollar, rising yields. Here are",
+            "title_fa": "قیمت طلا در ۲ روز ۱۵۰۰/۱۰ گرم کاهش یافت. نقره ۱۰۰۰ روپیه به ازای هر کیلوگرم دلار قوی کاهش یافت و بازدهی افزایش یافت. اینجا هستند",
+            "summary_fa": "قیمت طلا در ۲ روز ۱۵۰۰/۱۰ گرم کاهش یافت. نقره ۱۰۰۰ روپیه به ازای هر کیلوگرم دلار قوی کاهش یافت و بازدهی افزایش یافت. اینجا هستند",
+            "source": "The Economic Times",
+            "source_kind": "metals",
+            "via": "Gold Price",
+            "link": "https://news.google.com/rss/articles/CBMipgJBVV95cUxQdHdlZHo3ajd6MHNtcHNXcFZCck5hbWdMd3ZLU2puNFBxMUFMUmlGX1lOWjZmd2ZrWHA4MUk5TmpRbzJaMmVzbFgwNE9mMTRxUU9zRF9OQVFqX3psdVdWeDloWWN4Ynk0M294Wk44YW01cV9IZTJqcURFQXNFdXUxNUlaakh0R1JsOFNCNE9rNFBuLUR2R2w1ZlhwckF4S21wS1VWaGlLRDV3a0lwVjA1UlFzOHZ3MEdhTlpvMENwelpTMzNJRWNqV3VqZi1GNnJjRWg3WVBXYmIyeFItUmhzdGJteDdtcE5LY1ZXWlhjS1pxT2tNeVZCRWVsT3d4RDN1c2RjcmZfNkh0dFVheThYQzJVTmJIU1BWVTZwbkdtWjRrQXNTc2fSAasCQVVfeXFMTmFTckNNYXM1dnhoWWVpWjFJcWlNWGs0eDJMWnA1SDNCWHVVdENSMmIzZV95ZG9UTnpVYXVtWmU2aS02bG1SamtMaVhfSFZzazZpLVFzQktZRXhDNXFaNEtJVDF3RTFWVXFIN19wMTE1MVQwTkJHM19JVzdHRkxydzBYQk9vQXV5ZkwtQi00RVg3QkdMZVhqS2VzbzF4Q3JiTEdkalNGUndvSnNnVUx0U1VpREdRUlo2RU0zYlF0QTV2SkF5TTJGekQ1c29LeGhrejQ4a1VCQ1h5OTFSX05PU3FEVEpOaTlkTUdYVHkzVHNIY013MUlLMTF4Q0FWZDByUHZialJnUGRzcWtGeWR2ZUJNenZ0SWg1dEZwZ2IzbWctTkJRRTFzeG9teFU?oc=5",
+            "published_ts": 1791260441.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۷:۵۰",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۷:۵۰",
+            "age_fa": "۱ ساعت پیش",
+            "credibility": 0.85,
+            "credibility_fa": "۸۵٪",
+            "topic_fa": "کلان",
+            "assets": [
+              "XAU",
+              "XAG"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "4a00aa42de93",
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "Silver Price Forecast: XAG/USD falls to near $60.50 as US Treasury yields rise",
             "title_fa": "پیش بینی قیمت نقره: XAG/USD با افزایش بازدهی خزانه داری ایالات متحده به نزدیک به ۶۰.۵۰ دلار سقوط می کند.",
             "summary_fa": "پیش بینی قیمت نقره: XAG/USD با افزایش بازدهی خزانه داری ایالات متحده به نزدیک به ۶۰.۵۰ دلار سقوط می کند.",
@@ -212,31 +240,6 @@
             ],
             "why_fa": "",
             "why_en": ""
-          },
-          {
-            "id": "2c063d012394",
-            "index": 2,
-            "index_fa": "۲",
-            "title_en": "Silver Price Forecast: XAG/USD jumps to near $61.80 as hawkish Fed bets recede",
-            "title_fa": "پیش بینی قیمت نقره: XAG/USD به نزدیک ۶۱.۸۰ دلار جهش کرد با کاهش شرط های متعصب فدرال رزرو",
-            "summary_fa": "پیش بینی قیمت نقره: XAG/USD به نزدیک ۶۱.۸۰ دلار جهش کرد با کاهش شرط های متعصب فدرال رزرو",
-            "source": "FXStreet",
-            "source_kind": "metals",
-            "via": "Silver Price",
-            "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOajkxZDd5VHRRSnZKbjNwSmc2TV9PSGFoaGNtLTRjeDFIZWdpdFdmZktKN1I0VFNvWHdMTFZsb2hjTnpSMkw5d1VGOUZ2V21FVnJhQkdROWEzYU9vWWlNaWtNdUdHdmxBeDk1ZjdPLTUyMWxtdTY5T0ExMUtrSXUtdjA5cXVJT3pkV2FqQzZUdktCOEFqejgwbWdTaklKS09nVXBBYkFMN2FQSHlISEprUEJaYWtySHVXdnc?oc=5",
-            "published_ts": 1791197904.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۴:۲۸",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۴:۲۸",
-            "age_fa": "۱۸ ساعت پیش",
-            "credibility": 0.816,
-            "credibility_fa": "۸۲٪",
-            "topic_fa": "کلان",
-            "assets": [
-              "XAG"
-            ],
-            "why_fa": "",
-            "why_en": ""
           }
         ]
       }
@@ -251,7 +254,7 @@
     [
       "p",
       {
-        "en": "- Silver Rate Today in Maharashtra 6th October 2026 : 1 KG, Todays Silver Price in Maharashtra. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver.\n- Silver Price Forecasts: XAG/USD pars losses but remains trading in range. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver.\n- GST Council May Scrap IGST Exemption on Gold, Silver, Platinum Imports by Banks, Nominated Agencies. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver.",
+        "en": "- Chennai gold price falls by Rs 120 on October 6, 2026; check today's gold, silver rates. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver.\n- Silver Rate Today in Maharashtra 6th October 2026 : 1 KG, Todays Silver Price in Maharashtra. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver.\n- Silver Price Forecasts: XAG/USD pars losses but remains trading in range. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver.",
         "fa": ""
       }
     ],
@@ -261,9 +264,35 @@
         "title_fa": "منابع خبری این بخش — به ترتیب اعتبار و تازگی",
         "items": [
           {
-            "id": "045b7d31e50e",
+            "id": "8f39487a10a5",
             "index": 1,
             "index_fa": "۱",
+            "title_en": "Chennai gold price falls by Rs 120 on October 6, 2026; check today's gold, silver rates",
+            "title_fa": "قیمت طلای چنای در ۶ اکتبر ۲۰۲۶ ۱۲۰ روپیه کاهش یافت. نرخ طلا و نقره امروز را بررسی کنید",
+            "summary_fa": "قیمت طلای چنای در ۶ اکتبر ۲۰۲۶ ۱۲۰ روپیه کاهش یافت. نرخ طلا و نقره امروز را بررسی کنید",
+            "source": "DT Next",
+            "source_kind": "metals",
+            "via": "Silver Price",
+            "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNNjJFVXp3VE9OZXpGWFdfenR0aHVqRFZyN0ZnYzhTd29GeUc5Vlp6bWd5XzZrY1NyTmxEdHNmZmZ3cElQZC1Ebml5bFRTaU12aG93VDFBZEpmTWZ2RERpQTdsSW9vRXpmRUpVSDZteG9DN2RjVmFMcHBzMFJINnJQQm1tSzdTeUgtYmVUa2xBSmkyazgyMHdvcUx5elhROWlnajVXcVB5cEN0bHJrbkZkVlJ2MEl2ZHpPNUHSAccBQVVfeXFMT3FITkJwby1tVUhNalUwT2pGM0t6U1lQRjI2SGZvQlBYMzFJWFdPRDFVeDdFZjBHbzNfeklBU0VRZkpIV010WEViZGg2V2M5NWlSd0lSZ19xNy13NXJiM00wQ2dDdXBOZDlNdTVTTEFPaEFxdHB6UkdrNDRGOEZScmhnaGVrMlduZE1naVd3LUFSaE8tQV9TU05KVWJVWVJZRHVtZXFOcC1ZZ0NZWVFuOFNDdThFYjFkYzlhTkVuRkRoX3dCalFNZw?oc=5",
+            "published_ts": 1791262501.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۸:۲۵",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۲۵",
+            "age_fa": "۳۶ دقیقه پیش",
+            "credibility": 0.85,
+            "credibility_fa": "۸۵٪",
+            "topic_fa": "بازار",
+            "assets": [
+              "XAU",
+              "XAG"
+            ],
+            "why_fa": "",
+            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver."
+          },
+          {
+            "id": "045b7d31e50e",
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "Silver Rate Today in Maharashtra 6th October 2026 : 1 KG, Todays Silver Price in Maharashtra",
             "title_fa": "نرخ نقره امروز در ماهاراشترا ۶ اکتبر ۲۰۲۶: ۱ کیلوگرم، قیمت نقره امروز در ماهاراشترا",
             "summary_fa": "نرخ نقره امروز در ماهاراشترا ۶ اکتبر ۲۰۲۶: ۱ کیلوگرم، قیمت نقره امروز در ماهاراشترا",
@@ -287,8 +316,8 @@
           },
           {
             "id": "8f2e1c29d7d7",
-            "index": 2,
-            "index_fa": "۲",
+            "index": 3,
+            "index_fa": "۳",
             "title_en": "Silver Price Forecasts: XAG/USD pars losses but remains trading in range",
             "title_fa": "پیش بینی قیمت نقره: XAG/USD پارس ضرر کرد اما همچنان در محدوده معامله می شود",
             "summary_fa": "پیش بینی قیمت نقره: XAG/USD پارس ضرر کرد اما همچنان در محدوده معامله می شود",
@@ -309,32 +338,6 @@
             ],
             "why_fa": "",
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver."
-          },
-          {
-            "id": "c20f0af52b3f",
-            "index": 3,
-            "index_fa": "۳",
-            "title_en": "GST Council May Scrap IGST Exemption on Gold, Silver, Platinum Imports by Banks, Nominated Agencies",
-            "title_fa": "شورای GST ممکن است معافیت IGST را برای واردات طلا، نقره، پلاتین توسط بانک ها، آژانس های معرفی شده لغو کند.",
-            "summary_fa": "شورای GST ممکن است معافیت IGST را برای واردات طلا، نقره، پلاتین توسط بانک ها، آژانس های معرفی شده لغو کند.",
-            "source": "KNN India",
-            "source_kind": "metals",
-            "via": "China India Gold",
-            "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQclRtallHOUVSQkM5czBpRVMwRVpvOTUwWGk3S1RENTF4Q3FmY21wb1JENllaUjc2c3VzR1F5YUFEdFZOR0Y1YTZXT3Q5MEZrMnpkdkdNUkdiRmpfR1JIV19TOHpvRlZ1SWZLM3dJX0ZQUy05NHUyS1RrV3l4U1dWYjZsRUZQZ0lVZ2Z3Z3gzZ1dZaG5xVy1yYWpQT1hXU3VWTG5ndXcxNVZET1BvdlNnYTVRZXBkV0Q4c3NwQnNQVkp2MGdNamNRemhaRUtZX0hUNjZ0cU92dXIyZGRC?oc=5",
-            "published_ts": 1791203681.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۶:۰۴",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۰۴",
-            "age_fa": "۱۷ ساعت پیش",
-            "credibility": 0.787,
-            "credibility_fa": "۷۹٪",
-            "topic_fa": "نهادی",
-            "assets": [
-              "XAU",
-              "XAG"
-            ],
-            "why_fa": "",
-            "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for Silver."
           }
         ]
       }
@@ -349,7 +352,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is fully inverted (price < EMA20 < EMA50 < EMA200), the classic bear-stack in which rallies into value tend to be sold. Spot at $60.85 versus EMA20 $62.82, EMA50 $63.89 and EMA200 $67.26 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $60.72 (recent swing low); the lower Bollinger band $58.78 as the 2σ downside envelope; first resistance at $60.87 (recent swing high); upper band $68.02 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $1.450 implies a typical daily range of roughly 2.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 40.7 — neutral territory; MACD (12/26/9) sits below its signal line (-1.219 vs -0.783, histogram -0.4363), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 38%; the 20-day band spans 15% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.55x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned -11.23% over 30 days and -19.57% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (-5.29%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is fully inverted (price < EMA20 < EMA50 < EMA200), the classic bear-stack in which rallies into value tend to be sold. Spot at $60.79 versus EMA20 $62.82, EMA50 $63.88 and EMA200 $67.26 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $60.72 (recent swing low); the lower Bollinger band $58.78 as the 2σ downside envelope; first resistance at $60.87 (recent swing high); upper band $68.03 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $1.450 implies a typical daily range of roughly 2.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 40.5 — neutral territory; MACD (12/26/9) sits below its signal line (-1.224 vs -0.7839, histogram -0.4398), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 38%; the 20-day band spans 15% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.56x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned -11.31% over 30 days and -19.64% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (-5.38%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -369,11 +372,11 @@
             "source_kind": "metals",
             "via": "Silver Price",
             "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPaUsxSlkyVGEyMTF1S1ktWk9IbkM5S3dkRHp6dkQxS21wX25FczBzeUNXM3FsQW1hQWxQbjlheGZJcmM1WngwS3pyTUh1RTh4eXlUS0ZRNHUxRzVnY0ZRZmtQNnc0WDU1T3FSVjFERWtudmJKZlVrY2VfRnlkdHMtNHJVQ0RlN2RuUl9XZDlab0FKTndkLXJONWl0V25rRjdHLU4wazhRdW9HNjNadll5TXVHU2Q1X2c?oc=5",
-            "published_ts": 1791256795.0,
+            "published_ts": 1791260280.0,
             "date_fa": "۱۴ مهر ۱۴۰۵",
-            "time_fa": "۰۶:۴۹",
-            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۴۹",
-            "age_fa": "۲ ساعت پیش",
+            "time_fa": "۰۷:۴۸",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۷:۴۸",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.85,
             "credibility_fa": "۸۵٪",
             "topic_fa": "تحلیل",
@@ -421,7 +424,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $60.87 on expanding turnover. Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $60.72; failed reclaims of the 50-day average ($63.89). In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $60.87 on expanding turnover. Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $60.72; failed reclaims of the 50-day average ($63.88). In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -435,11 +438,11 @@
     [
       "p",
       {
-        "en": "Net take on Silver: spot $60.85 with the medium-term bias defensive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.04%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Silver: spot $60.79 with the medium-term bias defensive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.13%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:13:42.715294+00:00",
+  "generated_at": "2026-10-06T05:36:58.337293+00:00",
   "news_used": 8
 }

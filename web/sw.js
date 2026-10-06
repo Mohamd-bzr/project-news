@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SW_VERSION = 'v11';        /* v9: dropped the daily-print route from the shell (shell changed) */
+const SW_VERSION = 'v12';        /* v9: dropped the daily-print route from the shell (shell changed) */
 const SHELL_CACHE = 'mohmd-shell-' + SW_VERSION;
 const API_CACHE = 'mohmd-api-' + SW_VERSION;
 const EXT_CACHE = 'mohmd-ext-' + SW_VERSION;
@@ -39,7 +39,16 @@ const SHELL = [
   '/studio.js',
   '/channel.js',
   '/icons/icon-192.png',
-  '/icons/icon-512.png'
+  '/icons/icon-512.png',
+  /* self-hosted letterforms — the offline boot renders in the real brand
+     font, not the system fallback */
+  '/fonts/Vazirmatn-var.woff2',
+  '/fonts/IBMPlexMono-Regular.woff2',
+  '/fonts/IBMPlexMono-SemiBold.woff2',
+  '/fonts/IBMPlexMono-Bold.woff2',
+  '/fonts/IBMPlexSans-Regular.woff2',
+  '/fonts/IBMPlexSans-SemiBold.woff2',
+  '/fonts/IBMPlexSans-Bold.woff2'
 ];
 
 const API_MAX = 80;        /* newest endpoint answers kept */

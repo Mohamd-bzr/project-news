@@ -9,8 +9,8 @@
       {
         "title": "S&P 500 — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار اس‌اند‌پی ۵۰۰",
-        "asof": "2026-10-06 08:43 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۴۳",
+        "asof": "2026-10-06 09:07 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۷",
         "symbol": "SPX",
         "name": "S&P 500",
         "fa_name": "اس‌اند‌پی ۵۰۰",
@@ -22,50 +22,50 @@
         "sources_used": [
           {
             "name": "ForexLive",
-            "count": 11
-          },
-          {
-            "name": "Motley Fool Investing",
-            "count": 11
-          },
-          {
-            "name": "Finwire",
-            "count": 7
+            "count": 9
           },
           {
             "name": "Economic Times Markets",
             "count": 5
           },
           {
+            "name": "Coinpaper",
+            "count": 4
+          },
+          {
+            "name": "Motley Fool Investing",
+            "count": 4
+          },
+          {
             "name": "Investor's Business Daily",
             "count": 4
           },
           {
-            "name": "Hindu BusinessLine",
+            "name": "Yahoo Finance",
             "count": 3
           },
           {
-            "name": "Bloomberg Markets",
-            "count": 3
+            "name": "Finwire",
+            "count": 2
           },
           {
-            "name": "LiveMint Markets",
-            "count": 3
-          },
-          {
-            "name": "TheStreet",
-            "count": 3
-          },
-          {
-            "name": "Coinpaper",
-            "count": 3
+            "name": "Market.News",
+            "count": 2
           },
           {
             "name": "Business Standard Markets",
             "count": 2
           },
           {
+            "name": "Bloomberg Markets",
+            "count": 2
+          },
+          {
             "name": "FXEmpire",
+            "count": 2
+          },
+          {
+            "name": "TheStreet",
             "count": 2
           }
         ],
@@ -106,7 +106,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۶:۱۷",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۱۷",
-            "age_fa": "۲ ساعت پیش",
+            "age_fa": "۳ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -117,34 +117,9 @@
             "why_en": ""
           },
           {
-            "id": "97b5db560630",
+            "id": "975eba035665",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "S&P 500 Closes In on Record High as Tech Rallies: Markets Wrap",
-            "title_fa": "S&P ۵۰۰ با افزایش فناوری: بازارها به رکورد بالایی رسید",
-            "summary_fa": "در حالی که سرمایه گذاران از نگرانی در مورد افزایش قیمت نفت و بازده اوراق قرضه نزدیک به بالاترین سطح چند دهه گذشته خودداری کردند، سهام جهانی به سمت بالاترین رکورد حرکت کردند.",
-            "source": "Bloomberg Markets",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz",
-            "published_ts": 1791242024.0,
-            "date_fa": "۱۴ مهر ۱۴۰۵",
-            "time_fa": "۰۲:۴۳",
-            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۲:۴۳",
-            "age_fa": "۶ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
-            "topic_fa": "کلان",
-            "assets": [
-              "SPX"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "id": "975eba035665",
-            "index": 3,
-            "index_fa": "۳",
             "title_en": "Goldman’s Bid for CLO Manager Highlights Wall Street’s Fee Hunt",
             "title_fa": "پیشنهاد گلدمن برای مدیر CLO بر شکار هزینه وال استریت تاکید دارد",
             "summary_fa": "مدیران دارایی‌های بزرگ‌تر از جمله Goldman Sachs Group Inc. در جستجوی جریان‌های کارمزد سودآور در بازار یک تریلیون دلاری آمریکا، به دنبال جذب کسب‌وکارهای مدیریت CLO بوده‌اند.",
@@ -156,10 +131,35 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۷:۳۰",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
-            "age_fa": "۱۵ ساعت پیش",
+            "age_fa": "۱۶ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
+            "assets": [
+              "SPX"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "97b5db560630",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "S&P 500 Closes In on Record High as Tech Rallies: Markets Wrap",
+            "title_fa": "S&P ۵۰۰ با افزایش فناوری: بازارها به رکورد بالایی رسید",
+            "summary_fa": "در حالی که سرمایه گذاران از نگرانی در مورد افزایش قیمت نفت و بازده اوراق قرضه نزدیک به بالاترین سطح چند دهه گذشته خودداری کردند، سهام جهانی به سمت بالاترین رکورد حرکت کردند.",
+            "source": "Bloomberg",
+            "source_kind": "macro",
+            "via": "",
+            "link": "https://www.bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz",
+            "published_ts": 1791242024.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۲:۴۳",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۲:۴۳",
+            "age_fa": "۶ ساعت پیش",
+            "credibility": 0.912,
+            "credibility_fa": "۹۱٪",
+            "topic_fa": "کلان",
             "assets": [
               "SPX"
             ],
@@ -195,7 +195,7 @@
             "title_en": "S&P 500 Closes In on Record High as Tech Rallies: Markets Wrap",
             "title_fa": "S&P ۵۰۰ با افزایش فناوری: بازارها به رکورد بالایی رسید",
             "summary_fa": "در حالی که سرمایه گذاران از نگرانی در مورد افزایش قیمت نفت و بازده اوراق قرضه نزدیک به بالاترین سطح چند دهه گذشته خودداری کردند، سهام جهانی به سمت بالاترین رکورد حرکت کردند.",
-            "source": "Bloomberg Markets",
+            "source": "Bloomberg",
             "source_kind": "macro",
             "via": "",
             "link": "https://www.bloomberg.com/news/articles/2026-10-05/s-p-500-closes-in-on-record-high-as-tech-rallies-markets-wrap-muvv94wz",
@@ -204,8 +204,8 @@
             "time_fa": "۰۲:۴۳",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۲:۴۳",
             "age_fa": "۶ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
+            "credibility": 0.912,
+            "credibility_fa": "۹۱٪",
             "topic_fa": "کلان",
             "assets": [
               "SPX"
@@ -228,7 +228,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۰:۲۸",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۰:۲۸",
-            "age_fa": "۸ ساعت پیش",
+            "age_fa": "۹ ساعت پیش",
             "credibility": 0.787,
             "credibility_fa": "۷۹٪",
             "topic_fa": "کلان",
@@ -252,7 +252,7 @@
     [
       "p",
       {
-        "en": "- Copper Rises for Third Day as Tech Rally Lifts Risk Appetite. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Goldman’s Bid for CLO Manager Highlights Wall Street’s Fee Hunt. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- S&P 500 defies midterm slump as Bank of America says history favours post-election gains. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- NYSE owner and OKX plan 24/7 tokenized stock trading using Uniswap. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
+        "en": "- Copper Rises for Third Day as Tech Rally Lifts Risk Appetite. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Goldman’s Bid for CLO Manager Highlights Wall Street’s Fee Hunt. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- Wall Street banks launch record $60bn chip deal for Broadcom and Anthropic. Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500.\n- S&P 500 defies midterm slump as Bank of America says history favours post-election gains. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.\n- NYSE owner and OKX plan 24/7 tokenized stock trading using Uniswap. Regulatory outcomes directly alter the addressable demand base; passage or delay of such measures historically shifts volatility and positioning around the event.",
         "fa": ""
       }
     ],
@@ -276,7 +276,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۶:۱۷",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۱۷",
-            "age_fa": "۲ ساعت پیش",
+            "age_fa": "۳ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -301,7 +301,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۷:۳۰",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۳۰",
-            "age_fa": "۱۵ ساعت پیش",
+            "age_fa": "۱۶ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "نهادی",
@@ -312,23 +312,23 @@
             "why_en": "Institutional / flow-oriented headlines of this type typically reprice short-term liquidity expectations for S&P 500."
           },
           {
-            "id": "bef18ca53a9f",
+            "id": "784556e24c8b",
             "index": 3,
             "index_fa": "۳",
-            "title_en": "Euro Weakens to 17-Month Low; Bolsonaro Takes Lead Over Lula in Brazil Election",
-            "title_fa": "یورو به پایین ترین سطح ۱۷ ماهه کاهش یافت. بولسونارو در انتخابات برزیل پیشتاز لولا شد",
-            "summary_fa": "در حالی که تحولات سیاسی، یورو را به پایین ترین سطح خود در ۱۷ ماه گذشته می رساند، ارزش سهام جهانی متزلزل می شود. پدرو سانچز، نخست وزیر اسپانیا، در بحبوحه افزایش اعتراضات اجتماعی به مسکن، خواستار برگزاری انتخابات زودهنگام شد. فلاویو بولسونارو",
-            "source": "Bloomberg",
+            "title_en": "Wall Street banks launch record $60bn chip deal for Broadcom and Anthropic",
+            "title_fa": "بانک‌های وال‌استریت قراردادی بی‌سابقه ۶۰ میلیارد دلاری برای برادکام و آنتروپیک امضا کردند",
+            "summary_fa": "سندیکای بسته مالی عظیم اشتهای وام دهی را در میان نگرانی های فزاینده در مورد افزایش بدهی های هوش مصنوعی آزمایش می کند.",
+            "source": "Financial Times Markets",
             "source_kind": "macro",
             "via": "",
-            "link": "https://www.bloomberg.com/news/videos/2026-10-05/bloomberg-brief-10-5-2026-video",
-            "published_ts": 1791201579.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۵:۲۹",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۲۹",
-            "age_fa": "۱۷ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
+            "link": "https://www.ft.com/content/5b9c8ce3-d07c-46f9-8cea-cbc4e7f8ccca?syn-25a6b1a6=1",
+            "published_ts": 1791233899.0,
+            "date_fa": "۱۴ مهر ۱۴۰۵",
+            "time_fa": "۰۰:۲۸",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۰:۲۸",
+            "age_fa": "۹ ساعت پیش",
+            "credibility": 0.864,
+            "credibility_fa": "۸۶٪",
             "topic_fa": "نهادی",
             "assets": [
               "SPX"
@@ -490,6 +490,6 @@
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:13:42.721185+00:00",
+  "generated_at": "2026-10-06T05:37:06.823397+00:00",
   "news_used": 9
 }

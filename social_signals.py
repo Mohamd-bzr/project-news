@@ -575,6 +575,46 @@ def _youtube_engagement(video_id: str):
             "date_created": data.get("dateCreated")}
 
 
+
+_YT_TRANSCRIPT_CACHE: Dict[str, Any] = {}   # video id -> keywords or []
+
+
+def _yt_transcript_keywords(video_id, max_words: int = 12) -> list:
+    """Top content words of a video's transcript, best-effort.
+
+    Requires the optional youtube-transcript-api package; silently returns []
+    when it is absent, the video has no captions, or the fetch fails. Cached
+    per video for the provider TTL — a transcript never changes.
+    """
+    if not video_id:
+        return []
+    cached = _YT_TRANSCRIPT_CACHE.get(video_id)
+    if cached is not None:
+        return cached
+    kws: list = []
+    try:
+        from collections import Counter
+        from youtube_transcript_api import YouTubeTranscriptApi
+        api = YouTubeTranscriptApi()
+        try:
+            fetched = api.fetch(video_id, languages=["fa", "en"])
+        except Exception:
+            fetched = None
+        if fetched:
+            text = " ".join(sn.text for sn in fetched)
+            words = [w for w in re.findall(r"[\w؀-ۿ]{4,}", text or "")]
+            stop = {"about", "this", "that", "with", "from", "have", "will",
+                    "your", "they", "what", "when", "been", "more", "very",
+                    "into", "just", "like", "some", "than", "then", "only",
+                    "much", "also", "going", "want", "because", "these",
+                    "those", "there", "here", "which", "would", "could"}
+            kws = [w for w, _c in Counter(
+                w for w in words if w.lower() not in stop).most_common(max_words)]
+    except Exception:
+        kws = []
+    _YT_TRANSCRIPT_CACHE[video_id] = kws
+    return kws
+
 def fetch_youtube() -> dict:
     cfg = _cfg(_CONFIG)
     key = str(cfg.get("youtube_key") or "").strip()
@@ -615,6 +655,16 @@ def fetch_youtube() -> dict:
             v.update({k: val for k, val in eng.items() if val is not None})
             if eng.get("views"):
                 v["views"] = eng["views"]
+
+    # transcript keywords — the demand signal stops being just view counts and
+    # starts saying WHAT the audience is hearing about. Key-less
+    # (youtube-transcript-api), bounded to the top 2 videos, best-effort: a
+    # missing or blocked transcript simply leaves the item as it was. The
+    # keywords land in ``about`` so studio matching sees them like any text.
+    for v in top[:2]:
+        kw = _yt_transcript_keywords(v.get("id"))
+        if kw:
+            v["about"] = ((v.get("about") or v.get("title") or "") + " " + " ".join(kw)).strip()
     out["queries"]["_errors"] = {"lang": "", "videos": [], "errors": errors}
     if not out["videos"]:
         raise RuntimeError("; ".join(errors)[:180] or "no videos parsed")

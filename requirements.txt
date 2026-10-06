@@ -18,5 +18,11 @@ waitress>=3.0
 # app.py silently falls back to the stdlib when it is absent
 orjson>=3.10
 
+# optional: TradingView's own BUY/SELL vote as a report cross-check, and
+# YouTube transcript keywords for the studio demand signal — both degrade
+# gracefully to nothing when absent or unreachable
+tradingview-ta>=3.3
+youtube-transcript-api>=1.2
+
 # optional: helps the paywall reader on Cloudflare-protected sites
 # cloudscraper>=1.2.71

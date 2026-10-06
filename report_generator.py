@@ -747,6 +747,25 @@ def build_report(sym, md, articles, now=None, name=None, fa_name=None,
     para(sec_technical(snap, name))
     cites([_cite(a) for a in technical_news], "منابع خبری بخش تحلیل تکنیکال")
 
+    # 7b — the independent cross-check: TradingView's own indicator vote
+    # (unofficial scanner API, key-less). Absent when the scanner is
+    # unreachable or rate-limited — the section never stalls on it.
+    try:
+        from tv_ta import technical_vote
+        vote = technical_vote(sym)
+    except Exception:
+        vote = None
+    if vote:
+        osc = (vote.get("osc") or "n/a").replace("_", " ").title()
+        ma = (vote.get("ma") or "n/a").replace("_", " ").title()
+        para(
+            f"Independent cross-check — TradingView's technical vote on {vote['sym']} "
+            f"({vote['interval']}): {vote['buy']} buy / {vote['neutral']} neutral / "
+            f"{vote['sell']} sell of the standard indicator set, summing to "
+            f"{vote['rec'].replace('_', ' ').title()}; oscillators {osc}, moving averages {ma}. "
+            f"A crowd-signal quoted alongside, not in place of, the local computation above."
+        )
+
     # 8 — scenarios
     head("scenarios")
     para(sec_scenarios(snap, name))
