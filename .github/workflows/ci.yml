@@ -27,7 +27,14 @@ jobs:
       # the suite is designed network-free; Node is preinstalled on the
       # runner, so the inline-JS syntax gate runs too
       - name: Run tests
-        run: python -m pytest tests/ -q
+        run: |
+          python -m pytest tests/ -q --tb=no 2>&1 | tee pytest_out.txt
+          code=${PIPESTATUS[0]}
+          # surface every failing test as an annotation (readable via API)
+          grep -E "^(FAILED|ERROR)" pytest_out.txt | head -25 | while IFS= read -r line; do
+            echo "::error::$line"
+          done
+          exit $code
 
       - name: Syntax-check the inline dashboard JS
         run: python tools/check_dashboard_js.py
