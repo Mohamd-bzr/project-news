@@ -1044,6 +1044,17 @@ def all_sources_view():
 # ---------------------------------------------------------------------------
 app = Flask(__name__)
 
+# flask-compress: the dashboard ships as a ~570 KB single page and /api/data
+# is a ~1.7 MB JSON bundle — every poll. gzip drops both ~4x; any client that
+# cannot gzip just sends Accept-Encoding without gzip and gets plain bytes.
+# SSE (text/event-stream) is not in the default mimetype list — streams stay
+# uncompressed, which is exactly right for event streams.
+from flask_compress import Compress as _Compress
+_Compress(app)
+app.config["COMPRESS_MIMETYPES"] = ["text/html", "application/json", "text/css",
+                                    "application/javascript", "image/svg+xml"]
+app.config["COMPRESS_MIN_SIZE"] = 860
+
 
 @app.after_request
 def _no_store(resp):
@@ -1281,7 +1292,9 @@ def api_stream():
         mimetype="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
+            # no "Connection" header: it is hop-by-hop and PEP 3333 forbids
+            # WSGI apps from setting it — waitress rejects the whole response
+            # (Werkzeug happened to tolerate it; waitress is the real server now)
             "X-Accel-Buffering": "no",
         }
     )
@@ -1315,7 +1328,7 @@ def api_stream_prices():
     return Response(
         price_stream(),
         mimetype="text/event-stream",
-        headers={"Cache-Control": "no-cache", "Connection": "keep-alive"}
+        headers={"Cache-Control": "no-cache"}   # Connection is hop-by-hop — see /api/stream
     )
 
 
@@ -2833,6 +2846,33 @@ def api_whales_live():
         if _WHALE_CACHE["data"]:
             return jsonify({"ok": True, **_WHALE_CACHE["data"], "stale": True})
         return jsonify({"ok": False, "whales": [], "error": str(e)})
+
+
+@app.route("/api/studio/card")
+def api_studio_card():
+    """The story as a ready-to-post Persian PNG (1080×1350, DL6 palette).
+
+    Drawn server-side from the article's own fields — shaped with
+    arabic_reshaper, direction-fixed with python-bidi, set in the self-hosted
+    Vazirmatn. 503 (never a broken image) when the shaping stack or the font
+    is missing."""
+    aid = (request.args.get("aid") or "").strip()
+    art = None
+    with STATE_LOCK:
+        pool = list(STATE.get("articles") or []) + list(STATE.get("archive") or [])
+        art = next((a for a in pool if a.get("id") == aid), None)
+    if not art:
+        return jsonify({"ok": False, "error": "article_not_found"}), 404
+    try:
+        from card_render import render_news_card, CardUnavailable
+        png = render_news_card(art)
+    except CardUnavailable as e:
+        return jsonify({"ok": False, "error": str(e)}), 503
+    except Exception as e:
+        log(f"card render failed: {e}")
+        return jsonify({"ok": False, "error": str(e)}), 500
+    return Response(png, mimetype="image/png",
+                    headers={"Cache-Control": "no-cache"})
 
 
 @app.route("/api/iran")

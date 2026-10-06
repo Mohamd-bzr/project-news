@@ -9,14 +9,14 @@
       {
         "title": "Solana — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Solana",
-        "asof": "2026-10-06 09:06 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۶",
+        "asof": "2026-10-06 09:17 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۱۷",
         "symbol": "SOL",
         "name": "Solana",
         "fa_name": "Solana",
         "icon": "◎",
-        "price": 120.08,
-        "change_24h": -0.18,
+        "price": 119.97,
+        "change_24h": -0.39,
         "news_window_hours": 24.0,
         "news_used": 6,
         "sources_used": [
@@ -25,19 +25,19 @@
             "count": 7
           },
           {
-            "name": "streetinsider.com",
+            "name": "StreetInsider",
             "count": 6
           },
           {
-            "name": "ForexLive",
-            "count": 2
+            "name": "Crypto Briefing",
+            "count": 3
           },
           {
             "name": "TechBullion",
-            "count": 2
+            "count": 3
           },
           {
-            "name": "Crypto Briefing",
+            "name": "ForexLive",
             "count": 2
           },
           {
@@ -61,11 +61,11 @@
             "count": 2
           },
           {
-            "name": "CoinDesk",
+            "name": "Coinfomania",
             "count": 1
           },
           {
-            "name": "CoinPedia",
+            "name": "CoinDesk",
             "count": 1
           }
         ],
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Solana is changing hands near $120.08, -0.18% over the past 24 hours and +1.05% on a 7-day view. Spot trades above the 50-day average ($106.10) and above the 200-day average ($97.65), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+16.37%), suggesting the market is still repairing.",
+        "en": "Solana is changing hands near $119.97, -0.39% over the past 24 hours and +0.92% on a 7-day view. Spot trades above the 50-day average ($106.09) and above the 200-day average ($97.65), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+16.23%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -106,7 +106,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۸:۱۱",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۱۱",
-            "age_fa": "۵۴ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "بازار",
@@ -252,7 +252,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۸:۱۱",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۱۱",
-            "age_fa": "۵۴ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "بازار",
@@ -352,7 +352,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $70.6B (CoinGecko). Reported 24-hour spot volume is $2.39B with 7-day average turnover subdued versus the trailing month (0.81x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
+        "en": "Total market capitalization stands near $70.6B (CoinGecko). Reported 24-hour spot volume is $2.38B with 7-day average turnover subdued versus the trailing month (0.81x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
         "fa": ""
       }
     ],
@@ -380,7 +380,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $120.08 versus EMA20 $115.75, EMA50 $106.10 and EMA200 $97.65 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $119.65 (recent swing low); the lower Bollinger band $103.70 as the 2σ downside envelope; first resistance at $121.43 (recent swing high); upper band $128.69 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.274 implies a typical daily range of roughly 3.6 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 62.7 — neutral territory; MACD (12/26/9) sits below its signal line (4.758 vs 5.223, histogram -0.4647), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 61%; the 20-day band spans 22% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.81x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +16.37% over 30 days and +48.89% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.05%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $119.93 versus EMA20 $115.74, EMA50 $106.09 and EMA200 $97.65 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $119.65 (recent swing low); the lower Bollinger band $103.70 as the 2σ downside envelope; first resistance at $121.43 (recent swing high); upper band $128.67 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $4.274 implies a typical daily range of roughly 3.6 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 62.4 — neutral territory; MACD (12/26/9) sits below its signal line (4.746 vs 5.221, histogram -0.4742), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 61%; the 20-day band spans 21% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.81x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +16.23% over 30 days and +48.71% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.92%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -416,20 +416,20 @@
             "why_en": ""
           },
           {
-            "id": "2bd43b346496",
+            "id": "f19b22f92357",
             "index": 2,
             "index_fa": "۲",
-            "title_en": "Solana Price Prediction: Even $200 Would Fall Short of 2x as AlphaPepe Targets Over 200% Gains With Its Presale Entry",
-            "title_fa": "پیش‌بینی قیمت سولانا: حتی ۲۰۰ دلار هم دو برابر کاهش می‌یابد زیرا AlphaPepe بیش از ۲۰۰ درصد سود را با ورود پیش‌فروش هدف قرار می‌دهد.",
-            "summary_fa": "پیش‌بینی قیمت سولانا: حتی ۲۰۰ دلار هم دو برابر کاهش می‌یابد زیرا AlphaPepe بیش از ۲۰۰ درصد سود را با ورود پیش‌فروش هدف قرار می‌دهد.",
+            "title_en": "Solana Price Prediction: Could SOL Break $250 as Remittix Launches From a $0.46 Base?",
+            "title_fa": "پیش بینی قیمت سولانا: آیا SOL می تواند با راه اندازی Remittix از پایه ۰.۴۶ دلاری، ۲۵۰ دلار را بشکند؟",
+            "summary_fa": "پیش بینی قیمت سولانا: آیا SOL می تواند با راه اندازی Remittix از پایه ۰.۴۶ دلاری، ۲۵۰ دلار را بشکند؟",
             "source": "TechBullion",
             "source_kind": "search",
             "via": "Google News · SOL",
-            "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOS29sLUFwM3ZvT2xSVjM3d2tzU0pnaHhYQ0Jja041Y1NGSU5Ic01ZWnNHdWZYd0xONHI1aVA5UUx2THFRVkZVSUw5cS1CMUNFY0p2NkwyWU1ydUNwcjNHU3llMEZFSEhaRzNiNkgyZlpJVy16UVNETndQREl3Q1QtYWNWMDN4WndodjdLVDBIbkZuT216ankxbjFlaWJGanpiQUxnS1hiMGdkRFJPUjVxLWo1Mm1OTFBEcmN5TlRzUks0NlJ2TmlIVGVnYS0tYnIxVkxoM19B?oc=5",
-            "published_ts": 1791256217.0,
+            "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPaGxmYkRMTUs4VFRlQk1Wd0pPTDlPMnR5cElJbXFWYm1UWjVXTVdxZUlSV1lJeWlpOGZyZ2w2MnJFRTNfT3BNZUJpaFNPLUU0ejRBbTBQZXlRVm9IalpIOFc5X0RBU2ZyQnVGU1c1NWVRdDVKbE5VbmpuSURCWlNUTW50LVprc2JnenNiQTJiTnRBY1ZnMmt6Q1lPVHN5TmJYRUZDZkFnUWFrdw?oc=5",
+            "published_ts": 1791257987.0,
             "date_fa": "۱۴ مهر ۱۴۰۵",
-            "time_fa": "۰۶:۴۰",
-            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۴۰",
+            "time_fa": "۰۷:۰۹",
+            "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۷:۰۹",
             "age_fa": "۲ ساعت پیش",
             "credibility": 0.66,
             "credibility_fa": "۶۶٪",
@@ -446,7 +446,7 @@
     [
       "p",
       {
-        "en": "Independent cross-check — TradingView's technical vote on SOL (1d): 14 buy / 10 neutral / 2 sell of the standard indicator set, summing to Buy; oscillators Neutral, moving averages Strong Buy. A crowd-signal quoted alongside, not in place of, the local computation above.",
+        "en": "Independent cross-check — TradingView's technical vote on SOL (1d): 13 buy / 10 neutral / 3 sell of the standard indicator set, summing to Buy; oscillators Neutral, moving averages Strong Buy. A crowd-signal quoted alongside, not in place of, the local computation above.",
         "fa": ""
       }
     ],
@@ -460,7 +460,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $121.43 on expanding turnover; continued holds of the 50-day average ($106.10); RSI holding above 60 (currently 63). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $119.65. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $121.43 on expanding turnover; continued holds of the 50-day average ($106.09); RSI holding above 60 (currently 62). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $119.65. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -474,11 +474,11 @@
     [
       "p",
       {
-        "en": "Net take on Solana: spot $120.08 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.18%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Solana: spot $119.97 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.39%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:36:39.353392+00:00",
+  "generated_at": "2026-10-06T05:47:49.656184+00:00",
   "news_used": 6
 }

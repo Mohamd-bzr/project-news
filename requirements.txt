@@ -24,5 +24,15 @@ orjson>=3.10
 tradingview-ta>=3.3
 youtube-transcript-api>=1.2
 
+# optional: the studio's ready-to-post Persian news-card PNG
+# (/api/studio/card). Missing font/shaping answers 503, never a broken image
+Pillow>=11.0
+arabic-reshaper>=3.0
+python-bidi>=0.6
+
+# optional but recommended: gzip/brotli on the ~570 KB dashboard page and the
+# ~1.7 MB /api/data bundle (measured 4-5x smaller over the wire)
+Flask-Compress>=1.15
+
 # optional: helps the paywall reader on Cloudflare-protected sites
 # cloudscraper>=1.2.71

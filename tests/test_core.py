@@ -621,3 +621,25 @@ def test_iran_market_serves_stale_on_failure(monkeypatch):
     snap = iran_market.snapshot(force=True)
     assert snap["ok"] is True
     assert snap["items"][0]["stale"] is True
+
+
+# ── card_render (Persian news-card PNG) ─────────────────────────────────────
+
+def test_card_render_produces_a_real_png():
+    """The studio's image card: shaped, RTL, DL6 palette — from the article's own fields."""
+    from card_render import render_news_card
+    png = render_news_card({
+        "title_fa": "سقف تاریخی جدید طلا؛ اونس به ۴۱۶۰ دلار رسید",
+        "summary_fa": "بازار تهران واکنش نشان داد؛ دلار آزاد هم بالا رفت.",
+        "source_name": "Bloomberg", "datetime_fa": "۲۶ مهر ۱۴۰۵ · ۱۷:۳۵",
+        "numbers": ["۴۱۶۰ دلار", "۳.۲٪"],
+    })
+    png_sig = bytes([0x89]) + b"PNG" + bytes([0x0D, 0x0A, 0x1A, 0x0A])
+    assert png[:8] == png_sig
+    assert 40_000 < len(png) < 500_000
+
+
+def test_card_render_rejects_empty_title():
+    from card_render import render_news_card, CardUnavailable
+    with pytest.raises(CardUnavailable):
+        render_news_card({"title": "", "summary": "x"})

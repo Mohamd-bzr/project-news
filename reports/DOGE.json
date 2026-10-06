@@ -9,14 +9,14 @@
       {
         "title": "Dogecoin — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Dogecoin",
-        "asof": "2026-10-06 09:06 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۶",
+        "asof": "2026-10-06 09:18 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۱۸",
         "symbol": "DOGE",
         "name": "Dogecoin",
         "fa_name": "Dogecoin",
         "icon": "Ð",
-        "price": 0.094893,
-        "change_24h": -0.35,
+        "price": 0.094785,
+        "change_24h": -0.46,
         "news_window_hours": 24.0,
         "news_used": 7,
         "sources_used": [
@@ -33,7 +33,7 @@
             "count": 1
           },
           {
-            "name": "streetinsider.com",
+            "name": "StreetInsider",
             "count": 1
           },
           {
@@ -70,7 +70,7 @@
     [
       "p",
       {
-        "en": "Dogecoin is changing hands near $0.0949, -0.35% over the past 24 hours and +1.07% on a 7-day view. Spot trades above the 50-day average ($0.0881) and above the 200-day average ($0.0938), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+5.79%), suggesting the market is still repairing.",
+        "en": "Dogecoin is changing hands near $0.0948, -0.46% over the past 24 hours and +0.95% on a 7-day view. Spot trades above the 50-day average ($0.0881) and above the 200-day average ($0.0938), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+5.67%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -119,7 +119,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۲۱:۴۷",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۱:۴۷",
-            "age_fa": "۱۱ ساعت پیش",
+            "age_fa": "۱۲ ساعت پیش",
             "credibility": 0.72,
             "credibility_fa": "۷۲٪",
             "topic_fa": "تحلیل",
@@ -345,7 +345,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.0949 versus EMA20 $0.0928, EMA50 $0.0881 and EMA200 $0.0938 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.0945 (recent swing low); the lower Bollinger band $0.0824 as the 2σ downside envelope; first resistance at $0.0958 (recent swing high); upper band $0.1035 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0046 implies a typical daily range of roughly 4.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 56.3 — neutral territory; MACD (12/26/9) sits below its signal line (0.002344 vs 0.002718, histogram -0.0003744), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 72%; the 20-day band spans 23% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.75x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +5.79% over 30 days and +27.90% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.07%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.0948 versus EMA20 $0.0927, EMA50 $0.0881 and EMA200 $0.0938 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.0945 (recent swing low); the lower Bollinger band $0.0824 as the 2σ downside envelope; first resistance at $0.0958 (recent swing high); upper band $0.1035 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0046 implies a typical daily range of roughly 4.8 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 56.1 — neutral territory; MACD (12/26/9) sits below its signal line (0.002335 vs 0.002716, histogram -0.0003814), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 72%; the 20-day band spans 23% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 0.75x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +5.67% over 30 days and +27.75% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+0.95%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -369,7 +369,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۲۱:۴۷",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۱:۴۷",
-            "age_fa": "۱۱ ساعت پیش",
+            "age_fa": "۱۲ ساعت پیش",
             "credibility": 0.72,
             "credibility_fa": "۷۲٪",
             "topic_fa": "تحلیل",
@@ -394,7 +394,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۶:۳۵",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۶:۳۵",
-            "age_fa": "۲ ساعت پیش",
+            "age_fa": "۳ ساعت پیش",
             "credibility": 0.66,
             "credibility_fa": "۶۶٪",
             "topic_fa": "تحلیل",
@@ -439,11 +439,11 @@
     [
       "p",
       {
-        "en": "Net take on Dogecoin: spot $0.0949 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.35%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Dogecoin: spot $0.0948 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.46%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:36:55.875463+00:00",
+  "generated_at": "2026-10-06T05:48:05.324453+00:00",
   "news_used": 7
 }

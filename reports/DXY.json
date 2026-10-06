@@ -9,16 +9,16 @@
       {
         "title": "US Dollar Index — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار دلار DXY",
-        "asof": "2026-10-06 09:07 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۷",
+        "asof": "2026-10-06 09:18 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۱۸",
         "symbol": "DXY",
         "name": "US Dollar Index",
         "fa_name": "دلار DXY",
         "icon": "💵",
-        "price": 102.198997,
-        "change_24h": 0.03,
+        "price": 102.189003,
+        "change_24h": 0.02,
         "news_window_hours": 24.0,
-        "news_used": 9,
+        "news_used": 8,
         "sources_used": [
           {
             "name": "FXStreet",
@@ -57,7 +57,7 @@
             "count": 1
           },
           {
-            "name": "Bloomberg Markets",
+            "name": "Mitrade",
             "count": 1
           },
           {
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "US Dollar Index is changing hands near $102.20, +0.03% over the past 24 hours and +1.22% on a 7-day view. Spot trades above the 50-day average ($100.39) and above the 200-day average ($99.51), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+3.23%), suggesting the market is still repairing.",
+        "en": "US Dollar Index is changing hands near $102.19, +0.02% over the past 24 hours and +1.21% on a 7-day view. Spot trades above the 50-day average ($100.39) and above the 200-day average ($99.51), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+3.22%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -92,34 +92,9 @@
         "title_fa": "منابع خبری این بخش (جدیدترین و معتبرترین)",
         "items": [
           {
-            "id": "18c1d6ab6849",
+            "id": "0118fb4cae75",
             "index": 1,
             "index_fa": "۱",
-            "title_en": "Uganda Shilling Weakens to Record Low as Dollar Demand Persists",
-            "title_fa": "با تداوم تقاضای دلار، شیلینگ اوگاندا به پایین ترین سطح خود رسید",
-            "summary_fa": "شیلینگ اوگاندا به پایین‌ترین سطح خود در برابر دلار تضعیف شد زیرا تقاضا برای دلار از سوی سرمایه‌گذاران و واردکنندگان فراساحلی فشار جدیدی بر پول محلی وارد کرد.",
-            "source": "Bloomberg Markets",
-            "source_kind": "macro",
-            "via": "",
-            "link": "https://www.bloomberg.com/news/articles/2026-10-05/uganda-shilling-weakens-to-record-low-as-dollar-demand-persists",
-            "published_ts": 1791208453.0,
-            "date_fa": "۱۳ مهر ۱۴۰۵",
-            "time_fa": "۱۷:۲۴",
-            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۷:۲۴",
-            "age_fa": "۱۶ ساعت پیش",
-            "credibility": 0.95,
-            "credibility_fa": "۹۵٪",
-            "topic_fa": "عمومی",
-            "assets": [
-              "DXY"
-            ],
-            "why_fa": "",
-            "why_en": ""
-          },
-          {
-            "id": "0118fb4cae75",
-            "index": 2,
-            "index_fa": "۲",
             "title_en": "Kraken parent adds 24/7 dollar settlement with Singapore Gulf Bank",
             "title_fa": "والدین Kraken تسویه حساب دلاری ۲۴/۷ با بانک خلیج سنگاپور اضافه می کند",
             "summary_fa": "این مشارکت به مؤسسات منتخب در آسیا و منطقه خلیج‌فارس این امکان را می‌دهد تا فوراً تراکنش‌های دلار آمریکا را از طریق SGB Net بانک تسویه کنند.",
@@ -143,8 +118,8 @@
           },
           {
             "id": "3db172123fc0",
-            "index": 3,
-            "index_fa": "۳",
+            "index": 2,
+            "index_fa": "۲",
             "title_en": "Swiss Franc slips as US Dollar holds near yearly high after mixed PMI data",
             "title_fa": "فرانک سوئیس سقوط کرد زیرا دلار آمریکا پس از داده‌های PMI مختلط نزدیک به بالاترین سطح سالانه خود نگه داشت",
             "summary_fa": "فرانک سوئیس سقوط کرد زیرا دلار آمریکا پس از داده‌های PMI مختلط نزدیک به بالاترین سطح سالانه خود نگه داشت",
@@ -160,6 +135,31 @@
             "credibility": 0.82,
             "credibility_fa": "۸۲٪",
             "topic_fa": "عمومی",
+            "assets": [
+              "DXY"
+            ],
+            "why_fa": "",
+            "why_en": ""
+          },
+          {
+            "id": "f85f5c44e686",
+            "index": 3,
+            "index_fa": "۳",
+            "title_en": "US dollar strength to fizzle, FX forecasters unmoved by searing rally: Reuters poll",
+            "title_fa": "نظرسنجی رویترز: تقویت دلار آمریکا در حال فروپاشی است",
+            "summary_fa": "نظرسنجی رویترز: تقویت دلار آمریکا در حال فروپاشی است",
+            "source": "Kitco",
+            "source_kind": "metals",
+            "via": "Kitco News",
+            "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPQ0VMRjF4YllsV200Qmo4NnVZSzU0U1hvTDMyLUszTVkwMzllems4b1l0QWNkMWM3ekpHbk5XTGFqU2NWRGVUU1Ewd3cyOVZFaFBNMVM5T2xzYkpJQWFUSHYyX2tfam9MQVF0UlhTYS0wcGRUeWxzMWt1MEhIRFF5em5MV1k5ME5NZ25ibXl4TU9faGJmVGJURm53ZC1jSjlieDA3UGJxTE9UMWZ0eURLSmIzRTJ3TlMxSFZkUGh3?oc=5",
+            "published_ts": 1791222625.0,
+            "date_fa": "۱۳ مهر ۱۴۰۵",
+            "time_fa": "۲۱:۲۰",
+            "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۲۱:۲۰",
+            "age_fa": "۱۲ ساعت پیش",
+            "credibility": 0.806,
+            "credibility_fa": "۸۱٪",
+            "topic_fa": "کلان",
             "assets": [
               "DXY"
             ],
@@ -294,8 +294,8 @@
             "title_fa": "با افزایش شوک مالی فرانسه دلار آمریکا، پوند انگلیس سقوط کرد",
             "summary_fa": "با افزایش شوک مالی فرانسه دلار آمریکا، پوند انگلیس سقوط کرد",
             "source": "FXStreet",
-            "source_kind": "macro",
-            "via": "FXStreet News",
+            "source_kind": "metals",
+            "via": "FXStreet",
             "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNQWhKRURuR2FsREM4SUhTaEFISWMyaHJBS1RrU0t0dVFyNFlCN2FnbDlEMm9rYkQzZ0tzRVUzQmNaalFvY2plVm9yUHBBeTJ1ZUtKaXdjdnhjOFhDZGZqM2diMDRMT2JkeDdFbWx5dzVqQnJPYmZnaW9aZW5aTlZDZXNfUDN5d2sxaVRKOXhyVnRfeDIwX3JOOXNzYjFUMkFEdG1fSHpXZlZHUQ?oc=5",
             "published_ts": 1791218174.0,
             "date_fa": "۱۳ مهر ۱۴۰۵",
@@ -350,7 +350,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $102.20 versus EMA20 $100.98, EMA50 $100.39 and EMA200 $99.51 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $102.17 (recent swing low); the lower Bollinger band $98.59 as the 2σ downside envelope; upper band $102.77 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.4560 implies a typical daily range of roughly 0.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 73.9 — overbought territory; MACD (12/26/9) sits above its signal line (0.6479 vs 0.4772, histogram +0.1707), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 5%; the 20-day band spans 4% of the mid — compressed, which often precedes a volatility expansion. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +3.23% over 30 days and +3.21% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.22%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $102.19 versus EMA20 $100.98, EMA50 $100.39 and EMA200 $99.51 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $102.17 (recent swing low); the lower Bollinger band $98.59 as the 2σ downside envelope; upper band $102.77 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.4566 implies a typical daily range of roughly 0.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 73.8 — overbought territory; MACD (12/26/9) sits above its signal line (0.6471 vs 0.4771, histogram +0.17), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 5%; the 20-day band spans 4% of the mid — compressed, which often precedes a volatility expansion. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +3.22% over 30 days and +3.20% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+1.21%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -374,7 +374,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۶:۳۱",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۶:۳۱",
-            "age_fa": "۱۶ ساعت پیش",
+            "age_fa": "۱۷ ساعت پیش",
             "credibility": 0.787,
             "credibility_fa": "۷۹٪",
             "topic_fa": "تحلیل",
@@ -443,11 +443,11 @@
     [
       "p",
       {
-        "en": "Net take on US Dollar Index: spot $102.20 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.03%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on US Dollar Index: spot $102.19 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.02%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:37:04.515307+00:00",
-  "news_used": 9
+  "generated_at": "2026-10-06T05:48:11.770200+00:00",
+  "news_used": 8
 }

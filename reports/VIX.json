@@ -9,8 +9,8 @@
       {
         "title": "CBOE Volatility Index — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار شاخص ترس VIX",
-        "asof": "2026-10-06 09:07 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۷",
+        "asof": "2026-10-06 09:18 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۱۸",
         "symbol": "VIX",
         "name": "CBOE Volatility Index",
         "fa_name": "شاخص ترس VIX",
@@ -87,6 +87,6 @@
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:37:08.914687+00:00",
+  "generated_at": "2026-10-06T05:48:17.225036+00:00",
   "news_used": 0
 }

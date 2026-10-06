@@ -9,14 +9,14 @@
       {
         "title": "Bitcoin — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Bitcoin",
-        "asof": "2026-10-06 09:06 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۶",
+        "asof": "2026-10-06 09:17 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۱۷",
         "symbol": "BTC",
         "name": "Bitcoin",
         "fa_name": "Bitcoin",
         "icon": "₿",
-        "price": 85635,
-        "change_24h": 0.03,
+        "price": 85548,
+        "change_24h": -0.2,
         "news_window_hours": 24.0,
         "news_used": 12,
         "sources_used": [
@@ -42,7 +42,7 @@
           },
           {
             "name": "Crypto Briefing",
-            "count": 7
+            "count": 8
           },
           {
             "name": "r/Bitcoin (شبکه اجتماعی)",
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Bitcoin is changing hands near $85,635, +0.03% over the past 24 hours and +2.56% on a 7-day view. Spot trades above the 50-day average ($79,138) and above the 200-day average ($75,531), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+7.29%), suggesting the market is still repairing.",
+        "en": "Bitcoin is changing hands near $85,548, -0.20% over the past 24 hours and +2.45% on a 7-day view. Spot trades above the 50-day average ($79,135) and above the 200-day average ($75,530), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+7.17%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -106,7 +106,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۸:۱۱",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۱۱",
-            "age_fa": "۵۴ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "بازار",
@@ -277,7 +277,7 @@
             "date_fa": "۱۴ مهر ۱۴۰۵",
             "time_fa": "۰۸:۱۱",
             "datetime_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۸:۱۱",
-            "age_fa": "۵۴ دقیقه پیش",
+            "age_fa": "۱ ساعت پیش",
             "credibility": 0.95,
             "credibility_fa": "۹۵٪",
             "topic_fa": "بازار",
@@ -329,7 +329,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۸:۳۳",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۸:۳۳",
-            "age_fa": "۱۴ ساعت پیش",
+            "age_fa": "۱۵ ساعت پیش",
             "credibility": 0.864,
             "credibility_fa": "۸۶٪",
             "topic_fa": "نهادی",
@@ -354,7 +354,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۵:۴۳",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۵:۴۳",
-            "age_fa": "۱۷ ساعت پیش",
+            "age_fa": "۱۸ ساعت پیش",
             "credibility": 0.864,
             "credibility_fa": "۸۶٪",
             "topic_fa": "نهادی",
@@ -452,7 +452,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $1,720.9B (CoinGecko). Reported 24-hour spot volume is $27.93B with 7-day average turnover broadly normal versus the trailing month (0.93x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
+        "en": "Total market capitalization stands near $1,719.5B (CoinGecko). Reported 24-hour spot volume is $27.75B with 7-day average turnover broadly normal versus the trailing month (0.93x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
         "fa": ""
       }
     ],
@@ -480,7 +480,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $85,640 versus EMA20 $83,279, EMA50 $79,138 and EMA200 $75,531 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $84,853 (recent swing low); the lower Bollinger band $77,708 as the 2σ downside envelope; first resistance at $86,172 (recent swing high); upper band $89,010 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $2,094 implies a typical daily range of roughly 2.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 64.1 — neutral territory; MACD (12/26/9) sits below its signal line (1983 vs 2059, histogram -76.1), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 38%; the 20-day band spans 14% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.93x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +7.29% over 30 days and +35.30% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+2.56%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is perfect bullish alignment (price > EMA20 > EMA50 > EMA200), the textbook configuration of a trend-following regime where pullbacks into the 20-day mean tend to be bought. Spot at $85,546 versus EMA20 $83,270, EMA50 $79,135 and EMA200 $75,530 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $84,853 (recent swing low); the lower Bollinger band $77,711 as the 2σ downside envelope; first resistance at $86,172 (recent swing high); upper band $88,998 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $2,094 implies a typical daily range of roughly 2.4 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 63.6 — neutral territory; MACD (12/26/9) sits below its signal line (1975 vs 2057, histogram -82.13), consistent with fading momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 38%; the 20-day band spans 14% of the mid — compressed, which often precedes a volatility expansion; 7-day turnover runs at 0.93x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +7.17% over 30 days and +35.15% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+2.45%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -504,7 +504,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۸:۳۹",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۸:۳۹",
-            "age_fa": "۱۴ ساعت پیش",
+            "age_fa": "۱۵ ساعت پیش",
             "credibility": 0.826,
             "credibility_fa": "۸۳٪",
             "topic_fa": "تحلیل",
@@ -529,7 +529,7 @@
             "date_fa": "۱۳ مهر ۱۴۰۵",
             "time_fa": "۱۲:۳۸",
             "datetime_fa": "۱۳ مهر ۱۴۰۵، ساعت ۱۲:۳۸",
-            "age_fa": "۲۰ ساعت پیش",
+            "age_fa": "۲۱ ساعت پیش",
             "credibility": 0.826,
             "credibility_fa": "۸۳٪",
             "topic_fa": "تحلیل",
@@ -559,7 +559,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires acceptance above $86,172 on expanding turnover; continued holds of the 50-day average ($79,138); RSI holding above 60 (currently 64). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $84,853. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires acceptance above $86,172 on expanding turnover; continued holds of the 50-day average ($79,135); RSI holding above 60 (currently 64). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $84,853. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -573,11 +573,11 @@
     [
       "p",
       {
-        "en": "Net take on Bitcoin: spot $85,635 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.03%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Bitcoin: spot $85,548 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (-0.20%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:36:25.806271+00:00",
+  "generated_at": "2026-10-06T05:47:43.211112+00:00",
   "news_used": 12
 }

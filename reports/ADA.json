@@ -9,14 +9,14 @@
       {
         "title": "Cardano — Market Intelligence Report",
         "title_fa": "گزارش تحلیل بازار Cardano",
-        "asof": "2026-10-06 09:06 Tehran",
-        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۰۶",
+        "asof": "2026-10-06 09:18 Tehran",
+        "asof_fa": "۱۴ مهر ۱۴۰۵، ساعت ۰۹:۱۸",
         "symbol": "ADA",
         "name": "Cardano",
         "fa_name": "Cardano",
         "icon": "₳",
-        "price": 0.270884,
-        "change_24h": 1.53,
+        "price": 0.269498,
+        "change_24h": 0.18,
         "news_window_hours": 24.0,
         "news_used": 7,
         "sources_used": [
@@ -29,10 +29,6 @@
             "count": 2
           },
           {
-            "name": "streetinsider.com",
-            "count": 2
-          },
-          {
             "name": "TechBullion",
             "count": 2
           },
@@ -42,6 +38,14 @@
           },
           {
             "name": "Kitco",
+            "count": 1
+          },
+          {
+            "name": "StreetInsider",
+            "count": 1
+          },
+          {
+            "name": "streetinsider.com",
             "count": 1
           },
           {
@@ -63,10 +67,6 @@
           {
             "name": "AMBCrypto",
             "count": 1
-          },
-          {
-            "name": "FXEmpire",
-            "count": 1
           }
         ],
         "market_stale": false
@@ -82,7 +82,7 @@
     [
       "p",
       {
-        "en": "Cardano is changing hands near $0.2709, +1.53% over the past 24 hours and +9.53% on a 7-day view. Spot trades above the 50-day average ($0.2244) and above the 200-day average ($0.2413), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+23.86%), suggesting the market is still repairing.",
+        "en": "Cardano is changing hands near $0.2695, +0.18% over the past 24 hours and +9.04% on a 7-day view. Spot trades above the 50-day average ($0.2243) and above the 200-day average ($0.2413), keeping the medium-term structure constructive. The 30-day tape reads as a recovery phase (+23.30%), suggesting the market is still repairing.",
         "fa": ""
       }
     ],
@@ -276,7 +276,7 @@
     [
       "p",
       {
-        "en": "Total market capitalization stands near $10.2B (CoinGecko). Reported 24-hour spot volume is $0.82B with 7-day average turnover broadly normal versus the trailing month (1.07x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
+        "en": "Total market capitalization stands near $10.1B (CoinGecko). Reported 24-hour spot volume is $0.78B with 7-day average turnover broadly normal versus the trailing month (1.07x) . Note: the sentiment reading above is the public alternative.me series; proprietary on-chain datasets are still left out rather than estimated. The alternative.me Fear & Greed gauge prints 73 (Greed).",
         "fa": ""
       }
     ],
@@ -304,7 +304,7 @@
     [
       "p",
       {
-        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.2707 versus EMA20 $0.2426, EMA50 $0.2244 and EMA200 $0.2413 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.2592 (recent swing low); the lower Bollinger band $0.2061 as the 2σ downside envelope; upper band $0.2775 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0142 implies a typical daily range of roughly 5.3 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 69.6 — neutral territory; MACD (12/26/9) sits above its signal line (0.01154 vs 0.01077, histogram +0.0007671), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 70%; the 20-day band spans 30% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.07x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +23.86% over 30 days and +55.12% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+9.53%) is the shortest window the desk treats as signal rather than noise.",
+        "en": "**Trend structure.** Across horizons the picture is mixed — the moving averages are interleaved rather than stacked, which is characteristic of a transitional or range-bound regime rather than a one-way trend. Spot at $0.2695 versus EMA20 $0.2425, EMA50 $0.2243 and EMA200 $0.2413 frames the medium-term bias mechanically rather than emotionally. From this configuration the desk's working assumption is that trend-following exposure is only justified while price holds the side of the 50-day average it currently occupies.\n\n**Key levels.** The operational map reads: initial support at $0.2592 (recent swing low); the lower Bollinger band $0.2062 as the 2σ downside envelope; upper band $0.2772 as the stretch target. Levels derived from the last ~60 sessions of closes are guides for location, not promises of reaction; they mark where prior two-way business was done and therefore where resting liquidity is most plausible. ATR(14) of $0.0142 implies a typical daily range of roughly 5.3 percent of spot, which is the unit of risk to size positions against.\n\n**Momentum.** RSI(14) prints 69.2 — neutral territory; MACD (12/26/9) sits above its signal line (0.01144 vs 0.01075, histogram +0.0006892), consistent with building momentum. Momentum readings are state descriptors, not trade signals on their own; the desk treats confluence between momentum and level location as the actionable unit.\n\n**Volatility & liquidity.** 30-day realized volatility annualizes near 70%; the 20-day band spans 29% of the mid — expanded, which favors trend continuation tactics; 7-day turnover runs at 1.07x the trailing-month norm. Behavior around these regimes — absorption at band edges, volume confirmation on breaks — is what separates a tradeable move from noise.\n\n**Performance context.** On longer windows the asset has returned +23.30% over 30 days and +54.42% over 90 days. Positioning decisions made on monthly horizons should respect these base rates instead of extrapolating the last week. The 7-session change (+9.04%) is the shortest window the desk treats as signal rather than noise.",
         "fa": ""
       }
     ],
@@ -369,7 +369,7 @@
     [
       "p",
       {
-        "en": "Independent cross-check — TradingView's technical vote on ADA (1d): 16 buy / 10 neutral / 0 sell of the standard indicator set, summing to Strong Buy; oscillators Buy, moving averages Strong Buy. A crowd-signal quoted alongside, not in place of, the local computation above.",
+        "en": "Independent cross-check — TradingView's technical vote on ADA (1d): 16 buy / 9 neutral / 1 sell of the standard indicator set, summing to Strong Buy; oscillators Buy, moving averages Strong Buy. A crowd-signal quoted alongside, not in place of, the local computation above.",
         "fa": ""
       }
     ],
@@ -383,7 +383,7 @@
     [
       "p",
       {
-        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($0.2244); RSI holding above 60 (currently 70). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $0.2592. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
+        "en": "**Bullish scenario.** Continuation higher requires continued holds of the 50-day average ($0.2243); RSI holding above 60 (currently 69). Under those conditions the path of least resistance flips to buy-the-dip, with prior resistance converting to support as the confirmation test.\n\n**Bearish scenario.** Downside continuation triggers on a decisive loss of $0.2592. In that case failed support typically becomes the new ceiling, and momentum chasers provide the exit liquidity.",
         "fa": ""
       }
     ],
@@ -397,11 +397,11 @@
     [
       "p",
       {
-        "en": "Net take on Cardano: spot $0.2709 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+1.53%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
+        "en": "Net take on Cardano: spot $0.2695 with the medium-term bias constructive while price holds the relevant side of the 50-day average. The 24-hour tape (+0.18%) is consistent with that bias. Decision zones are the levels named in the technical section, not opinions: trade the reaction at those prices, not the headline of the day.",
         "fa": ""
       }
     ]
   ],
-  "generated_at": "2026-10-06T05:36:51.481423+00:00",
+  "generated_at": "2026-10-06T05:48:00.937083+00:00",
   "news_used": 7
 }

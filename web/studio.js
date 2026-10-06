@@ -216,6 +216,9 @@ const Studio = (function () {
               ? '<span class="spinner" style="width:14px;height:14px"></span> در حال نگارش...'
               : '<svg class="ic"><use href="#i-bulb"/></svg> <span>ساخت پیش‌نویس (AI)</span>') +
           '</button>' +
+          '<button type="button" class="btn sm ghost" title="کارت خبر آمادهٔ انتشار — PNG ۱۰۸۰×۱۳۵۰" ' +
+            'onclick="Studio.openCard(' + jsArg(item.id) + ')">' +
+            '<svg class="ic"><use href="#i-file"/></svg> کارت تصویری</button>' +
           (item.link && safeUrl(item.link)
             ? '<a class="btn sm ghost" href="' + esc(safeUrl(item.link)) + '" target="_blank" rel="noopener noreferrer">' +
               '<svg class="ic"><use href="#i-external"/></svg> خبر اصلی</a>'
@@ -479,7 +482,9 @@ const Studio = (function () {
 
   function slideMeta() {
     const d = S.draft || {};
-    return { source: d.source || '', credibility: d.credibility || 0 };
+    return { source: d.source || '', credibility: d.credibility || 0,
+    openCard: openCard,
+  };
   }
 
   function renderSlides() {
@@ -854,6 +859,10 @@ const Studio = (function () {
     try { await fetch('/api/studio/signals/refresh', { method: 'POST' }); } catch (e) { }
     S.feed = null;
     await load(true);
+  }
+
+  function openCard(id) {
+    window.open('/api/studio/card?aid=' + encodeURIComponent(id), '_blank');
   }
 
   return {
