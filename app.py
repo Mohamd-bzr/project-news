@@ -141,18 +141,6 @@ DEFAULT_CONFIG = {
         "channel_id": 0,
         "webhook_url": "",
     },
-    "email": {
-        "enabled": False,
-        "smtp_host": "smtp.gmail.com",
-        "smtp_port": 587,
-        "smtp_user": "",
-        "smtp_pass": "",
-        "from_addr": "",
-        "to_addrs": [],
-        "use_tls": True,
-        "send_day": "sunday",
-        "send_hour": 8,
-    },
     "tv_webhook_secret": "change-me-to-a-random-string",
     # Content studio (tab «استودیو محتوا»). Credibility is a gate, virality a
     # booster: a loud story under the gate never reaches the list.
@@ -206,7 +194,6 @@ def _mask_secrets(cfg: dict) -> dict:
     _m(out.get("telegram"), ("token",))
     _m(out.get("bale"), ("token",))
     _m(out.get("discord"), ("token", "webhook_url"))
-    _m(out.get("email"), ("smtp_pass",))
     _m(out.get("content_studio"), ("youtube_key", "instagram_token"))
     _m(out.get("ai"), ("openai_key",))
     if out.get("tv_webhook_secret") and out["tv_webhook_secret"] != "change-me-to-a-random-string":
@@ -1515,7 +1502,7 @@ def api_article_restore():
     return jsonify({"ok": True, "restored": n})
 
 
-@app.route("/api/stats")
+
 def api_stats():
     with STATE_LOCK:
         s = dict(STATE["stats"])
@@ -1524,7 +1511,7 @@ def api_stats():
     return jsonify(s)
 
 
-@app.route("/api/chart/<symbol>")
+
 def api_chart_data(symbol):
     """Get chart payload with candles + indicators.
     This is what the chart widget consumes.
@@ -1536,7 +1523,7 @@ def api_chart_data(symbol):
     return jsonify({"ok": False, "error": "no data"}), 404
 
 
-@app.route("/api/sentiment")
+
 def api_sentiment():
     """Get sentiment data for all assets or a specific one."""
     symbol = request.args.get('symbol')
@@ -1579,7 +1566,7 @@ def api_sentiment():
     })
 
 
-@app.route("/api/intelligence")
+
 def api_intelligence():
     """News intelligence: anomalies, correlations, dedup stats."""
     return jsonify({"ok": True, **get_intelligence_summary()})
@@ -2134,7 +2121,7 @@ def api_candles(symbol):
     return jsonify({"ok": False, "error": "no data"}), 404
 
 
-@app.route("/api/assets")
+
 def api_assets_list():
     """Get list of all tracked assets with metadata."""
     from sources import ASSETS
@@ -3035,7 +3022,7 @@ def api_studio_publish_bale():
                     "ok_all": is_ok})
 
 
-@app.route("/api/studio/signals/refresh", methods=["POST"])
+
 def api_studio_signals_refresh():
     """Ask the demand providers to re-fetch now (they answer from cache meanwhile)."""
     try:
@@ -3554,7 +3541,7 @@ def report_to_markdown_fa(rep, include_sources: bool = True):
     return "\n".join(lines)
 
 
-@app.route("/api/report/<sym>/markdown")
+
 def api_report_markdown(sym):
     sym = sym.upper()
     lang = (request.args.get("lang") or "en").lower()
@@ -6400,7 +6387,7 @@ def api_health():
     return jsonify(health), status_code
 
 
-@app.route("/api/metrics")
+
 def api_metrics():
     """Prometheus-compatible metrics endpoint."""
     metrics = []

@@ -46,6 +46,10 @@ def setup_logging(log_dir="logs", level=logging.INFO, max_bytes=10*1024*1024, ba
     root = logging.getLogger()
     root.setLevel(level)
 
+    # third-party parse noise: trafilatura logs ERROR for every page it
+    # cannot parse (dead paywalls, empty shells) — expected, not actionable
+    logging.getLogger("trafilatura").setLevel(logging.CRITICAL)
+
     if any(getattr(h, "_freebuff_handler", False) for h in root.handlers):
         return
 

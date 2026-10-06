@@ -353,7 +353,6 @@ def test_v1_api_and_docs():
 # ── Phase 10: Integrations ───────────────────────────────────────────────────
 def test_phase10_integrations():
     from integrations.discord_bot import DiscordBot
-    from integrations.email_digest import build_digest_html
     from integrations.tv_webhook import process_webhook, get_recent_alerts, get_alerts_for_ticker
     from app import app, CONFIG
 
@@ -364,16 +363,7 @@ def test_phase10_integrations():
     res_alert = bot.send_anomaly_alert([])
     assert res_alert is True
 
-    # 2. Email Digest HTML Builder
-    reports = {"BTC": {"sections": [("Technical", {"summary": "BTC looking strong", "trend": "صعودی"})]}}
-    articles = [{"title": "Bitcoin reaches milestone", "link": "https://example.com/1", "sentiment_score": 0.8, "sentiment_label": "positive", "source_name": "CoinDesk"}]
-    sentiment = {"BTC": {"avg_score": 0.5, "total": 12}}
-    html = build_digest_html(reports, articles, sentiment)
-    assert "<table" in html
-    assert "FreeBuff Weekly Digest" in html
-    assert "BTC" in html
-
-    # 3. TradingView Webhook Processor
+    # 2. TradingView Webhook Processor
     bad_res = process_webhook({"secret": "wrong", "ticker": "ETH"}, "correct_secret")
     assert bad_res["ok"] is False
     assert bad_res["error"] == "invalid secret"

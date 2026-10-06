@@ -9,7 +9,7 @@ if not exist ".venv\Scripts\python.exe" (
     echo [setup] creating virtual environment...
     python -m venv .venv
     .venv\Scripts\python -m pip install --quiet --upgrade pip
-    .venv\Scripts\python -m pip install --quiet flask feedparser beautifulsoup4 requests
+    .venv\Scripts\python -m pip install --quiet -r requirements.txt
 )
 echo Starting dashboard on http://localhost:5055 ...
 echo (first cycle takes about a minute: 71 sources + translation + reports)

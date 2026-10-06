@@ -36,3 +36,4 @@ Flask-Compress>=1.15
 
 # optional: helps the paywall reader on Cloudflare-protected sites
 # cloudscraper>=1.2.71
+urllib3                # used directly by news_bypass retries

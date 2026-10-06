@@ -49,3 +49,14 @@ __pycache__/
 settings.json
 backups/settings.json*
 backups/settings.json.bak*
+
+# ── launch hygiene: generated reports, scratch, audit docs ──
+reports/
+redesign-mockup.html
+data/tv_alerts.json
+
+# scratch: theme-splice and one-off audit scripts
+tools/_*.py
+tools/theme_v3_*.css
+BUG_REPORT*.md
+MARKET_LAB_RESEARCH*.md

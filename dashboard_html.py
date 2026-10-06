@@ -894,7 +894,6 @@ table.asset-table td.ltr{ color:var(--ink-4); }
 /* a blocked publisher: what happened, and the two things that still work */
 .nobody > p{ font-size:var(--t-md); line-height:var(--lh-fa); color:var(--ink-3); margin-block:0 var(--s3); }
 .nobody-cta{ display:flex; gap:var(--s3); flex-wrap:wrap; }
-.nobody-hint{ font-size:var(--t-xs); color:var(--ink-4); margin-block:var(--s3) 0; line-height:var(--lh); }
 
 /* ── 12 · TOAST ─────────────────────────────────────────────────────────── */
 .toast{
@@ -1788,7 +1787,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
   .pwa-item b{ display:none; }
   .telem-divider{ margin-inline:2px; }
   .ngrid{ grid-template-columns:1fr; }
-  .cal-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .cal-th, .cal-tr{ min-inline-size:660px; }
   .app-main{ padding-inline:10px; }
 }
@@ -1811,87 +1809,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
    day in the non-windowed fallback path */
 .vs-row.vs-full > .calday.archday{ margin:0; }
 
-/* ══ PERF HUD — the counters the benchmark table quotes, on the live page ══ */
-.phud{ position:fixed; inset-block-start:calc(var(--topbar-h) + var(--s3));
-  inset-inline-start:var(--s4); z-index:420; inline-size:min(370px,86vw);
-  padding:var(--s3) var(--s3) var(--s2); border:1px solid var(--rule-2);
-  border-radius:var(--r2); background:var(--panel-2); box-shadow:var(--sh-2);
-  color:var(--ink-2); font-size:var(--t-xs); }
-.phud-h{ display:flex; align-items:center; justify-content:space-between; gap:var(--s2);
-  margin-block-end:var(--s2); padding-block-end:var(--s1); border-block-end:1px solid var(--rule);
-  color:var(--cu-txt); font-weight:700; letter-spacing:.02em; }
-.phud-x{ all:unset; cursor:pointer; inline-size:18px; block-size:18px; display:grid;
-  place-items:center; border-radius:var(--r-pill); color:var(--ink-3); }
-.phud-x:hover{ background:var(--wash-2); color:var(--cu-txt); }
-.phud-r{ display:flex; align-items:baseline; justify-content:space-between; gap:var(--s3);
-  padding-block:2px; border-block-end:1px dashed var(--rule); font-variant-numeric:tabular-nums; }
-.phud-r:last-of-type{ border-block-end:0; }
-.phud-r b{ color:var(--ink-1); font-weight:700; }
-.phud-r em{ color:var(--cu-txt); font-style:normal; font-weight:700; }
-.phud-n{ margin-block-start:var(--s2); color:var(--ink-4); font-size:10px;
-  line-height:var(--lh-fa); }
-/* ══ ON-DEMAND AUDIO READER (News Cards & Reports) ══ */
-.audio-read-btn{
-  all:unset; cursor:pointer;
-  display:inline-flex; align-items:center; justify-content:center;
-  width:24px; height:24px; border-radius:var(--r1);
-  color:var(--ink-3); transition:all var(--dur-1) var(--ease);
-  position:relative;
-}
-.audio-read-btn:hover{ color:var(--cu-txt); background:var(--wash-2); }
-.audio-read-btn.playing{
-  color:var(--up); background:rgba(87,177,131,0.15);
-  border:1px solid var(--up);
-}
-.audio-wave{
-  display:none; align-items:flex-end; gap:1.5px; height:10px; margin-inline-start:2px;
-}
-.audio-read-btn.playing .audio-wave,
-.audio-rep-btn.playing .audio-wave,
-.audio-modal-btn.playing .audio-wave{
-  display:inline-flex;
-}
-.audio-wave span{
-  width:2px; height:3px; background:currentColor; border-radius:1px;
-  animation:audioWavePulse 0.4s infinite alternate ease-in-out;
-}
-.audio-wave span:nth-child(1){ animation-delay:0.05s; }
-.audio-wave span:nth-child(2){ animation-delay:0.2s; }
-.audio-wave span:nth-child(3){ animation-delay:0.1s; }
-@keyframes audioWavePulse{
-  0%{ height:2px; }
-  100%{ height:10px; }
-}
-.ncard.is-speaking{
-  border-color:var(--cu);
-  box-shadow:0 0 10px rgba(200, 150, 93, 0.25);
-}
-.audio-rep-btn.playing,
-.audio-modal-btn.playing{
-  color:var(--up) !important;
-  border-color:var(--up) !important;
-  background:rgba(87,177,131,0.12) !important;
-}
-
-/* ══ WHALE LIQUIDITY TRACKER ══ */
-.whale-hero{
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:var(--s4);
-  padding:var(--s4); background:var(--panel); border:1px solid var(--rule); border-radius:var(--r3);
-  margin-bottom:var(--s4);
-}
-.whale-kpi{ background:var(--panel-2); border:1px solid var(--rule-2); border-radius:var(--r2); padding:var(--s3); display:flex; flex-direction:column; gap:var(--s1); }
-.whale-kpi-title{ font-size:var(--t-xs); color:var(--ink-3); display:flex; justify-content:space-between; align-items:center; }
-.whale-kpi-val{ font-size:var(--t-xl); font-weight:700; font-variant-numeric:tabular-nums; direction:ltr; text-align:start; }
-.whale-kpi-val.pos{ color:var(--up); }
-.whale-kpi-val.neg{ color:var(--dn); }
-.whale-netflow-bar{ height:6px; background:var(--bg-deep); border-radius:3px; overflow:hidden; display:flex; margin-top:4px; }
-.whale-netflow-fill{ height:100%; transition:width var(--dur-2) var(--ease); }
-.whale-netflow-fill.pos{ background:var(--up); }
-.whale-netflow-fill.neg{ background:var(--dn); }
-.whale-table-wrap{ overflow-x:auto; background:var(--panel); border:1px solid var(--rule); border-radius:var(--r3); }
-.whale-table{ width:100%; border-collapse:collapse; text-align:start; font-size:var(--t-sm); }
-.whale-table th{ padding:var(--s2) var(--s3); background:var(--bg-deep); color:var(--ink-3); font-size:var(--t-xs); font-weight:600; border-bottom:1px solid var(--rule); }
-.whale-table td{ padding:var(--s2) var(--s3); border-bottom:1px solid var(--rule-2); vertical-align:middle; }
 .whale-table tr:hover td{ background:var(--wash); }
 .wtag{ display:inline-flex; align-items:center; gap:3px; padding:1px 6px; border-radius:var(--r1); font-size:var(--t-xs); font-weight:600; }
 .wtag-ultra{ background:rgba(217,106,85,0.2); color:var(--dn); border:1px solid var(--dn); }
@@ -1906,8 +1823,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .tb-right{ margin-inline-start:auto; display:flex; align-items:center; }
 .tb-cnt{ font-size:var(--t-xs); color:var(--ink-4); font-variant-numeric:tabular-nums; }
 .tb-chip.active{ background:var(--cu-wash); border-color:var(--cu-line); color:var(--cu-txt); font-weight:700; }
-
-@media (max-width:860px){ .phud{ inline-size:min(94vw,420px); inset-inline-start:3vw; } }
 
 .tone-up{ color:var(--up); } .tone-dn{ color:var(--dn); } .tone-warn{ color:var(--warn); }
 /* ── MERGED SUGGESTIONS TAB · was: content studio + gold/coin board ──────
@@ -1934,26 +1849,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 #cbList .ncard[data-lane="crypto"]{ --lane:var(--cu); }
 #cbList .rank{ margin-inline-start:auto; font-family:var(--font-mono); font-size:10.5px; font-weight:700; color:var(--ink-4); direction:ltr; font-variant-numeric:tabular-nums; letter-spacing:.04em; }
 .cb-empty{ grid-column:1 / -1; color:var(--ink-3); font-size:var(--t-sm); padding:var(--s5) var(--s4); text-align:center; line-height:var(--lh-fa); }
-/* ── Expansion Suite: Reader Mode, Watchlist, Embeds, Offline ── */
-.reader-overlay{ position:fixed; inset:0; z-index:2500; background:var(--bg); color:var(--ink-1); display:none; flex-direction:column; overflow-y:auto; scroll-behavior:smooth; }
-.reader-overlay.open{ display:flex; }
-.reader-progress{ position:fixed; top:0; left:0; right:0; height:4px; background:transparent; z-index:2600; }
-.reader-progress-bar{ height:100%; width:0%; background:#3b82f6; box-shadow:0 0 10px rgba(59,130,246,0.6); transition:width 0.1s ease; }
-.reader-toolbar{ position:sticky; top:0; z-index:2550; display:flex; align-items:center; justify-content:space-between; padding:10px 24px; background:var(--panel); border-bottom:1px solid var(--rule); backdrop-filter:blur(8px); }
-.reader-tools-group{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.reader-container{ max-width:760px; margin:0 auto; padding:40px 24px 80px 24px; font-size:var(--reader-fs, 16px); line-height:2.1; direction:rtl; text-align:right; }
-.reader-title{ font-size:1.75em; font-weight:800; line-height:1.5; margin-bottom:12px; }
-.reader-title-en{ font-size:0.9em; color:var(--ink-3); direction:ltr; text-align:right; margin-bottom:16px; }
-.reader-meta{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; font-size:0.82em; color:var(--ink-3); margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--rule); }
-.reader-content p{ margin-bottom:1.5em; text-align:justify; }
-.reader-theme-sepia{ background:#fbf0d9 !important; color:#433422 !important; }
-.reader-theme-sepia .reader-toolbar{ background:#f4e4c1 !important; border-color:#dcc29b !important; color:#433422 !important; }
-.reader-theme-sepia .reader-title{ color:#2b1f14 !important; }
-.reader-theme-sepia .reader-meta{ border-color:#dcc29b !important; color:#6a5338 !important; }
-.reader-theme-sepia .btn{ background:#e8d1a7 !important; color:#2b1f14 !important; border-color:#c9ab7b !important; }
-.reader-theme-oled{ background:#000000 !important; color:#d4d4d4 !important; }
-.reader-theme-oled .reader-toolbar{ background:#0a0a0a !important; border-color:#222222 !important; }
-.chip.chip-watchlist{ border-color:#f59e0b !important; color:#f59e0b !important; }
+/* ── Expansion Suite: Watchlist, Embeds, Offline ── */
 .chip.chip-watchlist.on{ background:#f59e0b !important; color:#000 !important; }
 .watchlist-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(130px, 1fr)); gap:10px; margin:16px 0; }
 .watchlist-card{ display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:var(--r2); border:1px solid var(--rule); background:var(--panel-2); cursor:pointer; user-select:none; }
@@ -1971,7 +1867,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .chart-head .p, .chart-head .c, .tvhead .p, .ch-price .p, .ch-price .c,
 .cal-countdown, .cal-timer .sg b, .cal-timer .sg small, .cal-day .dd,
 .cal-tr .c-time, .cal-tr .c-ccy, .cal-tr .c-num,
-.whale-kpi-val, .cb-kpi-val,
+.whale-kpi-val,
 .cr-n, .cr-sur, .cred-badge{
   font-family:var(--font-mono);
   font-variant-numeric:tabular-nums;
@@ -2041,7 +1937,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 <symbol id="i-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6.2 7.2V19L10.2 20.5v-8.3z"/></symbol>
 <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.4-4.4"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
-<symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
 <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 5.5h11.5v13H6a2 2 0 0 1-2-2z"/><path d="M15.5 8.5H20v8a2 2 0 0 1-2 2h-2.5"/><path d="M7 9h6M7 12h6M7 15h4"/></symbol>
 <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8 16v-5M12 16V7.5M16 16v-3"/></symbol>
 <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M12 3.5a5.5 5.5 0 0 1 3.3 9.9V16H8.7v-2.6A5.5 5.5 0 0 1 12 3.5z"/><path d="M9.5 18.5h5M10.5 21h3"/></symbol>
@@ -2105,8 +2000,6 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="M9.6 6.4 15.2 12l-5.6 5.6"/></symbol>
 <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
 <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9.6 5.6v12.8M14.4 5.6v12.8"/></symbol>
-<symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
-<symbol id="i-mute" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></symbol>
 <symbol id="i-whale" viewBox="0 0 24 24"><path d="M3 14c0 3 3 5 7 5s8-1 11-4c-2-1-4-1-6 0-1-3-4-5-8-5-3 0-4 2-4 4z"/><circle cx="7" cy="13" r="1"/><path d="M18 9c1-2 3-3 5-3-1 2-1 4 0 6"/></symbol>
 </defs></svg>
 
@@ -4343,7 +4236,6 @@ function showView(v, skipPick){
     }, 150);
   }
 }
-function gotoView(v){ showView(v); }
 
 async function loadData(){
   if(_LOADING) return;
@@ -5452,8 +5344,7 @@ let ECON=null, ECON_AT=0;
 async function loadCalendar(){
   try{
     const r=await fetch('/api/econ'); const d=await r.json();
-    ECON=d; ECON_AT=Date.now(); window.__MACRO=d.macro||[]; renderCalendar();
-  }catch(e){ renderCalendar(); }
+    ECON=d; ECON_AT=Date.now();   }catch(e){ renderCalendar(); }
 }
 const FA_DAY={'Saturday':'شنبه','Sunday':'یکشنبه','Monday':'دوشنبه','Tuesday':'سه‌شنبه','Wednesday':'چهارشنبه','Thursday':'پنجشنبه','Friday':'جمعه'};
 const FA_MONTH={'Farvardin':'فروردین','Ordibehesht':'اردیبهشت','Khordad':'خرداد','Tir':'تیر','Mordad':'مرداد','Shahrivar':'شهریور','Mehr':'مهر','Aban':'آبان','Azar':'آذر','Dey':'دی','Bahman':'بهمن','Esfand':'اسفند'};
@@ -8532,8 +8423,7 @@ function jumpRepSec(id){
   }
   function close(){ const w=document.getElementById('cmdk'); if(w) w.classList.remove('open'); }
 
-  window.cmdkOpen=open; window.cmdkClose=close;
-  const field=document.getElementById('cmdkQ');
+  window.cmdkOpen=open;   const field=document.getElementById('cmdkQ');
   if(field){
     field.addEventListener('input', function(){ SEL=0; refresh(); });
     field.addEventListener('keydown', function(e){

@@ -22,6 +22,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install pytest
 
       # the suite is designed network-free; Node is preinstalled on the
       # runner, so the inline-JS syntax gate runs too
@@ -31,12 +32,15 @@ jobs:
       - name: Syntax-check the inline dashboard JS
         run: python tools/check_dashboard_js.py
 
+      # explicitly advisory: findings are printed but cannot fail the build
       - name: Security lint (bandit)
+        continue-on-error: true
         run: |
           pip install bandit
-          bandit -q -ll -x backups -r . || true
+          bandit -q -ll -x backups -r .
 
       - name: Dependency audit (pip-audit)
+        continue-on-error: true
         run: |
           pip install pip-audit
-          pip-audit -r requirements.txt --ignore-vuln PYSEC-2020-117 || true
+          pip-audit -r requirements.txt --ignore-vuln PYSEC-2020-117
