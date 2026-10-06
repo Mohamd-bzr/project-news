@@ -1,10 +1,9 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    FREEBUFF — «ایده‌های محتوا» (merged tab; was: content studio + channel)
 
-   One view, one job: show the news the engine picked for the page, styled
-   like an editorial board — numbered cards, lane-tinted edge — but with no
-   explanatory chrome: no scores, no factor bars, no why-text. The ranking
-   lives entirely on the server (channel_profile).
+   An editorial idea board: the top idea leads full-width, the rest sit in a
+   grid with lane-tinted edges and a ghost index. News only — the ranking
+   internals never reach this file (the API ships display fields alone).
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
@@ -19,6 +18,12 @@ const Channel = (function () {
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const esc = (s) => (typeof window.esc === 'function' ? window.esc(s) : escFallback(s));
 
+  /* Short lane tags for the board. */
+  const TAGS = {
+    gold: 'طلا', coin: 'سکه', currency: 'ارز',
+    global: 'جهانی', crypto: 'کریپتو',
+  };
+
   function agoText(hours) {
     const h = Number(hours);
     if (!isFinite(h)) return '—';
@@ -31,16 +36,24 @@ const Channel = (function () {
     const title = it.title_fa || it.title || '';
     const summary = (it.summary_fa || '').trim();
     const lane = esc(it.primary_bucket || 'global');
-    const idx = fa(String(i + 1).padStart(2, '0'));
+    /* mono surfaces take Latin digits: IBM Plex Mono has no Persian set */
+    const idx = String(i + 1).padStart(2, '0');
     const open = it.id ? ' onclick="Channel.openSource(' + jsArg(it.id) + ')"' : '';
-    return '<article class="cb-item" data-lane="' + lane + '" data-id="' + esc(it.id || '') + '">' +
+    const lead = i === 0 ? ' lead' : '';
+    const delay = i < 12 ? ' style="--d:' + (i * 22) + 'ms"' : '';
+    const tag = esc(TAGS[it.primary_bucket] || it.bucket_label || 'ایده');
+
+    return '<article class="cb-item' + lead + '" data-lane="' + lane + '" data-id="' +
+      esc(it.id || '') + '"' + delay + '>' +
       '<span class="cb-idx" aria-hidden="true">' + idx + '</span>' +
+      '<div class="cb-top">' +
+        '<span class="cb-tag">' + tag + '</span>' +
+        '<span class="cb-age">' + agoText(it.age_hours) + '</span>' +
+      '</div>' +
       '<h4 class="cb-title"' + open + '>' + esc(title) + '</h4>' +
       (summary ? '<p class="cb-sum">' + esc(summary) + '</p>' : '') +
       '<div class="cb-meta">' +
-        '<span class="cb-dot" aria-hidden="true"></span>' +
         '<span class="cb-src">' + esc(it.source || 'منبع اصلی') + '</span>' +
-        '<span class="cb-time">⏱ ' + agoText(it.age_hours) + '</span>' +
         (it.link
           ? '<a class="cb-link" href="' + esc(it.link) + '" target="_blank" rel="noopener noreferrer">خبر اصلی ↗</a>'
           : '') +

@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SW_VERSION = 'v13';        /* v9: dropped the daily-print route from the shell (shell changed) */
+const SW_VERSION = 'v14';        /* v9: dropped the daily-print route from the shell (shell changed) */
 const SHELL_CACHE = 'mohmd-shell-' + SW_VERSION;
 const API_CACHE = 'mohmd-api-' + SW_VERSION;
 const EXT_CACHE = 'mohmd-ext-' + SW_VERSION;

@@ -2879,9 +2879,26 @@ def api_channel_feed():
         payload = _channel_feed(limit=limit)
     except Exception as e:
         log(f"channel feed failed: {e}")
-        return jsonify({"ok": True, "items": [], "lanes": {}, "rejected": {},
-                        "notes": [f"ساخت فهرست با خطا مواجه شد: {e}"], "warming": True})
-    return jsonify({"ok": True, **payload})
+        return jsonify({"ok": True, "items": [], "notes": [f"ساخت فهرست با خطا مواجه شد: {e}"],
+                        "warming": True})
+    # The board is explainable server-side, but the client asked for *news
+    # only* — the ranking internals (viral factors, fit, why-text, captions)
+    # stop at the server and never ship to the browser.
+    slim = [{
+        "id": it.get("id", ""),
+        "title": it.get("title", ""),
+        "title_fa": it.get("title_fa", ""),
+        "summary_fa": it.get("summary_fa", ""),
+        "source": it.get("source", ""),
+        "link": it.get("link", ""),
+        "age_hours": it.get("age_hours"),
+        "published_ts": it.get("published_ts"),
+        "primary_bucket": it.get("primary_bucket", ""),
+        "bucket_label": it.get("bucket_label", ""),
+    } for it in (payload.get("items") or [])]
+    return jsonify({"ok": True, "items": slim,
+                    "scanned": payload.get("scanned"),
+                    "generated_ts": payload.get("generated_ts")})
 
 
 def _tg_send_photo(token, chat, png_bytes, caption=""):
