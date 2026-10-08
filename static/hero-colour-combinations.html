@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="45 Best Colour Combinations for Websites (2026) — curated palettes for modern web design">
+<meta name="theme-color" content="#111111">
+<meta name="color-scheme" content="dark">
+<title>45 Best Colour Combinations for Websites (2026)</title>
+<style>
+  /* ── palette — the exact five from the brief ─────────────────────────── */
+  :root{
+    --ink:#111111;        /* dark charcoal / black  */
+    --red:#C8102E;        /* primary bright red     */
+    --gray:#8C8E93;       /* medium gray            */
+    --paper:#F4F4F4;      /* light white / off-white*/
+    --wine:#5B0E1D;       /* deep burgundy          */
+  }
+
+  *, *::before, *::after{ box-sizing:border-box; }
+  html, body{ margin:0; padding:0; }
+  body{
+    min-height:100svh;
+    background:
+      /* soft focused key light over the headline side */
+      radial-gradient(1000px 640px at 16% 8%, rgba(244,244,244,.055), transparent 60%),
+      /* red ambient glow behind the card stack */
+      radial-gradient(1150px 760px at 82% 52%, rgba(200,16,46,.10), transparent 56%),
+      /* burgundy under-glow, bottom right */
+      radial-gradient(820px 560px at 88% 108%, rgba(91,14,29,.34), transparent 60%),
+      var(--ink);
+    color:var(--paper);
+    font-family:Inter, "SF Pro Display", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{ background:var(--red); color:var(--paper); }
+
+  .hero{
+    min-height:100svh;
+    display:grid;
+    grid-template-columns:minmax(0, 1fr) 400px;
+    align-items:center;
+    gap:clamp(48px, 6vw, 96px);
+    max-width:1240px;
+    margin-inline:auto;
+    padding:clamp(48px, 7vh, 112px) clamp(24px, 4vw, 56px);
+  }
+
+  /* ── left · copy ─────────────────────────────────────────────────────── */
+  .copy{ min-width:0; }
+  .copy h1{
+    margin:0;
+    font-size:clamp(2.6rem, 5.4vw, 4.35rem);
+    font-weight:800;
+    line-height:1.04;
+    letter-spacing:-.032em;
+    color:var(--paper);
+    text-wrap:balance;
+  }
+  .copy h1 .num{ color:var(--red); }
+  .copy h1 .year{ color:var(--gray); font-weight:700; }
+  /* the distinct bright red accent bar underneath the title */
+  .accent-bar{
+    inline-size:104px; block-size:6px; border-radius:3px;
+    background:var(--red);
+    margin-block:clamp(22px, 3.4vh, 34px) clamp(18px, 2.8vh, 28px);
+    box-shadow:0 0 24px rgba(200,16,46,.45), 0 2px 6px rgba(200,16,46,.35);
+  }
+  .copy .sub{
+    margin:0;
+    font-size:clamp(1rem, 1.4vw, 1.15rem);
+    font-weight:400;
+    line-height:1.6;
+    color:var(--gray);
+    max-inline-size:44ch;
+  }
+
+  /* ── right · three stacked swatch cards ──────────────────────────────── */
+  .stack{
+    display:flex; flex-direction:column; gap:22px;
+    min-width:0;
+  }
+  .card{
+    display:flex; flex-direction:column;
+    block-size:158px;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid rgba(244,244,244,.08);
+    /* soft focused lighting: lifted key light from above, deep falloff below */
+    box-shadow:
+      inset 0 1px 0 rgba(244,244,244,.10),
+      0 34px 64px -34px rgba(0,0,0,.85),
+      0 10px 26px -14px rgba(0,0,0,.6);
+    transition:transform 220ms cubic-bezier(.16,1,.3,1), box-shadow 220ms cubic-bezier(.16,1,.3,1);
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    box-shadow:
+      inset 0 1px 0 rgba(244,244,244,.12),
+      0 44px 78px -36px rgba(0,0,0,.9),
+      0 14px 30px -14px rgba(0,0,0,.65);
+  }
+  .sw{
+    position:relative;
+    flex:1 1 0;
+    min-block-size:0;
+    display:flex; align-items:flex-end;
+    padding:10px 16px;
+  }
+  /* a soft sheen so every band reads as a lit swatch, not flat fill */
+  .sw::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(244,244,244,.075), rgba(244,244,244,0) 46%);
+  }
+  .sw .hex{
+    position:relative;
+    font-family:ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+    font-size:10.5px; font-weight:600;
+    letter-spacing:.1em;
+    opacity:.78;
+  }
+  .sw.lt .hex{ color:var(--ink); }
+
+  /* per-card band proportions — same five colours, three arrangements */
+  .card-1 .wine{ flex-grow:46; } .card-1 .r{ flex-grow:34; } .card-1 .blk{ flex-grow:20; }
+  .card-2 .ppr{ flex-grow:44; } .card-2 .g{ flex-grow:32; } .card-2 .r{ flex-grow:24; }
+  .card-3 .blk{ flex-grow:40; } .card-3 .wine{ flex-grow:28; } .card-3 .g{ flex-grow:18; } .card-3 .r{ flex-grow:14; }
+
+  .blk{ background:var(--ink); } .blk .hex{ color:var(--paper); }
+  .r{ background:var(--red); }   .r .hex{ color:var(--paper); }
+  .g{ background:var(--gray); }  .g .hex{ color:var(--ink); } .g.lt .hex{ color:var(--ink); }
+  .ppr{ background:var(--paper); }
+  .wine{ background:var(--wine); } .wine .hex{ color:var(--paper); }
+
+  /* ── responsive: stack the columns, keep the composition ─────────────── */
+  @media (max-width:920px){
+    .hero{ grid-template-columns:1fr; gap:56px; align-content:center; }
+    .stack{ max-inline-size:440px; }
+  }
+  @media (max-width:480px){
+    .card{ block-size:140px; border-radius:16px; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card{ transition:none; }
+    .card:hover{ transform:none; }
+  }
+</style>
+</head>
+<body>
+  <main class="hero">
+    <section class="copy">
+      <h1><span class="num">45</span> Best Colour Combinations for Websites <span class="year">(2026)</span></h1>
+      <div class="accent-bar" role="presentation"></div>
+      <p class="sub">Curated palettes for modern web design</p>
+    </section>
+
+    <aside class="stack" aria-label="Featured colour palettes">
+      <div class="card card-1">
+        <div class="sw wine"><span class="hex">#5B0E1D</span></div>
+        <div class="sw r"><span class="hex">#C8102E</span></div>
+        <div class="sw blk"><span class="hex">#111111</span></div>
+      </div>
+      <div class="card card-2">
+        <div class="sw ppr lt"><span class="hex">#F4F4F4</span></div>
+        <div class="sw g lt"><span class="hex">#8C8E93</span></div>
+        <div class="sw r"><span class="hex">#C8102E</span></div>
+      </div>
+      <div class="card card-3">
+        <div class="sw blk"><span class="hex">#111111</span></div>
+        <div class="sw wine"><span class="hex">#5B0E1D</span></div>
+        <div class="sw g lt"><span class="hex">#8C8E93</span></div>
+        <div class="sw r"><span class="hex">#C8102E</span></div>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

@@ -890,7 +890,7 @@ def scrape_all(max_workers: int = 32, now=None, enabled=None, custom=None,
         for a in articles:
             texts.append(a["title"])
             if len(a.get("summary") or "") >= 40:
-                texts.append(a["summary"][:400])
+                texts.append(a["summary"][:750])
         try:
             table = translate_many(texts)
             hit = 0
@@ -901,7 +901,7 @@ def scrape_all(max_workers: int = 32, now=None, enabled=None, custom=None,
                     hit += 1
                 summ = a.get("summary") or ""
                 if summ and len(summ) >= 40:
-                    a["summary_fa"] = table.get(summ[:400], "")
+                    a["summary_fa"] = table.get(summ[:750], "")
             save_cache()
             log(f"Translated {hit}/{len(articles)} titles to Persian "
                 f"in {time.time()-t1:.1f}s")

@@ -338,13 +338,6 @@ SOURCES = {
     "ecb-press":       {"name": "ECB Press",        "rss": "https://www.ecb.europa.eu/rss/press.html",   "trust": 0.95, "tier": 1, "kind": "macro"},
     "wsj-markets":     {"name": "WSJ Markets",      "rss": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", "trust": 0.92, "tier": 1, "kind": "macro"},
     "cryptopolitan":   {"name": "Cryptopolitan",    "rss": "https://www.cryptopolitan.com/feed/",        "trust": 0.74, "tier": 3, "kind": "crypto"},
-    # Persian wires — native Persian skips the translator (see translate guard)
-    "donya-eqtesad":   {"name": "دنیای اقتصاد",      "rss": "https://donya-e-eqtesad.com/rss",            "trust": 0.80, "tier": 3, "kind": "macro"},
-    "eghtesadonline":  {"name": "اقتصاد آنلاین",     "rss": "https://www.eghtesadonline.com/rss",         "trust": 0.78, "tier": 3, "kind": "macro"},
-    "isna":            {"name": "ایسنا",             "rss": "https://www.isna.ir/rss",                    "trust": 0.82, "tier": 3, "kind": "macro"},
-    "mehrnews":        {"name": "خبرگزاری مهر",      "rss": "https://www.mehrnews.com/rss",               "trust": 0.78, "tier": 3, "kind": "macro"},
-    "tejaratnews":     {"name": "تجارت نیوز",        "rss": "https://tejaratnews.com/rss",                "trust": 0.72, "tier": 3, "kind": "macro"},
-    "arzdigital":      {"name": "ارز دیجیتال",       "rss": "https://arzdigital.com/feed/",               "trust": 0.72, "tier": 3, "kind": "crypto"},
 
     # ── Reddit subs (MASTER file, probed: r/DeFi yields real discussion
     #    within 72h; r/CryptoTechnology throttles 429; r/altcoin is pinned

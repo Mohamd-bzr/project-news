@@ -433,7 +433,9 @@ def test_draft_endpoint_persists_and_lists(client):
             app.STATE["articles"] = []
 
 
-def test_publish_requires_configuration(client):
+def test_publish_requires_configuration(client, monkeypatch):
+    import app
+    monkeypatch.setattr(app, "_telegram_cfg", lambda: ("", ""))
     r = client.post("/api/studio/publish/telegram", json={"text": "سلام", "confirm": True})
     assert r.status_code == 400
     body = r.get_json()

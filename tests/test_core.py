@@ -107,14 +107,20 @@ def test_select_news_respects_credibility_and_age():
 def test_dashboard_ships_dl3_layers():
     from dashboard_html import APP_HTML
     assert "DESIGN LANGUAGE 3" in APP_HTML and "ENGRAVED INSTRUMENT" in APP_HTML
+    # DL6.1: the light sibling must exist alongside the dark default
+    assert 'data-theme="light"' in APP_HTML and "toggleTheme" in APP_HTML
     assert 'id="tickerBar"' in APP_HTML and 'id="leadRow"' in APP_HTML
     assert APP_HTML.count('value="72" selected') == 0
     style = APP_HTML.split("<style>", 1)[1].split("</style>", 1)[0]
     assert style.count("{") == style.count("}")
-    # one deliberate token system: a single :root, no token defined twice
+    # one deliberate token system: a single dark :root plus one light override
+    # block that re-declares exactly the color tokens (layout/radii stay shared)
     assert style.count(":root") == 1
-    for tok in ("--bg:", "--cu:", "--ink-3:", "--r3:"):
-        assert style.count(tok) == 1, f"{tok} must be declared exactly once"
+    assert style.count('html[data-theme="light"]{') == 1
+    for tok in ("--bg:", "--cu:", "--ink-3:"):
+        assert style.count(tok) == 2, f"{tok} must exist once in dark, once in light"
+    for tok in ("--r3:", "--topbar-h:", "--dur-1:"):
+        assert style.count(tok) == 1, f"{tok} is theme-independent and declared once"
 
 
 # ── full-text extraction: the two passes that read the page's own JSON ──────

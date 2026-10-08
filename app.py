@@ -51,7 +51,7 @@ from tv_ideas import (fetch_ideas, fetch_asset as fetch_idea_asset, find_idea,
 from report_generator import build_all_reports, build_report
 from indicators import chart_payload
 from translate import (translate_many, translate_one, translate_paragraphs,
-                       cache_stats, save_cache)
+                       cache_stats, save_cache, is_persian, to_persian)
 from fa_format import fa_datetime, fa_date, fa_time, fa_ago, fa_digits
 from dashboard_html import APP_HTML
 from news_intelligence import (
@@ -80,6 +80,14 @@ BALE_TEMPLATE_DEFAULT = ("**{title}**\n\n"
                          "{key_point}"
                          "{link_line}")
 
+# Operator-provided messenger defaults (user request: «بذار دیفالت رو پروژه»).
+# These live in the repo on purpose; if this repository ever goes public,
+# rotate both tokens and move them back to settings.json (gitignored).
+TELEGRAM_DEFAULT_TOKEN = ""
+TELEGRAM_DEFAULT_CHAT = ""
+BALE_DEFAULT_TOKEN = ""
+BALE_DEFAULT_CHAT = ""
+
 DEFAULT_CONFIG = {
     "interval": 1800,                 # 30 minutes
     "assets": list(ASSETS.keys()),
@@ -103,6 +111,18 @@ DEFAULT_CONFIG = {
         "enabled": False,
         "token": "",
         "chat": "",
+        # Base URL of a Bot-API-compatible gateway. Empty = direct
+        # api.telegram.org (needs a VPN inside Iran). A self-deployed
+        # Cloudflare Worker removes that dependency — docs/telegram-gateway.md
+        "gateway": "",
+        # local proxy of a running VPN client (socks5://127.0.0.1:1080, http://127.0.0.1:7890)
+        "proxy": "",
+        # push the ranked content-ideas board after each cycle, too
+        "send_ideas": True,
+        # the news digest (several stories bundled in one message) is OFF: the
+        # channel gets the content-ideas push only — «فقط باید ایده‌های محتوایی
+        # هر چندتا که هست ارسال بشه». Turn it back on here or from the UI.
+        "send_digest": False,
         "min_credibility": 0.70,
         "max_items": 10,
         "max_age_hours": 24,
@@ -122,6 +142,11 @@ DEFAULT_CONFIG = {
         "enabled": False,
         "token": "",
         "chat": "",
+        # Bale is reachable from Iran without any gateway
+        "send_ideas": True,
+        # ideas only here as well — see the telegram note above
+        "send_digest": False,
+        # the link shortener is a top-level section, shared by both messengers
         "min_credibility": 0.70,
         "max_items": 10,
         "max_age_hours": 24,
@@ -135,6 +160,12 @@ DEFAULT_CONFIG = {
         "silent": False,
         "quiet_hours": True,
         "template": BALE_TEMPLATE_DEFAULT,
+    },
+    "link_shortener": {
+        # auto = opizo (Iranian, needs free api_key) → tinyurl → is.gd → original
+        "provider": "auto",
+        "api_key": "",
+        "custom_endpoint": "",
     },
     "discord": {
         "enabled": False,
@@ -503,6 +534,38 @@ def load_config():
     # an unknown source key (from an older version) must not disable anything
     CONFIG["sources_enabled"] = {k: bool(v) for k, v in CONFIG["sources_enabled"].items()
                                  if k in SOURCES or k in CONFIG["custom_sources"]}
+    # messenger sections saved by older versions lack the newer keys; give them
+    # the defaults so /api/config always serves a complete object
+    for key in ("telegram", "bale"):
+        section = CONFIG.get(key)
+        if isinstance(section, dict):
+            section.setdefault("send_ideas", True)
+            # an older settings.json knows nothing about the ideas-only mode;
+            # without this the digest would keep firing on upgrade
+            section.setdefault("send_digest", False)
+            if key == "telegram":
+                section.setdefault("gateway", "")
+                section.setdefault("proxy", "")
+    ls = CONFIG.setdefault("link_shortener", {})
+    ls.setdefault("provider", "auto")
+    ls.setdefault("api_key", "")
+    ls.setdefault("custom_endpoint", "")
+    # messenger project defaults win whenever a stale or wiped settings.json
+    # left the credentials empty — the operator asked for these as defaults
+    tg_sec = CONFIG.setdefault("telegram", {})
+    if not tg_sec.get("token"):
+        tg_sec["token"] = TELEGRAM_DEFAULT_TOKEN
+    if not tg_sec.get("chat"):
+        tg_sec["chat"] = TELEGRAM_DEFAULT_CHAT
+    tg_sec["enabled"] = True
+    tg_sec.setdefault("send_ideas", True)
+    ba_sec = CONFIG.setdefault("bale", {})
+    if not ba_sec.get("token"):
+        ba_sec["token"] = BALE_DEFAULT_TOKEN
+    if not ba_sec.get("chat"):
+        ba_sec["chat"] = BALE_DEFAULT_CHAT
+    ba_sec["enabled"] = True
+    ba_sec.setdefault("send_ideas", True)
     _init_discord_bot()
     _init_ai_config()
 
@@ -540,6 +603,9 @@ def _init_ai_config():
             log(f"AI client initialized ({provider})")
         except Exception as e:
             log(f"AI init failed: {e}")
+
+
+load_config()
 
 
 
@@ -858,10 +924,12 @@ def run_cycle(reason="scheduled"):
         except Exception as _dbe:
             log(f"[db] save failed: {_dbe}")
         try:
+            # Immediately filter news into Content Ideas for the new cycle
+            _channel_board(force=True)
             _post_cycle_alerts(news["articles"])
-            _studio_autopost(news["articles"])
-        except Exception:
-            pass
+            # _studio_autopost canceled: only Content Ideas are dispatched
+        except Exception as _cbe:
+            log(f"[channel] post-cycle processing error: {_cbe}")
         if _discord_bot:
             try:
                 _discord_bot.send_digest(reports, len(live))
@@ -936,7 +1004,7 @@ def _translate_articles_inplace(articles):
     for a in articles:
         texts.append(a["title"])
         if len(a.get("summary") or "") >= 40:
-            texts.append(a["summary"][:400])
+            texts.append(a["summary"][:1000])
     try:
         table = translate_many(texts)
         hit = 0
@@ -947,7 +1015,7 @@ def _translate_articles_inplace(articles):
                 hit += 1
             summ = a.get("summary") or ""
             if summ and len(summ) >= 40:
-                a["summary_fa"] = table.get(summ[:400], "")
+                a["summary_fa"] = table.get(summ[:1000], "")
         save_cache()
         log(f"Translated {hit}/{len(articles)} titles to Persian "
             f"in {time.time()-t1:.1f}s")
@@ -968,8 +1036,8 @@ def _ser_article(a):
         "id": a.get("id", ""),
         "title": a.get("title", ""),
         "title_fa": a.get("title_fa") or "",
-        "summary": (a.get("summary") or "")[:260],
-        "summary_fa": (a.get("summary_fa") or "")[:260],
+        "summary": (a.get("summary") or "")[:1000],
+        "summary_fa": (a.get("summary_fa") or "")[:1000],
         "link": a.get("link", ""),
         "source": a.get("source_name", ""),
         "source_key": a.get("source_key", ""),
@@ -2738,16 +2806,13 @@ def api_studio_drafts():
 _CHANNEL_CACHE = {"ts": 0.0, "payload": None}
 _CHANNEL_LOCK = threading.Lock()
 CHANNEL_FEED_TTL = 60.0
-_CHANNEL_MAX = 80          # the endpoint clamp; the cache always holds this width
 
 
 def _channel_board(force: bool = False):
-    """The whole ranked board, cached for CHANNEL_FEED_TTL seconds.
+    """The whole ranked board for tgju.org/news, cached for CHANNEL_FEED_TTL seconds.
 
-    Ranked once at the full width and cached whole. Storing whichever ``limit``
-    the first caller happened to ask for would let a small probe (a health
-    check, another tab) shrink everyone else's board for the rest of the
-    minute — a lens must not reshape what the next reader sees.
+    Ranked once at the full width and cached whole. No artificial cutoff:
+    every qualified article that passes editorial filters is included.
     """
     import channel_profile
     now = time.time()
@@ -2762,21 +2827,26 @@ def _channel_board(force: bool = False):
 
     with _CONFIG_LOCK:
         cfg = dict(CONFIG.get("channel_board") or {})
+    limit = int(cfg.get("limit") or 150)
+    ai_only = bool(cfg.get("ai_only", True))
     result = channel_profile.rank_for_channel(
-        articles, now=now, limit=_CHANNEL_MAX,
+        articles, now=now, limit=limit,
         min_credibility=float(cfg.get("min_credibility") or 0.55),
         market=market,
+        ai_only=ai_only,
     )
     result["status"] = {
         "min_credibility": float(cfg.get("min_credibility") or 0.55),
         "corpus": len(articles),
+        "limit": limit,
+        "ai_only": ai_only,
     }
     with _CHANNEL_LOCK:
         _CHANNEL_CACHE["ts"], _CHANNEL_CACHE["payload"] = now, result
     return result
 
 
-def _channel_feed(limit: int = 40, force: bool = False):
+def _channel_feed(limit=None, force: bool = False):
     import channel_profile
     return channel_profile.slice_board(_channel_board(force=force), limit)
 
@@ -2835,10 +2905,15 @@ def api_channel_feed():
     if request.args.get("refresh") in ("1", "true", "yes"):
         with _CHANNEL_LOCK:
             _CHANNEL_CACHE["ts"] = 0.0
-    try:
-        limit = max(1, min(80, int(request.args.get("limit") or 40)))
-    except (TypeError, ValueError):
-        limit = 40
+    raw_limit = request.args.get("limit")
+    is_all = request.args.get("all") in ("1", "true", "yes") or raw_limit in ("0", "all", "none")
+    if is_all or not raw_limit:
+        limit = None
+    else:
+        try:
+            limit = max(1, min(2000, int(raw_limit)))
+        except (TypeError, ValueError):
+            limit = None
     try:
         payload = _channel_feed(limit=limit)
     except Exception as e:
@@ -2848,6 +2923,9 @@ def api_channel_feed():
     # The board is explainable server-side, but the client asked for *news
     # only* — the ranking internals (viral factors, fit, why-text, captions)
     # stop at the server and never ship to the browser.
+    import database
+    posted_bale_ids = database.messenger_recent_posted_ids("bale_ideas", max_age_hours=168.0)
+    posted_tg_ids = database.messenger_recent_posted_ids("telegram_ideas", max_age_hours=168.0)
     slim = [{
         "id": it.get("id", ""),
         "title": it.get("title", ""),
@@ -2860,6 +2938,8 @@ def api_channel_feed():
         "published_ts": it.get("published_ts"),
         "primary_bucket": it.get("primary_bucket", ""),
         "bucket_label": it.get("bucket_label", ""),
+        "posted_bale": it.get("id", "") in posted_bale_ids,
+        "posted_telegram": it.get("id", "") in posted_tg_ids,
     } for it in (payload.get("items") or [])]
     return jsonify({"ok": True, "items": slim,
                     "scanned": payload.get("scanned"),
@@ -2873,7 +2953,8 @@ def _tg_send_photo(token, chat, png_bytes, caption=""):
         payload = {"chat_id": chat, "disable_notification": "true"}
         if caption:
             payload["caption"] = caption[:1000]
-        r = requests.post(f"https://api.telegram.org/bot{token}/sendPhoto",
+        r = requests.post(f"{_tg_base()}/bot{token}/sendPhoto",
+                              proxies=_tg_proxies(),
                           data=payload, files=files, timeout=30)
         return r.status_code == 200, (r.text or "")[:400]
     except Exception as e:
@@ -3213,18 +3294,25 @@ def _article_blurb_fa(art, content):
 @app.route("/api/article/<art_id>")
 def api_article(art_id):
     with STATE_LOCK:
-        art = next((a for a in STATE["articles"] if a["id"] == art_id), None)
-        arts = list(STATE["articles"])
+        art = next((a for a in (STATE.get("articles") or []) if a.get("id") == art_id), None)
+        if not art:
+            art = next((a for a in (STATE.get("archive") or []) if a.get("id") == art_id), None)
+        arts = list(STATE.get("articles") or [])
+    if not art:
+        board = _channel_board() or {}
+        b_item = next((i for i in (board.get("items") or []) if i.get("id") == art_id), None)
+        if b_item:
+            art = b_item.get("article") or dict(b_item)
     if not art:
         return jsonify({"error": "not_found"}), 404
 
     want_fa = request.args.get("fa") in ("1", "true", "yes")
-    content = article_content_cached(art)
+    content = article_content_cached(art, priority=True)
     pending = bool(content.get("pending"))
 
     # Fallback to article summary if content has 0 paragraphs so users never see an empty screen
-    if not content.get("paragraphs") and (art.get("summary") or art.get("summary_fa")):
-        s_text = art.get("summary") or art.get("summary_fa") or ""
+    if not content.get("paragraphs") and (art.get("summary_fa") or art.get("summary")):
+        s_text = str(art.get("summary_fa") or art.get("summary") or "").strip()
         s_paras = [p.strip() for p in re.split(r'\n+|\.\s+', s_text) if len(p.strip()) > 15]
         if s_paras:
             content = dict(content)
@@ -3232,6 +3320,8 @@ def api_article(art_id):
             content["word_count"] = sum(len(p.split()) for p in s_paras)
             content["partial"] = True
             content["via"] = "summary-fallback"
+            content["pending"] = False
+            pending = False
 
     # full Persian body: served from cache, otherwise translated in the
     # background and picked up by the client's next poll
@@ -3241,6 +3331,13 @@ def api_article(art_id):
             cached_fa = FA_CONTENT_CACHE.get(art["id"] + "|fa")
         if cached_fa:
             content_fa = cached_fa
+        elif art.get("summary_fa"):
+            # Instant Persian fallback so user never waits!
+            s_text = str(art.get("summary_fa") or "").strip()
+            s_paras = [p.strip() for p in re.split(r'\n+|\.\s+', s_text) if len(p.strip()) > 15]
+            if s_paras:
+                content_fa = s_paras
+                pending = False
         elif pending or not content.get("paragraphs"):
             pending = True           # body still extracting -> FA follows it
         elif _schedule_fa(art, content):
@@ -3723,7 +3820,42 @@ def _telegram_cfg():
     import os as _os
     token = (tg.get("token") or "") or _os.environ.get("MOHMD_TG_TOKEN", "")
     chat = (tg.get("chat") or "") or _os.environ.get("MOHMD_TG_CHAT", "")
+    if not token and "token" not in tg:
+        token = TELEGRAM_DEFAULT_TOKEN
+    if not chat and "chat" not in tg:
+        chat = TELEGRAM_DEFAULT_CHAT
     return _tg_clean_token(token), _tg_clean_chat(chat)
+
+
+def _tg_base():
+    """Base URL for every Telegram Bot API call.
+
+    api.telegram.org is filtered inside Iran, so the operator can point this
+    at a gateway that mirrors the Bot API path scheme — typically a tiny
+    Cloudflare Worker they deploy themselves (free tier, setup in
+    docs/telegram-gateway.md). The bot token only travels through a gateway
+    the operator owns; public mirrors are never used.
+    """
+    import os as _os
+    cfg_gateway = str((CONFIG.get("telegram") or {}).get("gateway") or "").strip()
+    env_gateway = _os.environ.get("MOHMD_TG_GATEWAY", "").strip()
+    return (cfg_gateway or env_gateway or "https://api.telegram.org").rstrip("/")
+
+
+def _tg_proxies():
+    """Optional local proxy for every Telegram call.
+
+    Inside Iran api.telegram.org is filtered; the operator can either point at
+    a gateway (see _tg_base) or run their VPN client locally and give its
+    in-app proxy here — e.g. socks5://127.0.0.1:1080 or http://127.0.0.1:7890
+    (v2rayN/clash/hiddify expose these even without system-wide routing).
+    """
+    import os as _os
+    proxy = (str((CONFIG.get("telegram") or {}).get("proxy") or "").strip()
+             or _os.environ.get("MOHMD_TG_PROXY", "").strip())
+    if not proxy:
+        return None
+    return {"http": proxy, "https": proxy}
 
 
 def _tg_parse_error(r):
@@ -3755,7 +3887,7 @@ def _tg_parse_error(r):
     return msg, data
 
 
-def _tg_send(token, chat, text, silent=False):
+def _tg_send(token, chat, text, silent=False, reply_markup=None):
     token = _tg_clean_token(token)
     chat = _tg_clean_chat(chat)
     if not token or not chat:
@@ -3774,11 +3906,14 @@ def _tg_send(token, chat, text, silent=False):
         "disable_web_page_preview": True,
         "disable_notification": bool(silent),
     }
+    if reply_markup:
+        payload["reply_markup"] = reply_markup
 
     try:
         r = requests.post(
-            f"https://api.telegram.org/bot{token}/sendMessage",
+            f"{_tg_base()}/bot{token}/sendMessage",
             json=payload,
+            proxies=_tg_proxies(),
             timeout=15,
         )
         if r.status_code == 200:
@@ -3787,13 +3922,15 @@ def _tg_send(token, chat, text, silent=False):
         err_msg, raw = _tg_parse_error(r)
         desc = (raw.get("description") or "").lower()
         if "can't parse entities" in desc:
-            import re
             payload_plain = dict(payload)
             payload_plain.pop("parse_mode", None)
             payload_plain["text"] = re.sub(r"<[^>]+>", "", text)
+            if reply_markup:
+                payload_plain["reply_markup"] = reply_markup
             r2 = requests.post(
-                f"https://api.telegram.org/bot{token}/sendMessage",
+                f"{_tg_base()}/bot{token}/sendMessage",
                 json=payload_plain,
+                proxies=_tg_proxies(),
                 timeout=15,
             )
             if r2.status_code == 200:
@@ -3804,13 +3941,25 @@ def _tg_send(token, chat, text, silent=False):
     except requests.exceptions.Timeout:
         return TgResult(False, "مهلت اتصال به سرور تلگرام به پایان رسید (Timeout).")
     except requests.exceptions.ConnectionError:
-        return TgResult(False, "خطای اتصال به api.telegram.org (اینترنت یا فیلترینگ را بررسی کنید).")
+        return TgResult(False, "اتصال به تلگرام ممکن نشد (فیلترینگ). VPN/پراکسی را روشن کنید یا آدرس درگاه Worker را در تنظیمات تلگرام بگذارید — راهنما: docs/telegram-gateway.md")
     except Exception as e:
         return TgResult(False, f"خطای پیش‌بینی‌نشده: {e}")
 
 
 def _tg_escape(s):
     return (str(s or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+
+def _ideas_link_last(msg, link_line):
+    """The ideas push ends on the link — the brief: «اول تیتر بعد تو دو تا بند
+    خلاصه و زیر لینک باشه».
+
+    The link is pulled out of wherever the operator's template put it and
+    appended as the final line, so title → two paragraphs → link holds for
+    every template — including one that has no {link_line} slot at all.
+    """
+    body = re.sub(r"\n{3,}", "\n\n", msg.replace(link_line, "")).strip()
+    return (body + "\n\n" + link_line) if body else link_line
 
 
 def _tg_render_digest(articles, tg):
@@ -3832,7 +3981,16 @@ def _tg_render_digest(articles, tg):
                                       else "🦅 <b>MOHMD NEWS</b> — latest validated news")
         lines = [header + f"\n🕐 {_tg_escape(fa_datetime(datetime.now(timezone.utc)))}\n"]
     for i, a in enumerate(articles, 1):
-        raw_title = a.get("title_fa") or a.get("title") or ""
+        if fa:
+            raw_title = a.get("title_fa") or ""
+            if not is_persian(raw_title):
+                raw_title = to_persian(raw_title, a.get("title"))
+            raw_summ = a.get("summary_fa") or ""
+            if not is_persian(raw_summ):
+                raw_summ = to_persian(raw_summ, a.get("summary"))
+        else:
+            raw_title = a.get("title") or a.get("title_fa") or ""
+            raw_summ = a.get("summary") or a.get("summary_fa") or ""
         clean_title = news_editorial.clean_editorial_title(raw_title)
         title = _tg_escape(clean_title)
         url = _tg_escape(a.get("link") or "")
@@ -3847,8 +4005,15 @@ def _tg_render_digest(articles, tg):
         tags = " ".join("#" + x for x in assets) if hashtags else ""
 
         # 2-4 sentences summary retaining key numbers and market drivers
-        raw_summ = a.get("summary_fa") or a.get("summary") or ""
-        summ_clean, takeaway = news_editorial.format_editorial_summary(raw_summ)
+        if tg.get("ideas_mode"):
+            # the ideas push: a ≤150-character summary, exactly two paragraphs
+            ide_blocks = news_editorial.ideas_summary(
+                raw_summ, int(tg.get("summary_max_chars") or news_editorial.IDEAS_SUMMARY_CHARS))
+            summ_clean = " ".join(x for x in ide_blocks if x)
+            takeaway = None                  # «زیر لینک باشه» — nothing between them
+        else:
+            ide_blocks = None
+            summ_clean, takeaway = news_editorial.format_editorial_summary(raw_summ)
         summ = _tg_escape(summ_clean)
 
         market_tag = news_editorial.detect_market_emoji(a) if emoji else ""
@@ -3858,7 +4023,7 @@ def _tg_render_digest(articles, tg):
         blocks = (summ + "\n\n") if (include_summary and summ) else ""
         if include_summary and summ_clean:
             try:
-                b_lead, b_caveat = news_editorial.editorial_blocks(summ_clean)
+                b_lead, b_caveat = ide_blocks or news_editorial.editorial_blocks(summ_clean)
                 lead_emoji = market_tag or "🪙"
                 parts = []
                 if b_lead:
@@ -3887,6 +4052,8 @@ def _tg_render_digest(articles, tg):
                          key_point=key_point_str)
         if not include_summary:
             msg = "\n".join(l for l in msg.splitlines() if l.strip())
+        if tg.get("ideas_mode") and link_line:
+            msg = _ideas_link_last(msg, link_line)
         lines.append(lead + msg.strip())
     return "\n\n".join(lines)[:4000]
 
@@ -3931,6 +4098,10 @@ def _bale_cfg():
     import os as _os
     token = (bale.get("token") or "") or _os.environ.get("MOHMD_BALE_TOKEN", "")
     chat = (bale.get("chat") or "") or _os.environ.get("MOHMD_BALE_CHAT", "")
+    if not token and "token" not in bale:
+        token = BALE_DEFAULT_TOKEN
+    if not chat and "chat" not in bale:
+        chat = BALE_DEFAULT_CHAT
     return _bale_clean_token(token), _bale_clean_chat(chat)
 
 
@@ -3957,7 +4128,7 @@ def _bale_parse_error(r):
     return msg, data
 
 
-def _bale_send(token, chat, text, silent=False):
+def _bale_send(token, chat, text, silent=False, reply_markup=None):
     token = _bale_clean_token(token)
     chat = _bale_clean_chat(chat)
     if not token or not chat:
@@ -3970,6 +4141,8 @@ def _bale_send(token, chat, text, silent=False):
         "text": text,
         "disable_notification": bool(silent),
     }
+    if reply_markup:
+        payload["reply_markup"] = reply_markup
 
     try:
         r = requests.post(
@@ -3979,6 +4152,18 @@ def _bale_send(token, chat, text, silent=False):
         )
         if r.status_code == 200:
             return TgResult(True, raw=r.json() if r.content else {})
+
+        # If reply_markup caused an error in Bale, fallback to sending plain payload without markup
+        if reply_markup:
+            payload_plain = dict(payload)
+            payload_plain.pop("reply_markup", None)
+            r2 = requests.post(
+                f"https://tapi.bale.ai/bot{token}/sendMessage",
+                json=payload_plain,
+                timeout=15,
+            )
+            if r2.status_code == 200:
+                return TgResult(True, raw=r2.json() if r2.content else {})
 
         err_msg, raw = _bale_parse_error(r)
         return TgResult(False, err_msg, raw)
@@ -4007,7 +4192,16 @@ def _bale_render_digest(articles, bale):
                                         else "🦅 MOHMD NEWS — latest validated news")
         lines = [header + f"\n🕐 {fa_datetime(datetime.now(timezone.utc))}\n"]
     for i, a in enumerate(articles, 1):
-        raw_title = a.get("title_fa") or a.get("title") or ""
+        if fa:
+            raw_title = a.get("title_fa") or ""
+            if not is_persian(raw_title):
+                raw_title = to_persian(raw_title, a.get("title"))
+            raw_summ = a.get("summary_fa") or ""
+            if not is_persian(raw_summ):
+                raw_summ = to_persian(raw_summ, a.get("summary"))
+        else:
+            raw_title = a.get("title") or a.get("title_fa") or ""
+            raw_summ = a.get("summary") or a.get("summary_fa") or ""
         title = news_editorial.clean_editorial_title(raw_title)
         url = a.get("link") or ""
         cred = int(round((a.get("credibility") or 0) * 100))
@@ -4020,8 +4214,15 @@ def _bale_render_digest(articles, bale):
         tags = " ".join("#" + x for x in assets) if hashtags else ""
 
         # 2-4 sentences summary retaining key numbers and market drivers
-        raw_summ = a.get("summary_fa") or a.get("summary") or ""
-        summ_clean, takeaway = news_editorial.format_editorial_summary(raw_summ)
+        if bale.get("ideas_mode"):
+            # the ideas push: a ≤150-character summary, exactly two paragraphs
+            ide_blocks = news_editorial.ideas_summary(
+                raw_summ, int(bale.get("summary_max_chars") or news_editorial.IDEAS_SUMMARY_CHARS))
+            summ_clean = " ".join(x for x in ide_blocks if x)
+            takeaway = None                  # nothing between the blocks and the link
+        else:
+            ide_blocks = None
+            summ_clean, takeaway = news_editorial.format_editorial_summary(raw_summ)
         summ = summ_clean
 
         market_tag = news_editorial.detect_market_emoji(a) if emoji else ""
@@ -4031,7 +4232,7 @@ def _bale_render_digest(articles, bale):
         blocks = (summ + "\n\n") if (include_summary and summ) else ""
         if include_summary and summ_clean:
             try:
-                b_lead, b_caveat = news_editorial.editorial_blocks(summ_clean)
+                b_lead, b_caveat = ide_blocks or news_editorial.editorial_blocks(summ_clean)
                 lead_emoji = market_tag or "🪙"
                 parts = []
                 if b_lead:
@@ -4060,6 +4261,8 @@ def _bale_render_digest(articles, bale):
                          key_point=key_point_str)
         if not include_summary:
             msg = "\n".join(l for l in msg.splitlines() if l.strip())
+        if bale.get("ideas_mode") and link_line:
+            msg = _ideas_link_last(msg, link_line)
         lines.append(lead + msg.strip())
     return "\n\n".join(lines)[:4000]
 
@@ -4211,12 +4414,18 @@ def content_studio_signals():
 
 
 def _post_cycle_telegram(articles):
-    """Post qualified articles individually to Telegram with deduplication."""
+    """Post qualified articles individually to Telegram with deduplication.
+
+    Off by default: the channel runs ideas-only («فقط باید ایده‌های محتوایی …
+    ارسال بشه»). `telegram.send_digest = true` brings the digest back.
+    """
     token, chat = _telegram_cfg()
     if not token or not chat:
         return
     tg = CONFIG.get("telegram") or {}
     if tg.get("enabled") is False:
+        return
+    if not tg.get("send_digest"):
         return
     if tg.get("quiet_hours", True):
         try:
@@ -4227,6 +4436,8 @@ def _post_cycle_telegram(articles):
             pass
     import database
     import time
+    if _breaker_open("telegram"):
+        return
     min_cred = float(tg.get("min_credibility") or 0.70)
     max_items = int(tg.get("max_items") or 10)
     max_age = float(tg.get("max_age_hours") or 24)
@@ -4235,6 +4446,9 @@ def _post_cycle_telegram(articles):
               if (a.get("credibility") or 0) >= min_cred and (a.get("age_hours") or 999) <= max_age]
     if asset_filter:
         strong = [a for a in strong if asset_filter & set(a.get("assets") or [])]
+    # «فقط فارسی بده» — a headline the translator left half in English is not
+    # fit to publish; it waits for the next pass instead of going out mixed
+    strong = [a for a in strong if is_persian(a.get("title_fa") or a.get("title") or "")]
     strong.sort(key=lambda a: -(a.get("published_ts") or 0))
 
     # Send each unposted article individually
@@ -4258,6 +4472,9 @@ def _post_cycle_telegram(articles):
             continue
         with TG_LOCK:
             res = _tg_send(token, chat, text, silent=silent)
+            _breaker_record("telegram", bool(res), res)
+            if _breaker_open("telegram"):
+                break   # dead API — stop hammering, resume next cycle
             if res:
                 database.mark_messenger_posted(a.get("id"), "telegram")
                 sent_count += 1
@@ -4266,7 +4483,8 @@ def _post_cycle_telegram(articles):
                     msg_id = ((res.raw or {}).get("result") or {}).get("message_id")
                     if msg_id:
                         try:
-                            requests.post(f"https://api.telegram.org/bot{token}/pinChatMessage",
+                            requests.post(f"{_tg_base()}/bot{token}/pinChatMessage",
+                          proxies=_tg_proxies(),
                                           params={"chat_id": chat, "message_id": msg_id,
                                                   "disable_notification": True}, timeout=10)
                         except Exception:
@@ -4275,12 +4493,17 @@ def _post_cycle_telegram(articles):
 
 
 def _post_cycle_bale(articles):
-    """Post qualified articles individually to Bale messenger with deduplication."""
+    """Post qualified articles individually to Bale messenger with deduplication.
+
+    Off by default, same reason as the Telegram digest above.
+    """
     token, chat = _bale_cfg()
     if not token or not chat:
         return
     bale = CONFIG.get("bale") or {}
     if bale.get("enabled") is False:
+        return
+    if not bale.get("send_digest"):
         return
     if bale.get("quiet_hours", True):
         try:
@@ -4291,6 +4514,8 @@ def _post_cycle_bale(articles):
             pass
     import database
     import time
+    if _breaker_open("bale"):
+        return
     min_cred = float(bale.get("min_credibility") or 0.70)
     max_items = int(bale.get("max_items") or 10)
     max_age = float(bale.get("max_age_hours") or 24)
@@ -4299,6 +4524,8 @@ def _post_cycle_bale(articles):
               if (a.get("credibility") or 0) >= min_cred and (a.get("age_hours") or 999) <= max_age]
     if asset_filter:
         strong = [a for a in strong if asset_filter & set(a.get("assets") or [])]
+    # «فقط فارسی بده» — same gate as the telegram digest above
+    strong = [a for a in strong if is_persian(a.get("title_fa") or a.get("title") or "")]
     strong.sort(key=lambda a: -(a.get("published_ts") or 0))
 
     unposted = [a for a in strong if not database.is_messenger_posted(a.get("id"), "bale")]
@@ -4313,21 +4540,223 @@ def _post_cycle_bale(articles):
             continue
         with BALE_LOCK:
             res = _bale_send(token, chat, text, silent=silent)
+            _breaker_record("bale", bool(res), res)
+            if _breaker_open("bale"):
+                break
             if res:
                 database.mark_messenger_posted(a.get("id"), "bale")
         time.sleep(0.5)
 
 
+# ── messenger circuit breaker ─────────────────────────────────────────────
+# When the API is unreachable (Telegram filtered without a gateway), every
+# send burns a full 15s timeout — a 48-item push would stall the cycle thread
+# for ~24 minutes. Two connection failures open the breaker for ten minutes;
+# auto-paths skip instead of hammering a dead API. Manual test buttons bypass it.
+_MESSENGER_BREAKER = {}
+_BREAKER_THRESHOLD = 2
+_BREAKER_COOLDOWN = 600.0
+
+
+def _breaker_open(platform):
+    st = _MESSENGER_BREAKER.get(platform)
+    if not st or not st.get("opened_at"):
+        return False   # closed, or still counting failures — keep the counter
+    if (time.time() - st["opened_at"]) < _BREAKER_COOLDOWN:
+        return True
+    _MESSENGER_BREAKER.pop(platform, None)   # cooldown elapsed — try again
+    return False
+
+
+def _conn_error(res):
+    err = str(getattr(res, "error", "") or "")
+    return ("Timeout" in err) or ("خطای اتصال" in err)
+
+
+def _breaker_record(platform, ok, res=None):
+    if ok:
+        _MESSENGER_BREAKER.pop(platform, None)
+        return
+    st = _MESSENGER_BREAKER.setdefault(platform, {"fails": 0, "opened_at": 0.0})
+    st["fails"] = st["fails"] + 1 if _conn_error(res) else 0
+    if st["fails"] >= _BREAKER_THRESHOLD:
+        st["opened_at"] = time.time()
+        log(f"{platform}: API unreachable ×{st['fails']} — auto-sends paused 10 minutes")
+
+
+def _post_cycle_ideas():
+    """Push the ranked content-ideas board to Telegram AND Bale, automatically.
+
+    Immediately after every scraping cycle, the filtered news is ranked into
+    the ideas board and all qualified, unsent ideas are dispatched immediately.
+    Each message format strictly follows:
+      1. Title at the top in bold
+      2. Blank line
+      3. Paragraph 1: Market/topic emoji + lead summary block
+      4. Blank line
+      5. Paragraph 2: ‼️ + caveat/detail summary block (~500-510 chars total summary)
+      6. Blank line
+      7. Link at the bottom: 🔗 لینک خبر:\n<url>
+      8. Inline button: 🔗 مشاهده متن کامل خبر -> <url>
+
+    Deduplication is per messenger, so an idea goes out exactly once.
+    """
+    try:
+        # force: rank the news this cycle just found, not a stale cached board
+        board = _channel_board(force=True)
+    except Exception as e:
+        log(f"content-ideas board error: {e}")
+        return
+    items = list((board or {}).get("items") or [])
+    if not items:
+        return
+
+    import time as _time
+    import database
+    import link_shortener
+    import news_editorial
+    from news_editorial import IDEAS_SUMMARY_CHARS
+
+    for platform, cfg_key, cfg_fn, send, lock in (
+        ("telegram_ideas", "telegram", _telegram_cfg, _tg_send, TG_LOCK),
+        ("bale_ideas", "bale", _bale_cfg, _bale_send, BALE_LOCK),
+    ):
+        try:
+            cfg = dict(CONFIG.get(cfg_key) or {})
+            if cfg.get("enabled") is False or cfg.get("send_ideas") is False:
+                continue
+            token, chat = cfg_fn()
+            if not token or not chat:
+                continue
+            if _breaker_open(platform):
+                continue
+            ranked = [i for i in items
+                      if not database.is_messenger_posted(i.get("id"), platform)]
+            # Category fairness across buckets
+            by_lane = {}
+            for i in ranked:
+                by_lane.setdefault(i.get("primary_bucket") or "global", []).append(i)
+            ordered_lanes = [l for l in ("global", "tech", "gold", "coin", "currency", "crypto")
+                             if l in by_lane]
+            ordered_lanes += sorted(set(by_lane) - set(ordered_lanes))
+            for lane in ordered_lanes:
+                by_lane[lane].sort(
+                    key=lambda i: -(i.get("rank") or i.get("viral") or 0))
+            candidates = []
+            turn = 0
+            while any(by_lane[l] for l in ordered_lanes):
+                lane = ordered_lanes[turn % len(ordered_lanes)]
+                if by_lane[lane]:
+                    candidates.append(by_lane[lane].pop(0))
+                turn += 1
+            if not candidates:
+                continue
+
+            # ── «فقط فارسی بده» ──────────────────────────────────────────
+            todo = []
+            for idea in candidates:
+                if not is_persian(idea.get("title_fa")):
+                    src = str(idea.get("title") or "").strip()
+                    if src:
+                        todo.append(src)
+                s_fa = str(idea.get("summary_fa") or "").strip()
+                if not is_persian(s_fa):
+                    src_s = str(idea.get("summary") or "").strip()
+                    if src_s:
+                        todo.append(src_s)
+                    elif s_fa:
+                        todo.append(s_fa)
+            fixed = {}
+            if todo:
+                try:
+                    fixed = translate_many(todo) or {}
+                except Exception as e:
+                    log(f"ideas Persian pass failed: {e}")
+
+            sent = 0
+            skipped = 0
+            is_telegram = (platform == "telegram_ideas")
+            for idea in candidates:
+                title_fa = str(idea.get("title_fa") or "").strip()
+                if not is_persian(title_fa):
+                    title_fa = fixed.get(str(idea.get("title") or "").strip(), "")
+                if not is_persian(title_fa):
+                    skipped += 1
+                    continue           # strictly Persian title required — skip if English or empty
+
+                summary_fa = str(idea.get("summary_fa") or "").strip()
+                if not is_persian(summary_fa):
+                    summary_fa = fixed.get(str(idea.get("summary") or "").strip(), "") or fixed.get(summary_fa, "")
+                if not is_persian(summary_fa):
+                    skipped += 1
+                    continue           # strictly Persian summary required — skip if English or empty
+
+                # Cache back into idea so future lookups / UI see Persian
+                idea["title_fa"] = title_fa
+                idea["summary_fa"] = summary_fa
+
+                # ~500-1000 character summary split into two blocks
+                b_lead, b_caveat = news_editorial.ideas_summary(summary_fa, max_chars=IDEAS_SUMMARY_CHARS)
+                market_emoji = news_editorial.detect_market_emoji(idea) or "🪙"
+
+                clean_title = news_editorial.clean_editorial_title(title_fa)
+                if is_telegram:
+                    title_part = f"<b>{_tg_escape(clean_title)}</b>"
+                    esc_lead = _tg_escape(b_lead) if b_lead else ""
+                    esc_caveat = _tg_escape(b_caveat) if b_caveat else ""
+                else:
+                    title_part = f"*{clean_title}*" if clean_title else ""
+                    esc_lead = b_lead or ""
+                    esc_caveat = b_caveat or ""
+
+                parts = [title_part]
+                if esc_lead:
+                    parts.append(f"{market_emoji} {esc_lead}")
+                if esc_caveat:
+                    parts.append(f"‼️ {esc_caveat}")
+
+                raw_link = str(idea.get("link") or "").strip()
+                target_url = raw_link
+
+                reply_markup = None
+                if target_url and target_url.startswith(("http://", "https://")):
+                    reply_markup = {
+                        "inline_keyboard": [[
+                            {"text": "🔗 مشاهده متن کامل خبر", "url": target_url}
+                        ]]
+                    }
+
+                text = "\n\n".join(p for p in parts if p).strip()
+
+                if not text:
+                    continue
+
+                with lock:
+                    res = send(token, chat, text, silent=bool(cfg.get("silent")), reply_markup=reply_markup)
+                    _breaker_record(platform, bool(res), res)
+                    if res:
+                        database.mark_messenger_posted(idea.get("id"), platform)
+                        sent += 1
+                    elif _breaker_open(platform):
+                        break   # dead API — stop mid-run, resume next cycle
+                _time.sleep(0.5)
+            if sent or skipped:
+                log(f"{platform}: {sent} content idea(s) sent"
+                    + (f", {skipped} dropped (no Persian text)" if skipped else ""))
+        except Exception as e:
+            log(f"{platform} ideas auto-send error: {e}")
+
+
 def _post_cycle_alerts(articles):
-    """Dispatch digests to configured messengers (Telegram, Bale)."""
+    """Dispatch Content Ideas to configured messengers (Telegram & Bale).
+
+    All other automatic dispatches (digests, raw news alerts, studio posts)
+    are canceled per user instructions.
+    """
     try:
-        _post_cycle_telegram(articles)
+        _post_cycle_ideas()
     except Exception as e:
-        log(f"telegram cycle alert error: {e}")
-    try:
-        _post_cycle_bale(articles)
-    except Exception as e:
-        log(f"bale cycle alert error: {e}")
+        log(f"content-ideas auto-send error: {e}")
 
 
 @app.route("/api/telegram/get-chat-id", methods=["POST"])
@@ -4339,7 +4768,8 @@ def api_telegram_get_chat_id():
         return jsonify({"ok": False, "error": "لطفاً ابتدا توکن ربات تلگرام را وارد کنید."}), 400
 
     try:
-        r_me = requests.get(f"https://api.telegram.org/bot{token}/getMe", timeout=12)
+        r_me = requests.get(f"{_tg_base()}/bot{token}/getMe",
+                        proxies=_tg_proxies(), timeout=12)
     except requests.exceptions.Timeout:
         return jsonify({"ok": False, "error": "مهلت اتصال به سرور تلگرام به پایان رسید (Timeout)."}), 504
     except Exception as e:
@@ -4353,7 +4783,8 @@ def api_telegram_get_chat_id():
     bot_user = bot_info.get("username") or bot_info.get("first_name") or "bot"
 
     try:
-        r_up = requests.get(f"https://api.telegram.org/bot{token}/getUpdates", timeout=12)
+        r_up = requests.get(f"{_tg_base()}/bot{token}/getUpdates",
+                        proxies=_tg_proxies(), timeout=12)
         up_data = r_up.json() if r_up.status_code == 200 else {}
     except Exception:
         up_data = {}
@@ -4390,6 +4821,225 @@ def api_telegram_get_chat_id():
         "chats": [],
         "hint": f"ربات @{bot_user} متصل شد، اما چت فعالی ثبت نشده است. برای دریافت Chat ID: وارد تلگرام شوید، به @{bot_user} پیام بفرستید (دکمه Start) یا ربات را به کانال/گروه اضافه کرده و دوباره دکمه تشخیص خودکار را بزنید."
     })
+
+
+_IDEAS_PUSH_RUNNING = False
+
+
+@app.route("/api/ideas/push-debug", methods=["POST"])
+def api_ideas_push_debug():
+    try:
+        board = _channel_board()
+        items = (board or {}).get("items") or []
+        cfg = dict(CONFIG.get("bale") or {})
+        import database
+        unsent = [i for i in items if not database.is_messenger_posted(i.get("id"), "bale_ideas")]
+        return jsonify({"ok": True, "board": len(items), "unsent_bale": len(unsent),
+                        "enabled": cfg.get("enabled"), "send_ideas": cfg.get("send_ideas"),
+                        "send_digest": cfg.get("send_digest"),
+                        "quiet": cfg.get("quiet_hours", True),
+                        "hr": datetime.now(IRAN_TZ).hour,
+                        "breaker_bale": _breaker_open("bale_ideas"),
+                        "breaker_tg": _breaker_open("telegram_ideas"),
+                        "token_chat_set": bool(_bale_cfg()[0]),
+                        "ls_cfg": CONFIG.get("link_shortener")})
+    except Exception as e:
+        import traceback
+        return jsonify({"ok": False, "error": str(e),
+                        "tb": traceback.format_exc()[-900:]}), 500
+
+
+@app.route("/api/ideas/push-now", methods=["POST"])
+def api_ideas_push_now():
+    """Force an ideas push right now, outside the cycle clock.
+
+    Runs in a thread — a full board with cold shortener lookups takes minutes,
+    and the HTTP answer should come back immediately. Single-flight: a push
+    already running is reported instead of doubled.
+    """
+    global _IDEAS_PUSH_RUNNING
+    if _IDEAS_PUSH_RUNNING:
+        return jsonify({"ok": True, "already_running": True,
+                        "hint": "یک پوش در حال اجراست؛ صبر کن تمام شود."})
+    _IDEAS_PUSH_RUNNING = True
+
+    def _run():
+        global _IDEAS_PUSH_RUNNING
+        try:
+            _post_cycle_ideas()
+        except Exception as e:
+            log(f"ideas push-now error: {e}")
+        finally:
+            _IDEAS_PUSH_RUNNING = False
+
+    threading.Thread(target=_run, daemon=True).start()
+    return jsonify({"ok": True, "started": True,
+                    "hint": "ارسال همهٔ ایده‌های نارسیده آغاز شد؛ چند دقیقه طول می‌کشد."})
+
+
+@app.route("/api/ideas/dispatch-status")
+def api_ideas_dispatch_status():
+    """Detailed live dispatch status for Content Ideas to Bale and Telegram."""
+    import database
+    bale_tok, bale_chat = _bale_cfg()
+    tg_tok, tg_chat = _telegram_cfg()
+    bale_cfg = dict(CONFIG.get("bale") or {})
+    tg_cfg = dict(CONFIG.get("telegram") or {})
+
+    # Check board stats
+    board = _channel_board() or {}
+    items = list(board.get("items") or [])
+    posted_bale = database.messenger_recent_posted_ids("bale_ideas", max_age_hours=168.0)
+    posted_tg = database.messenger_recent_posted_ids("telegram_ideas", max_age_hours=168.0)
+
+    unsent_bale = sum(1 for i in items if i.get("id") not in posted_bale)
+    unsent_tg = sum(1 for i in items if i.get("id") not in posted_tg)
+
+    recent_logs = database.get_messenger_posted_logs(limit=40)
+
+    return jsonify({
+        "ok": True,
+        "bale": {
+            "enabled": bool(bale_cfg.get("enabled", True)),
+            "configured": bool(bale_tok and bale_chat),
+            "token_masked": (bale_tok[:6] + "..." + bale_tok[-4:]) if len(bale_tok) > 10 else bool(bale_tok),
+            "chat": bale_chat,
+            "send_ideas": bool(bale_cfg.get("send_ideas", True)),
+            "breaker_open": _breaker_open("bale_ideas"),
+            "unsent_count": unsent_bale,
+            "posted_count": sum(1 for i in items if i.get("id") in posted_bale),
+            "total_sent_alltime": len(posted_bale),
+        },
+        "telegram": {
+            "enabled": bool(tg_cfg.get("enabled", True)),
+            "configured": bool(tg_tok and tg_chat),
+            "token_masked": (tg_tok[:6] + "..." + tg_tok[-4:]) if len(tg_tok) > 10 else bool(tg_tok),
+            "chat": tg_chat,
+            "send_ideas": bool(tg_cfg.get("send_ideas", True)),
+            "breaker_open": _breaker_open("telegram_ideas"),
+            "unsent_count": unsent_tg,
+            "posted_count": sum(1 for i in items if i.get("id") in posted_tg),
+            "total_sent_alltime": len(posted_tg),
+        },
+        "total_board_ideas": len(items),
+        "recent_logs": recent_logs,
+    })
+
+
+@app.route("/api/ideas/send-single", methods=["POST"])
+def api_ideas_send_single():
+    """Dispatch one specific idea immediately to Bale (or Telegram)."""
+    data = request.get_json(silent=True) or {}
+    idea_id = str(data.get("id") or "").strip()
+    platform = str(data.get("platform") or "bale").lower().strip()
+    if not idea_id:
+        return jsonify({"ok": False, "error": "شناسه ایده ارسال نشده است."}), 400
+
+    board = _channel_board() or {}
+    items = list(board.get("items") or [])
+    idea = next((i for i in items if i.get("id") == idea_id), None)
+    if not idea:
+        with STATE_LOCK:
+            art = next((a for a in (STATE.get("articles") or []) if a.get("id") == idea_id), None)
+        if art:
+            idea = dict(art)
+    if not idea:
+        return jsonify({"ok": False, "error": "ایده با این شناسه یافت نشد."}), 404
+
+    is_telegram = (platform == "telegram")
+    target_platform = "telegram_ideas" if is_telegram else "bale_ideas"
+    cfg_fn = _telegram_cfg if is_telegram else _bale_cfg
+    send_fn = _tg_send if is_telegram else _bale_send
+    lock = TG_LOCK if is_telegram else BALE_LOCK
+
+    token, chat = cfg_fn()
+    if not token or not chat:
+        name = "تلگرام" if is_telegram else "بله"
+        return jsonify({"ok": False, "error": f"تنظیمات {name} (توکن یا شناسه چت) تنظیم نشده است."}), 400
+
+    import news_editorial
+    import link_shortener
+    import database
+    from news_editorial import IDEAS_SUMMARY_CHARS
+
+    title_fa = str(idea.get("title_fa") or "").strip()
+    if not is_persian(title_fa):
+        src_title = str(idea.get("title") or "").strip()
+        if src_title:
+            try:
+                trans = translate_many([src_title]) or {}
+                title_fa = trans.get(src_title, "")
+            except Exception:
+                pass
+
+    if not is_persian(title_fa):
+        return jsonify({"ok": False, "error": "تیتر خبر فاقد متن فارسی معتبر است و ترجمه در دسترس نیست."}), 400
+
+    clean_title = news_editorial.clean_editorial_title(title_fa)
+    title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
+
+    summary_fa = str(idea.get("summary_fa") or "").strip()
+    if not is_persian(summary_fa):
+        src_summary = str(idea.get("summary") or "").strip()
+        target_to_trans = src_summary or summary_fa
+        if target_to_trans:
+            try:
+                trans = translate_many([target_to_trans]) or {}
+                summary_fa = trans.get(target_to_trans, "")
+            except Exception:
+                pass
+
+    if not summary_fa or not is_persian(summary_fa):
+        caption_body = str((idea.get("caption") or {}).get("body") or "").strip()
+        if caption_body and is_persian(caption_body):
+            summary_fa = caption_body
+        else:
+            summary_fa = clean_title
+
+    if not is_persian(summary_fa):
+        return jsonify({"ok": False, "error": "خلاصه خبر فاقد متن فارسی معتبر است و ترجمه در دسترس نیست."}), 400
+
+    # Cache back
+    idea["title_fa"] = title_fa
+    idea["summary_fa"] = summary_fa
+
+    b_lead, b_caveat = news_editorial.ideas_summary(summary_fa, max_chars=IDEAS_SUMMARY_CHARS)
+    market_emoji = news_editorial.detect_market_emoji(idea) or "🪙"
+
+    if is_telegram:
+        esc_lead = _tg_escape(b_lead) if b_lead else ""
+        esc_caveat = _tg_escape(b_caveat) if b_caveat else ""
+    else:
+        esc_lead = b_lead or ""
+        esc_caveat = b_caveat or ""
+
+    parts = [title_part]
+    if esc_lead:
+        parts.append(f"{market_emoji} {esc_lead}")
+    if esc_caveat:
+        parts.append(f"‼️ {esc_caveat}")
+
+    raw_link = str(idea.get("link") or "").strip()
+    target_url = raw_link
+    reply_markup = None
+    if target_url and target_url.startswith(("http://", "https://")):
+        reply_markup = {
+            "inline_keyboard": [[
+                {"text": "🔗 مشاهده متن کامل خبر", "url": target_url}
+            ]]
+        }
+    text = "\n\n".join(p for p in parts if p).strip()
+
+    with lock:
+        res = send_fn(token, chat, text, reply_markup=reply_markup)
+        _breaker_record(target_platform, bool(res), res)
+        if res:
+            database.mark_messenger_posted(idea_id, target_platform)
+            return jsonify({"ok": True, "message": "ایده با موفقیت ارسال شد."})
+        else:
+            err = res.error if hasattr(res, "error") else str(res)
+            return jsonify({"ok": False, "error": f"خطا در ارسال: {err}"}), 502
+
 
 
 @app.route("/api/telegram/test", methods=["POST"])
@@ -4881,8 +5531,17 @@ def api_settings():
             if chat:
                 tg["chat"] = chat
             # extended digest tuning
-            if "enabled" in tg_in:
-                tg["enabled"] = bool(tg_in["enabled"])
+            # sticky-on: an uninitialized browser tab used to POST enabled=false
+            # and silently kill the whole Telegram pipeline — the operator wants
+            # these messengers always on (they can still use quiet hours)
+            tg["enabled"] = True
+            # what the channel actually publishes: the ideas push, and/or the
+            # bundled news digest. These used to be dropped on the floor, so the
+            # checkbox flipped back on its own after a save+reload.
+            if "send_ideas" in tg_in:
+                tg["send_ideas"] = bool(tg_in["send_ideas"])
+            if "send_digest" in tg_in:
+                tg["send_digest"] = bool(tg_in["send_digest"])
             if "min_credibility" in tg_in:
                 try:
                     tg["min_credibility"] = min(1.0, max(0.0, float(tg_in["min_credibility"])))
@@ -4927,6 +5586,16 @@ def api_settings():
             if tok and chat:
                 welcome_sends.append((tok, chat))
 
+        if "link_shortener" in data and isinstance(data["link_shortener"], dict):
+            ls_in = data["link_shortener"]
+            ls = CONFIG.setdefault("link_shortener", {})
+            if str(ls_in.get("provider") or "").strip():
+                ls["provider"] = str(ls_in["provider"]).strip().lower()
+            if "api_key" in ls_in and not _is_secret_mask(str(ls_in.get("api_key") or "")):
+                ls["api_key"] = str(ls_in.get("api_key") or "").strip()
+            if "custom_endpoint" in ls_in:
+                ls["custom_endpoint"] = str(ls_in.get("custom_endpoint") or "").strip()
+
         if "bale" in data and isinstance(data["bale"], dict):
             bale_in = data["bale"]
             tok = _bale_clean_token(bale_in.get("token") or "")
@@ -4938,8 +5607,12 @@ def api_settings():
                 bale["token"] = tok
             if chat:
                 bale["chat"] = chat
-            if "enabled" in bale_in:
-                bale["enabled"] = bool(bale_in["enabled"])
+            # sticky-on, same reason as telegram above
+            bale["enabled"] = True
+            if "send_ideas" in bale_in:
+                bale["send_ideas"] = bool(bale_in["send_ideas"])
+            if "send_digest" in bale_in:
+                bale["send_digest"] = bool(bale_in["send_digest"])
             if "min_credibility" in bale_in:
                 try:
                     bale["min_credibility"] = min(1.0, max(0.0, float(bale_in["min_credibility"])))
@@ -6168,7 +6841,7 @@ def _content_fresh(hit) -> bool:
     return not (hit.get("partial") and time.time() - hit.get("_at", 0) > THIN_RETRY_SECONDS)
 
 
-def _schedule_article(art) -> bool:
+def _schedule_article(art, priority=False) -> bool:
     """Kick the (up to ~15s) extraction ladder off-thread. Returns True when a
     job was started, False when there is nothing to do."""
     key = art.get("id")
@@ -6178,7 +6851,7 @@ def _schedule_article(art) -> bool:
         hit = CONTENT_CACHE.get(key)
     if key in _ART_INFLIGHT or _content_fresh(hit):
         return False
-    if len(_ART_INFLIGHT) >= 8:          # cap concurrent extraction jobs
+    if not priority and len(_ART_INFLIGHT) >= 20:          # cap concurrent background jobs
         return False
     _ART_INFLIGHT.add(key)
 
@@ -6192,16 +6865,10 @@ def _schedule_article(art) -> bool:
                 old = CONTENT_CACHE.get(key)
                 if (old and content.get("word_count", 0) <= old.get("word_count", 0)
                         and not content.get("error")):
-                    # the ladder could not beat the copy we already had — keep it,
-                    # and postpone the next retry instead of thrashing
                     old["_at"] = time.time()
                     content = old
                 else:
                     CONTENT_CACHE[key] = content
-            # Persist so a restart does not throw the fetch away and make the
-            # reader wait again. Finished *empty* results are saved too: knowing
-            # that a paywalled publisher gave nothing is information — without it
-            # the first click after every restart waited ~15s to learn nothing.
             if content.get("via") != "pending":
                 try:
                     from database import save_body
@@ -6253,7 +6920,7 @@ def _schedule_fa(art, content) -> bool:
     return True
 
 
-def article_content_cached(art, want_fa=False):
+def article_content_cached(art, want_fa=False, priority=False):
     """Never blocks the request: returns the cached body when we have one and
     starts the extraction ladder in the background when we do not. The
     returned stub carries `pending: True` so the API can tell the client to
@@ -6270,7 +6937,7 @@ def article_content_cached(art, want_fa=False):
         hit = CONTENT_CACHE.get(aid)
     if _content_fresh(hit):
         return hit
-    _schedule_article(art)
+    _schedule_article(art, priority=priority)
     stub = dict(hit) if hit else {
         "paragraphs": [], "word_count": 0, "partial": True,
         "title": art.get("title") or "", "site": "", "published": "",
@@ -6281,26 +6948,56 @@ def article_content_cached(art, want_fa=False):
     return stub
 
 
-def warm_article_bodies(limit: int = 70):
-    """Pre-extract the newest articles in the background so opening one is
-    instant. Extraction is network-bound (up to ~15s), and doing it lazily on
-    click meant the reader watched a spinner on every first visit; the body is
-    now usually already in CONTENT_CACHE before the modal is opened. Runs after
-    boot and after every cycle; concurrency is capped by _schedule_article."""
+def warm_article_bodies(limit: int = 150):
+    """Pre-extract Content Ideas and the newest articles in parallel so opening
+    any news card is 100% instant without ever showing a waiting spinner."""
     try:
+        from concurrent.futures import ThreadPoolExecutor
+
+        # 1. Warm all Content Ideas first (operator's primary focus)
+        board = _channel_board() or {}
+        board_items = list(board.get("items") or [])
+        board_arts = [i.get("article") or dict(i) for i in board_items if i.get("id") and i.get("link")]
+
+        # 2. Warm newest live articles
         with STATE_LOCK:
             arts = [a for a in (STATE.get("articles") or [])
                     if a.get("id") and a.get("link")]
         arts.sort(key=lambda a: -(a.get("published_ts") or 0))
-        for a in arts[:limit]:
-            with _CONTENT_LOCK:
-                cached_art = CONTENT_CACHE.get(a["id"])
-            if _content_fresh(cached_art):
-                continue
-            while len(_ART_INFLIGHT) >= 6:       # let the ladder breathe
-                time.sleep(0.5)
-            _schedule_article(a)
-            time.sleep(0.35)
+
+        candidates = []
+        seen = set()
+        for a in (board_arts + arts[:limit]):
+            aid = a.get("id")
+            if aid and aid not in seen:
+                seen.add(aid)
+                with _CONTENT_LOCK:
+                    cached = CONTENT_CACHE.get(aid)
+                if not _content_fresh(cached):
+                    candidates.append(a)
+
+        def _extract(a):
+            try:
+                aid = a.get("id")
+                content = fetch_article_content(
+                    a.get("link"), title=a.get("title"),
+                    publisher=a.get("source_name") if a.get("via") else None
+                )
+                if content and content.get("paragraphs"):
+                    content["_at"] = time.time()
+                    with _CONTENT_LOCK:
+                        CONTENT_CACHE[aid] = content
+                    try:
+                        from database import save_body
+                        save_body(aid, content)
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+
+        if candidates:
+            with ThreadPoolExecutor(max_workers=10) as executor:
+                list(executor.map(_extract, candidates))
     except Exception as e:
         log(f"  x body pre-warm stopped: {e}")
 

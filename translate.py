@@ -173,6 +173,73 @@ def _looks_persian(text: str) -> bool:
     return fa / len(t) > 0.25
 
 
+# ---------------------------------------------------------------------------
+# Publishable Persian — «فقط فارسی بده»
+# ---------------------------------------------------------------------------
+# The dict-chrome-ex endpoint does not always translate: it has answered with
+# the English sentence echoed back («Dow Jones Futures: Yields Move Higher.
+# Samsung, Micron…»), or with only the tail translated («Silver Interest
+# Strong… | جرمی ویلند از AbraSilver Resource»). Those results get cached under
+# the English source, so a retry re-serves the same half-English text — the
+# only honest answer left is "no Persian available".
+_LATIN_CHAR_RE = re.compile(r"[A-Za-z]")
+# a run this long is an untranslated sentence, not a brand name: a real Persian
+# line carries «TD Ameritrade و Capital.com» (run 2), never six English words
+_LATIN_RUN_MAX = 4
+_PERSIAN_MIN_SHARE = 0.45
+
+
+def persian_share(text: str) -> float:
+    """Share of the letters that are Persian — an untranslated echo scores 0."""
+    letters = "".join(c for c in (text or "") if c.isalpha())
+    if not letters:
+        return 0.0
+    return len(_FA_CHAR_RE.findall(letters)) / len(letters)
+
+
+def longest_latin_run(text: str) -> int:
+    """Longest run of consecutive Latin-script words.
+
+    Numbers and punctuation continue a run — «(NYSE:B)» belongs to the English
+    phrase around it; a Persian word always ends one.
+    """
+    best = run = 0
+    for tok in (text or "").split():
+        if _LATIN_CHAR_RE.search(tok):
+            run += 1
+            best = max(best, run)
+        elif _FA_CHAR_RE.search(tok) or tok.strip(".,:;()|–—-%"):
+            run = 0
+    return best
+
+
+def is_persian(text: str) -> bool:
+    """True when `text` is Persian enough to publish as-is.
+
+    Tickers and brand names pass («خروجی ETF بیت‌کوین…»), an English sentence
+    or a half-translated one does not.
+    """
+    if not _FA_CHAR_RE.search(text or ""):
+        return False
+    return (longest_latin_run(text) < _LATIN_RUN_MAX
+            and persian_share(text) >= _PERSIAN_MIN_SHARE)
+
+
+def to_persian(candidate, source=None) -> str:
+    """The Persian string to publish, or "" — never a Latin sentence.
+
+    `candidate` is the text we already have; `source` is the English original
+    to fall back to when the candidate turns out not to be Persian.
+    """
+    if is_persian(candidate):
+        return str(candidate).strip()
+    if source:
+        got = translate_one(str(source).strip())
+        if is_persian(got):
+            return str(got).strip()
+    return ""
+
+
 def translate_many(texts, persian_digits: bool = True) -> dict:
     """
     Translate an iterable of English strings to Persian.

@@ -64,3 +64,4 @@ mockup/
 
 # scratch: alternate-python venv used for CI reproduction
 .venv311/
+.link_shortener_cache.json

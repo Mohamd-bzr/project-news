@@ -559,3 +559,45 @@ def messenger_recent_posted_ids(platform: str, max_age_hours: float = 72.0) -> s
             return {str(r["article_id"]) for r in rows if r["article_id"]}
     except Exception:
         return out
+
+
+def get_messenger_posted_logs(platform: str = None, limit: int = 50) -> list[dict]:
+    """Retrieve detailed log of recently dispatched ideas joined with article metadata."""
+    out = []
+    try:
+        with get_connection() as conn:
+            if platform:
+                query = """
+                    SELECT m.article_id, m.platform, m.posted_ts,
+                           a.title, a.title_fa, a.link, a.source_name
+                    FROM messenger_posted m
+                    LEFT JOIN articles a ON a.id = m.article_id
+                    WHERE m.platform = ?
+                    ORDER BY m.posted_ts DESC
+                    LIMIT ?;
+                """
+                rows = conn.execute(query, (str(platform), int(limit))).fetchall()
+            else:
+                query = """
+                    SELECT m.article_id, m.platform, m.posted_ts,
+                           a.title, a.title_fa, a.link, a.source_name
+                    FROM messenger_posted m
+                    LEFT JOIN articles a ON a.id = m.article_id
+                    ORDER BY m.posted_ts DESC
+                    LIMIT ?;
+                """
+                rows = conn.execute(query, (int(limit),)).fetchall()
+            for r in rows:
+                out.append({
+                    "article_id": r["article_id"],
+                    "platform": r["platform"],
+                    "posted_ts": r["posted_ts"],
+                    "title": r["title"] or "",
+                    "title_fa": r["title_fa"] or "",
+                    "link": r["link"] or "",
+                    "source_name": r["source_name"] or "",
+                })
+    except Exception:
+        pass
+    return out
+

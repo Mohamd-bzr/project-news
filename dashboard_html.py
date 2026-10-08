@@ -21,6 +21,9 @@ APP_HTML = r"""<!DOCTYPE html>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="MOHMD NEWS">
+<script>/* theme before first paint — no flash */
+(function(){try{if(localStorage.getItem('mohmd-theme')==='light')document.documentElement.setAttribute('data-theme','light');}catch(e){}})();
+</script>
 <title>MOHMD NEWS — Market Intelligence</title>
 <style>
 /* ── 0 · SELF-HOSTED FONTS (OFL) — the offline PWA must not depend on
@@ -1789,6 +1792,10 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
   .ngrid{ grid-template-columns:1fr; }
   .cal-th, .cal-tr{ min-inline-size:660px; }
   .app-main{ padding-inline:10px; }
+  /* the English cycle label is the longest thing in the brand row; without a
+     cap it overflowed the topbar on a phone and painted over the ticker */
+  .live-pill{ max-inline-size:42vw; overflow:hidden; }
+  .live-pill #cycleTxt{ min-inline-size:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 }
 
 /* ══ VIRTUALISED GRIDS ══════════════════════════════════════════════════════
@@ -1833,8 +1840,38 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 #cbList .ncard[data-lane="currency"]{ --lane:#34d399; }
 #cbList .ncard[data-lane="global"]{ --lane:#a78bfa; }
 #cbList .ncard[data-lane="crypto"]{ --lane:var(--cu); }
+#cbList .ncard[data-lane="tech"]{ --lane:#38bdf8; }
 #cbList .rank{ margin-inline-start:auto; font-family:var(--font-mono); font-size:10.5px; font-weight:700; color:var(--ink-4); direction:ltr; font-variant-numeric:tabular-nums; letter-spacing:.04em; }
 .cb-empty{ grid-column:1 / -1; color:var(--ink-3); font-size:var(--t-sm); padding:var(--s5) var(--s4); text-align:center; line-height:var(--lh-fa); }
+.cb-bale-status-bar { display:flex; align-items:center; justify-content:space-between; padding:8px 14px; margin-bottom:12px; background:var(--panel-2, rgba(255,255,255,0.03)); border:1px solid var(--rule, rgba(255,255,255,0.08)); border-radius:var(--r2, 8px); font-size:12px; color:var(--ink-2); }
+.cb-bale-status-bar .stat-left { display:flex; align-items:center; gap:8px; }
+.cb-bale-status-bar .dot.live { width:8px; height:8px; border-radius:50%; background:#22c55e; box-shadow:0 0 6px rgba(34,197,94,0.6); }
+.cb-bale-status-bar .sep { color:var(--ink-4); }
+.cb-bale-status-bar .stat-link { color:var(--accent, #6366f1); text-decoration:none; font-weight:500; font-size:11.5px; cursor:pointer; }
+.cb-bale-status-bar .stat-link:hover { text-decoration:underline; }
+.badge.b-sent { background:rgba(34,197,94,0.15); color:#22c55e; border:1px solid rgba(34,197,94,0.3); font-weight:600; font-size:10px; }
+.badge.b-pending { background:rgba(234,179,8,0.15); color:#eab308; border:1px solid rgba(234,179,8,0.3); font-weight:500; font-size:10px; }
+.b-card-act { background:var(--panel-2, rgba(255,255,255,0.06)); border:1px solid var(--rule, rgba(255,255,255,0.12)); color:var(--ink-2); border-radius:6px; padding:2px 8px; font-size:11px; cursor:pointer; transition:all .15s ease; font-family:inherit; }
+.b-card-act:hover { background:var(--accent, #6366f1); color:#fff; border-color:var(--accent, #6366f1); }
+.b-card-act.sent { opacity:0.8; }
+.b-card-act.link { text-decoration:none; display:inline-flex; align-items:center; }
+.dispatch-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+@media (max-width: 640px) { .dispatch-grid { grid-template-columns:1fr; } }
+.dispatch-card { padding:14px; border-radius:var(--r2, 8px); background:var(--panel-2, rgba(255,255,255,0.03)); border:1px solid var(--rule, rgba(255,255,255,0.08)); }
+.dispatch-card .dh { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:13.5px; }
+.dispatch-card .row { display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:var(--ink-2); }
+.status-pill { padding:2px 7px; border-radius:99px; font-size:10.5px; font-weight:600; }
+.status-pill.ok { background:rgba(34,197,94,0.15); color:#22c55e; }
+.status-pill.err { background:rgba(239,68,68,0.15); color:#ef4444; }
+.dispatch-table-wrap { max-height:280px; overflow-y:auto; border:1px solid var(--rule, rgba(255,255,255,0.08)); border-radius:var(--r2, 8px); }
+.dispatch-table { width:100%; border-collapse:collapse; font-size:12px; text-align:right; }
+.dispatch-table th, .dispatch-table td { padding:8px 10px; border-bottom:1px solid var(--rule, rgba(255,255,255,0.06)); }
+.dispatch-table th { background:var(--panel-2, rgba(255,255,255,0.04)); color:var(--ink-3); font-weight:500; }
+.dispatch-table .badge.b-bale { background:rgba(14,165,233,0.15); color:#0ea5e9; font-size:10.5px; padding:2px 6px; border-radius:4px; }
+.dispatch-table .badge.b-tg { background:rgba(59,130,246,0.15); color:#3b82f6; font-size:10.5px; padding:2px 6px; border-radius:4px; }
+.dispatch-table .ttl-col { max-width:320px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.dispatch-table .dt-col { font-family:var(--font-mono); direction:ltr; color:var(--ink-3); font-size:11px; }
+.dispatch-table .link-btn { color:var(--accent, #6366f1); text-decoration:none; font-size:11px; font-weight:500; }
 /* ── Expansion Suite: Watchlist, Embeds, Offline ── */
 .chip.chip-watchlist.on{ background:#f59e0b !important; color:#000 !important; }
 .watchlist-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(130px, 1fr)); gap:10px; margin:16px 0; }
@@ -1903,7 +1940,128 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
 .idea-body{ padding:var(--s2) var(--s3) var(--s3); }
 .etfgroup{ padding:var(--s2) var(--s3) var(--s3); }
 
-</style>
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DL6.1 · THEME SWITCH — the same instrument in daylight.
+   Dark stays the default sheet above; every token a light sibling needs is
+   re-declared under html[data-theme="light"]. The few hard-coded dark bits
+   that tokens cannot reach are overridden right after.
+   ═══════════════════════════════════════════════════════════════════════════ */
+html[data-theme="light"]{
+  --bg:#F2F5F9;
+  --bg-deep:#E6EBF2;
+  --panel:#FCFDFE;
+  --panel-2:#F3F6FA;
+  --panel-3:#EAEFF5;
+  --panel-4:#DBE3EC;
+  --sheet:rgba(252,253,254,.98);
+  --wash:rgba(20,32,46,.045);
+  --wash-2:rgba(20,32,46,.075);
+  --wash-3:rgba(20,32,46,.11);
+  --rule:rgba(20,32,46,.14);
+  --rule-2:rgba(20,32,46,.08);
+  --rule-3:rgba(20,32,46,.26);
+  --rule-strong:rgba(20,32,46,.38);
+  --ink-1:#14202E;
+  --ink-2:#2C3A49;
+  --ink-3:#4E6076;
+  --ink-4:#566678;
+  --cu:#2F5CA8;
+  --cu-hi:#4A7BC0;
+  --cu-2:#2F5CA8;
+  --cu-txt:#1F4076;
+  --cu-wash:rgba(47,92,168,.10);
+  --cu-wash-2:rgba(47,92,168,.16);
+  --cu-line:rgba(47,92,168,.34);
+  --cu-line-2:rgba(47,92,168,.58);
+  --up:#157F4F;
+  --up-wash:rgba(21,127,79,.10);
+  --up-line:rgba(21,127,79,.32);
+  --dn:#C03A30;
+  --dn-wash:rgba(192,58,48,.09);
+  --dn-line:rgba(192,58,48,.32);
+  --warn:#A5620B;
+  --warn-wash:rgba(165,98,11,.12);
+  --info:#2E6E9E;
+  --info-wash:rgba(46,110,158,.11);
+  --hol:#566678;
+  --sh-1:0 1px 3px rgba(20,32,46,.10);
+  --sh-2:0 20px 48px -24px rgba(20,32,46,.28);
+  --doc:#F2F5F9;
+}
+/* hard-coded dark bits the token sheet cannot reach */
+html[data-theme="light"] .stage{
+  background:
+    radial-gradient(900px 520px at 92% -8%, rgba(47,92,168,.06), transparent 58%),
+    radial-gradient(720px 480px at 0% 108%, rgba(46,110,158,.05), transparent 58%),
+    var(--bg);
+}
+html[data-theme="light"] .stage::after{
+  background:radial-gradient(120% 90% at 50% 30%, transparent 55%, rgba(20,32,46,.10));
+}
+html[data-theme="light"] .btn{ color:#F7FAFF; }
+html[data-theme="light"] .btn:hover{ color:#F7FAFF; }
+html[data-theme="light"] .skip-link{ color:#F7FAFF; }
+html[data-theme="light"] .tb-badge{ color:#F7FAFF; }
+html[data-theme="light"] .brand-badge{ background:rgba(108,151,220,.14); }
+html[data-theme="light"] .overlay{ background:rgba(20,32,46,.45); }
+html[data-theme="light"] select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none' stroke='%232F5CA8' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 5 4.8 9 1.5'/%3E%3C/svg%3E");
+}
+html[data-theme="light"] *{ scrollbar-color:rgba(20,32,46,.25) transparent; }
+html[data-theme="light"] ::-webkit-scrollbar-thumb{
+  background:rgba(20,32,46,.22); border:3px solid transparent;
+  background-clip:padding-box; border-radius:99px;
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover{
+  background:rgba(20,32,46,.45); background-clip:padding-box;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DL6.1 · PRESS MOTION — small, deliberate, compositor-only.
+   One shared ease; 120–360ms on transform/opacity/box-shadow; nothing
+   animates layout. Collapses to the final state under reduced motion.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes viewSwap{ from{ opacity:0; transform:translateY(7px); } to{ opacity:1; transform:none; } }
+.view.active{ animation:viewSwap var(--dur-3) var(--ease); }
+.app-main{ scroll-behavior:smooth; }
+
+.btn{ transition:background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), color var(--dur-1), transform var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease); }
+.btn:hover{ transform:translateY(-1px); box-shadow:0 6px 16px -8px rgba(0,0,0,.5); }
+.btn:active{ transform:translateY(1px); box-shadow:none; }
+
+.iconbtn, .chip{ transition:background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), color var(--dur-1) var(--ease), transform var(--dur-1) var(--ease); }
+.iconbtn:hover, .chip:hover{ transform:translateY(-1px); }
+.iconbtn:active, .chip:active{ transform:translateY(0); }
+
+.ncard{ transition:border-color var(--dur-2) var(--ease), background var(--dur-2), transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
+.ncard:hover{ transform:translateY(-2px); box-shadow:0 12px 28px -16px rgba(0,0,0,.55); }
+.ncard:active{ transform:translateY(0); }
+.lead-card{ transition:border-color var(--dur-2) var(--ease), transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease); }
+.lead-card:hover{ transform:translateY(-2px); box-shadow:0 12px 28px -16px rgba(0,0,0,.55); }
+
+.ncard.card-enter:nth-child(2){ animation-delay:40ms; }
+.ncard.card-enter:nth-child(3){ animation-delay:80ms; }
+.ncard.card-enter:nth-child(4){ animation-delay:120ms; }
+.ncard.card-enter:nth-child(5){ animation-delay:40ms; }
+.ncard.card-enter:nth-child(6){ animation-delay:80ms; }
+
+@keyframes modalIn{ from{ opacity:0; transform:translateY(10px) scale(.985); } to{ opacity:1; transform:none; } }
+.modal{ animation:modalIn var(--dur-3) var(--ease); }
+@keyframes toastIn{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:none; } }
+.toast{ animation:toastIn var(--dur-3) var(--ease); }
+
+@keyframes dotGlow{ 0%,100%{ box-shadow:0 0 0 0 rgba(108,151,220,0); } 50%{ box-shadow:0 0 0 4px rgba(108,151,220,.22); } }
+.live-pill .dot.busy{ animation:blink 1s steps(2, end) infinite, dotGlow 1.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion:reduce){
+  .view.active, .modal, .toast{ animation:none; }
+  .app-main{ scroll-behavior:auto; }
+  .nav-item:hover, .btn:hover, .iconbtn:hover, .chip:hover,
+  .ncard:hover, .lead-card:hover{ transform:none; }
+  .ncard.card-enter{ animation:none; }
+  .live-pill .dot.busy{ animation:none; }
+}</style>
 <!-- offline-first storage layer: IndexedDB (MohmdNewsDB) + inverted-index search.
      Loaded from its own file because the service worker precaches it as a shell
      asset; the offline maquette inlines this exact file at build time. -->
@@ -2041,8 +2199,9 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
     </div>
 
     <div class="topbar-actions">
-      <button class="btn ghost" id="refreshBtn" onclick="doRefresh()">
-        <svg class="ic"><use href="#i-refresh"/></svg> <span>Refresh</span>
+      <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" aria-label="تغییر تم روشن و تیره" title="تم روشن / تیره">
+        <svg class="ic" id="themeIcMoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12.6A8.6 8.6 0 0 1 11.4 4a7.1 7.1 0 1 0 8.6 8.6Z"/></svg>
+        <svg class="ic" id="themeIcSun" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.5M12 18.9v2.5M2.6 12h2.5M18.9 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></svg>
       </button>
     </div>
   </header>
@@ -2594,6 +2753,20 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
                   💡 <b>راهنمایی:</b> برای چت خصوصی، ابتدا در تلگرام وارد ربات شده و <code>Start/</code> را بزنید سپس روی «تشخیص خودکار» کلیک کنید. برای کانال، ربات را به کانال اضافه کرده و دسترسی ارسال پیام (Admin) به آن بدهید.
                 </div>
               </div>
+              <div style="grid-column:1/-1">
+                <label>درگاه تلگرام بدون فیلترشکن (Gateway — اختیاری)</label>
+                <input type="text" id="tgGateway" placeholder="https://your-worker.your-name.workers.dev" style="direction:ltr;text-align:left">
+                <div class="hint" style="margin-top:6px;font-size:0.8rem;line-height:1.5">
+                  💡 <b>تلگرام در ایران بدون فیلترشکن بسته است.</b> یک Worker رایگان کلادفلر بسازید (کد آماده و راهنمای ۵ دقیقه‌ای: <code>docs/telegram-gateway.md</code>) و آدرسش را اینجا بگذارید؛ همهٔ تماس‌های API از درگاه خودتان رد می‌شود و توکن فقط از درگاه خودتان عبور می‌کند. خالی = اتصال مستقیم (نیازمند فیلترشکن). بله به درگاه نیاز ندارد.
+                </div>
+              </div>
+              <div style="grid-column:1/-1">
+                <label>پراکسی محلی (وقتی VPN-client روشنه — اختیاری)</label>
+                <input type="text" id="tgProxy" placeholder="socks5://127.0.0.1:1080 یا http://127.0.0.1:7890" style="direction:ltr;text-align:left">
+                <div class="hint" style="margin-top:6px;font-size:0.8rem;line-height:1.5">
+                  💡 اگر از v2rayN / Clash / Hiddify استفاده می‌کنی، آدرس پراکسی محلی‌ش را اینجا بگذارید (توی تنظیمات خود برنامه پیداست). تلگرام از همین پراکسی می‌رود حتی بدون روتینگ کل سیستم. اگر درگاه هم ست شده باشد، درگاه اولویت دارد.
+                </div>
+              </div>
               <div style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px">
                 <button class="btn" onclick="saveTelegram()">ذخیره همه تنظیمات</button>
                 <button class="btn ghost" onclick="testTelegram()">ارسال پیام تست</button>
@@ -2622,6 +2795,8 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
             <h4><svg class="ic"><use href="#i-grid"/></svg> رفتار پیام</h4>
             <div class="tg-toggles">
               <label class="tgopt"><input type="checkbox" id="tgQuiet" checked><svg class="ic"><use href="#i-moon"/></svg><span>سکوت شبانه (۲۳ تا ۸ صبح ارسال نشود)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgIdeas" checked><svg class="ic"><use href="#i-star"/></svg><span>ایده‌های محتوا خودکار ارسال شود (تیتر + دو بند خلاصه + لینک زیرش)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgDigest"><svg class="ic"><use href="#i-file"/></svg><span>دیجست خبری (چند خبر داخل یک پیام) هم ارسال شود — خاموش = فقط ایده‌های محتوا)</span></label>
               <label class="tgopt"><input type="checkbox" id="tgLink" checked><svg class="ic"><use href="#i-link"/></svg><span>تیتر به‌صورت هایپرلینک به خبر</span></label>
               <label class="tgopt"><input type="checkbox" id="tgLinkLine"><svg class="ic"><use href="#i-plus"/></svg><span>لینک در خط جدا هم بیاید</span></label>
               <label class="tgopt"><input type="checkbox" id="tgSummary" checked><svg class="ic"><use href="#i-file"/></svg><span>خلاصهٔ فارسی خبر در پیام</span></label>
@@ -2672,6 +2847,7 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
               <div style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px">
                 <button class="btn" onclick="saveBale()">ذخیره تنظیمات بله</button>
                 <button class="btn ghost" onclick="testBale()">ارسال پیام تست به بله</button>
+                <button class="btn ghost" onclick="pushIdeasNow()" title="همهٔ ایده‌های محتوای نارسیده همین حالا به بله (و تلگرام اگر در دسترس) ارسال می‌شود">📨 ارسال فوری همهٔ ایده‌های محتوا</button>
               </div>
             </div>
             <h4><svg class="ic"><use href="#i-gear"/></svg> تنظیمات ارسال در بله</h4>
@@ -2697,6 +2873,9 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
             <h4><svg class="ic"><use href="#i-grid"/></svg> رفتار پیام در بله</h4>
             <div class="tg-toggles">
               <label class="tgopt"><input type="checkbox" id="baleQuiet" checked><svg class="ic"><use href="#i-moon"/></svg><span>سکوت شبانه (۲۳ تا ۸ صبح ارسال نشود)</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleIdeas" checked><svg class="ic"><use href="#i-star"/></svg><span>ایده‌های محتوا خودکار ارسال شود (تیتر + دو بند خلاصه + لینک زیرش)</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleDigest"><svg class="ic"><use href="#i-file"/></svg><span>دیجست خبری (چند خبر داخل یک پیام) هم ارسال شود — خاموش = فقط ایده‌های محتوا)</span></label>
+              <label class="tgopt"><input type="checkbox" id="lsEnabled" checked><svg class="ic"><use href="#i-link"/></svg><span>لینک خبر کوتاه شود (کوتاه‌کننده، مشترک بین بله و تلگرام)</span></label>
               <label class="tgopt"><input type="checkbox" id="baleLink" checked><svg class="ic"><use href="#i-link"/></svg><span>درج لینک خبر</span></label>
               <label class="tgopt"><input type="checkbox" id="baleSummary" checked><svg class="ic"><use href="#i-file"/></svg><span>خلاصهٔ فارسی خبر در پیام</span></label>
               <label class="tgopt"><input type="checkbox" id="baleHashtags" checked><svg class="ic"><use href="#i-hash"/></svg><span>هشتگ دارایی‌ها (#BTC #طلا)</span></label>
@@ -2710,6 +2889,24 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
               — قالب خالی = پیش‌فرض
             </div>
             <textarea id="baleTemplate" class="tg-template" rows="5" aria-label="قالب پیام بله"></textarea>
+            <h4><svg class="ic"><use href="#i-link"/></svg> کوتاه‌کنندهٔ لینک (مشترک با تلگرام)</h4>
+            <div class="formgrid">
+              <div><label>ارائه‌دهنده</label>
+                <select id="lsProvider" style="width:100%">
+                  <option value="auto">خودکار (اگر کلید داری: opizo، وگرنه خارجی‌ها)</option>
+                  <option value="opizo">opizo (ایرانی — لینک برای مخاطب داخل ایران باز می‌شود)</option>
+                  <option value="tinyurl">TinyURL (خارجی)</option>
+                  <option value="isgd">is.gd (خارجی)</option>
+                  <option value="custom">سرویس دلخواه (endpoint خودت)</option>
+                </select></div>
+              <div><label>کلید API (برای opizo — رایگان از opizo.com)</label>
+                <input type="password" id="lsApiKey" placeholder="X-API-KEY" style="direction:ltr;text-align:left"></div>
+              <div style="grid-column:1/-1"><label>Endpoint دلخواه (فقط برای custom — پاسخ باید لینک کوتاه خام باشد)</label>
+                <input type="text" id="lsCustom" placeholder="https://my-service.example/shorten" style="direction:ltr;text-align:left"></div>
+              <div class="hint" style="grid-column:1/-1;font-size:0.8rem;line-height:1.5">
+                💡 کوتاه‌کننده‌های خارجی (TinyURL و is.gd) از داخل ایران فیلترند — هم ساخت لینک و هم کلیک روی آن. برای مخاطب ایرانی، حساب رایگان <code>opizo.com</code> بساز و کلیدش را در اینجا بگذار. اگر هیچ‌کدام در دسترس نباشد، لینک اصلی ارسال می‌شود (ارسال هرگز نمی‌شکند).
+              </div>
+            </div>
             <div class="tg-actions">
               <button class="btn" onclick="saveBale()"><svg class="ic"><use href="#i-save"/></svg> ذخیرهٔ تنظیمات بله</button>
               <button class="btn ghost" onclick="previewBale()"><svg class="ic"><use href="#i-eye"/></svg> پیش‌نمایش پیام بله</button>
@@ -2879,14 +3076,33 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
                 <span class="bar"></span>
                 <div>
                   <h3>ایده‌های محتوا</h3>
-                  <p class="sub">از میان همهٔ خبرهای سامانه، آن‌ها که برای پیج ارزش پست‌شدن دارند — بهترین‌ها اول.</p>
+                  <p class="sub">گزینش هوشمند اخبار بین‌المللی برای انتشار در بخش اخبار tgju.org/news — مهم‌ترین‌ها اول.</p>
                 </div>
               </div>
               <div class="cb-head-actions">
+                <button class="btn sm primary" type="button" id="btnPushBale" onclick="Channel.pushNow()" title="ارسال همه ایده‌های جدید به پیام‌رسان بله">
+                  <svg class="ic"><use href="#i-send"/></svg>
+                  <span>ارسال فوری به بله</span>
+                </button>
+                <button class="btn sm outline" type="button" onclick="Channel.openDispatchModal()" title="مشاهده وضعیت اتصال و تاریخچه ارسال خبرها">
+                  <svg class="ic"><use href="#i-file"/></svg>
+                  <span>وضعیت و تاریخچه بله</span>
+                </button>
                 <span class="cb-count" id="cbCount">—</span>
                 <button class="btn sm ghost" type="button" onclick="Channel.refresh()" title="غربال دوبارهٔ اخبار" aria-label="غربال دوباره">
                   <svg class="ic"><use href="#i-refresh"/></svg>
                 </button>
+              </div>
+            </div>
+            <div class="cb-bale-status-bar" id="cbBaleStatusBar">
+              <div class="stat-left">
+                <span class="dot live"></span>
+                <span>کانال بله: <strong dir="ltr">4683284212</strong></span>
+                <span class="sep">•</span>
+                <span>وضعیت: <strong>ارسال بلادرنگ پس از هر چرخه</strong></span>
+              </div>
+              <div class="stat-right">
+                <a href="javascript:void(0)" onclick="Channel.openDispatchModal()" class="stat-link">مشاهده گزارش ارسال‌ها ←</a>
               </div>
             </div>
             <div id="cbList" class="ngrid" aria-live="polite">
@@ -2939,6 +3155,14 @@ body.tv-full .view, body.tv-full .view.active, body.tv-full .view-container, bod
   <div class="modal" style="max-width:620px">
     <button class="mclose" aria-label="بستن" onclick="closeModal('blurbOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
     <div id="blurbBody"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- ══ 4 · IDEAS DISPATCH STATUS & LOGS MODAL ══ -->
+<div class="overlay" id="ideasDispatchOverlay" onclick="if(event.target===this)closeModal('ideasDispatchOverlay')">
+  <div class="modal" style="max-width:760px">
+    <button class="mclose" aria-label="بستن" onclick="closeModal('ideasDispatchOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div id="ideasDispatchBody"></div>
   </div>
 </div>
 
@@ -4035,6 +4259,10 @@ function getBmarkMeta(){ try{ return JSON.parse(localStorage.getItem(BM_META_KEY
 function findArticle(id){
   const pools=[DATA.articles||[], DATA.archive||[]];
   for(const p of pools){ for(const a of p){ if(a.id===id) return a; } }
+  if (window.Channel && typeof window.Channel.getItem === 'function') {
+    const it = window.Channel.getItem(id);
+    if (it) return (it.article || it);
+  }
   return null;
 }
 function snapshot(a){
@@ -4133,6 +4361,7 @@ async function loadData(){
     if(!r.ok) throw new Error(r.status);
     DATA = await r.json();
     initMeta(); renderAll();
+    if(window.Channel && typeof window.Channel.onCycleUpdate === 'function') window.Channel.onCycleUpdate();
   }catch(e){
     console.error('loadData:', e);            /* never swallow silently — the
         banner alone hides which renderer broke (it did: the maquette's
@@ -4857,10 +5086,11 @@ async function openArticle(id, fa){
       b.innerHTML='<div class="empty">خطا در دریافت خبر</div>'; return;
     }
     if (_ART_GEN !== gen) return;
-    if(d.pending && tries++<20){
+    const hasParas = (fa && Array.isArray(d.content_fa) && d.content_fa.length) || (d.content && Array.isArray(d.content.paragraphs) && d.content.paragraphs.length);
+    if(d.pending && !hasParas && tries++<20){
       const t=document.getElementById('artLoadTxt');
       if(t) t.textContent=waitTxt+' ('+toFa(tries)+')';
-      setTimeout(poll,1200); return;
+      setTimeout(poll,1000); return;
     }
     render(d);
   };
@@ -6420,12 +6650,16 @@ function tgPayload(){
   return {telegram:{
     token: document.getElementById('tgToken').value.trim(),
     chat: document.getElementById('tgChat').value.trim(),
+    gateway: document.getElementById('tgGateway') ? document.getElementById('tgGateway').value.trim() : '',
+    proxy: document.getElementById('tgProxy') ? document.getElementById('tgProxy').value.trim() : '',
     enabled: document.getElementById('tgEnabled').checked,
     min_credibility: parseFloat(document.getElementById('tgMinCred').value)||0.75,
     max_items: parseInt(document.getElementById('tgMaxItems').value)||10,
     max_age_hours: parseFloat(document.getElementById('tgMaxAge').value)||6,
     asset_filter: document.getElementById('tgAssets').value.split(',').map(x=>x.trim().toUpperCase()).filter(Boolean),
     quiet_hours: document.getElementById('tgQuiet').checked,
+    send_ideas: document.getElementById('tgIdeas') ? document.getElementById('tgIdeas').checked : true,
+    send_digest: document.getElementById('tgDigest') ? document.getElementById('tgDigest').checked : false,
     include_link: document.getElementById('tgLink').checked,
     link_on_own_line: document.getElementById('tgLinkLine').checked,
     include_summary: document.getElementById('tgSummary').checked,
@@ -6990,6 +7224,14 @@ function initAlerts(){
   const tk=document.getElementById('tgToken'), tc=document.getElementById('tgChat');
   if(tg.token && (!tk.value || tk.value.length < 5)) tk.value=tg.token;
   if(tg.chat && !tc.value) tc.value=tg.chat;
+  const tgw=document.getElementById('tgGateway');
+  if(tgw && !tgw.value) tgw.value=tg.gateway||'';
+  const tgp=document.getElementById('tgProxy');
+  if(tgp && !tgp.value) tgp.value=tg.proxy||'';
+  const tgi=document.getElementById('tgIdeas');
+  if(tgi) tgi.checked = tg.send_ideas!==false;
+  const tgd=document.getElementById('tgDigest');
+  if(tgd) tgd.checked = tg.send_digest===true;
   document.getElementById('tgEnabled').checked = tg.enabled!==false;
   document.getElementById('tgMinCred').value = tg.min_credibility!=null?tg.min_credibility:0.70;
   document.getElementById('tgMaxItems').value = tg.max_items||10;
@@ -7161,6 +7403,13 @@ function balePayload(){
     max_age_hours: parseFloat(document.getElementById('baleMaxAge').value)||24,
     asset_filter: document.getElementById('baleAssets').value.split(',').map(x=>x.trim().toUpperCase()).filter(Boolean),
     quiet_hours: document.getElementById('baleQuiet').checked,
+    send_ideas: document.getElementById('baleIdeas') ? document.getElementById('baleIdeas').checked : true,
+    send_digest: document.getElementById('baleDigest') ? document.getElementById('baleDigest').checked : false,
+    link_shortener: {
+      provider: document.getElementById('lsEnabled') && !document.getElementById('lsEnabled').checked ? 'none' : (document.getElementById('lsProvider') ? document.getElementById('lsProvider').value : 'auto'),
+      api_key: document.getElementById('lsApiKey') ? document.getElementById('lsApiKey').value.trim() : '',
+      custom_endpoint: document.getElementById('lsCustom') ? document.getElementById('lsCustom').value.trim() : ''
+    },
     include_link: document.getElementById('baleLink').checked,
     include_summary: document.getElementById('baleSummary').checked,
     hashtags: document.getElementById('baleHashtags').checked,
@@ -7189,6 +7438,19 @@ function initBale(){
   if(bas) bas.value = (bale.asset_filter||[]).join(', ');
   const bq = document.getElementById('baleQuiet');
   if(bq) bq.checked = bale.quiet_hours!==false;
+  const bIdeas = document.getElementById('baleIdeas');
+  if(bIdeas) bIdeas.checked = bale.send_ideas!==false;
+  const bDigest = document.getElementById('baleDigest');
+  if(bDigest) bDigest.checked = bale.send_digest===true;
+  const lsC = (DATA && DATA.config && DATA.config.link_shortener) || {};
+  const lsp = document.getElementById('lsProvider');
+  if(lsp) lsp.value = lsC.provider || 'auto';
+  const lsk = document.getElementById('lsApiKey');
+  if(lsk && !lsk.value && lsC.api_key) lsk.value = lsC.api_key;
+  const lsc = document.getElementById('lsCustom');
+  if(lsc && !lsc.value && lsC.custom_endpoint) lsc.value = lsC.custom_endpoint;
+  const lse = document.getElementById('lsEnabled');
+  if(lse) lse.checked = (lsC.provider || 'auto') !== 'none';
   const bl = document.getElementById('baleLink');
   if(bl) bl.checked = bale.include_link!==false;
   const bs = document.getElementById('baleSummary');
@@ -7282,6 +7544,14 @@ async function saveBale(){
   } else {
     toast('خطا در ذخیره تنظیمات بله');
   }
+}
+
+async function pushIdeasNow(){
+  toast('در حال ارسال همهٔ ایده‌های نارسیده… چند دقیقه طول می‌کشد');
+  const r=await fetch('/api/ideas/push-now',{method:'POST',headers:{'Content-Type':'application/json'}});
+  const d=await r.json().catch(()=>({}));
+  if(d.ok){ toast(d.already_running ? 'یک پوش در حال اجراست — صبر کن تمام شود' : 'ارسال آغاز شد ✓ بعداً چک کن'); }
+  else{ toast('خطا در شروع ارسال'); }
 }
 
 async function testBale(){
@@ -7731,6 +8001,7 @@ class StreamManager{
       this.queue.news=[];
       const added=smPrependNews(fresh);
       this.emit('news', {fresh:fresh, prepended:added});
+      if(window.Channel && typeof window.Channel.onCycleUpdate === 'function') window.Channel.onCycleUpdate();
     }
     if(this.queue.calendar.length){
       const items=this.queue.calendar.slice();
@@ -7936,11 +8207,11 @@ function mountTVChart(force){
   const box=host.querySelector('.tradingview-widget-container__widget');
   const conf={
     autosize:true, symbol:tvSymbolFor(sym), interval:TV_INTERVAL[TVW.tf]||'60',
-    timezone:'Asia/Tehran', theme:'dark', style:'1', locale:'en',
+    timezone:'Asia/Tehran', theme:(document.documentElement.getAttribute('data-theme')==='light'?'light':'dark'), style:'1', locale:'en',
     /* the widget ships a cool blue-black; the app is midnight navy with an
        electric-blue accent, and the hole it used to punch in the palette was
        the loudest thing on the report tab. Same depth, same hairline colour. */
-    backgroundColor:'rgba(12,17,28,1)', gridColor:'rgba(160,180,210,0.07)',
+    backgroundColor:(document.documentElement.getAttribute('data-theme')==='light'?'rgba(252,253,255,1)':'rgba(12,17,28,1)'), gridColor:(document.documentElement.getAttribute('data-theme')==='light'?'rgba(20,32,46,0.08)':'rgba(160,180,210,0.07)'),
     fontColor:'#AFB9C8',
     hide_side_toolbar:false, allow_symbol_change:true, withdateranges:true,
     save_image:true, hide_volume:false, support_host:'https://www.tradingview.com'
@@ -8983,6 +9254,29 @@ window.addEventListener('online', function(){
   if(typeof loadData==='function') loadData();
 });
 
+</script>
+
+<script>
+/* DL6.1 · theme toggle — persisted, meta-following, icon-swapping */
+(function(){
+  var KEY='mohmd-theme';
+  var meta=document.querySelector('meta[name="theme-color"]');
+  function apply(t){
+    document.documentElement.setAttribute('data-theme', t);
+    if(meta) meta.setAttribute('content', t==='light' ? '#F2F5F9' : '#0C111C');
+    var moon=document.getElementById('themeIcMoon'), sun=document.getElementById('themeIcSun');
+    if(moon) moon.style.display = t==='light' ? 'none' : '';
+    if(sun) sun.style.display = t==='light' ? '' : 'none';
+  }
+  window.toggleTheme=function(){
+    var t=document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light';
+    try{ localStorage.setItem(KEY, t); }catch(e){}
+    apply(t);
+  };
+  var saved='dark';
+  try{ saved=localStorage.getItem(KEY) || 'dark'; }catch(e){}
+  apply(saved);
+})();
 </script>
 </body>
 </html>
