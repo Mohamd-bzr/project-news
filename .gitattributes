@@ -1,0 +1,24 @@
+# Line-ending policy, made explicit.
+#
+# Every text blob in this repo is already stored with LF, and the Windows
+# checkout materialises CRLF through core.autocrlf=true. The rules below say
+# the same thing in a portable way, so a checkout on any OS gets CRLF in the
+# working tree and LF in the object store. They deliberately do NOT renormalize
+# existing files: because the blobs are already LF, `git add` after this file
+# lands produces no diff.
+#
+# Do not add `*.css`-style rules for files under tools/theme_v3_*.css without
+# checking them first — those are inputs of tools/splice_theme.py.
+*.py    text eol=crlf
+*.js    text eol=crlf
+*.css   text eol=crlf
+*.html  text eol=crlf
+*.bat   text eol=crlf
+*.md    text eol=crlf
+
+# Binary assets: never touch, never diff as text.
+*.png   binary
+*.woff2 binary
+*.ttf   binary
+*.zip   binary
+*.db    binary

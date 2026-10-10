@@ -20,7 +20,9 @@ If you notice a problem outside scope, list it in your final report. Do not fix 
    On this Windows checkout `python` is a Store stub — use `.venv/Scripts/python.exe`
    (Python 3.14; `.venv311/Scripts/python.exe` reproduces the CI interpreter, 3.11).
 4. Locate targets by SYMBOL or banner comment (`grep -n "def <name>"`, `grep -n "══ <TITLE>"`).
-   Never trust line numbers from docs; they drift.
+   Never trust line numbers from docs; they drift. The architecture doc
+   (`docs/ARCHITECTURE.md`) therefore carries `file.py::symbol` anchors, not lines —
+   and `PROJECT_BLUEPRINT.md` is superseded; do not treat it as the map.
 5. Read only the target function/block plus its direct callers and tests, using view ranges.
    Never load `app.py` or `dashboard_html.py` in full (7.2k / 9.3k lines — you will be truncated
    and then guess).
@@ -66,10 +68,12 @@ If you notice a problem outside scope, list it in your final report. Do not fix 
 ## 3. After editing
 
 1. `git diff --stat`: every changed file must be in your plan. Revert anything unplanned.
-2. If deletions are far larger than intended, stop and re-inspect the diff.
-3. Re-run both gates; both must be green. Add or adjust a test for new behavior.
-4. One commit: `type(scope): what`. Do not push. Do not merge.
-5. Final report, max 15 lines: what changed (file:symbol), proof (commands + results),
+2. `python tools/guard_diff.py --allow <the paths you planned>` — it fails when one file
+   deletes more than 80 lines, or when any changed file is outside `--allow`.
+3. If deletions are far larger than intended, stop and re-inspect the diff.
+4. Re-run both gates; both must be green. Add or adjust a test for new behavior.
+5. One commit: `type(scope): what`. Do not push. Do not merge.
+6. Final report, max 15 lines: what changed (file:symbol), proof (commands + results),
    things noticed but NOT touched, assumptions made.
 
 ## 4. Stop and ask (do not improvise) when
@@ -91,5 +95,9 @@ If you notice a problem outside scope, list it in your final report. Do not fix 
   (expects a `jsArg(` call that `web/channel.js` no longer makes).
   These are pre-existing and NOT yours. While they are red, "both gates green" means:
   the JS gate is green and the pytest failure set is exactly these 11 — no new ones.
+- Guards available to you: `tools/guard_diff.py` (diff shape: oversized deletions,
+  out-of-plan files) and `tests/test_handlers_defined.py` (every inline `on*=` handler
+  resolves to a defined function — 44 names today; rename one and the test goes red).
 - File shapes: `app.py` 7266 lines / 70 routes, `dashboard_html.py` 9286 lines
-  (one raw string, `APP_HTML`), `PROJECT_BLUEPRINT.md` 974 lines.
+  (one raw string, `APP_HTML`), `PROJECT_BLUEPRINT.md` 974 lines (superseded by
+  `docs/ARCHITECTURE.md`).

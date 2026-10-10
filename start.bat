@@ -12,7 +12,7 @@ if not exist ".venv\Scripts\python.exe" (
     .venv\Scripts\python -m pip install --quiet -r requirements.txt
 )
 echo Starting dashboard on http://localhost:5055 ...
-echo (first cycle takes about a minute: 71 sources + translation + reports)
+echo (first cycle takes about a minute: 194 sources + translation + reports)
 start "" http://localhost:5055
 .venv\Scripts\python app.py --port 5055
 pause

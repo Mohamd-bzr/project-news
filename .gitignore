@@ -30,6 +30,8 @@ logs/
 
 # ── local backups & scratch (94 MB of pre-redesign copies never go to git) ──
 backups/
+# ── scratch archive: everything above, moved out of the root tree ──
+_archive/
 *.bak
 .agents/skills/ui-ux-pro-max/
 .zcodeignore

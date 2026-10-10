@@ -17,13 +17,13 @@ Windows-first, built to run free: no API keys, no paid services, no build step.
 * `app.py` — the monolith: ~70 routes, scheduler thread, SSE stream manager
   (capped), settings persistence, Telegram/Bale publishing, content-studio
   API, v1 public API, TradingView webhook.
-* `dashboard_html.py` — the whole SPA as one Python string (14 views),
+* `dashboard_html.py` — the whole SPA as one Python string (13 views),
   plus `web/channel.js`, `web/storage-engine.js`, `web/sw.js` (shell v16).
 * Pipeline: `sources` → `scraper` → `translate` → `market_data`/`indicators`
   → `report_generator`; page-fit engine `channel_profile` (+ vendored
   lexicon `persian_words`); messaging `integrations/`; freemium
   `billing`/`middleware`; persistence `database` (SQLite).
-* 193 sources, 30-minute default cycle, 72-hour news window, 169 tests.
+* 194 sources, 30-minute default cycle, 72-hour news window, 234 tests.
 
 ## Non-negotiables (project rules)
 

@@ -44,7 +44,7 @@ jobs:
         continue-on-error: true
         run: |
           pip install bandit
-          bandit -q -ll -x backups -r .
+          bandit -q -ll -x backups,_archive -r .
 
       - name: Dependency audit (pip-audit)
         continue-on-error: true

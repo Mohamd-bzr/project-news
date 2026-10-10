@@ -1,0 +1,21 @@
+# Editor defaults for MOHMD NEWS.
+#
+# Line endings: the repo stores LF blobs and checks out CRLF on Windows
+# (core.autocrlf=true, and .gitattributes says the same thing). Keep CRLF in
+# the working tree so a small edit never turns into a whole-file diff.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = crlf
+indent_style = space
+trim_trailing_whitespace = false
+
+[*.py]
+indent_size = 4
+
+[*.{js,css,html,json,yml,md}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
