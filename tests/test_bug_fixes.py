@@ -405,3 +405,50 @@ def test_the_stale_worker_is_a_tombstone():
     assert 'addAll' not in code
     assert "'fetch'" not in code            # and has no fetch handler
     assert 'freebuff-v4' in code and 'unregister' in code
+
+
+# ── api_proxy_image hardening ──────────────────────────────────────────────
+
+def test_api_proxy_image_rejects_svg(client, monkeypatch):
+    class FakeResp:
+        status_code = 200
+        headers = {'Content-Type': 'image/svg+xml'}
+        def close(self): pass
+    monkeypatch.setattr('requests.get', lambda *a, **kw: FakeResp())
+    r = client.get('/api/proxy-image?url=https://example.com/logo.svg')
+    assert r.status_code == 415
+
+
+def test_api_proxy_image_enforces_size_cap_while_streaming(client, monkeypatch):
+    class FakeLargeResp:
+        status_code = 200
+        headers = {'Content-Type': 'image/png'}
+        def iter_content(self, chunk_size=65536):
+            # Yield 7MB in 1MB chunks (limit is 6MB)
+            for _ in range(7):
+                yield b'X' * 1024 * 1024
+        def close(self): pass
+    monkeypatch.setattr('requests.get', lambda *a, **kw: FakeLargeResp())
+    r = client.get('/api/proxy-image?url=https://example.com/large.png')
+    assert r.status_code == 413
+
+
+def test_api_proxy_image_success_adds_nosniff(client, monkeypatch, tmp_path):
+    fake_png = b'\x89PNG\r\n\x1a\n' + b'0' * 200
+    class FakeOkResp:
+        status_code = 200
+        headers = {'Content-Type': 'image/png'}
+        def iter_content(self, chunk_size=65536):
+            yield fake_png
+        def close(self): pass
+    monkeypatch.setattr('requests.get', lambda *a, **kw: FakeOkResp())
+    monkeypatch.setattr(A, 'IMAGE_CACHE_DIR', tmp_path)
+    r = client.get('/api/proxy-image?url=https://example.com/valid.png')
+    assert r.status_code == 200
+    assert r.headers.get('X-Content-Type-Options') == 'nosniff'
+
+    # Cached hit must also return nosniff
+    r_cached = client.get('/api/proxy-image?url=https://example.com/valid.png')
+    assert r_cached.status_code == 200
+    assert r_cached.headers.get('X-Content-Type-Options') == 'nosniff'
+

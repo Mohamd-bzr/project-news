@@ -3422,7 +3422,10 @@ def api_proxy_image():
         try:
             mime = meta_file.read_text(encoding="utf-8").strip()
             data = cached_file.read_bytes()
-            return Response(data, mimetype=mime, headers={"Cache-Control": "public, max-age=86400"})
+            return Response(data, mimetype=mime, headers={
+                "Cache-Control": "public, max-age=86400",
+                "X-Content-Type-Options": "nosniff"
+            })
         except Exception:
             pass
 
@@ -3458,7 +3461,7 @@ def api_proxy_image():
         hdrs = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
             "Referer": f"https://{domain}/",
-            "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+            "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
         }
         r = requests.get(raw_url, headers=hdrs, timeout=8, allow_redirects=False, stream=True)
         for _ in range(3):
@@ -3473,6 +3476,11 @@ def api_proxy_image():
             else:
                 break
 
+        mime = r.headers.get("Content-Type", "image/jpeg").split(";")[0].strip().lower()
+        if mime == "image/svg+xml" or raw_url.lower().endswith(".svg"):
+            r.close()
+            return Response("unsupported_media_type", status=415)
+
         try:
             declared = int(r.headers.get("Content-Length") or 0)
         except (TypeError, ValueError):
@@ -3481,13 +3489,18 @@ def api_proxy_image():
             r.close()
             return Response("too_large", status=413)
 
-        content_bytes = r.content
-        if len(content_bytes or b"") > MAX_IMG_BYTES:
-            r.close()
-            return Response("too_large", status=413)
+        chunks = []
+        downloaded = 0
+        for chunk in r.iter_content(chunk_size=65536):
+            if chunk:
+                downloaded += len(chunk)
+                if downloaded > MAX_IMG_BYTES:
+                    r.close()
+                    return Response("too_large", status=413)
+                chunks.append(chunk)
+        content_bytes = b"".join(chunks)
 
         if r.status_code == 200:
-            mime = r.headers.get("Content-Type", "image/jpeg").split(";")[0].strip()
             if mime.startswith("image/") and len(content_bytes) > 100:
                 try:
                     import tempfile
@@ -3503,7 +3516,10 @@ def api_proxy_image():
                     meta_file.write_text(mime, encoding="utf-8")
                 except Exception:
                     pass
-                return Response(content_bytes, mimetype=mime, headers={"Cache-Control": "public, max-age=86400"})
+                return Response(content_bytes, mimetype=mime, headers={
+                    "Cache-Control": "public, max-age=86400",
+                    "X-Content-Type-Options": "nosniff"
+                })
     except Exception:
         pass
     return Response("not_found", status=404)
