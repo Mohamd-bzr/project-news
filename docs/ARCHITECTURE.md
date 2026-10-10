@@ -59,7 +59,7 @@
    هرگز عدد یا متن placeholder. (نمونهٔ اجرا: `card_render.py` → `CardUnavailable`؛
    `api_data` بخش خالی را با `null` می‌فرستد و UI `—` می‌کشد.)
 2. **رایگان و بی‌کلید اول.** هر فراخوانی خارجی یک fallback یا مسیر دوم دارد؛ برنامه
-   تنزل می‌کند و از پا نمی‌افتد (نمونه: نردبان استخراج متن در `app.py::fetch_article_content`).
+   تنزل می‌کند و از پا نمی‌افتد (نمونه: نردبان استخراج متن در `article_extract.py::fetch_article_content`).
 3. **تک‌پروسس.** نه صف، نه DB خارجی، نه Docker، نه Redis. زمان‌بندی با `threading.Thread` daemon.
 4. **توضیح‌پذیر.** هر امتیاز فاکتورهایش را سمت سرور و در payload نگه می‌دارد
    (نمونه: `channel_profile.score_article` دیکشنری دلیل برمی‌گرداند؛ `report_generator._cite` دلیل فارسی/انگلیسی هر ارجاع).
@@ -100,7 +100,7 @@ python -m venv .venv
 | `MOHMD_TOKEN` | `app.py::{HEADERS, _dl2_token_guard, api_admin_keys, api_health, _warn_token_gate_exemptions, __main__}` | دروازهٔ کلید مشترک کل اپ (`_dl2_token_guard`) |
 | `MOHMD_HOST` | `app.py::__main__` | جایگزین `--public` |
 | `MOHMD_PROXY` | `app.py::HEADERS` | پروکسی خروجی |
-| `MOHMD_JINA_KEY` | `app.py::HEADERS` | کلید اختیاری Jina Reader |
+| `MOHMD_JINA_KEY` | `app.py` → `article_extract.py::_jina_reader_text` | کلید اختیاری Jina Reader |
 | `MOHMD_PUSH_SECONDS` | `app.py::STREAM_PUSH_SECONDS` | دورهٔ تیک SSE قیمت‌ها |
 | `MOHMD_CAL_SCAN_SECONDS` | `app.py::CAL_SCAN_SECONDS` | دورهٔ پویش تقویم |
 | `MOHMD_CAL_WINDOW` | `app.py::CAL_ANNOUNCE_WINDOW` | پنجرهٔ تقویم |
@@ -156,6 +156,7 @@ python -m venv .venv
    └ web/channel.js     تب ایده‌ها       report_generator / channel_profile / news_editorial
                                          content_studio / card_render / tv_ideas / tv_ta
                                          news_bypass / news_intelligence / social_signals
+                                         article_extract ← نردبان استخراج متن (فاز ۳)
                                          database / billing / middleware / link_shortener
                                          ai_features / api_docs / logging_config
 ```
@@ -244,8 +245,8 @@ STATE["articles"]
 
 ### ج) مسیر «متن کامل خبر» (نردبان استخراج)
 
-`app.fetch_article_content(url, title, publisher)` (`app.py::fetch_article_content`) به ترتیب تلاش می‌کند و
-اولین نتیجهٔ قابل‌قبول را برمی‌گرداند؛ هر پله timeout دارد (`_bounded`, `app.py::_bounded`):
+`app.fetch_article_content(url, title, publisher)` (`article_extract.py::fetch_article_content`؛ `app` همان تابع را re-export می‌کند) به ترتیب تلاش می‌کند و
+اولین نتیجهٔ قابل‌قبول را برمی‌گرداند؛ هر پله timeout دارد (`_bounded`, `article_extract.py::_bounded`):
 
 1. `_parse_article_html` — استخراج مستقیم + JSON-LD (`_jsonld_body`) + payload‌های inline
 2. `news_bypass.smart_extract` — `EnhancedNewsBypassReader` (کوکی/هدر/UA انسانی، نشانه‌های پی‌وال)
@@ -255,8 +256,8 @@ STATE["articles"]
 6. مسیر رِدیت (`_reddit_content`, `_pullpush_selftext`)
 7. `_search_snippet_paragraphs` — آخرین سنگر: بازسازی از اسنیپت جستجو
 
-نتیجه در `CONTENT_CACHE` و `FA_CONTENT_CACHE` (با قفل جدا، `app.py::_article_blurb_fa` به بعد) و در
-جدول `bodies` ماندگار می‌شود تا مودال هرگز منتظر استخراج نماند (`warm_article_bodies`).
+نتیجه در `CONTENT_CACHE` و `FA_CONTENT_CACHE` (در `app.py` ساخته و با`article_extract.bind_shared_state` به‌عنوان همان آبجکت‌ها به ماژول داده می‌شوند) و در
+جدول `bodies` ماندگار می‌شود تا مودال هرگز منتظر استخراج نماند (`article_extract.py::warm_article_bodies`).
 
 ---
 
@@ -265,7 +266,7 @@ STATE["articles"]
 > هر ردیف = یک بلوک داخلی فایل. جای دقیق را با `grep -n` روی همان نماد/بنر پیدا کن؛
 > در این سند شماره‌خط وجود ندارد و نباید اضافه شود.
 
-### ۵.۱ — `app.py` — ۷٬۲۶۶ خط (مونولیت ارکستراتور)
+### ۵.۱ — `app.py` — ۶٬۰۳۱ خط (مونولیت ارکستراتور؛ نردبان استخراج متن در فاز ۳ جدا شد)
 
 | پارتیشن |
 |---|
@@ -305,7 +306,7 @@ STATE["articles"]
 | روت‌های تلگرام و بله (test/preview/send/send-now/get-chat-id) |
 | `api_monitor`, `api_recover`, `_recover_view`, `api_recover_status` |
 | **`api_settings` (POST /api/settings) — ذخیرهٔ تنظیمات + اعتبارسنجی** |
-| **پارتیشن استخراج متن کامل** — JSON-LD، `_bounded`، `_looks_like_match`، کش لینک‌های گوگل‌نیوز، `decode_google_news_url`، resolverها، Jina/Wayback/proxy، رِدیت، payload-parser، `fetch_article_content`، زمان‌بندی و کش متن (`_schedule_article`, `_schedule_fa`, `article_content_cached`, `warm_article_bodies`) |
+| **نردبان استخراج متن → `article_extract.py`** (فاز ۳، جابه‌جایی خالص ۱٬۲۷۵ خط): JSON-LD، `_bounded`، `_looks_like_match`، کش لینک‌های گوگل‌نیوز، `decode_google_news_url`، resolverها، Jina/Wayback/proxy، رِدیت، payload-parser، `fetch_article_content`، زمان‌بندی و کش متن (`_schedule_article`, `_schedule_fa`, `article_content_cached`, `warm_article_bodies`). در `app.py` فقط `import article_extract` + `from article_extract import (...)` + `article_extract.bind_shared_state({...})` می‌ماند |
 | `api_health`, `api_metrics`, `_warn_token_gate_exemptions` |
 | `_graceful_shutdown` + بلوک `__main__` (بوت، hydration از SQLite، تردها، waitress) |
 
@@ -465,6 +466,22 @@ JS بسازند؛ شکستن آن کار یک فاز جداگانه است (هر
 | `news_bypass.py` | `USER_AGENTS`، `REFERERS`، `BYPASS_COOKIES`، `ENHANCED_HEADERS`، **`ENHANCED_SITE_CONFIGS`**، `PAYWALL_INDICATORS`، **`class EnhancedNewsBypassReader`**، کش نتیجه (`_RES_CACHE`, `_RES_TTL_OK=6h`, `_RES_TTL_FAIL=10min` — ۷۷۲–۷۷۴)، `_reader`، **`smart_extract`** |
 | `social_signals.py` | UA/تنظیمات؛ کانال‌های پیش‌فرض تلگرام/ساب‌ردیت‌ها/کوئری‌های یوتیوب؛ پارسرها: `ascii_digits`، `parse_age_hours`، `parse_count`، `parse_yt_initial`، `parse_telegram_channel`، `parse_reddit_feed`؛ تاریخچه (`push_hist` ۳۵۱, `hist` ۳۶۵, `hist_change` ۳۷۱)؛ کش/زمان‌بندی (`_load_cache`, `_save_cache`, `_is_stale`, `_schedule`, `cached` ۴۲۸)؛ **`refresh_all`**، `_worker`، `_run`، `_get`، `set_config`، `_yt_api_search` |
 | `reddit_scores.py` | `API_URL='arctic-shift…'`, `_BATCH=25`, `_PAUSE=0.4`؛ `_load_cache`, `_save_cache`, `_extract_id`, **`fetch_scores`**، **`attach_scores`** |
+
+### ۵.۴.۱ — `article_extract.py` — ۱٬۳۲۵ خط (نردبان استخراج متن، فاز ۳)
+
+جابه‌جایی خالص: متن خطوط ۵۷۲۸–۷۰۰۲ قدیمِ `app.py` (۱٬۲۷۵ خط، ۳۸ تابع) بدون تغییر یک بایت
+به این ماژول منتقل شد؛ برابری sha256 و `git diff --color-moved` در گزارش همان کامیت است.
+ماژول هرگز `app` را import نمی‌کند؛ `app.py` آبجکت‌های مشترک را با
+`bind_shared_state` به آن می‌دهد و **همان** آبجکت‌ها (نه کپی) نگه داشته می‌شوند.
+
+| فایل | پارتیشن و توابع مهم |
+|---|---|
+| `article_extract.py` | `bind_shared_state({...})` — `STATE`, `STATE_LOCK`, `CONTENT_CACHE`, `FA_CONTENT_CACHE`, `_CONTENT_LOCK`, `_FA_CONTENT_LOCK`, `_ART_INFLIGHT`, `HEADERS`, `_JINA_KEY`, `log`, `_channel_board`؛ پارس: `_paragraphs_from`, `_jsonld_body`, `_looks_like_paragraph`, `_parse_reader_text`, `_parse_article_html`, `_payload_*`, `_iter_strings`؛ resolver: `_bounded`, `_title_tokens`, `_looks_like_match`, `decode_google_news_url`, `resolve_news_url`, `resolve_publisher_url`, `_gn_*`؛ رانگ‌ها: `_jina_reader_text`, `_wayback_html`, `_archive_ph_html`, `_proxy_html`, `_ua_fetch`, `_reddit_*`, `_pullpush_selftext`, `_search_snippet_paragraphs`؛ کش و زمان‌بندی: `_NEWSLINK_CACHE`/`_load_newslinks`/`_save_newslinks`, `_content_fresh`, `_schedule_article`, `_schedule_fa`, `article_content_cached`, **`fetch_article_content`**, `warm_article_bodies` |
+
+**قرارداد مهم برای ایجنت‌ها:** `monkeypatch.setattr(app, "fetch_article_content", ...)`
+روی فراخوانی‌هایی که داخل `article_extract` resolve می‌شوند اثر ندارد؛ برای تغییر رفتار
+نردبان، خودِ `article_extract` را patch کن. تست‌های موجود هیچ‌کدام از نام‌های منتقل‌شده را
+patch نمی‌کنند (بررسی‌شده در فاز ۳).
 
 ### ۵.۵ — متن، ترجمه و فارسی‌سازی
 
@@ -892,7 +909,7 @@ GET  /api/stream/info
 |---|---|
 | منبع خبری اضافه/حذف کنی | `sources.py::SOURCES`؛ کلید را در `settings.sources_enabled` هم بگذار |
 | دارایی جدید اضافه کنی | `sources.py::ASSETS` + `_ASSET_PATTERNS` + `market_data.YAHOO_SYMBOLS` + `indicators.yahoo_candidates` |
-| الگوی استخراج متن را عوض کنی | `app.py::fetch_article_content` و پله‌های بالای آن |
+| الگوی استخراج متن را عوض کنی | `article_extract.py::fetch_article_content` و پله‌های بالای آن (کل نردبان در همین ماژول است) |
 | آستانهٔ اعتبار را عوض کنی | `sources.py`: `MIN_CREDIBILITY`، `REPORT_MIN_CREDIBILITY` |
 | قالب پیام تلگرام/بله را عوض کنی | `app.py`: `TG_TEMPLATE_DEFAULT`، `BALE_TEMPLATE_DEFAULT`، `_tg_render_digest`، `_bale_render_digest` |
 | منطق ارسال ایده‌ها را عوض کنی | `app.py::_post_cycle_ideas` + `channel_profile.rank_for_channel` |
