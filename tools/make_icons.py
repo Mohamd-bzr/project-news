@@ -7,9 +7,9 @@ The manifest needs real PNG files, and this project has no image dependency
 signed-distance rasteriser and written with zlib, which is all a PNG is.
 
 The artwork is the same polyline as the inline `<symbol id="i-mark">` in
-dashboard_html.py, in its 24×24 viewBox, stroked in copper on graphite. Keeping
-the geometry in one place means the launcher icon and the topbar mark cannot
-drift apart.
+web/fragments/30_body_head.html, in its 24×24 viewBox, stroked in copper on
+graphite. Keeping the geometry in one place means the launcher icon and the
+topbar mark cannot drift apart.
 
 Usage:  python tools/make_icons.py [--check]
 """

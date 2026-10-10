@@ -28,8 +28,17 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "dashboard_html.py"
 WEB = ROOT / "web"
+
+
+def _page():
+    """The page as served — assembled from web/fragments/.
+
+    It used to be a raw string inside dashboard_html.py, which is a thin loader
+    now, so the text has to come from the module rather than off the file.
+    """
+    from dashboard_html import APP_HTML
+    return APP_HTML
 ENGINE = WEB / "storage_engine.js"
 SW = WEB / "sw.js"
 MANIFEST = WEB / "manifest.webmanifest"
@@ -240,7 +249,7 @@ def test_head_assets_are_actually_served():
     a link the browser cannot fetch fails *silently* — the icon is simply
     missing and the "install" prompt never appears.
     """
-    page = SOURCE.read_text(encoding="utf-8")
+    page = _page()
     head = page[page.index("<head>"):page.index("</head>")]
     urls = re.findall(r'<link[^>]+href="(/[^"]+)"', head)
     assert urls, "no local <link> assets in the head at all"
@@ -260,7 +269,7 @@ def test_head_assets_are_actually_served():
 
 
 def test_page_wires_the_layer_once():
-    page = SOURCE.read_text(encoding="utf-8")
+    page = _page()
     for needle, count in [
         ('<script src="/storage-engine.js"></script>', 1),
         ('id="pwaItem"', 1),
@@ -289,7 +298,7 @@ def test_maquette_inlines_the_engine():
     assert "storage_engine.js is missing" in src, "a missing engine must fail the build"
     assert "engine_tag," in src and "html = html.replace(" in src, \
         "the tag has to be replaced by the file's contents"
-    page = SOURCE.read_text(encoding="utf-8")
+    page = _page()
     assert page.count('<script src="/storage-engine.js"></script>') == 1
     # and the runtime stand-down that keeps the demo from writing a database
     assert "if(window.__MAQUETTE__){" in page

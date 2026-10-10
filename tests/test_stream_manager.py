@@ -28,7 +28,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_dashboard_logic import extract          # noqa: E402  (shared extractor)
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "dashboard_html.py"
+
+
+def _page():
+    """The page as served — assembled from web/fragments/.
+
+    It used to be a raw string inside dashboard_html.py, which is a thin loader
+    now, so the text has to come from the module rather than off the file.
+    """
+    from dashboard_html import APP_HTML
+    return APP_HTML
 
 UNITS = ["SM_BACKOFF", "SM_CHANNELS", "SM_WIRE", "SM_POLL",
          "smBackoff", "smRouteEvent", "smPriceDiff", "smMergeNews",
@@ -119,7 +128,7 @@ def _node():
 
 
 def test_stream_pure_logic(tmp_path):
-    page = SOURCE.read_text(encoding="utf-8", errors="replace")
+    page = _page()
     harness = "\n".join([STUBS] + [extract(page, u) for u in UNITS] + [ASSERTS])
     path = tmp_path / "stream.js"
     path.write_text(harness, encoding="utf-8")
@@ -137,7 +146,7 @@ def test_no_parallel_polling():
     two intervals now have to be gated on the stream's state, or the terminal is
     back to double work with a socket open.
     """
-    page = SOURCE.read_text(encoding="utf-8")
+    page = _page()
     assert "setInterval(pollLive, 15000)" not in page, "prices must not poll on their own timer"
     assert page.count("Stream.state!=='live'") >= 2, "the feed timers must stand down while live"
     assert "this.stopPolling();" in page and "startPolling()" in page
@@ -147,7 +156,7 @@ def test_no_parallel_polling():
 
 
 def test_dom_handles_for_micro_updates():
-    page = SOURCE.read_text(encoding="utf-8")
+    page = _page()
     assert 'data-sym="${esc(sym)}"' in page, "ticker chips must expose their symbol"
     assert '<tr data-sym="${esc(sym)}">' in page, "asset rows must expose their symbol"
     assert 'data-key="${esc(e._key||' in page, "calendar rows must be addressable by key"

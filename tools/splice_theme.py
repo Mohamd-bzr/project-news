@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Replace the <style> block of dashboard_html.py with a stylesheet file.
+"""Replace the dashboard's stylesheet with a stylesheet file.
 
-The redesign authors the whole stylesheet from scratch as an ordinary .css
-file; this applies it. The python source uses CRLF, so the CSS is normalised to
-CRLF on the way in and the file is byte-identical apart from the replaced
-region.
+The redesign authors the whole stylesheet from scratch as an ordinary .css file;
+this applies it. Since the page is assembled from `web/fragments/`, the
+stylesheet is a single file — `web/fragments/10_style.css` — so there is no
+`<style>` block to search for any more: the `<style>` and `</style>` tags live in
+the neighbouring HTML slices and are deliberately not touched here.
 
     python tools/splice_theme.py tools/theme_v3.css           # apply
     python tools/splice_theme.py tools/theme_v3.css --check    # dry run
@@ -13,11 +14,10 @@ region.
 import argparse
 import io
 import os
-import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGET = os.path.join(ROOT, "dashboard_html.py")
+TARGET = os.path.join(ROOT, "web", "fragments", "10_style.css")
 
 
 def main() -> int:
@@ -35,25 +35,22 @@ def main() -> int:
     css = "\n".join(chunks)
     css = css.replace("\r\n", "\n").replace("\n", "\r\n").rstrip("\r\n")
 
-    with io.open(TARGET, "r", encoding="utf-8", newline="") as fh:
-        src = fh.read()
-
-    m = re.search(r"<style>.*?</style>", src, re.S)
-    if not m or "</style>" not in m.group(0):
-        print("! could not find the <style> block")
+    if not os.path.isfile(TARGET):
+        print(f"! {os.path.relpath(TARGET, ROOT)} is missing — the page's "
+              "stylesheet slice (web/fragments/10_style.css) has to exist")
         return 2
 
-    old = m.group(0)
-    new = "<style>\r\n" + css.lstrip("\r\n") + "\r\n</style>"
-    print(f"  old style block: {old.count(chr(10))} lines, {len(old)} bytes")
-    print(f"  new style block: {new.count(chr(10))} lines, {len(new)} bytes")
+    with io.open(TARGET, "r", encoding="utf-8", newline="") as fh:
+        old = fh.read()
+
+    print(f"  old sheet: {old.count(chr(10))} lines, {len(old)} bytes")
+    print(f"  new sheet: {css.count(chr(10))} lines, {len(css)} bytes")
     if args.check:
         return 0
 
-    src = src[: m.start()] + new + src[m.end():]
     with io.open(TARGET, "w", encoding="utf-8", newline="") as fh:
-        fh.write(src)
-    print(f"  wrote {TARGET}")
+        fh.write(css)
+    print(f"  wrote {os.path.relpath(TARGET, ROOT)}")
     return 0
 
 

@@ -312,31 +312,32 @@ STATE["articles"]
 **وضعیت رام مهم برای تست:** `STATE` و `CONFIG`.
 تست‌ها با `monkeypatch.setitem(app.CONFIG, ...)` و `monkeypatch.setattr(app, "_channel_board", lambda force=False: {...})` کار می‌کنند.
 
-### ۵.۲ — `dashboard_html.py` — ۹٬۲۸۶ خط (کل SPA در یک استرینگ پایتون)
+### ۵.۲ — `dashboard_html.py` (لودر) + `web/fragments/` — کل SPA
 
-ساختار ماکرو:
+`dashboard_html.py` دیگر خودِ صفحه نیست: لودری کوتاه است که فرگمنت‌های `web/fragments/`
+را به ترتیب نامِ مرتب‌شده می‌چسباند و `APP_HTML` را می‌سازد. نام هر فرگمنت در
+`_EXPECTED_ORDER` قفل است، پس افزودن/حذف/تغییرنام بی‌اعلان خطا می‌دهد.
+**برای عوض‌کردن UI همان فرگمنت را ویرایش کن، نه `dashboard_html.py` را.** فرگمنت‌ها
+در حالت متن (`newline=None`) خوانده می‌شوند، پس LF روی لینوکس و CRLF روی ویندوز همان
+`APP_HTML` را می‌سازند (اثبات برش: sha256 متن قبل و بعد از تقسیم یکی است).
 
-| بلوک |
-|---|
-| داک‌استرینگ ماژول |
-| `APP_HTML = r"""<!DOCTYPE html>` — شروع استرینگ خام |
-| `<head>`: متا، preload فونت، لینک manifest/icon، عنوان |
-| اسکریپت «تم قبل از اولین رندر» (خواندن `localStorage['mohmd-theme']`) |
-| **`<style>` — کل CSS (۲۰۳۹ خط)** |
-| پایان `</head>` + تگ‌های خارجی: `/storage-engine.js`، `/channel.js` (defer) |
-| SVG sprite آیکون‌ها: `#i-mark`, `#i-news`, `#i-chart`, `#i-bulb`, … (یک‌بار تعریف) |
-| نوار ناوبری: ۱۰ `nav-item` با `data-view` و `onclick="showView('x')"` |
-| **۱۳ `<section class="view">`** (جدول زیر) |
-| بلوک اسکریپت #۱ — helpers کوچک + `window.__iconify` |
-| **بلوک اسکریپت #۲ — ۴٬۷۹۱ خط: هستهٔ اپ** |
-| بلوک #۳ — ویجت TradingView + چرخهٔ عمر نما + helperهای گزارش |
-| بلوک #۴ — مدل فیلتر مشترک + helperهای نوار فیلتر |
-| بلوک #۵ — Command Palette + لایهٔ آفلاین/PWA (کپچر JSON، بوت آفلاین، جستجوی full-text، SW) |
-| بلوک #۶ — اعلان‌ها/بوکمارک/بوت نهایی |
-| بلوک #۷ — پایان |
-| `"""` پایان + اکسپورت |
+| فرگمنت | بلوک |
+|---|---|
+| `00_head.html` | `<head>` (متا، preload فونت، manifest/icon، عنوان)، اسکریپت «تم قبل از اولین رندر»، تگ بازِ `<style>` |
+| `10_style.css` | **کل CSS (۲٬۰۳۹ خط)** — خالص و بدون تگ؛ ورودی `tools/splice_theme.py` |
+| `20_head_tail.html` | `</style>`، پایان `</head>`، تگ‌های خارجی `/storage-engine.js` و `/channel.js` (defer) |
+| `30_body_head.html` | `<body>` + SVG sprite آیکون‌ها (`#i-mark`, `#i-news`, …) + topbar + ticker + sidebar |
+| `40_nav.html` | نوار ناوبری (۱۳ `nav-item` با `data-view` و `onclick="showView('x')"`) + باز شدن ظرف نماها |
+| `50_views.html` | **۱۳ `<section class="view">`** (جدول زیر) + بستن ظرف‌ها + تگ بازِ اسکریپت #۱ |
+| `60_script_01.js` … `72_script_07.js` | هفت بلوک اسکریپت درون‌خطی؛ هرکدام فرگمنتی خالص از JS و مستقل قابل `node --check` |
+| `61_gap_01.html` … `71_gap_06.html` | `</script>` هر بلوک + کامنت‌های بین بلوک‌ها + `<script>` بلوک بعد |
+| `99_tail.html` | `</script>` بلوک آخر + `</body>` + `</html>` |
 
-**۱۳ نما با شماره خط:**
+**بدهی باقی‌مانده:** بلوک #۲ (هستهٔ اپ) هنوز تنها فرگمنت بزرگ است (~۴٬۷۹۱ خط). برش داخل
+آن در این پاس مجاز نبود، چون بنرهای داخلی می‌توانند وسط یک تابع بیفتند و تکه‌های ناتمام
+JS بسازند؛ شکستن آن کار یک فاز جداگانه است (هر تکه باید جداگانه `node --check` شود).
+
+**۱۳ نما (هرکدام یک `<section class="view">`):**
 
 | نما | کار |
 |---|---|
@@ -841,12 +842,12 @@ GET  /api/stream/info
 
 | فایل | کار |
 |---|---|
-| `tools/check_dashboard_js.py` | هر `<script>` بدون `src` را بیرون می‌کشد و با `node --check` چک می‌کند، سپس `web/*.js`. `--list` برای فهرست |
+| `tools/check_dashboard_js.py` | هر `<script>` بدون `src` را از `APP_HTML` (متن مونتاژشده) بیرون می‌کشد و با `node --check` چک می‌کند، بعد هر فرگمنت `web/fragments/*.js` را جدا و در آخر `web/*.js`. `--list` برای فهرست |
 | `tools/guard_diff.py` | دروازهٔ اندازهٔ diff: هر فایل با بیش از `--max-del` خط حذف (پیش‌فرض ۸۰) یا بیرون از `--allow` → خروج غیرصفر |
 | `tools/make_icons.py` | آیکون‌های PWA را از روی پالی‌لاین `#i-mark` می‌کشد (رسترایزر signed-distance + `zlib`؛ بدون Pillow). `--check` تطابق پیکسلی را می‌سنجد (drift ≤ ۰.۱٪) |
 | `tools/make_maquette.py` | دموی تک‌فایلی: `/storage-engine.js` را inline می‌کند تا فایل بدون سرور باز شود |
-| `tools/splice_theme.py` | کل بلوک `<style>` را با فایل CSS بیرونی جایگزین می‌کند (normalize به CRLF). `--check` = dry run |
-| `tools/remap_tokens.py` | `var(--old)`های بیرون از `<style>` را به توکن‌های جدید نگاشت می‌کند. فقط متن بعد از `</style>` را دست می‌زند |
+| `tools/splice_theme.py` | فرگمنت استایل‌شیت (`web/fragments/10_style.css`) را با فایل CSS بیرونی جایگزین می‌کند (normalize به CRLF). `--check` = dry run |
+| `tools/remap_tokens.py` | `var(--old)`های بیرون از استایل‌شیت را به توکن‌های جدید نگاشت می‌کند؛ به همهٔ فرگمنت‌ها جز `10_style.css` سر می‌زند |
 | `tools/_cal_en.py` | دادهٔ کمک‌کنندهٔ متن انگلیسی تقویم |
 | `tools/_inventory.py`, `_check_handlers.py`, `_en_scan.py`, `_strip_retrofits.py` | اسکریپت‌های یک‌بارمصرف ممیزی (`_*.py` در گیت‌ایگنور) |
 | `tools/theme_v3_a..d.css` | نسخه‌های استایل‌شیت ردیزاین (ورودی `splice_theme.py`) |
@@ -900,7 +901,7 @@ GET  /api/stream/info
 | بخشی به گزارش نهادی اضافه کنی | `report_generator.py`: یک `sec_*` بنویس و در `build_report` وصل کن |
 | شکل `api_data` را عوض کنی | `app.py::api_data` — **و** `_ser_article` که قرارداد فیلدها را می‌سازد |
 | یک نما یا کارت UI عوض کنی | `dashboard_html.py`: بخش‌های `view-*`، `cardHTML`، `renderFeed` |
-| استایل/تم را عوض کنی | CSS بنر `══ 1 · TOKENS ══` و بلاک `html[data-theme="light"]`؛ یا `tools/theme_v3_*.css` + `splice_theme.py` |
+| استایل/تم را عوض کنی | `web/fragments/10_style.css` — بنر `══ 1 · TOKENS ══` و بلاک `html[data-theme="light"]`؛ یا `tools/theme_v3_*.css` + `tools/splice_theme.py` |
 | رفتار آفلاین را عوض کنی | `web/sw.js` (استراتژی‌ها) و `web/storage_engine.js` (`SE_STORES`, `seSearch`) — **و `SW_VERSION` را بامپ کن** |
 | جدول دیتابیس اضافه کنی | `database.py::init_db` + یک متد دسترسی؛ یادت باشد `CREATE TABLE IF NOT EXISTS` باشد |
 | سوئیچ تنظیمات اضافه کنی | `app.py::DEFAULT_CONFIG` + `api_settings` + `renderSettings`/`saveSettings` در UI |
@@ -917,10 +918,11 @@ GET  /api/stream/info
 
 **ریسک‌های ساختاری:**
 
-1. **۹٬۲۸۶ خط UI در یک استرینگ پایتون.** `py_compile` آن را نمی‌بیند؛ محافظ‌ها
-   `tools/check_dashboard_js.py`، `tests/test_features_extended.py` (نحو) و
-   `tests/test_handlers_defined.py` (تعریف‌شدن هر handler) هستند. هر تغییر UI بدون
-   اجرای آن‌ها = ریسک صفحهٔ سفید یا دکمهٔ بی‌کار.
+1. **UI در فرگمنت‌هاست، ولی محافظ‌ها همان‌ها هستند.** `py_compile` فرگمنت‌ها را
+   نمی‌بیند؛ محافظ‌ها `tools/check_dashboard_js.py`، `tests/test_features_extended.py`
+   (نحو) و `tests/test_handlers_defined.py` (تعریف‌شدن هر handler) هستند. هر تغییر UI
+   بدون اجرای آن‌ها = ریسک صفحهٔ سفید یا دکمهٔ بی‌کار. `APP_HTML` هم‌زمان از مونتاژ
+   می‌آید، پس ویرایش `dashboard_html.py` به‌جای فرگمنت، هیچ اثری روی صفحه ندارد.
 2. **`app.py` ۷٬۲۶۶ خط با ۷۰ روت.** هر روت جدید فاصلهٔ «فهمیدن» را بیشتر می‌کند.
    (شمارش دقیق: `grep -cE "^@app\\.route" app.py` → ۷۰، به‌علاوهٔ دو هوک `before_request`/`after_request`.)
 3. **اندپوینت ثبت‌نشده:** `api_metrics` کد مرده است — تعریف شده ولی register نشده

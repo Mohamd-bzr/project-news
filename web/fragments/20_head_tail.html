@@ -1,0 +1,9 @@
+</style>
+<!-- offline-first storage layer: IndexedDB (MohmdNewsDB) + inverted-index search.
+     Loaded from its own file because the service worker precaches it as a shell
+     asset; the offline maquette inlines this exact file at build time. -->
+<script src="/storage-engine.js"></script>
+<!-- merged suggestions tab client: the ranked news, plain. Separate file the
+     same way the other big clients are; precached by the worker. -->
+<script src="/channel.js" defer></script>
+</head>

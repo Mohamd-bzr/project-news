@@ -11,12 +11,18 @@ import subprocess
 import shutil
 import tempfile
 
-ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "dashboard_html.py"
+def _page():
+    """The page as served — assembled from web/fragments/.
+
+    It used to be a raw string inside dashboard_html.py, which is a thin loader
+    now, so the text has to come from the module rather than off the file.
+    """
+    from dashboard_html import APP_HTML
+    return APP_HTML
 
 
 def test_on_demand_audio_reader():
-    content = SOURCE.read_text(encoding="utf-8")
+    content = _page()
     # Topbar squawk box must be removed per user specification
     assert 'id="squawkBox"' not in content
     assert 'id="squawkToggleBtn"' not in content
@@ -31,14 +37,14 @@ def test_on_demand_audio_reader():
 def test_whale_tracker_is_fully_removed():
     """Removed per operator request (2026-10-06): nav, view, controller,
     endpoint and icon must all be gone from the shipped page."""
-    content = SOURCE.read_text(encoding="utf-8")
+    content = _page()
     for gone in ('id="nav-whales"', 'id="view-whales"', 'class WhaleTracker',
                  'whaleTracker', 'i-whale', '/api/whales/live'):
         assert gone not in content, f"{gone} should be removed"
 
 
 def test_workspace_removed():
-    content = SOURCE.read_text(encoding="utf-8")
+    content = _page()
     # Workspace markup and JS must be completely removed per user specification
     assert 'id="btnWorkspaceToggle"' not in content
     assert 'id="wsContainer"' not in content
@@ -50,7 +56,7 @@ def test_workspace_removed():
 
 
 def test_top_news_slider_headline_only():
-    content = SOURCE.read_text(encoding="utf-8")
+    content = _page()
     # Lead/slider cards must have title and rail, but no description/summary block
     assert 'function leadCardHTML' in content
     assert '<div class="lead-ttl">' in content
@@ -66,7 +72,7 @@ def test_all_inline_js_blocks_syntax():
     if not node:
         pytest.skip("Node.js not available on system")
 
-    content = SOURCE.read_text(encoding="utf-8")
+    content = _page()
     blocks = re.findall(r"<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>", content, re.DOTALL)
     assert len(blocks) >= 6
 

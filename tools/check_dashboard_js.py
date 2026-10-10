@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Syntax-check every inline <script> block inside dashboard_html.py.
+Syntax-check every inline <script> block of the dashboard, and every JS fragment.
 
-The dashboard is one giant Python string: a stray brace in any of its script
-blocks is invisible to `python -m py_compile` and only shows up as a blank page
-in the browser. This pulls each block out and runs `node --check` on it, so a
-broken edit fails here in a second instead of at runtime.
+The page is assembled from `web/fragments/` (see `dashboard_html.py`): a stray
+brace in any of its script blocks is invisible to `python -m py_compile` and
+only shows up as a blank page in the browser. This pulls each block out of the
+assembled page and runs `node --check` on it, so a broken edit fails here in a
+second instead of at runtime — and it checks the fragment files on disk as
+well, so a slice corrupted outside the assembly step is caught too.
 
 Usage:  python tools/check_dashboard_js.py [--list]
 """
@@ -17,8 +19,16 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "dashboard_html.py"
-WEB = ROOT / "web"          # files the page loads by URL, not from the Python string
+FRAGMENTS = ROOT / "web" / "fragments"   # the page's source slices
+WEB = ROOT / "web"          # files the page loads by URL, not from the fragments
+
+
+def page_text() -> str:
+    """The page as the browser receives it — assembled by the real loader."""
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from dashboard_html import APP_HTML     # noqa: PLC0415 — own-path import
+    return APP_HTML
 
 
 def script_blocks(text: str):
@@ -36,7 +46,7 @@ def main() -> int:
     if not node:
         print("node not found on PATH — cannot check JavaScript")
         return 2
-    text = SOURCE.read_text(encoding="utf-8", errors="replace")
+    text = page_text()
     blocks = script_blocks(text)
     print(f"{len(blocks)} inline script block(s), "
           f"{sum(b.count(chr(10)) for b in blocks)} lines total")
@@ -63,6 +73,19 @@ def main() -> int:
             path = Path(tmp) / f"block{i}.js"
             path.write_text(body, encoding="utf-8")
             check(f"block #{i}", path)
+
+    # The blocks above come from these files. Checking them on disk as well means
+    # a fragment that no longer parses fails even if the assembly step is broken.
+    if FRAGMENTS.is_dir():
+        files = sorted(FRAGMENTS.glob("*.js"))
+        print(f"{len(files)} script fragment(s) in web/fragments/")
+        for path in files:
+            if "--list" in sys.argv:
+                print(f"  {path.name}: "
+                      f"{path.read_text(encoding='utf-8').count(chr(10))} lines")
+            check(path.name, path)
+    else:
+        print("web/fragments/ not found — skipping the page's script slices")
 
     # The offline layer is served from disk (the service worker must own the
     # root scope, so it cannot live inside the Python string). Those files are

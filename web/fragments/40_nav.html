@@ -1,0 +1,89 @@
+<div class="rail-group-label">پایش بازار</div>
+      <button id="nav-feed" class="tab nav-item active" role="tab" aria-selected="true" aria-controls="view-feed" data-view="feed" onclick="showView('feed')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-news"/></svg></span>
+        <span class="nav-text">جریان زنده اخبار</span>
+        <span class="cnt" id="cntFeed">۰</span>
+      </button>
+      <button id="nav-reports" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-reports" data-view="reports" onclick="showView('reports')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-chart"/></svg></span>
+        <span class="nav-text">تحلیل و گزارش‌ها</span>
+      </button>
+      <button id="nav-channel" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-channel" data-view="channel" onclick="showView('channel')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-coins"/></svg></span>
+        <span class="nav-text">ایده‌های محتوا</span>
+        <span class="cnt" id="cntChannel" style="display:none">۰</span>
+      </button>
+      <button id="nav-ideas" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-ideas" data-view="ideas" onclick="showView('ideas')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-bulb"/></svg></span>
+        <span class="nav-text">ایده‌های تریدینگ‌ویو</span>
+      </button>
+      <button id="nav-calendar" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-calendar" data-view="calendar" onclick="showView('calendar')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-calendar"/></svg></span>
+        <span class="nav-text">تقویم اقتصادی</span>
+        <span class="cnt" id="cntEvents" style="display:none">۰</span>
+      </button>
+      <button id="nav-etf" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-etf" data-view="etf" onclick="showView('etf')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-bank"/></svg></span>
+        <span class="nav-text">نرخ زندهٔ ETF</span>
+      </button>
+      <button id="nav-archive" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-archive" data-view="archive" onclick="showView('archive')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-archive"/></svg></span>
+        <span class="nav-text">آرشیو هوشمند</span>
+        <span class="cnt" id="cntArchive" style="display:none">۰</span>
+      </button>
+
+      <button id="nav-bookmarks" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-bookmarks" data-view="bookmarks" onclick="showView('bookmarks')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-star"/></svg></span>
+        <span class="nav-text">نشان‌شده‌ها</span>
+        <span class="cnt" id="cntBmarks" style="display:none">۰</span>
+      </button>
+
+      </div>
+
+      <div class="rail-group">
+      <div class="rail-group-label">سیستم و سلامت</div>
+      <button id="nav-monitor" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-monitor" data-view="monitor" onclick="showView('monitor')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-pulse"/></svg></span>
+        <span class="nav-text">سلامت منابع</span>
+        <span class="cnt" id="cntBroken" style="display:none">۰</span>
+      </button>
+      <button id="nav-alerts" class="tab nav-item" role="tab" aria-selected="false" aria-controls="view-alerts" data-view="alerts" onclick="showView('alerts')">
+        <span class="nav-icon"><svg class="ic"><use href="#i-send"/></svg></span>
+        <span class="nav-text">پیام‌رسان‌ها (تلگرام / بله)</span>
+      </button>
+
+      </div>
+
+      <div class="rail-group">
+        <div class="rail-group-label">مدیریت و پیکربندی</div>
+        <button class="tab nav-item" id="ibSettings" role="tab" aria-selected="false" aria-controls="view-settings" data-view="settings" onclick="showView('settings')">
+          <span class="nav-icon"><svg class="ic"><use href="#i-gear"/></svg></span>
+          <span class="nav-text">تنظیمات داشبورد</span>
+        </button>
+        <button class="tab nav-item" id="ibSources" role="tab" aria-selected="false" aria-controls="view-sources" data-view="sources" onclick="showView('sources')">
+          <span class="nav-icon"><svg class="ic"><use href="#i-rss"/></svg></span>
+          <span class="nav-text">مدیریت منابع خبری</span>
+          <span class="cnt" id="cntSrc">۰</span>
+        </button>
+        <button class="tab nav-item" id="ibAssets" role="tab" aria-selected="false" aria-controls="view-assets" data-view="assets" onclick="showView('assets')">
+          <span class="nav-icon"><svg class="ic"><use href="#i-coins"/></svg></span>
+          <span class="nav-text">مدیریت دارایی‌ها</span>
+        </button>
+      </div>
+
+      <div class="sidebar-footer">
+        <button class="dl2-rail-toggle" id="railToggle" type="button" aria-expanded="true"
+                aria-label="جمع و باز کردن نوار کناری" onclick="toggleRail()">
+          <svg class="ic"><use href="#i-panel"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ══ MAIN SCROLLABLE CONTENT (Second flex item = Left of Sidebar in RTL) ══ -->
+    <main class="app-main" id="main" tabindex="-1">
+
+      <!-- Views Container -->
+      <div class="view-container">
+
+        <!-- ══ 1 · LIVE FEED — default view ══ -->
+        

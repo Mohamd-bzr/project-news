@@ -316,8 +316,8 @@ def test_there_is_exactly_one_manifest(client):
 
 
 def test_the_page_registers_one_worker_and_links_the_real_manifest():
-    page = (pathlib.Path(__file__).resolve().parent.parent
-            / 'dashboard_html.py').read_text(encoding='utf-8')
+    from dashboard_html import APP_HTML      # the page lives in web/fragments/ now
+    page = APP_HTML
     assert page.count("serviceWorker.register('/sw.js'") == 1
     assert "serviceWorker.register('/static/sw.js')" not in page
     assert '<link rel="manifest" href="/manifest.webmanifest">' in page

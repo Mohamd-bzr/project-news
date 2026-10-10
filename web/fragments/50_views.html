@@ -1,0 +1,897 @@
+<section class="view active" id="view-feed" role="tabpanel" aria-labelledby="nav-feed">
+
+          <!-- ── FILTER MODEL 3 — one line, one button ──────────────────────
+               The page used to open on three boxes of chrome (search, four
+               labelled fields, credibility slider, then two sideways pill
+               lanes) before the first headline. Now the view opens on a single
+               38px line: “فیلترها” with a live count of what is on, the active
+               filters as removable chips, and the result count. Everything
+               else — sort, kind, source, credibility, every asset, every
+               topic — lives in the sheet that drops out of that button. -->
+          <div class="tb-wrap">
+            <div class="tb" id="feedTB">
+              <button class="tb-btn" id="feedBtn" onclick="tbToggle('feedSheet')"
+                      aria-expanded="false" aria-controls="feedSheet">
+                <span><svg class="ic"><use href="#i-filter"/></svg> فیلترها</span>
+                <span class="tb-badge" id="feedBadge" data-n="0">۰</span>
+                <span class="tb-caret">▾</span>
+              </button>
+              <div class="tb-live" id="feedLive"></div>
+              <span class="tb-count"><span class="fb-dot"></span> <b id="feedCount" role="status">—</b></span>
+
+              <div class="fsheet" id="feedSheet" role="dialog" aria-modal="false" aria-label="فیلترهای جریان خبر">
+                <div class="fsheet-hd">
+                  <b>فیلتر جریان خبر</b>
+                  <button class="fsheet-x" onclick="tbClose('feedSheet')" aria-label="بستن پنل فیلتر"><svg class="ic"><use href="#i-x"/></svg></button>
+                </div>
+
+                <div class="fsec">                        <span class="fsec-lbl">جستجو</span>
+                  <div class="fsec-row">
+                    <div class="fsearch">
+                      <span class="fb-ic"><svg class="ic"><use href="#i-search"/></svg></span>
+                      <label class="visually-hidden" for="q">جستجو</label>
+                      <input type="text" id="q" placeholder="جستجو در تیتر، خلاصه و منبع…" oninput="renderFeed()">
+                      <kbd class="fb-kbd">ESC</kbd>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fsec">
+                  <span class="fsec-lbl">نمایش و ترتیب</span>
+                  <div class="fsec-row">
+                    <label class="fr-inline"><span>ترتیب</span>
+                      <select id="sortSel" class="fsel" onchange="renderFeed()" aria-label="ترتیب نمایش">
+                        <option value="new" selected>جدیدترین</option>
+                        <option value="cred">بیشترین اعتبار</option>
+                        <option value="src">نام منبع</option>
+                      </select></label>
+                    <label class="fr-inline"><span>دستهٔ منبع</span>
+                      <select id="kindSel" class="fsel" onchange="renderFeed()" aria-label="دسته منبع"></select></label>
+                    <label class="fr-inline"><span>منبع</span>
+                      <select id="srcSel" class="fsel" onchange="renderFeed()" aria-label="منبع خبری"></select></label>
+                  </div>
+                  <div class="fsec-row" style="margin-top:8px">
+                    <label class="fr-inline"><span>احساسات</span>
+                      <select id="sentSel" class="fsel" onchange="renderFeed()" aria-label="احساسات بازار">
+                        <option value="all" selected>همه احساسات</option>
+                        <option value="bullish">🟢 صعودی (Bullish)</option>
+                        <option value="bearish">🔴 نزولی (Bearish)</option>
+                        <option value="neutral">⚪ خنثی</option>
+                      </select></label>
+                    <label class="fr-inline"><span>بازه زمانی</span>
+                      <select id="timeRangeSel" class="fsel" onchange="renderFeed()" aria-label="بازه زمانی">
+                        <option value="all" selected>همه زمان‌ها</option>
+                        <option value="12">۱۲ ساعت گذشته</option>
+                        <option value="24">۲۴ ساعت گذشته</option>
+                        <option value="48">۴۸ ساعت گذشته</option>
+                        <option value="72">۳ روز گذشته</option>
+                      </select></label>
+                  </div>
+                </div>
+
+                <div class="fsec">
+                  <span class="fsec-lbl">حداقل اعتبار</span>
+                  <div class="fsec-row">
+                    <div class="fcred">
+                      <input type="range" id="credSlider" min="0" max="90" step="5" value="0" aria-label="حداقل اعتبار"
+                             oninput="document.getElementById('credVal').textContent=toFa(this.value)+'٪';renderFeed()">
+                      <b id="credVal">۰٪</b>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fsec">
+                  <span class="fsec-lbl">دارایی‌ها <span class="fsec-n" id="assetChipsN"></span></span>
+                  <div class="fgrid" id="assetChips"></div>
+                </div>
+
+                <div class="fsec">
+                  <span class="fsec-lbl">موضوعات <span class="fsec-n" id="topicChipsN"></span></span>
+                  <div class="fgrid" id="topicChips"></div>
+                </div>
+
+                <!-- news hygiene: these two change what the server pulls at all,
+                     so they are saved settings, not view-only filters -->
+                <div class="fsec">
+                  <span class="fsec-lbl">پاک‌سازی خبرها</span>
+                  <div class="fsec-row">
+                    <label class="fr-inline" style="cursor:pointer"><input type="checkbox" id="fHideSocial" onchange="saveHygiene()"> خبرهای شبکه‌های اجتماعی نیاید</label>
+                    <label class="fr-inline"><span>حداقل طول خبر (کاراکتر)</span>
+                      <input type="number" id="fMinChars" min="0" max="2000" step="20" style="width:90px"
+                             onchange="saveHygiene()"></label>
+                  </div>
+                  <div class="fsec-row">
+                    <label class="fr-inline" style="cursor:pointer"><input type="checkbox" id="fSocialGate" onchange="saveHygiene()"> حداقل لایک شبکه‌های اجتماعی</label>
+                    <label class="fr-inline"><span>حداقل آپ‌ووت (لایک)</span>
+                      <input type="number" id="fSocialMin" min="0" max="100000" step="100" style="width:90px"
+                             onchange="saveHygiene()"></label>
+                  </div>
+                  <div class="hint" style="margin-block-start:6px">پست‌های ردیت با آپ‌ووت کمتر از حد تعیین‌شده وارد جریان خبر نمی‌شوند (لایک‌ها از آرشیو زندهٔ ردیت خوانده می‌شوند؛ ۰ = خاموش).</div>
+                </div>
+
+                <div class="fsheet-ft">
+                  <button class="fclr" id="feedReset" onclick="resetFeedFilters()" title="پاک کردن همه فیلترها" hidden><svg class="ic"><use href="#i-x"/></svg> پاک‌کردن همه</button>
+                  <span class="sp"></span>
+                  <button class="fdone" onclick="tbClose('feedSheet')">نمایش نتیجه</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lead-row" id="leadRow"></div>
+          <div class="ngrid" id="newsGrid"></div>
+          <div class="empty" id="feedEmpty" style="display:none">خبری با این فیلترها پیدا نشد — فیلترها را ساده‌تر کن یا بازهٔ خبری را در تنظیمات بزرگ‌تر کن.</div>
+
+        </section>
+
+        <!-- ══ 2 · REPORTS — per-asset generated analysis + live chart ══ -->
+        <section class="view" id="view-reports" role="tabpanel" aria-labelledby="nav-reports">
+          <!-- the asset row was a 14-pill scroller across the top of the tab;
+               it is now one line naming the open report, with the picker in a
+               sheet — the same model as the feed and the ideas tab -->
+          <div class="tb-wrap">
+            <div class="tb" id="repTB">
+              <button class="tb-btn" id="repBtn" onclick="tbToggle('repSheet')"
+                      aria-expanded="false" aria-controls="repSheet">
+                <span><svg class="ic"><use href="#i-file"/></svg> دارایی گزارش:</span>
+                <b id="repBtnName">انتخاب کنید</b>
+                <span class="tb-caret">▾</span>
+              </button>
+              <span class="tb-hint" id="repHint">تحلیل کامل، منابع و نمودار هر دارایی</span>
+              <div class="fsheet" id="repSheet" role="dialog" aria-modal="false" aria-label="انتخاب دارایی برای گزارش">
+                <div class="fsheet-hd">
+                  <b>یک دارایی را انتخاب کنید</b>
+                  <button class="fsheet-x" onclick="tbClose('repSheet')" aria-label="بستن"><svg class="ic"><use href="#i-x"/></svg></button>
+                </div>
+                <div class="fsec">
+                  <span class="fsec-lbl">دارایی‌ها <span class="fsec-n" id="repChipsN"></span></span>
+                  <div class="fgrid" id="repChips"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="repBox"><div class="empty">یکی از دارایی‌ها را انتخاب کنید تا گزارش تحلیلی و نمودار آن ساخته شود.</div></div>
+        </section>
+
+        <!-- ══ 3 · TRADINGVIEW IDEAS — chart, full text, Persian translation ══ -->
+        <section class="view" id="view-ideas" role="tabpanel" aria-labelledby="nav-ideas">
+          <header class="tv-hero">
+            <div class="tvh-l">
+              <span class="tvh-brand">ایده‌های تریدینگ‌ویو</span>
+              <h2>ایده‌های تحلیل‌گران تریدینگ‌ویو</h2>
+              <p>هر ایده با تصویر چارت خودِ تریدینگ‌ویو، متن کامل، جهت معامله، تایم‌فریم، آمار تعامل و شمار دنبال‌کننده‌های نویسنده می‌آید — و با یک کلیک به صفحهٔ اصلی ایده در تریدینگ‌ویو باز می‌شود.</p>
+            </div>
+            <div class="tvh-r">
+              <a class="btn ghost sm" id="ideasAllLink" href="https://www.tradingview.com/ideas/" target="_blank" rel="noopener">صفحهٔ ایده‌ها در تریدینگ‌ویو <svg class="ic"><use href="#i-external"/></svg></a>
+              <span class="tvh-note" id="ideasSummary">در حال خواندن…</span>
+            </div>
+          </header>
+
+          <!-- the same filter-bar model as the news feed: labelled selects in
+               one row, the asset lane as a horizontally scrolling pill row -->
+          <!-- same model as the feed: one line, one button, sheet behind it -->
+          <div class="tb-wrap">
+            <div class="tb" id="ideasTB">
+              <button class="tb-btn" id="ideasBtn" onclick="tbToggle('ideasSheet')"
+                      aria-expanded="false" aria-controls="ideasSheet">
+                <span><svg class="ic"><use href="#i-filter"/></svg> فیلترها</span>
+                <span class="tb-badge" id="ideasBadge" data-n="0">۰</span>
+                <span class="tb-caret">▾</span>
+              </button>
+              <div class="tb-live" id="ideasLive"></div>
+              <span class="tb-count" id="ideasCount"></span>
+
+              <div class="fsheet" id="ideasSheet" role="dialog" aria-modal="false" aria-label="فیلترهای ایده‌ها">
+                <div class="fsheet-hd">
+                  <b>فیلتر ایده‌های تریدینگ‌ویو</b>
+                  <button class="fsheet-x" onclick="tbClose('ideasSheet')" aria-label="بستن پنل فیلتر"><svg class="ic"><use href="#i-x"/></svg></button>
+                </div>
+
+                <div class="fsec">
+                  <span class="fsec-lbl">مرتب‌سازی و نوع</span>
+                  <div class="fsec-row">
+                    <label class="fr-inline"><span>مرتب‌سازی</span>
+                      <select id="ideasSortChips" class="fsel" onchange="setIdeasSort(this.value)" aria-label="مرتب‌سازی ایده‌ها"></select></label>
+                    <label class="fr-inline"><span>نوع ایده</span>
+                      <select id="ideasKindChips" class="fsel" onchange="setIdeasKind(this.value)" aria-label="نوع ایده"></select></label>
+                    <label class="fr-inline" id="ideasTfBar"><span>تایم‌فریم</span>
+                      <select id="ideasTfChips" class="fsel" onchange="setIdeasTf(this.value)" aria-label="تایم‌فریم ایده"></select></label>
+                  </div>
+                </div>
+
+                <div class="fsec">
+                  <span class="fsec-lbl">دارایی</span>
+                  <div class="fgrid" id="ideasChips"></div>
+                </div>
+
+                <div class="fsheet-ft">
+                  <button class="fclr" onclick="setIdeasSort('popular');setIdeasKind('all');setIdeasTf('all')"><svg class="ic"><use href="#i-x"/></svg> پاک‌کردن همه</button>
+                  <span class="sp"></span>
+                  <button class="fdone" onclick="tbClose('ideasSheet')">نمایش نتیجه</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ideas-grid" id="ideasGrid"><div class="empty"><span class="spinner"></span> در حال دریافت ایده‌ها…</div></div>
+        </section>
+
+        <!-- ══ 4 · ECONOMIC CALENDAR — hero, week navigator, events board ══ -->
+        <section class="view" id="view-calendar" role="tabpanel" aria-labelledby="nav-calendar">
+          <div class="cal-grid">
+            <div class="cal-main">
+
+              <!-- Hero: the next release that can actually move price -->
+              <div class="cal-hero">
+                <div class="cal-hero-l">
+                  <span class="cal-eyebrow">Next high-impact release</span>
+                  <div class="cal-hero-ttl" id="calHeroTtl">Reading the calendar…</div>
+                  <div class="cal-countdown" id="calCountdown" role="status" aria-live="polite">—</div>
+                </div>
+                <div class="cal-stats" id="calStats"></div>
+              </div>
+              <div id="calReleased" class="cal-released" style="display:none"></div>
+
+              <!-- Controls: week, day strip, filters, timezone -->
+              <div class="cal-panel">
+                <div class="cal-weekrow">
+                  <button class="btn ghost sm" onclick="shiftCalWeek(-1)">‹ Prev week</button>
+                  <span class="cal-weeklab" id="calWeekLab">—</span>
+                  <button class="btn ghost sm" onclick="shiftCalWeek(1)">Next week ›</button>
+                  <button class="btn sm ghost" id="calBtnToday" onclick="gotoCalToday()">Today</button>
+                  <span class="cal-src" id="calSrc"></span>
+                </div>
+                <div class="cal-strip" id="calStrip" role="tablist" aria-label="Days of the week"></div>
+                <!-- FILTER MODEL 3 for the calendar too: the six-control row
+                     that wrapped onto two lines is now one line + a sheet, with
+                     the applied filters (and the timezone, which is easy to
+                     forget you changed) visible as removable chips. -->
+                <div class="tb-wrap">
+                  <div class="tb" id="calTB">
+                    <button class="tb-btn" id="calBtn" onclick="tbToggle('calSheet')"
+                            aria-expanded="false" aria-controls="calSheet">
+                      <span><svg class="ic"><use href="#i-filter"/></svg> Filters</span>
+                      <span class="tb-badge" id="calBadge" data-n="0">۰</span>
+                      <span class="tb-caret">▾</span>
+                    </button>
+                    <div class="tb-live" id="calLive"></div>
+                    <span class="tb-count" id="calFiltersCount"></span>
+
+                    <div class="fsheet" id="calSheet" role="dialog" aria-modal="false" aria-label="Economic calendar filters">
+                      <div class="fsheet-hd">
+                        <b>Economic calendar</b>
+                        <button class="fsheet-x" onclick="tbClose('calSheet')" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button>
+                      </div>
+                      <div class="fsec">
+                        <span class="fsec-lbl">Search</span>
+                        <div class="fsec-row">
+                          <div class="fsearch">
+                            <span class="fb-ic"><svg class="ic"><use href="#i-search"/></svg></span>
+                            <input type="text" id="calQ" placeholder="Event or currency — e.g. CPI or USD" oninput="renderCalendar()">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fsec">
+                        <span class="fsec-lbl">Show &amp; order</span>
+                        <div class="fsec-row">
+                          <label class="fr-inline"><span>Impact</span>
+                            <select id="calImpact" class="fsel" onchange="renderCalendar()">
+                              <option value="all">All levels</option>
+                              <option value="High">High only</option>
+                              <option value="Medium">Medium &amp; above</option>
+                              <option value="Low">Low &amp; above</option>
+                            </select></label>
+                          <label class="fr-inline"><span>Sort</span>
+                            <select id="calSort" class="fsel" onchange="renderCalendar()">
+                              <option value="time">Release time</option>
+                              <option value="impact">Impact, then time</option>
+                              <option value="released">Released first</option>
+                            </select></label>
+                          <label class="fr-inline"><span>Time zone</span>
+                            <select id="calTz" class="fsel" onchange="renderCalendar()">
+                              <option value="UTC">UTC</option>
+                              <option value="America/New_York">New York</option>
+                              <option value="Europe/London">London</option>
+                              <option value="Europe/Berlin">Frankfurt</option>
+                              <option value="Asia/Tokyo">Tokyo</option>
+                              <option value="Asia/Shanghai">Shanghai</option>
+                              <option value="Asia/Tehran" selected>Tehran</option>
+                              <option value="Australia/Sydney">Sydney</option>
+                            </select></label>
+                        </div>
+                        <!-- Currency is a *multi*-select: USD and EUR and JPY can be ticked
+                             together, so it gets a row of checkboxes, not one value -->
+                        <div class="fsec-row ccy-row">
+                          <span class="fr-inline ccy-lbl">Currency</span>
+                          <div class="ccy-list" id="calCurChips" role="group" aria-label="Currency filter"></div>
+                        </div>
+                      </div>
+                      <div class="fsec">
+                        <span class="fsec-lbl">Release</span>
+                        <div class="fsec-row">
+                          <label class="fr-inline" style="cursor:pointer"><input type="checkbox" id="calHidePast" onchange="renderCalendar()"> Hide released events</label>
+                        </div>
+                      </div>
+                      <div class="fsheet-ft">
+                        <button class="fclr" onclick="resetCalFilters()"><svg class="ic"><use href="#i-x"/></svg> Clear all</button>
+                        <span class="sp"></span>
+                        <button class="fdone" onclick="tbClose('calSheet')">Show results</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Board: one day at a time, table layout -->
+              <div class="cal-board" id="calDays"></div>
+            </div>
+
+            <aside class="cal-side">
+              <div class="panelbox">
+                <h3><svg class="ic"><use href="#i-clock"/></svg> Market sessions</h3>
+                <div id="sessionsBox" class="hint">…</div>
+              </div>
+              <div class="panelbox">
+                <h3><svg class="ic"><use href="#i-fire"/></svg> High-impact on this day
+                  <span class="panel-sub" id="calHighDay">—</span></h3>
+                <div id="calHighList">…</div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- ══ 5 · LIVE ETF RATES — search + fund-category filter, auto-refresh ══ -->
+        <section class="view" id="view-etf" role="tabpanel" aria-labelledby="nav-etf">
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-chart"/></svg> نرخ زندهٔ ETF
+              <span class="hint" id="etfSummary">در حال خواندن…</span>
+              <span class="live-pill" style="margin-inline-start:auto"><span class="live-dot"></span> به‌روزرسانی خودکار هر ۶۰ ثانیه</span>
+            </h3>
+            <!-- search stays on the line (it is the thing you actually use);
+                 the group pills move into the sheet -->
+            <div class="tb-wrap">
+              <div class="tb" id="etfTB">
+                <div class="fsearch" style="flex:1 1 260px">
+                  <span class="fb-ic"><svg class="ic"><use href="#i-search"/></svg></span>
+                  <input type="text" id="etfQ" placeholder="جستجوی نماد یا نام صندوق…" aria-label="جستجوی صندوق" oninput="UI.etfQ=this.value;renderEtfLive('etfLive2')">
+                </div>
+                <button class="tb-btn" id="etfBtn" onclick="tbToggle('etfSheet')"
+                        aria-expanded="false" aria-controls="etfSheet">
+                  <span><svg class="ic"><use href="#i-tag"/></svg> دسته</span>
+                  <b id="etfBtnName">همه</b>
+                  <span class="tb-caret">▾</span>
+                </button>
+                <div class="fsheet" id="etfSheet" role="dialog" aria-modal="false" aria-label="دسته‌های صندوق">
+                  <div class="fsheet-hd">
+                    <b>دستهٔ صندوق</b>
+                    <button class="fsheet-x" onclick="tbClose('etfSheet')" aria-label="بستن"><svg class="ic"><use href="#i-x"/></svg></button>
+                  </div>
+                  <div class="fsec">
+                    <span class="fsec-lbl">دسته‌ها</span>
+                    <div class="fgrid" id="etfGroupChips"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="etfLive2" class="etfgroups"><div class="empty"><span class="spinner"></span> در حال دریافت نرخ‌های زنده…</div></div>
+          </div>
+        </section>
+
+<!-- ══ 8 · SMART ARCHIVE — items that aged out of the live window ══ -->
+        <section class="view" id="view-archive" role="tabpanel" aria-labelledby="nav-archive">
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-archive"/></svg> آرشیو هوشمند <span id="archSummary" class="panel-sub">…</span></h3>
+            <div id="archGrid" class="grid"></div>
+            <div class="empty" id="archEmpty" style="display:none">آرشیو خالی است — با گذر زمان خبرهای قدیمی‌تر از پنجرهٔ فعال اینجا می‌آیند.</div>
+          </div>
+        </section>
+
+        <!-- ══ 6b · BOOKMARKS — starred stories, kept in this browser ══ -->
+        <section class="view" id="view-bookmarks" role="tabpanel" aria-labelledby="nav-bookmarks">
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-star"/></svg> نشان‌شده‌ها <span id="bmarkSummary" class="panel-sub">…</span>
+              <div style="display:flex;gap:8px;margin-inline-start:auto;flex-wrap:wrap">
+                <button class="btn ghost sm" onclick="FreebuffBookmarks.exportJSON()" title="ذخیره نشان‌شده‌ها در قالب فایل JSON"><svg class="ic"><use href="#i-download"/></svg> دریافت فایل خروجی (Export)</button>
+                <button class="btn ghost sm" onclick="document.getElementById('importBmarkFile').click()" title="بارگذاری فایل نشان‌شده‌ها"><svg class="ic"><use href="#i-upload"/></svg> بازیابی (Import)</button>
+                <input type="file" id="importBmarkFile" accept=".json" style="display:none" onchange="FreebuffBookmarks.importJSON(event)">
+                <button class="btn ghost sm" onclick="clearBookmarks()"><svg class="ic"><use href="#i-trash"/></svg> پاک‌کردن همه</button>
+              </div></h3>
+            <div id="bmarkGrid" class="ngrid"></div>
+            <div class="empty" id="bmarkEmpty" style="display:none">هنوز خبری نشان نشده — روی ستارهٔ هر کارت خبر بزن تا اینجا ذخیره شود.</div>
+          </div>
+        </section>
+
+        <!-- ══ 7 · SOURCE HEALTH — status of every feed the scraper polls ══ -->
+        <section class="view" id="view-monitor" role="tabpanel" aria-labelledby="nav-monitor">
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-pulse"/></svg> سلامت منابع — <span id="monSummary" class="panel-sub">…</span>
+              <button class="btn" id="recoverBtn" style="margin-inline-start:auto" onclick="recoverAll()">
+                <svg class="ic"><use href="#i-refresh"/></svg> بازیابی همهٔ فیدهای خراب</button></h3>
+            <div class="hint" style="margin-block-end:12px">
+              وضعیت اتصال به همهٔ فیدهای خبری و تلاش‌های بازیابی خودکار هر منبع، اینجا زنده پایش می‌شود.
+            </div>
+            <div id="monList"></div>
+          </div>
+        </section>
+
+        <!-- ══ 8 · MESSENGER DIGEST (Telegram / Bale) ══ -->
+        <section class="view" id="view-alerts" role="tabpanel" aria-labelledby="nav-alerts">
+          <!-- Messenger Switcher Tabs -->
+          <div class="tabs-sub" style="display:flex;gap:10px;margin-bottom:16px;">
+            <button type="button" class="btn" id="subtab-btn-tg" onclick="switchMessengerTab('tg')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px">
+              <svg class="ic"><use href="#i-send"/></svg> <b>پیام‌رسان تلگرام (Telegram)</b>
+            </button>
+            <button type="button" class="btn ghost" id="subtab-btn-bale" onclick="switchMessengerTab('bale')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px">
+              <span style="font-size:1.1rem">🟢</span> <b>پیام‌رسان بله (Bale)</b>
+            </button>
+          </div>
+
+          <!-- Telegram Panel -->
+          <div class="panelbox" id="panel-messenger-tg">
+            <h3><svg class="ic"><use href="#i-send"/></svg> پیام‌رسان تلگرام <span class="hint">— خلاصهٔ خودکار معتبرترین خبرها بعد از هر چرخه</span>
+              <button class="btn sm" style="margin-inline-start:auto" onclick="sendNowTelegram()">
+                <svg class="ic"><use href="#i-send"/></svg> ارسال خلاصه الآن</button></h3>
+            <div class="formgrid">
+              <div style="grid-column:1/-1">
+                <label>توکن ربات (از BotFather@ در تلگرام)</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input type="password" id="tgToken" placeholder="123456789:ABC-DEF..." style="direction:ltr;text-align:left;flex:1">
+                  <button type="button" class="btn ghost sm" onclick="toggleTokenVisibility()" title="نمایش/مخفی‌سازی توکن">👁️</button>
+                </div>
+              </div>
+              <div style="grid-column:1/-1">
+                <label>شناسه چت یا کانال (Chat ID یا آیدی کانال مثل mychannel@)</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input type="text" id="tgChat" placeholder="-100123456789 یا @mychannel" style="direction:ltr;text-align:left;flex:1">
+                  <button type="button" class="btn ghost sm" onclick="detectTelegramChat()" id="btnDetectChat" title="بررسی ربات و استخراج خودکار شناسه‌های چت اخیر">🔍 تشخیص خودکار چت</button>
+                </div>
+                <div id="detectedChatsBox" style="display:none;margin-top:8px"></div>
+                <div class="hint" style="margin-top:6px;font-size:0.8rem;line-height:1.5">
+                  💡 <b>راهنمایی:</b> برای چت خصوصی، ابتدا در تلگرام وارد ربات شده و <code>Start/</code> را بزنید سپس روی «تشخیص خودکار» کلیک کنید. برای کانال، ربات را به کانال اضافه کرده و دسترسی ارسال پیام (Admin) به آن بدهید.
+                </div>
+              </div>
+              <div style="grid-column:1/-1">
+                <label>درگاه تلگرام بدون فیلترشکن (Gateway — اختیاری)</label>
+                <input type="text" id="tgGateway" placeholder="https://your-worker.your-name.workers.dev" style="direction:ltr;text-align:left">
+                <div class="hint" style="margin-top:6px;font-size:0.8rem;line-height:1.5">
+                  💡 <b>تلگرام در ایران بدون فیلترشکن بسته است.</b> یک Worker رایگان کلادفلر بسازید (کد آماده و راهنمای ۵ دقیقه‌ای: <code>docs/telegram-gateway.md</code>) و آدرسش را اینجا بگذارید؛ همهٔ تماس‌های API از درگاه خودتان رد می‌شود و توکن فقط از درگاه خودتان عبور می‌کند. خالی = اتصال مستقیم (نیازمند فیلترشکن). بله به درگاه نیاز ندارد.
+                </div>
+              </div>
+              <div style="grid-column:1/-1">
+                <label>پراکسی محلی (وقتی VPN-client روشنه — اختیاری)</label>
+                <input type="text" id="tgProxy" placeholder="socks5://127.0.0.1:1080 یا http://127.0.0.1:7890" style="direction:ltr;text-align:left">
+                <div class="hint" style="margin-top:6px;font-size:0.8rem;line-height:1.5">
+                  💡 اگر از v2rayN / Clash / Hiddify استفاده می‌کنی، آدرس پراکسی محلی‌ش را اینجا بگذارید (توی تنظیمات خود برنامه پیداست). تلگرام از همین پراکسی می‌رود حتی بدون روتینگ کل سیستم. اگر درگاه هم ست شده باشد، درگاه اولویت دارد.
+                </div>
+              </div>
+              <div style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px">
+                <button class="btn" onclick="saveTelegram()">ذخیره همه تنظیمات</button>
+                <button class="btn ghost" onclick="testTelegram()">ارسال پیام تست</button>
+              </div>
+            </div>
+            <h4><svg class="ic"><use href="#i-gear"/></svg> تنظیمات ارسال</h4>
+            <div class="formgrid">
+              <div class="setrow" style="border:none;padding:0">
+                <span class="lbl">ارسال خودکار فعال باشد</span>
+                <label class="switch"><input type="checkbox" id="tgEnabled"><span class="slider"></span></label>
+              </div>
+              <div><label>حداقل اعتبار خبر (۰ تا ۱)</label>
+                <input type="text" id="tgMinCred" inputmode="decimal" placeholder="0.75" style="direction:ltr;text-align:left"></div>
+              <div><label>حداکثر تعداد خبر در هر پیام</label>
+                <input type="text" id="tgMaxItems" inputmode="numeric" placeholder="10" style="direction:ltr;text-align:left"></div>
+              <div><label>فقط خبرهای تازه‌تر از (ساعت)</label>
+                <input type="text" id="tgMaxAge" inputmode="numeric" placeholder="6" style="direction:ltr;text-align:left"></div>
+              <div><label>فیلتر دارایی (با کاما، خالی = همه)</label>
+                <input type="text" id="tgAssets" placeholder="BTC, ETH, XAU" style="direction:ltr;text-align:left"></div>
+              <div><label>زبان پیام</label>
+                <select id="tgLang" style="width:100%">
+                  <option value="fa">فارسی</option>
+                  <option value="en">English</option>
+                </select></div>
+            </div>
+            <h4><svg class="ic"><use href="#i-grid"/></svg> رفتار پیام</h4>
+            <div class="tg-toggles">
+              <label class="tgopt"><input type="checkbox" id="tgQuiet" checked><svg class="ic"><use href="#i-moon"/></svg><span>سکوت شبانه (۲۳ تا ۸ صبح ارسال نشود)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgIdeas" checked><svg class="ic"><use href="#i-star"/></svg><span>ایده‌های محتوا خودکار ارسال شود (تیتر + دو بند خلاصه + لینک زیرش)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgDigest"><svg class="ic"><use href="#i-file"/></svg><span>دیجست خبری (چند خبر داخل یک پیام) هم ارسال شود — خاموش = فقط ایده‌های محتوا)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgLink" checked><svg class="ic"><use href="#i-link"/></svg><span>تیتر به‌صورت هایپرلینک به خبر</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgLinkLine"><svg class="ic"><use href="#i-plus"/></svg><span>لینک در خط جدا هم بیاید</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgSummary" checked><svg class="ic"><use href="#i-file"/></svg><span>خلاصهٔ فارسی خبر در پیام</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgHashtags" checked><svg class="ic"><use href="#i-hash"/></svg><span>هشتگ دارایی‌ها (#BTC #ETH)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgEmoji" checked><svg class="ic"><use href="#i-bell"/></svg><span>ایموجی شروع هر خبر</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgStars" checked><svg class="ic"><use href="#i-star"/></svg><span>ستارهٔ اعتبار (تا ۵ ستاره)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgSilent"><svg class="ic"><use href="#i-bell-off"/></svg><span>ارسال بی‌صدا (نوتیف نزند)</span></label>
+              <label class="tgopt"><input type="checkbox" id="tgPin"><svg class="ic"><use href="#i-pin"/></svg><span>پیام بعد از ارسال پین شود</span></label>
+            </div>
+            <h4><svg class="ic"><use href="#i-file"/></svg> قالب پیام</h4>
+            <div class="tg-vars">
+              متغیرها: <code class="ltr">{index} {title} {summary_blocks} {summary_fa} {source} {cred} {stars} {assets} {tags} {time_fa} {link_line}</code>
+              — قالب خالی = پیش‌فرض
+            </div>
+            <textarea id="tgTemplate" class="tg-template" rows="5" aria-label="قالب پیام تلگرام"></textarea>
+            <div class="tg-actions">
+              <button class="btn" onclick="saveTelegram()"><svg class="ic"><use href="#i-save"/></svg> ذخیرهٔ همهٔ تنظیمات</button>
+              <button class="btn ghost" onclick="previewTelegram()"><svg class="ic"><use href="#i-eye"/></svg> پیش‌نمایش پیام</button>
+            </div>
+            <div id="tgPreview" class="tg-preview"></div>
+            <div class="hint" style="margin-block-start:10px">بعد از هر چرخه، جمع‌بندی معتبرترین خبرها خودکار به همین چت فرستاده می‌شود.</div>
+          </div>
+
+          <!-- Bale Messenger Panel -->
+          <div class="panelbox" id="panel-messenger-bale" style="display:none">
+            <h3><span>🟢</span> پیام‌رسان بله (Bale) <span class="hint">— خلاصهٔ خودکار خبرها در پیام‌رسان بله (داخلی و بدون نیاز به فیلترشکن)</span>
+              <button class="btn sm" style="margin-inline-start:auto" onclick="sendNowBale()">
+                <svg class="ic"><use href="#i-send"/></svg> ارسال خلاصه الآن به بله</button></h3>
+            <div class="formgrid">
+              <div style="grid-column:1/-1">
+                <label>توکن ربات بله (از BotFather@ در پیام‌رسان بله)</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input type="password" id="baleToken" placeholder="123456789:ABC-DEF..." style="direction:ltr;text-align:left;flex:1">
+                  <button type="button" class="btn ghost sm" onclick="toggleBaleTokenVisibility()" title="نمایش/مخفی‌سازی توکن">👁️</button>
+                </div>
+              </div>
+              <div style="grid-column:1/-1">
+                <label>شناسه چت یا کانال بله (Chat ID یا آیدی کانال مثل mychannel@)</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <input type="text" id="baleChat" placeholder="12345678 یا @mychannel" style="direction:ltr;text-align:left;flex:1">
+                  <button type="button" class="btn ghost sm" onclick="detectBaleChat()" id="btnDetectBaleChat" title="بررسی ربات بله و دریافت خودکار شناسه‌های چت اخیر">🔍 تشخیص خودکار چت</button>
+                </div>
+                <div id="detectedBaleChatsBox" style="display:none;margin-top:8px"></div>
+                <div class="hint" style="margin-top:6px;font-size:0.8rem;line-height:1.5">
+                  💡 <b>راهنمایی در بله:</b> برای چت خصوصی، در اپلیکیشن بله وارد ربات خود شوید و دکمه <b>شروع (Start)</b> را بزنید سپس روی «تشخیص خودکار» کلیک کنید. برای کانال، ربات را به کانال اضافه کرده و دسترسی مدیریت (ارسال پیام) به آن بدهید.
+                </div>
+              </div>
+              <div style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px">
+                <button class="btn" onclick="saveBale()">ذخیره تنظیمات بله</button>
+                <button class="btn ghost" onclick="testBale()">ارسال پیام تست به بله</button>
+                <button class="btn ghost" onclick="pushIdeasNow()" title="همهٔ ایده‌های محتوای نارسیده همین حالا به بله (و تلگرام اگر در دسترس) ارسال می‌شود">📨 ارسال فوری همهٔ ایده‌های محتوا</button>
+              </div>
+            </div>
+            <h4><svg class="ic"><use href="#i-gear"/></svg> تنظیمات ارسال در بله</h4>
+            <div class="formgrid">
+              <div class="setrow" style="border:none;padding:0">
+                <span class="lbl">ارسال خودکار به بله فعال باشد</span>
+                <label class="switch"><input type="checkbox" id="baleEnabled"><span class="slider"></span></label>
+              </div>
+              <div><label>حداقل اعتبار خبر (۰ تا ۱)</label>
+                <input type="text" id="baleMinCred" inputmode="decimal" placeholder="0.70" style="direction:ltr;text-align:left"></div>
+              <div><label>حداکثر تعداد خبر در هر پیام</label>
+                <input type="text" id="baleMaxItems" inputmode="numeric" placeholder="10" style="direction:ltr;text-align:left"></div>
+              <div><label>فقط خبرهای تازه‌تر از (ساعت)</label>
+                <input type="text" id="baleMaxAge" inputmode="numeric" placeholder="24" style="direction:ltr;text-align:left"></div>
+              <div><label>فیلتر دارایی (با کاما، خالی = همه)</label>
+                <input type="text" id="baleAssets" placeholder="BTC, ETH, XAU" style="direction:ltr;text-align:left"></div>
+              <div><label>زبان پیام</label>
+                <select id="baleLang" style="width:100%">
+                  <option value="fa">فارسی</option>
+                  <option value="en">English</option>
+                </select></div>
+            </div>
+            <h4><svg class="ic"><use href="#i-grid"/></svg> رفتار پیام در بله</h4>
+            <div class="tg-toggles">
+              <label class="tgopt"><input type="checkbox" id="baleQuiet" checked><svg class="ic"><use href="#i-moon"/></svg><span>سکوت شبانه (۲۳ تا ۸ صبح ارسال نشود)</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleIdeas" checked><svg class="ic"><use href="#i-star"/></svg><span>ایده‌های محتوا خودکار ارسال شود (تیتر + دو بند خلاصه + لینک زیرش)</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleDigest"><svg class="ic"><use href="#i-file"/></svg><span>دیجست خبری (چند خبر داخل یک پیام) هم ارسال شود — خاموش = فقط ایده‌های محتوا)</span></label>
+              <label class="tgopt"><input type="checkbox" id="lsEnabled" checked><svg class="ic"><use href="#i-link"/></svg><span>لینک خبر کوتاه شود (کوتاه‌کننده، مشترک بین بله و تلگرام)</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleLink" checked><svg class="ic"><use href="#i-link"/></svg><span>درج لینک خبر</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleSummary" checked><svg class="ic"><use href="#i-file"/></svg><span>خلاصهٔ فارسی خبر در پیام</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleHashtags" checked><svg class="ic"><use href="#i-hash"/></svg><span>هشتگ دارایی‌ها (#BTC #طلا)</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleEmoji" checked><svg class="ic"><use href="#i-bell"/></svg><span>ایموجی شروع هر خبر</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleStars" checked><svg class="ic"><use href="#i-star"/></svg><span>ستارهٔ اعتبار خبر</span></label>
+              <label class="tgopt"><input type="checkbox" id="baleSilent"><svg class="ic"><use href="#i-bell-off"/></svg><span>ارسال بی‌صدا (بدون نوتیفیکیشن)</span></label>
+            </div>
+            <h4><svg class="ic"><use href="#i-file"/></svg> قالب پیام در بله</h4>
+            <div class="tg-vars">
+              متغیرها: <code class="ltr">{index} {title} {summary_blocks} {summary_fa} {source} {cred} {stars} {assets} {tags} {time_fa} {link_line}</code>
+              — قالب خالی = پیش‌فرض
+            </div>
+            <textarea id="baleTemplate" class="tg-template" rows="5" aria-label="قالب پیام بله"></textarea>
+            <h4><svg class="ic"><use href="#i-link"/></svg> کوتاه‌کنندهٔ لینک (مشترک با تلگرام)</h4>
+            <div class="formgrid">
+              <div><label>ارائه‌دهنده</label>
+                <select id="lsProvider" style="width:100%">
+                  <option value="auto">خودکار (اگر کلید داری: opizo، وگرنه خارجی‌ها)</option>
+                  <option value="opizo">opizo (ایرانی — لینک برای مخاطب داخل ایران باز می‌شود)</option>
+                  <option value="tinyurl">TinyURL (خارجی)</option>
+                  <option value="isgd">is.gd (خارجی)</option>
+                  <option value="custom">سرویس دلخواه (endpoint خودت)</option>
+                </select></div>
+              <div><label>کلید API (برای opizo — رایگان از opizo.com)</label>
+                <input type="password" id="lsApiKey" placeholder="X-API-KEY" style="direction:ltr;text-align:left"></div>
+              <div style="grid-column:1/-1"><label>Endpoint دلخواه (فقط برای custom — پاسخ باید لینک کوتاه خام باشد)</label>
+                <input type="text" id="lsCustom" placeholder="https://my-service.example/shorten" style="direction:ltr;text-align:left"></div>
+              <div class="hint" style="grid-column:1/-1;font-size:0.8rem;line-height:1.5">
+                💡 کوتاه‌کننده‌های خارجی (TinyURL و is.gd) از داخل ایران فیلترند — هم ساخت لینک و هم کلیک روی آن. برای مخاطب ایرانی، حساب رایگان <code>opizo.com</code> بساز و کلیدش را در اینجا بگذار. اگر هیچ‌کدام در دسترس نباشد، لینک اصلی ارسال می‌شود (ارسال هرگز نمی‌شکند).
+              </div>
+            </div>
+            <div class="tg-actions">
+              <button class="btn" onclick="saveBale()"><svg class="ic"><use href="#i-save"/></svg> ذخیرهٔ تنظیمات بله</button>
+              <button class="btn ghost" onclick="previewBale()"><svg class="ic"><use href="#i-eye"/></svg> پیش‌نمایش پیام بله</button>
+            </div>
+            <div id="balePreview" class="tg-preview"></div>
+            <div class="hint" style="margin-block-start:10px">بعد از هر چرخه خبری، خلاصه معتبرترین اخبار به کانال یا حساب شما در پیام‌رسان بله ارسال می‌شود.</div>
+          </div>
+
+          <!-- ══ smart alerts — a rule builder over prices, the calendar and the feed ══ -->
+          <div class="panelbox" id="arPanel">
+            <h3><svg class="ic"><use href="#i-bell"/></svg> قوانین هشدار هوشمند
+              <span class="hint" id="arSummary">…</span>
+              <span class="live-pill" style="margin-inline-start:auto">
+                <span class="live-dot"></span> ارزیابی روی هر تیک قیمت و هر چرخهٔ خبری
+              </span></h3>
+
+            <div class="ar-builder">
+              <div class="ar-top">
+                <div><label>نام قانون</label>
+                  <input type="text" id="arName" placeholder="مثلاً: نفت بالای ۱۰۰ دلار"></div>
+                <div><label>منطق شرط‌ها</label>
+                  <select id="arLogic">
+                    <option value="and">همهٔ شرط‌ها (AND)</option>
+                    <option value="or">یکی از شرط‌ها (OR)</option>
+                  </select></div>
+                <div><label>حداقل فاصلهٔ تکرار (دقیقه)</label>
+                  <input type="text" id="arCooldown" inputmode="numeric" value="30" style="direction:ltr;text-align:left"></div>
+              </div>
+              <div class="ar-conds" id="arConds"></div>
+              <div class="ar-btns">
+                <button class="btn ghost sm" onclick="arAddCond()"><svg class="ic"><use href="#i-plus"/></svg> افزودن شرط</button>
+                <span class="hint" id="arLogicHint"></span>
+              </div>
+              <h4><svg class="ic"><use href="#i-send"/></svg> اقدام در صورت برقرار شدن</h4>
+              <div class="ar-acts">
+                <label class="ar-act"><input type="checkbox" id="arActToast" checked><svg class="ic"><use href="#i-bell"/></svg><span>توست چسبان روی داشبورد</span></label>
+                <label class="ar-act"><input type="checkbox" id="arActTone"><svg class="ic"><use href="#i-pulse"/></svg><span>آهنگ هشدار (اسکواک)</span></label>
+                <label class="ar-act"><input type="checkbox" id="arActTg"><svg class="ic"><use href="#i-send"/></svg><span>ارسال به تلگرام</span></label>
+                <label class="ar-act"><input type="checkbox" id="arActBale"><span style="margin-left:4px">🟢</span><span>ارسال به بله</span></label>
+                <label class="ar-act"><input type="checkbox" id="arActPush"><svg class="ic"><use href="#i-info"/></svg><span>نوتیفیکیشن مرورگر</span></label>
+              </div>
+              <div style="margin-block-start:10px"><label>قالب پیام تلگرام (HTML تلگرام)</label>
+                <textarea id="arTemplate" rows="3" style="direction:ltr;text-align:left"
+                          aria-label="قالب پیام هشدار"></textarea></div>
+              <div class="ar-btns">
+                <button class="btn" id="arSaveBtn" onclick="arSave()"><svg class="ic"><use href="#i-save"/></svg> ذخیرهٔ قانون</button>
+                <button class="btn ghost" onclick="arTestNow()"><svg class="ic"><use href="#i-eye"/></svg> اجرای آزمایشی روی دادهٔ فعلی</button>
+                <button class="btn ghost" onclick="arClearForm()">پاک کردن فرم</button>
+              </div>
+              <div class="hint" id="arHint" role="status"></div>
+            </div>
+
+            <h4 style="margin-block-start:18px"><svg class="ic"><use href="#i-list"/></svg> قوانین ثبت‌شده</h4>
+            <div id="arList" class="ar-list"></div>
+            <h4 style="margin-block-start:18px"><svg class="ic"><use href="#i-clock"/></svg> تاریخچهٔ اجرا</h4>
+            <div id="arLog" class="ar-log"></div>
+            <div class="hint" style="margin-block-start:10px">
+              موتور هشدار در همین مرورگر اجرا می‌شود: روی هر تیک ۱۵ثانیه‌ای قیمت و بعد از هر چرخهٔ خبری،
+              با تعویق کوتاه و بیرون از مسیر رندر. توکن تلگرام هرگز به مرورگر نمی‌آید — متن نهایی به
+              سرور فرستاده می‌شود و سرور با اعتبار ذخیره‌شده ارسال می‌کند. قوانین در همین مرورگر ذخیره می‌شوند.
+            </div>
+          </div>
+        </section>
+
+        <!-- ══ 9 · ASSETS — add a custom tracked asset, table of covered assets ══ -->
+        <section class="view" id="view-assets" role="tabpanel" aria-labelledby="ibAssets">
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-plus"/></svg> افزودن دارایی دلخواه <span class="hint">— کریپتو، سهام، فلز، شاخص</span></h3>
+            <div class="formgrid">
+              <div><label>نماد (لاتین)</label><input type="text" id="naSym" placeholder="LINK"></div>
+              <div><label>نام فارسی</label><input type="text" id="naFa" placeholder="چین‌لینک"></div>
+              <div><label>نام انگلیسی</label><input type="text" id="naName" placeholder="Chainlink"></div>
+              <div><label>نماد Yahoo (تاریخچه قیمت)</label><input type="text" id="naYahoo" placeholder="LINK-USD"></div>
+              <div><label>شناسه CoinGecko (اختیاری)</label><input type="text" id="naCg" placeholder="chainlink"></div>
+              <div><label>کلیدواژه‌های خبری (با کاما)</label><input type="text" id="naKw" placeholder="chainlink, LINK"></div>
+              <div><button class="btn" onclick="addAsset()">افزودن دارایی</button></div>
+            </div>
+            <div class="settings-note">
+              نماد Yahoo تاریخچهٔ قیمت و نمودار را می‌سازد (مثلاً LINK-USD، GC=F، AAPL).
+            </div>
+          </div>
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-coins"/></svg> دارایی‌های تحت پوشش</h3>
+            <div id="assetTableBox"></div>
+          </div>
+        </section>
+
+        <!-- ══ 10 · SOURCES — the active list and the add-a-feed form ══ -->
+        <section class="view" id="view-sources" role="tabpanel" aria-labelledby="ibSources">
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-rss"/></svg> منابع فعال — <span id="srcCount" class="panel-sub"></span></h3>
+            <div id="srcList"></div>
+          </div>
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-plus"/></svg> افزودن منبع RSS جدید</h3>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <input type="text" id="newSrcName" placeholder="نام منبع (مثلاً: Wired)" style="flex:1;min-width:150px">
+              <input type="text" id="newSrcUrl" placeholder="https://example.com/rss" style="flex:2;min-width:220px;direction:ltr;text-align:left">
+              <button class="btn" onclick="addSource()">افزودن</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ══ 11 · DASHBOARD SETTINGS — cadence, news window, coverage, auto-report ══ -->
+        <section class="view" id="view-settings" role="tabpanel" aria-labelledby="ibSettings">
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-gear"/></svg> <span>تنظیمات داشبورد</span></h3>
+            <div class="setrow">
+              <div><div class="lbl">تناوب بروزرسانی خودکار</div><div class="hint">پایش و اعتبارسنجی خودکار دوره‌ای</div></div>
+              <select id="setInterval" style="width:160px">
+                <option value="300">هر ۵ دقیقه</option>
+                <option value="900">هر ۱۵ دقیقه</option>
+                <option value="1800" selected>هر ۳۰ دقیقه</option>
+                <option value="3600">هر ۱ ساعت</option>
+                <option value="7200">هر ۲ ساعت</option>
+              </select>
+            </div>
+            <div class="setrow">
+              <div><div class="lbl">پنجره خبری (حداکثر سن خبر)</div><div class="hint">خبر قدیمی‌تر از این مقدار وارد داشبورد نمی‌شود</div></div>
+              <select id="setAge" style="width:160px">
+                <option value="24" selected>۲۴ ساعت (پیش‌فرض)</option>
+                <option value="48">۴۸ ساعت</option>
+                <option value="72">۷۲ ساعت</option>
+                <option value="168">۷ روز</option>
+              </select>
+            </div>
+            <div class="setrow">
+              <div><div class="lbl">دارایی‌های تحت پوشش</div><div class="hint">خبر، قیمت و گزارش برای این دارایی‌ها ساخته می‌شود</div></div>
+              <div class="asset-toggles" id="assetToggles"></div>
+            </div>
+            <div class="setrow">
+              <div><div class="lbl">تولید خودکار گزارش تحلیلی</div><div class="hint">تولید گزارش نهادی در هر چرخه</div></div>
+              <label class="switch"><input type="checkbox" id="setAutoRep" checked><span class="slider"></span></label>
+            </div>
+            <div class="setrow">
+              <div><div class="lbl">حداقل طول خبر (کاراکتر)</div>
+                <div class="hint">خبر کوتاه‌تر از این مقدار وارد داشبورد نمی‌شود (۲ خط ≈ ۱۲۰ کاراکتر). ۰ = خاموش</div></div>
+              <input type="number" id="setMinChars" min="0" max="2000" step="20" style="width:120px" onchange="saveHygiene()">
+            </div>
+            <div class="setrow">
+              <div><div class="lbl">خبرهای شبکه‌های اجتماعی</div>
+                <div class="hint">پست‌های کوتاه ردیت و مشابهش وارد فید نشود</div></div>
+              <label class="switch"><input type="checkbox" id="setHideSocial" onchange="saveHygiene()"><span class="slider"></span></label>
+            </div>
+            <div class="setrow">
+              <div><div class="lbl">خبرهای حذف‌شده</div>
+                <div class="hint"><b id="hiddenInfo">۰</b> خبر با دکمهٔ سطل زباله حذف شده — این‌ها دیگر در هیچ نمايی نمی‌آیند</div></div>
+              <button class="btn ghost sm" id="hiddenRestore" onclick="restoreHidden()">بازگرداندن همه</button>
+            </div>
+            <div style="margin-top:18px;display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn" onclick="saveSettings()"><svg class="ic"><use href="#i-save"/></svg> ذخیرهٔ تنظیمات</button>
+              <button class="btn ghost" onclick="doRefresh()">اعمال و بروزرسانی الآن</button>
+            </div>
+            <div class="settings-note">
+              حداکثر سن خبر: <b id="setAgeInfo">۲۴</b> ساعت
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ══ CHANNEL BOARD · the @tgjusocialmedia page ══ -->
+        <!-- ══ MERGED TAB · «ایده‌های محتوا» (was: content studio + channel board) ══ -->
+        <section class="view" id="view-channel" role="tabpanel" aria-labelledby="nav-channel">
+          <div class="panelbox">
+            <div class="cb-head">
+              <div class="h">
+                <span class="bar"></span>
+                <div>
+                  <h3>ایده‌های محتوا</h3>
+                  <p class="sub">گزینش هوشمند اخبار بین‌المللی برای انتشار در بخش اخبار tgju.org/news — مهم‌ترین‌ها اول.</p>
+                </div>
+              </div>
+              <div class="cb-head-actions">
+                <button class="btn sm primary" type="button" id="btnPushBale" onclick="Channel.pushNow()" title="ارسال همه ایده‌های جدید به پیام‌رسان بله">
+                  <svg class="ic"><use href="#i-send"/></svg>
+                  <span>ارسال فوری به بله</span>
+                </button>
+                <button class="btn sm outline" type="button" onclick="Channel.openDispatchModal()" title="مشاهده وضعیت اتصال و تاریخچه ارسال خبرها">
+                  <svg class="ic"><use href="#i-file"/></svg>
+                  <span>وضعیت و تاریخچه بله</span>
+                </button>
+                <span class="cb-count" id="cbCount">—</span>
+                <button class="btn sm ghost" type="button" onclick="Channel.refresh()" title="غربال دوبارهٔ اخبار" aria-label="غربال دوباره">
+                  <svg class="ic"><use href="#i-refresh"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="cb-bale-status-bar" id="cbBaleStatusBar">
+              <div class="stat-left">
+                <span class="dot live"></span>
+                <span>کانال بله: <strong dir="ltr">4683284212</strong></span>
+                <span class="sep">•</span>
+                <span>وضعیت: <strong>ارسال بلادرنگ پس از هر چرخه</strong></span>
+              </div>
+              <div class="stat-right">
+                <a href="javascript:void(0)" onclick="Channel.openDispatchModal()" class="stat-link">مشاهده گزارش ارسال‌ها ←</a>
+              </div>
+            </div>
+            <div id="cbList" class="ngrid" aria-live="polite">
+              <div class="cb-empty"><span class="spinner"></span> در حال بارگذاری…</div>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /view-container -->
+    </main>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+  </div><!-- /app-body -->
+</div><!-- /app-shell -->
+
+<!-- ══ 1 · ARTICLE MODAL ══ -->
+<div class="overlay" id="artOverlay" onclick="if(event.target===this)closeModal('artOverlay')">
+  <div class="modal">
+    <button class="mclose" aria-label="بستن" onclick="closeModal('artOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div id="artBody"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- ══ EXPANSION · WATCHLIST MODAL ══ -->
+<div class="overlay" id="watchlistOverlay" onclick="if(event.target===this)closeModal('watchlistOverlay')">
+  <div class="modal" style="max-width:580px">
+    <button class="mclose" aria-label="بستن" onclick="closeModal('watchlistOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
+    <h3><svg class="ic"><use href="#i-star"/></svg> مدیریت دارایی‌های واچ‌لیست اختصاصی</h3>
+    <p style="font-size:12.5px;color:var(--ink-3);margin:8px 0 16px 0">دارایی‌های مورد نظر خود را انتخاب کنید تا با یک کلیک بتوانید اخبار و قیمت‌های آن‌ها را فیلتر کنید:</p>
+    <div class="watchlist-grid" id="watchlistGrid"></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px">
+      <button class="btn ghost sm" onclick="FreebuffWatchlist.selectAll(true)">انتخاب همه</button>
+      <button class="btn ghost sm" onclick="FreebuffWatchlist.selectAll(false)">حذف همه</button>
+      <button class="btn sm" onclick="closeModal('watchlistOverlay')">تایید و بستن</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2 · IDEA MODAL — TradingView idea: chart, full text, Persian translation ══ -->
+<div class="overlay" id="ideaOverlay" onclick="if(event.target===this)closeModal('ideaOverlay')">
+  <div class="modal">
+    <button class="mclose" aria-label="بستن" onclick="closeModal('ideaOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div id="ideaBody"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- ══ 3 · BLURB MODAL ══ -->
+<div class="overlay" id="blurbOverlay" onclick="if(event.target===this)closeModal('blurbOverlay')">
+  <div class="modal" style="max-width:620px">
+    <button class="mclose" aria-label="بستن" onclick="closeModal('blurbOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div id="blurbBody"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<!-- ══ 4 · IDEAS DISPATCH STATUS & LOGS MODAL ══ -->
+<div class="overlay" id="ideasDispatchOverlay" onclick="if(event.target===this)closeModal('ideasDispatchOverlay')">
+  <div class="modal" style="max-width:760px">
+    <button class="mclose" aria-label="بستن" onclick="closeModal('ideasDispatchOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div id="ideasDispatchBody"></div>
+  </div>
+</div>
+
+<!-- ══ 4 · CALENDAR EVENT EXPLAINER — "what is this release?" ══ -->
+<div class="overlay" id="calDocOverlay" onclick="if(event.target===this)closeModal('calDocOverlay')">
+  <div class="modal" style="max-width:720px">
+    <button class="mclose" aria-label="بستن" onclick="closeModal('calDocOverlay')"><svg class="ic"><use href="#i-x"/></svg></button>
+    <div id="calDocBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- smart-alert notifications: a stack, because more than one rule can fire at
+     once and a single transient toast would swallow the first one -->
+<div class="alert-stack" id="alertStack" aria-live="assertive" aria-label="هشدارهای هوشمند"></div>
+
+<!-- ══ COMMAND PALETTE — Ctrl/Cmd+K over views, assets and reports ══ -->
+<div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="جستجوی سریع">
+  <div class="cmdk-box">
+    <div class="cmdk-field">
+      <svg class="ic"><use href="#i-search"/></svg>
+      <input type="text" id="cmdkQ" autocomplete="off" spellcheck="false"
+             placeholder="پرش سریع: بخش، دارایی یا گزارش…" aria-label="جستجوی سریع">
+      <kbd>ESC</kbd>
+    </div>
+    <div class="cmdk-list" id="cmdkList" role="listbox" aria-label="نتایج"></div>
+    <div class="cmdk-foot">
+      <span><kbd>↑</kbd><kbd>↓</kbd> حرکت</span>
+      <span><kbd>Enter</kbd> رفتن</span>
+      <span class="sp" id="cmdkCount"></span>
+    </div>
+  </div>
+</div>
+
+<script>

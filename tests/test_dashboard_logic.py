@@ -12,16 +12,18 @@ what the dashboard shows.
 import re
 import shutil
 import subprocess
-from pathlib import Path
 
 import pytest
 
-ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "dashboard_html.py"
-
 
 def _page():
-    return SOURCE.read_text(encoding="utf-8", errors="replace")
+    """The page as served — assembled from web/fragments/.
+
+    It used to be a raw string inside dashboard_html.py, which is a thin loader
+    now, so the text has to come from the module rather than off the file.
+    """
+    from dashboard_html import APP_HTML
+    return APP_HTML
 
 
 def extract(page, name):

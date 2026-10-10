@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""One-shot: repoint var() references outside the <style> block at DL3 tokens.
+"""One-shot: repoint var() references outside the stylesheet at DL3 tokens.
 
 The stylesheet was replaced wholesale in the redesign, so every var() that the
 JS templates and inline styles still carried from the old palette has to follow
-the new names. Only text after </style> is touched, so the stylesheet itself is
-never rewritten. Prints a per-name count and is safe to re-run.
+the new names. Only the non-stylesheet fragments are touched — the stylesheet
+slice (`10_style.css`) is a finished sheet and is never rewritten. Prints a
+per-name count and is safe to re-run.
+
+    python tools/remap_tokens.py
 """
 
 import collections
@@ -14,7 +17,8 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TARGET = os.path.join(ROOT, "dashboard_html.py")
+FRAGMENTS = os.path.join(ROOT, "web", "fragments")
+STYLESHEET = "10_style.css"
 
 MAP = {
     "--muted": "--ink-3",
@@ -49,29 +53,42 @@ MAP = {
 
 
 def main() -> int:
-    with io.open(TARGET, "r", encoding="utf-8", newline="") as fh:
-        src = fh.read()
-    cut = src.index("</style>")
-    head, tail = src[:cut], src[cut:]
+    if not os.path.isdir(FRAGMENTS):
+        print(f"! {os.path.relpath(FRAGMENTS, ROOT)} is missing")
+        return 2
 
     counts = collections.Counter()
-    for old, new in MAP.items():
-        pat = r"var\(\s*" + re.escape(old) + r"(\s*[,)])"
-        if not re.search(pat, tail):
-            continue
-        tail, n = re.subn(pat, "var(" + new + r"\1", tail)
-        counts[f"{old} -> {new}"] += n
+    targets = sorted(name for name in os.listdir(FRAGMENTS)
+                     if name != STYLESHEET and os.path.isfile(os.path.join(FRAGMENTS, name)))
+    for name in targets:
+        path = os.path.join(FRAGMENTS, name)
+        with io.open(path, "r", encoding="utf-8", newline="") as fh:
+            src = fh.read()
+
+        out, per_file = src, 0
+        for old, new in MAP.items():
+            pat = r"var\(\s*" + re.escape(old) + r"(\s*[,)])"
+            if not re.search(pat, out):
+                continue
+            out, n = re.subn(pat, "var(" + new + r"\1", out)
+            counts[f"{old} -> {new}"] += n
+            per_file += n
+        if per_file:
+            with io.open(path, "w", encoding="utf-8", newline="") as fh:
+                fh.write(out)
 
     if not counts:
         print("  nothing to remap")
         return 0
     for k, v in counts.most_common():
         print(f"  {k}: {v}")
-    with io.open(TARGET, "w", encoding="utf-8", newline="") as fh:
-        fh.write(head + tail)
-    print(f"  wrote {TARGET}")
-    leftover = sorted(set(re.findall(r"var\(\s*(--[\w-]+)", tail)))
-    print("  tokens still referenced after </style>:", leftover)
+    print(f"  files touched: {len(targets)}")
+
+    leftover = set()
+    for name in targets:
+        with io.open(os.path.join(FRAGMENTS, name), "r", encoding="utf-8", newline="") as fh:
+            leftover |= set(re.findall(r"var\(\s*(--[\w-]+)", fh.read()))
+    print(f"  tokens still referenced outside {STYLESHEET}: {sorted(leftover)}")
     return 0
 
 
