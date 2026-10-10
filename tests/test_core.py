@@ -355,6 +355,12 @@ def test_v1_api_and_docs():
         else:
             os.environ["MOHMD_TOKEN"] = _prev_token
 
+    # 9. Prometheus metrics endpoint
+    metrics_resp = client.get("/api/metrics")
+    assert metrics_resp.status_code == 200
+    assert "text/plain" in metrics_resp.headers.get("Content-Type", "")
+    assert "freebuff_cycle_running" in metrics_resp.data.decode()
+
 
 # ── Phase 10: Integrations ───────────────────────────────────────────────────
 def test_phase10_integrations():

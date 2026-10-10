@@ -5856,6 +5856,7 @@ def api_health():
 
 
 
+@app.route("/api/metrics")
 def api_metrics():
     """Prometheus-compatible metrics endpoint."""
     metrics = []
