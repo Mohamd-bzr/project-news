@@ -340,6 +340,12 @@ def test_health_reports_the_token_gate_state(client, monkeypatch):
     assert '/api/v1/' in gate['self_authenticating']
     assert not set(gate['open_without_token']) & set(gate['self_authenticating'])
 
+    # token-guard rejects wrong token of the exact same length
+    wrong = client.get('/', headers={'X-Auth-Token': 'b-shared-secret'})
+    assert wrong.status_code == 401
+    correct = client.get('/', headers={'X-Auth-Token': 'a-shared-secret'})
+    assert correct.status_code == 200
+
 
 # ── low 1/2/7/9 · the small ones ───────────────────────────────────────────
 

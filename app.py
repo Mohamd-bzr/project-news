@@ -15,6 +15,7 @@ Ties the whole pipeline together:
 Run:   python app.py [--port 5055] [--once]
 """
 
+import hmac
 import json
 import atexit
 import logging
@@ -1193,8 +1194,8 @@ def _dl2_token_guard():
     if request.path == "/" or request.path.startswith("/api/"):
         auth_hdr = request.headers.get("Authorization", "")
         bearer = auth_hdr.replace("Bearer ", "").strip() if auth_hdr.startswith("Bearer ") else ""
-        given = request.args.get("token") or request.headers.get("X-Auth-Token", "") or bearer
-        if given != need:
+        given = request.headers.get("X-Auth-Token", "") or bearer or request.args.get("token", "")
+        if not given or not hmac.compare_digest(given.encode("utf-8"), need.encode("utf-8")):
             return Response("unauthorized", status=401)
     return None
 
