@@ -1999,8 +1999,11 @@ html[data-theme="light"] .stage{
 html[data-theme="light"] .stage::after{
   background:radial-gradient(120% 90% at 50% 30%, transparent 55%, rgba(20,32,46,.10));
 }
-html[data-theme="light"] .btn{ color:#F7FAFF; }
-html[data-theme="light"] .btn:hover{ color:#F7FAFF; }
+html[data-theme="light"] .btn:not(.ghost):not(.on){ color:#F7FAFF; }
+html[data-theme="light"] .btn:not(.ghost):not(.on):hover{ color:#F7FAFF; }
+html[data-theme="light"] .btn.ghost{ color:var(--ink-2); }
+html[data-theme="light"] .btn.ghost:hover{ color:var(--ink-1); }
+html[data-theme="light"] .btn.on{ color:var(--cu-txt); }
 html[data-theme="light"] .skip-link{ color:#F7FAFF; }
 html[data-theme="light"] .tb-badge{ color:#F7FAFF; }
 html[data-theme="light"] .brand-badge{ background:rgba(108,151,220,.14); }
