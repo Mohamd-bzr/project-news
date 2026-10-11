@@ -58,6 +58,8 @@ from news_intelligence import (
     get_intelligence_summary, _anomaly
 )
 from middleware import require_tier
+# «اخبار تلگرامی» — public Telegram channel reader (see telegram_news.SOURCES)
+import telegram_news
 
 # ── Full-text extraction (article_extract.py) ───────────────────────────────
 # The ladder moved out of this file; these names are re-exported so `app.<name>`
@@ -3814,6 +3816,26 @@ def api_ideas_translate():
     pending = _schedule_idea_fa(key, idea)
     return jsonify({"ok": True, "pending": pending or key in _IDEA_INFLIGHT,
                     "cached": False, "title_fa": "", "paragraphs": []})
+
+
+# ---------------------------------------------------------------------------
+# Telegram News («اخبار تلگرامی») — newest posts of the PUBLIC channels listed
+# in telegram_news.SOURCES. Read-only: no login, no invite links, no private
+# channels — see that module's docstring for the exact contract.
+# ---------------------------------------------------------------------------
+@app.route("/api/telegram_news")
+def api_telegram_news():
+    """Latest posts of every configured Telegram channel (cached ~5 min).
+
+    A channel that is dead, renamed or made private comes back with ok=False
+    and an error string instead of failing the whole response, so the board
+    keeps whatever channels still answer.
+    """
+    refresh = str(request.args.get("refresh") or "").lower() in ("1", "true", "yes")
+    try:
+        return jsonify({"ok": True, "sources": telegram_news.fetch_all(refresh=refresh)})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e), "sources": []})
 
 
 # ---------------------------------------------------------------------------
