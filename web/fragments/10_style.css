@@ -621,20 +621,21 @@ body.dl2-rail-collapsed .dl2-rail-toggle{ align-self:center; }
   background:var(--cu-wash); color:var(--cu-txt); border:1px solid var(--cu-line); direction:ltr;
 }
 .ok{ color:var(--up); font-weight:700; }
-.bad{ color:var(--dn); font-weight:700; }
+.mongrid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(210px, 1fr)); gap:8px; }
 .monrow{
-  display:flex; flex-direction:column; justify-content:space-between; gap:6px;
-  padding:10px 14px; margin-block-end:0; min-height:88px;
-  background:var(--panel-2); border:1px solid var(--rule-2); border-radius:var(--r2);
-  font-size:var(--t-xs); transition:border-color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+  display:flex; flex-direction:column; justify-content:space-between; gap:4px;
+  padding:8px 10px; margin-block-end:0; min-height:64px;
+  background:var(--panel-2); border:1px solid var(--rule-2); border-radius:var(--r1);
+  font-size:11px; transition:border-color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
 }
 .monrow:hover{ border-color:var(--rule); background:var(--panel-3); }
 .monrow.mon-bad{ border-inline-start:3px solid var(--dn); }
 .monrow.mon-ok{ border-inline-start:3px solid var(--up); }
-.monrow .mon-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
-.monrow .mon-reason{ color:var(--dn); font-size:11px; background:rgba(239,68,68,0.08); padding:3px 6px; border-radius:var(--r1); display:inline-flex; align-items:center; gap:4px; margin-block-start:2px; }
-.monrow .mon-path{ color:var(--ink-3); font-size:10.5px; line-height:1.4; background:var(--wash); padding:3px 6px; border-radius:var(--r1); margin-block-start:2px; }
-.monrow .mon-hist{ display:flex; align-items:center; gap:5px; color:var(--ink-4); font-size:10px; margin-block-start:3px; }
+.monrow .mon-top{ display:flex; justify-content:space-between; align-items:center; gap:6px; }
+.monrow .mon-top b{ font-size:11.5px; font-weight:700; max-width:130px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.monrow .mon-reason{ color:var(--dn); font-size:10px; background:rgba(239,68,68,0.08); padding:2px 5px; border-radius:var(--r1); display:inline-flex; align-items:center; gap:3px; }
+.monrow .mon-path{ color:var(--ink-3); font-size:9.5px; line-height:1.3; background:var(--wash); padding:2px 5px; border-radius:var(--r1); }
+.monrow .mon-hist{ display:flex; align-items:center; gap:4px; color:var(--ink-4); font-size:9.5px; margin-block-start:2px; }
 table.asset-table{ inline-size:100%; border-collapse:collapse; font-size:var(--t-sm); }
 table.asset-table th{
   padding:var(--s2); font-size:var(--t-xs); font-weight:600; color:var(--ink-3);
