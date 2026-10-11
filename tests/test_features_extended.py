@@ -43,6 +43,22 @@ def test_whale_tracker_is_fully_removed():
         assert gone not in content, f"{gone} should be removed"
 
 
+def test_asset_management_relocated_to_settings():
+    """Asset management must live inside the settings view, not as a standalone nav item."""
+    content = _page()
+    assert 'id="ibAssets"' not in content, "ibAssets must be removed from the sidebar nav"
+    assert 'id="view-assets"' not in content, "view-assets should not exist as a standalone section"
+    assert 'id="assetTableBox"' in content, "assetTableBox must exist"
+    assert 'id="naSym"' in content, "naSym must exist"
+    # Ensure assetTableBox and naSym are placed inside view-settings
+    settings_idx = content.find('id="view-settings"')
+    assert settings_idx != -1, "view-settings must exist"
+    next_view_idx = content.find('<section class="view"', settings_idx + 1)
+    settings_block = content[settings_idx:next_view_idx] if next_view_idx != -1 else content[settings_idx:]
+    assert 'id="assetTableBox"' in settings_block, "assetTableBox must be inside view-settings block"
+    assert 'id="naSym"' in settings_block, "naSym must be inside view-settings block"
+
+
 def test_workspace_removed():
     content = _page()
     # Workspace markup and JS must be completely removed per user specification

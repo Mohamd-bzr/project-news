@@ -989,9 +989,9 @@ function showView(v, skipPick){
   UI.view=v;
   document.querySelectorAll('.tab').forEach(t=>{t.classList.toggle('active',t.dataset.view===v); t.setAttribute('aria-selected', t.dataset.view===v?'true':'false');});
   document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id==='view-'+v));
-  ['ibSettings','ibSources','ibAssets'].forEach(id=>{
+  ['ibSettings','ibSources'].forEach(id=>{
     const b=document.getElementById(id);
-    if(b) b.classList.toggle('on', b.id==='ibSettings'&&v==='settings' || b.id==='ibSources'&&v==='sources' || b.id==='ibAssets'&&v==='assets');
+    if(b) b.classList.toggle('on', b.id==='ibSettings'&&v==='settings' || b.id==='ibSources'&&v==='sources');
   });
   /* releases happen on the way out, not on the way back in */
   if(prev&&prev!==v) teardownView(prev);
@@ -1006,7 +1006,7 @@ function showView(v, skipPick){
     if(!UI.repSym||!ordered.includes(UI.repSym)) UI.repSym=ordered[0];
     pickReport(UI.repSym, true);   // pickReport calls showView(..., skipPick)
   }
-  if(v==='assets') renderAssetTable();
+  if(v==='settings'||v==='assets') renderAssetTable();
   if(v==='channel'&&window.Channel) window.Channel.mount();
   if(v==='monitor') loadMonitor();
   if(v==='calendar'){ if(ECON) renderCalendar(); else loadCalendar(); }
@@ -1355,13 +1355,13 @@ function renderMonitor(){
     if(r.ok&&!r.recovered) continue;                 /* healthy & untouched: skip in monitor */
     const st=r.ok?(r.recovered?`<span class="ok">${ic('check')} بازیابی‌شده</span>`:`<span class="ok">${ic('check')} سالم</span>`)
                  :`<span class="bad">${ic('x')} خراب</span>`;
-    const reason=r.ok?'':`<div style="color:var(--cu-txt);margin-block-start:3px">${ic('warn')} علت: ${esc(r.reason_fa||r.detail||'نامعلوم')}</div>`;
+    const reason=r.ok?'':`<div class="mon-reason">${ic('warn')} علت: ${esc(r.reason_fa||r.detail||'نامعلوم')}</div>`;
     const rec=(r.recovery||[]);
     const shown=rec.slice(0,8);
-    const path=rec.length?`<div style="color:var(--ink-3);font-size:10.5px;margin-block-start:2px">بازیابی: ${toFa(rec.length)} روش امتحان شد — ${shown.map(esc).join(' → ')}${rec.length>8?` … (+${toFa(rec.length-8)} روش دیگر)`:''}${r.mirror?' (آینه)':''}${r.ok?' · آخرین موفقیت: '+esc(shown[shown.length-1]||''):''}</div>`:'';
-    const hist=(r.hist&&r.hist.length)?`<div style="display:flex;align-items:center;gap:6px;margin-block-start:3px;color:var(--ink-4);font-size:10.5px">۳۰ چرخهٔ آخر: ${histSvg(r.hist)}</div>`:'';
-    html+=`<div class="monrow">
-      <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+    const path=rec.length?`<div class="mon-path">بازیابی: ${toFa(rec.length)} روش امتحان شد — ${shown.map(esc).join(' → ')}${rec.length>8?` … (+${toFa(rec.length-8)} روش دیگر)`:''}${r.mirror?' (آینه)':''}${r.ok?' · آخرین موفقیت: '+esc(shown[shown.length-1]||''):''}</div>`:'';
+    const hist=(r.hist&&r.hist.length)?`<div class="mon-hist">۳۰ چرخهٔ آخر: ${histSvg(r.hist)}</div>`:'';
+    html+=`<div class="monrow ${r.ok?'mon-ok':'mon-bad'}">
+      <div class="mon-top">
         <span><b>${esc(r.name)}</b> <span style="color:var(--ink-4);font-size:10px">${esc(r.kind_fa||'')}</span></span>
         <span style="font-size:11px">${st}${r.count?` · ${toFa(r.count)} خبر`:''}${r.checked_fa?` · در ${esc(r.checked_fa)}`:''}</span>
       </div>
@@ -2127,8 +2127,8 @@ function toast(msg){
   clearTimeout(t._h); t._h=setTimeout(()=>t.style.display='none',2600);
 }
 document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal('artOverlay'); closeModal('blurbOverlay'); closeModal('calDocOverlay'); } });
-document.getElementById('ibSources').onclick=()=>showView('sources');
-document.getElementById('ibAssets').onclick=()=>showView('assets');
+const _ibS=document.getElementById('ibSources'); if(_ibS) _ibS.onclick=()=>showView('sources');
+const _ibA=document.getElementById('ibAssets'); if(_ibA) _ibA.onclick=()=>showView('settings');
 
 /* ═══════════ economic calendar & market context (/api/econ) ═══════════ */
 let ECON=null, ECON_AT=0;
@@ -4778,10 +4778,7 @@ Stream.on('calendar', function(item){
       });
     }
   }catch(e){}
-  if(typeof toast==='function'){
-    toast((item.impact==='High'?'⚠️ ':'') + (item.country?('['+item.country+'] '):'')+(item.title||'')+' — '+(item.actual_fmt||item.actual||'')+
-          (flashed?'':' (رویداد در نمای تقویم نیست)'));
-  }
+  /* Toast/popup for calendar release events is disabled per user preference */
   if(typeof arTick==='function') arTick();
 });
 Stream.on('status', smPaintStatus);

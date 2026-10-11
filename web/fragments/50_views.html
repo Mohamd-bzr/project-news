@@ -668,28 +668,6 @@
           </div>
         </section>
 
-        <!-- ══ 9 · ASSETS — add a custom tracked asset, table of covered assets ══ -->
-        <section class="view" id="view-assets" role="tabpanel" aria-labelledby="ibAssets">
-          <div class="panelbox">
-            <h3><svg class="ic"><use href="#i-plus"/></svg> افزودن دارایی دلخواه <span class="hint">— کریپتو، سهام، فلز، شاخص</span></h3>
-            <div class="formgrid">
-              <div><label>نماد (لاتین)</label><input type="text" id="naSym" placeholder="LINK"></div>
-              <div><label>نام فارسی</label><input type="text" id="naFa" placeholder="چین‌لینک"></div>
-              <div><label>نام انگلیسی</label><input type="text" id="naName" placeholder="Chainlink"></div>
-              <div><label>نماد Yahoo (تاریخچه قیمت)</label><input type="text" id="naYahoo" placeholder="LINK-USD"></div>
-              <div><label>شناسه CoinGecko (اختیاری)</label><input type="text" id="naCg" placeholder="chainlink"></div>
-              <div><label>کلیدواژه‌های خبری (با کاما)</label><input type="text" id="naKw" placeholder="chainlink, LINK"></div>
-              <div><button class="btn" onclick="addAsset()">افزودن دارایی</button></div>
-            </div>
-            <div class="settings-note">
-              نماد Yahoo تاریخچهٔ قیمت و نمودار را می‌سازد (مثلاً LINK-USD، GC=F، AAPL).
-            </div>
-          </div>
-          <div class="panelbox">
-            <h3><svg class="ic"><use href="#i-coins"/></svg> دارایی‌های تحت پوشش</h3>
-            <div id="assetTableBox"></div>
-          </div>
-        </section>
 
         <!-- ══ 10 · SOURCES — the active list and the add-a-feed form ══ -->
         <section class="view" id="view-sources" role="tabpanel" aria-labelledby="ibSources">
@@ -761,6 +739,27 @@
               حداکثر سن خبر: <b id="setAgeInfo">۲۴</b> ساعت
             </div>
           </div>
+
+          <!-- مدیریت دارایی‌ها (انتقال‌یافته به تنظیمات داشبورد) -->
+          <div class="panelbox" style="margin-top:20px">
+            <h3><svg class="ic"><use href="#i-plus"/></svg> افزودن دارایی دلخواه <span class="hint">— کریپتو، سهام، فلز، شاخص</span></h3>
+            <div class="formgrid">
+              <div><label>نماد (لاتین)</label><input type="text" id="naSym" placeholder="LINK"></div>
+              <div><label>نام فارسی</label><input type="text" id="naFa" placeholder="چین‌لینک"></div>
+              <div><label>نام انگلیسی</label><input type="text" id="naName" placeholder="Chainlink"></div>
+              <div><label>نماد Yahoo (تاریخچه قیمت)</label><input type="text" id="naYahoo" placeholder="LINK-USD"></div>
+              <div><label>شناسه CoinGecko (اختیاری)</label><input type="text" id="naCg" placeholder="chainlink"></div>
+              <div><label>کلیدواژه‌های خبری (با کاما)</label><input type="text" id="naKw" placeholder="chainlink, LINK"></div>
+              <div><button class="btn" onclick="addAsset()">افزودن دارایی</button></div>
+            </div>
+            <div class="settings-note">
+              نماد Yahoo تاریخچهٔ قیمت و نمودار را می‌سازد (مثلاً LINK-USD، GC=F، AAPL).
+            </div>
+          </div>
+          <div class="panelbox">
+            <h3><svg class="ic"><use href="#i-coins"/></svg> دارایی‌های تحت پوشش</h3>
+            <div id="assetTableBox"></div>
+          </div>
         </section>
 
 
@@ -786,8 +785,9 @@
                   <span>وضعیت و تاریخچه بله</span>
                 </button>
                 <span class="cb-count" id="cbCount">—</span>
-                <button class="btn sm ghost" type="button" onclick="Channel.refresh()" title="غربال دوبارهٔ اخبار" aria-label="غربال دوباره">
+                <button class="btn sm ghost" type="button" id="btnRefreshChannel" onclick="Channel.refresh()" title="غربال دوبارهٔ اخبار" aria-label="غربال دوباره">
                   <svg class="ic"><use href="#i-refresh"/></svg>
+                  <span>غربال دوباره</span>
                 </button>
               </div>
             </div>

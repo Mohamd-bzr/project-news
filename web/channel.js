@@ -123,7 +123,22 @@ const Channel = (function () {
   }
 
   async function refresh() {
-    await load(true);
+    const btn = el('btnRefreshChannel');
+    const oldHtml = btn ? btn.innerHTML : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner sm"></span> <span>در حال غربال...</span>';
+    }
+    if (typeof toast === 'function') toast('در حال غربال و رتبه‌بندی مجدد ایده‌ها...');
+    try {
+      await load(true);
+      if (typeof toast === 'function') toast('غربال ایده‌ها با موفقیت انجام شد ✓');
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml;
+      }
+    }
   }
 
   /* called immediately when a background scraping cycle finishes */

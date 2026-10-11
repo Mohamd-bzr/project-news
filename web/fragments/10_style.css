@@ -623,12 +623,18 @@ body.dl2-rail-collapsed .dl2-rail-toggle{ align-self:center; }
 .ok{ color:var(--up); font-weight:700; }
 .bad{ color:var(--dn); font-weight:700; }
 .monrow{
-  display:flex; align-items:center; gap:var(--s3); flex-wrap:wrap;
-  padding:var(--s3) var(--s4); margin-block-end:var(--s1);
+  display:flex; flex-direction:column; gap:8px;
+  padding:12px 16px; margin-block-end:10px;
   background:var(--panel-2); border:1px solid var(--rule-2); border-radius:var(--r2);
-  font-size:var(--t-sm);
+  font-size:var(--t-sm); transition:border-color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
 }
-.monrow:hover{ border-color:var(--rule); }
+.monrow:hover{ border-color:var(--rule); background:var(--panel-3); }
+.monrow.mon-bad{ border-inline-start:3px solid var(--dn); }
+.monrow.mon-ok{ border-inline-start:3px solid var(--up); }
+.monrow .mon-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }
+.monrow .mon-reason{ color:var(--dn); font-size:12px; background:rgba(239,68,68,0.08); padding:4px 8px; border-radius:var(--r1); display:inline-flex; align-items:center; gap:5px; }
+.monrow .mon-path{ color:var(--ink-3); font-size:11px; line-height:1.5; background:var(--wash); padding:4px 8px; border-radius:var(--r1); }
+.monrow .mon-hist{ display:flex; align-items:center; gap:6px; color:var(--ink-4); font-size:11px; margin-block-start:2px; }
 table.asset-table{ inline-size:100%; border-collapse:collapse; font-size:var(--t-sm); }
 table.asset-table th{
   padding:var(--s2); font-size:var(--t-xs); font-weight:600; color:var(--ink-3);

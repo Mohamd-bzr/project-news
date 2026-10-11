@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SW_VERSION = 'v16';        /* v9: dropped the daily-print route from the shell (shell changed) */
+const SW_VERSION = 'v17';        /* v17: asset management relocated to settings view; calendar popup disabled */
 const SHELL_CACHE = 'mohmd-shell-' + SW_VERSION;
 const API_CACHE = 'mohmd-api-' + SW_VERSION;
 const EXT_CACHE = 'mohmd-ext-' + SW_VERSION;
