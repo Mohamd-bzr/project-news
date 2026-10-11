@@ -152,3 +152,47 @@ def test_fetch_source_serves_the_cache_and_honours_refresh(monkeypatch):
         assert len(calls) == 2
     finally:
         telegram_news._CACHE.clear()
+
+
+# ─────────────────────── the dashboard wiring ───────────────────────
+
+def _client_js():
+    import pathlib
+    return (pathlib.Path(__file__).resolve().parent.parent /
+            "web" / "tgnews.js").read_text(encoding="utf-8")
+
+
+def test_client_is_wired_into_the_dashboard():
+    from dashboard_html import APP_HTML
+    for needle in ('id="nav-tgnews"', 'id="view-tgnews"', 'id="tgNewsList"',
+                   'id="tgNewsChips"', '/tgnews.js'):
+        assert needle in APP_HTML, f"{needle} is missing from the dashboard"
+
+
+def test_client_reaches_the_global_escape_helper_through_window():
+    import re
+    js = _client_js()
+    # the local binding may shadow the name (channel.js does the same), but the
+    # typeof probe must go through window.esc — a bare `typeof esc` would test
+    # the local itself and recurse until the stack dies
+    assert "typeof window.esc" in js
+    assert not re.search(r"typeof esc\s*===?\s*'function'", js)
+
+
+def test_client_escapes_every_interpolated_server_field():
+    js = _client_js()
+    # each field that crosses the wire is passed through esc(...) on its way
+    # into the card HTML — a raw p.title/src.handle would be an XSS hole
+    for needle in ("esc(p.title", "esc(p.url", "esc(src.handle", "esc(text"):
+        assert needle in js, f"{needle} — an unescaped field is being rendered"
+
+
+def test_the_route_and_shell_asset_exist():
+    import pathlib
+    root = pathlib.Path(__file__).resolve().parent.parent
+    assert (root / "web" / "tgnews.js").is_file(), "the client half is missing"
+    app_src = (root / "app.py").read_text(encoding="utf-8")
+    assert '@app.route("/tgnews.js")' in app_src
+    assert '@app.route("/api/telegram_news")' in app_src
+    sw = (root / "web" / "sw.js").read_text(encoding="utf-8")
+    assert "'/tgnews.js'" in sw, "the client is not precached as a shell asset"

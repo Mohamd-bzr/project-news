@@ -812,6 +812,32 @@
           </div>
         </section>
 
+        <!-- ══ TELEGRAM NEWS · «اخبار تلگرامی» — public channels, read-only ══ -->
+        <section class="view" id="view-tgnews" role="tabpanel" aria-labelledby="nav-tgnews">
+          <div class="panelbox">
+            <div class="cb-head">
+              <div class="h">
+                <span class="bar"></span>
+                <div>
+                  <h3>اخبار تلگرامی</h3>
+                  <p class="sub">آخرین پست‌های کانال‌های عمومی تلگرام — فقط خواندن؛ جدیدترین‌ها اول.</p>
+                </div>
+              </div>
+              <div class="cb-head-actions">
+                <span class="cb-count" id="tgNewsCount">—</span>
+                <button class="btn sm ghost" type="button" id="btnTgNewsRefresh" onclick="TgNews.refresh()" title="دریافت دوبارهٔ پست‌ها از تلگرام" aria-label="به‌روزرسانی">
+                  <svg class="ic"><use href="#i-refresh"/></svg>
+                  <span>به‌روزرسانی</span>
+                </button>
+              </div>
+            </div>
+            <div id="tgNewsChips" class="tgnews-chips" aria-label="کانال‌های در دسترس"></div>
+            <div id="tgNewsList" class="ngrid" aria-live="polite">
+              <div class="cb-empty"><span class="spinner"></span> در حال دریافت پست‌ها…</div>
+            </div>
+          </div>
+        </section>
+
       </div><!-- /view-container -->
     </main>
 

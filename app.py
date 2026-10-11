@@ -1249,6 +1249,12 @@ def channel_client():
     return _web_response("channel.js", "application/javascript", "no-cache, must-revalidate")
 
 
+@app.route("/tgnews.js")
+def tgnews_client():
+    """«اخبار تلگرامی» board's client half — same reasoning as /channel.js."""
+    return _web_response("tgnews.js", "application/javascript", "no-cache, must-revalidate")
+
+
 @app.route("/manifest.webmanifest")
 def pwa_manifest():
     return _web_response("manifest.webmanifest", "application/manifest+json", "no-cache")

@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SW_VERSION = 'v21';        /* v21: light theme contrast & token consistency */
+const SW_VERSION = 'v22';        /* v22: «اخبار تلگرامی» tab (/tgnews.js in shell) & theme fixes */
 const SHELL_CACHE = 'mohmd-shell-' + SW_VERSION;
 const API_CACHE = 'mohmd-api-' + SW_VERSION;
 const EXT_CACHE = 'mohmd-ext-' + SW_VERSION;
@@ -37,6 +37,7 @@ const SHELL = [
   '/manifest.webmanifest',
   '/storage-engine.js',
   '/channel.js',
+  '/tgnews.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   /* self-hosted letterforms — the offline boot renders in the real brand
