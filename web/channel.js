@@ -240,7 +240,7 @@ const Channel = (function () {
           '<div style="display:flex;align-items:center;gap:10px;">' +
             '<span style="font-size:24px;">📨</span>' +
             '<div>' +
-              '<h3 style="margin:0;font-size:16px;color:var(--ink);">وضعیت و تاریخچه ارسال به بله و تلگرام</h3>' +
+              '<h3 style="margin:0;font-size:16px;color:var(--ink-1);">وضعیت و تاریخچه ارسال به بله و تلگرام</h3>' +
               '<p style="margin:2px 0 0 0;font-size:12px;color:var(--ink-3);">پایش وضعیت ربات، کانال متصل و گزارش خبرهای ارسال‌شده</p>' +
             '</div>' +
           '</div>' +
@@ -287,7 +287,7 @@ const Channel = (function () {
               '</tr>';
             }).join('') +
             '</tbody></table></div>'
-          : '<div style="padding:15px;background:var(--panel-2, rgba(255,255,255,0.03));border-radius:8px;color:var(--ink-3);font-size:12.5px;text-align:center;">هنوز خبری ثبت نشده است. برای ارسال، دکمه «ارسال فوری به بله» را بزنید.</div>') +
+          : '<div style="padding:15px;background:var(--panel-2);border:1px solid var(--rule);border-radius:8px;color:var(--ink-3);font-size:12.5px;text-align:center;">هنوز خبری ثبت نشده است. برای ارسال، دکمه «ارسال فوری به بله» را بزنید.</div>') +
         '</div>' +
       '</div>';
 

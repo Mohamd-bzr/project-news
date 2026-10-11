@@ -3986,11 +3986,11 @@ async function detectTelegramChat(){
         box.style.display = 'block';
         /* chat titles/usernames are REMOTE-CONTROLLED text (any Telegram user
            can name a chat) — everything here goes through esc() */
-        let html = '<div style="background:var(--bg2,#1c2128);padding:10px 14px;border-radius:8px;border:1px solid var(--border,#30363d);font-size:0.85rem">';
-        html += `<div style="color:var(--up,#2ecc71);margin-bottom:8px">✓ ربات @${esc(d.bot_username || '')} متصل است. چت‌های شناسایی‌شده:</div>`;
+        let html = '<div style="background:var(--panel-2);padding:10px 14px;border-radius:8px;border:1px solid var(--rule);font-size:0.85rem">';
+        html += `<div style="color:var(--up);margin-bottom:8px">✓ ربات @${esc(d.bot_username || '')} متصل است. چت‌های شناسایی‌شده:</div>`;
         d.chats.forEach((c, ci) => {
           const cid = String(c.id == null ? '' : c.id);
-          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--rule-2)">
             <span><b>${esc(c.title || '')}</b> <span style="opacity:0.7">(${esc(c.type || '')})</span> <code style="direction:ltr;display:inline-block">${esc(cid)}</code></span>
             <button class="btn sm" type="button" data-chatpick="${esc(cid)}">انتخاب</button>
           </div>`;
@@ -4201,12 +4201,12 @@ async function detectBaleChat(){
       toast(`✓ چت بله شناسایی شد: ${latest.title} (${latest.id})`);
       if(box){
         box.style.display = 'block';
-        let html = '<div style="background:var(--bg2,#1c2128);padding:10px 14px;border-radius:8px;border:1px solid var(--border,#30363d);font-size:0.85rem">';
-        html += `<div style="color:var(--up,#2ecc71);margin-bottom:8px">✓ ربات @${d.bot_username || ''} در بله متصل است. چت‌های شناسایی‌شده:</div>`;
+        let html = '<div style="background:var(--panel-2);padding:10px 14px;border-radius:8px;border:1px solid var(--rule);font-size:0.85rem">';
+        html += `<div style="color:var(--up);margin-bottom:8px">✓ ربات @${esc(d.bot_username || '')} در بله متصل است. چت‌های شناسایی‌شده:</div>`;
         d.chats.forEach(c => {
-          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
-            <span><b>${c.title}</b> <span style="opacity:0.7">(${c.type})</span> <code style="direction:ltr;display:inline-block">${c.id}</code></span>
-            <button class="btn sm" type="button" onclick="document.getElementById('baleChat').value='${c.id}';toast('شناسه چت بله انتخاب شد');">انتخاب</button>
+          html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--rule-2)">
+            <span><b>${esc(c.title || '')}</b> <span style="opacity:0.7">(${esc(c.type || '')})</span> <code style="direction:ltr;display:inline-block">${esc(c.id || '')}</code></span>
+            <button class="btn sm" type="button" onclick="document.getElementById('baleChat').value='${esc(c.id || '')}';toast('شناسه چت بله انتخاب شد');">انتخاب</button>
           </div>`;
         });
         html += '</div>';
