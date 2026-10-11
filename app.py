@@ -3532,8 +3532,9 @@ def api_report(sym):
     if sym not in meta_all:
         return jsonify({"error": "unknown_symbol"}), 404
     meta = meta_all[sym]
+    force_refresh = (request.args.get("refresh") or "").lower() in ("1", "true", "yes")
     with STATE_LOCK:
-        rep = STATE["reports"].get(sym)
+        rep = None if force_refresh else STATE["reports"].get(sym)
         arts = list(STATE["articles"])
         md = STATE["market"].get(sym, {})
 
@@ -3543,6 +3544,11 @@ def api_report(sym):
                                fa_name=meta.get("fa"), is_crypto=meta.get("is_crypto"),
                                icon=meta.get("icon"),
                                max_age=CONFIG.get("report_max_age_hours", MAX_AGE_HOURS))
+            if force_refresh:
+                with STATE_LOCK:
+                    STATE["reports"][sym] = rep
+                with _FA_REPORT_LOCK:
+                    FA_REPORT_CACHE.pop(sym, None)
         except Exception as e:
             return jsonify({"error": str(e)}), 500
 

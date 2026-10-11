@@ -1858,7 +1858,19 @@ function setRepBtnName(sym){
   const nm=document.getElementById('repBtnName');
   if(nm) nm.textContent=faAssetName(sym);
 }
-function pickReport(sym, keepLang){
+function refreshCurrentReport(){
+  const sym = UI.repSym || (orderedAssets()||[])[0];
+  if(!sym) return;
+  const btn = document.getElementById('btnRefreshReport');
+  const oldHtml = btn ? btn.innerHTML : '';
+  if(btn){
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner sm"></span> <span>در حال بازسازی…</span>';
+  }
+  if(typeof toast === 'function') toast('در حال بررسی اخبار جدید و بازسازی تحلیل…');
+  pickReport(sym, true, true);
+}
+function pickReport(sym, keepLang, forceRefresh){
   UI.repSym=sym; if(!keepLang) UI.repLang='en';
   showView('reports', true);   // skipPick: never call back into pickReport
   renderRepChips();
@@ -1866,11 +1878,21 @@ function pickReport(sym, keepLang){
   if(typeof tbClose==='function') tbClose('repSheet');   /* pick → the sheet has done its job */
   const box=document.getElementById('repBox');
   box.innerHTML=`<div class="empty" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:44px 0"><span class="spinner"></span>${UI.repLang==='fa'?'🇮🇷 در حال ترجمهٔ گزارش به فارسی…':'⏳ در حال ساخت گزارش…'}</div>`;
-  const url='/api/report/'+sym+(UI.repLang==='fa'?'?lang=fa':'');
+  const url='/api/report/'+sym+(UI.repLang==='fa'?'?lang=fa':'')+(forceRefresh?(UI.repLang==='fa'?'&refresh=1':'?refresh=1'):'');
   window.__repPending=sym;
   fetch(url).then(r=>r.json()).then(rep=>{
     window.__repPending=null;
-    if(rep.error){ box.innerHTML=`<div class="empty">خطا در تولید گزارش: ${esc(rep.error)}</div>`; return; }
+    const btn = document.getElementById('btnRefreshReport');
+    if(btn){
+      btn.disabled = false;
+      btn.innerHTML = '<svg class="ic"><use href="#i-refresh"/></svg> <span>بروزرسانی تحلیل</span>';
+    }
+    if(rep.error){
+      box.innerHTML=`<div class="empty">خطا در تولید گزارش: ${esc(rep.error)}</div>`;
+      if(typeof toast === 'function') toast('خطا در بروزرسانی تحلیل');
+      return;
+    }
+    if(forceRefresh && typeof toast === 'function') toast('تحلیل با آخرین اخبار جدید بروزرسانی شد ✓');
     UI.repSections=rep.sections;
     const fa = UI.repLang==='fa';
     const mv = (rep.sections.find(s=>s[0]==='meta')||[null,{}])[1];
