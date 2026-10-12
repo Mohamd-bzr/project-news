@@ -40,20 +40,40 @@ const TgNews = (function () {
     const safeHandle = esc(src.handle);
     const safeText = esc(text);
 
+    const isBale = Boolean(p.posted_bale);
+    const isTg = Boolean(p.posted_telegram);
+
+    const baleBadge = isBale
+      ? '<span class="badge b-sent" title="ارسال شده به بله">✅ بله</span>'
+      : '<span class="badge b-pending" title="در صف ارسال خودکار بله">⏳ در صف بله</span>';
+
+    const tgBadge = isTg
+      ? '<span class="badge b-sent" title="ارسال شده به تلگرام">✅ تلگرام</span>'
+      : '<span class="badge b-pending" title="در صف ارسال خودکار تلگرام">⏳ در صف تلگرام</span>';
+
+    const baleBtn = isBale
+      ? '<button class="b-card-act sent" type="button" data-act="send-bale" title="ارسال دوباره به بله (بدون ذکر منبع و لینک)">🔄 بله</button>'
+      : '<button class="b-card-act" type="button" data-act="send-bale" title="ارسال به پیام‌رسان بله (بدون ذکر منبع و لینک)">📤 بله</button>';
+
+    const tgBtn = isTg
+      ? '<button class="b-card-act sent" type="button" data-act="send-tg" title="ارسال دوباره به تلگرام (بدون ذکر منبع و لینک)">🔄 تلگرام</button>'
+      : '<button class="b-card-act" type="button" data-act="send-tg" title="ارسال به پیام‌رسان تلگرام (بدون ذکر منبع و لینک)">📤 تلگرام</button>';
+
     return '<article class="ncard" data-id="' + esc(src.handle + '/' + p.id) + '">' +
       '<div class="body">' +
         '<div class="row1">' +
           '<span class="badge b-asset">@' + safeHandle + '</span>' +
           (p.media ? '<span class="badge b-viral">📎 ' + esc(p.media) + '</span>' : '') +
-          '<span class="badge b-pending" id="st-' + esc(p.id) + '" style="display:none"></span>' +
+          baleBadge +
+          tgBadge +
         '</div>' +
         '<div class="ttl">' + safeTitle + '</div>' +
         (text ? '<div class="summ">' + safeText + (p.text && p.text.length > 420 ? '…' : '') + '</div>' : '') +
         '<div class="row2">' +
           '<span class="src">' + esc(src.title || src.handle) + '</span>' +
           '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' +
-            '<button class="b-card-act" type="button" data-act="send-bale" title="ارسال به پیام‌رسان بله (بدون ذکر منبع و لینک)">📤 بله</button>' +
-            '<button class="b-card-act" type="button" data-act="send-tg" title="ارسال به پیام‌رسان تلگرام (بدون ذکر منبع و لینک)">📤 تلگرام</button>' +
+            baleBtn +
+            tgBtn +
             '<a class="b-card-act link" href="' + safeUrl + '" target="_blank" rel="noopener" title="مشاهدهٔ پست در تلگرام">🔗 پست</a>' +
             '<span class="dt">' + faWhen(p.time) + '</span>' +
           '</div>' +
@@ -124,20 +144,20 @@ const TgNews = (function () {
       if (btnBale) {
         btnBale.addEventListener('click', (e) => {
           e.stopPropagation();
-          sendPost(post, 'bale', btnBale);
+          sendPost(post, src, 'bale', btnBale);
         });
       }
       const btnTg = art.querySelector('[data-act="send-tg"]');
       if (btnTg) {
         btnTg.addEventListener('click', (e) => {
           e.stopPropagation();
-          sendPost(post, 'telegram', btnTg);
+          sendPost(post, src, 'telegram', btnTg);
         });
       }
     });
   }
 
-  async function sendPost(post, platform, btn) {
+  async function sendPost(post, src, platform, btn) {
     const notify = (msg) => { if (typeof toast === 'function') toast(msg); };
     const pName = platform === 'telegram' ? 'تلگرام' : 'بله';
     const oldHtml = btn ? btn.innerHTML : '';
@@ -147,10 +167,12 @@ const TgNews = (function () {
     }
     try {
       notify('در حال ارسال خبر به ' + pName + ' (بدون ذکر سورس و لینک)...');
+      const postId = (src && src.handle ? src.handle + '_' : '') + (post.id || '');
       const r = await fetch('/api/telegram_news/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          post_id: postId,
           title: post.title || '',
           text: post.text || '',
           platform: platform
@@ -159,11 +181,12 @@ const TgNews = (function () {
       const j = await r.json();
       if (j && j.ok) {
         notify('✅ خبر با موفقیت به ' + pName + ' ارسال شد');
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '✓ ارسال شد';
-          btn.classList.add('sent');
+        if (platform === 'telegram') {
+          post.posted_telegram = true;
+        } else {
+          post.posted_bale = true;
         }
+        render();
       } else {
         notify('❌ ارسال ناموفق: ' + ((j && j.error) || 'خطا در ارتباط'));
         if (btn) {

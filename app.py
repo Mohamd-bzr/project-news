@@ -3841,7 +3841,16 @@ def api_telegram_news():
     refresh = str(request.args.get("refresh") or "").lower() in ("1", "true", "yes")
     extra = CONFIG.get("telegram_news_sources") or []
     try:
-        return jsonify({"ok": True, "sources": telegram_news.fetch_all(refresh=refresh, extra_sources=extra)})
+        sources = telegram_news.fetch_all(refresh=refresh, extra_sources=extra)
+        import database
+        for s in sources:
+            h = s.get("handle") or ""
+            for p in (s.get("posts") or []):
+                pid = p.get("id") or ""
+                key = f"tgnews_{h}_{pid}"
+                p["posted_bale"] = database.is_messenger_posted(key, "bale_ideas")
+                p["posted_telegram"] = database.is_messenger_posted(key, "telegram_ideas")
+        return jsonify({"ok": True, "sources": sources})
     except Exception as e:
         return jsonify({"ok": False, "error": str(e), "sources": []})
 
@@ -3883,6 +3892,7 @@ def api_telegram_news_add_source():
 def api_telegram_news_send():
     """Send a telegram news post to Bale or Telegram WITHOUT mentioning the source channel or link."""
     data = request.get_json(silent=True) or {}
+    post_id = str(data.get("post_id") or data.get("id") or "").strip()
     title = str(data.get("title") or "").strip()
     text = str(data.get("text") or "").strip()
     platform = str(data.get("platform") or "bale").lower().strip()
@@ -3918,6 +3928,10 @@ def api_telegram_news_send():
         res = send_fn(token, chat, final_msg)
         _breaker_record(target_platform, bool(res), res)
         if res:
+            if post_id:
+                import database
+                clean_pid = post_id if post_id.startswith("tgnews_") else f"tgnews_{post_id}"
+                database.mark_messenger_posted(clean_pid, target_platform)
             return jsonify({"ok": True, "message": "خبر با موفقیت به پیام‌رسان ارسال شد."})
         else:
             err = res.error if hasattr(res, "error") else str(res)
@@ -4897,8 +4911,83 @@ def _post_cycle_ideas():
             log(f"{platform} ideas auto-send error: {e}")
 
 
+def _post_cycle_tgnews():
+    """Automatically dispatch new public Telegram channel news to configured messengers.
+
+    Strictly without mentioning the source channel, handle or link.
+    """
+    extra = CONFIG.get("telegram_news_sources") or []
+    try:
+        sources = telegram_news.fetch_all(refresh=False, extra_sources=extra)
+    except Exception as e:
+        log(f"tgnews fetch error during auto-send: {e}")
+        return
+
+    import time as _time
+    import database
+
+    for platform, cfg_key, cfg_fn, send, lock in (
+        ("bale_ideas", "bale", _bale_cfg, _bale_send, BALE_LOCK),
+        ("telegram_ideas", "telegram", _telegram_cfg, _tg_send, TG_LOCK),
+    ):
+        try:
+            cfg = dict(CONFIG.get(cfg_key) or {})
+            if cfg.get("enabled") is False or cfg.get("send_ideas") is False:
+                continue
+            token, chat = cfg_fn()
+            if not token or not chat:
+                continue
+            if _breaker_open(platform):
+                continue
+
+            is_telegram = (platform == "telegram_ideas")
+            sent = 0
+
+            for s in sources:
+                handle = s.get("handle") or ""
+                for p in (s.get("posts") or []):
+                    pid = p.get("id") or ""
+                    key = f"tgnews_{handle}_{pid}"
+                    if database.is_messenger_posted(key, platform):
+                        continue
+
+                    title = str(p.get("title") or "").strip()
+                    text = str(p.get("text") or "").strip()
+                    if not title and not text:
+                        continue
+
+                    clean_title = title or (text.split("\n")[0] if text else "خبر")
+                    clean_text = re.sub(r"https?://\S+", "", text).strip()
+                    clean_text = re.sub(r"@\w+", "", clean_text).strip()
+
+                    title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
+                    parts = [title_part]
+                    if clean_text and clean_text != clean_title:
+                        body = clean_text[:1200]
+                        parts.append(_tg_escape(body) if is_telegram else body)
+
+                    final_msg = "\n\n".join(parts).strip()
+                    if not final_msg:
+                        continue
+
+                    with lock:
+                        res = send(token, chat, final_msg, silent=bool(cfg.get("silent")))
+                        _breaker_record(platform, bool(res), res)
+                        if res:
+                            database.mark_messenger_posted(key, platform)
+                            sent += 1
+                        elif _breaker_open(platform):
+                            break
+                    _time.sleep(0.5)
+
+            if sent:
+                log(f"{platform}: {sent} telegram news post(s) auto-sent")
+        except Exception as e:
+            log(f"{platform} tgnews auto-send error: {e}")
+
+
 def _post_cycle_alerts(articles):
-    """Dispatch Content Ideas to configured messengers (Telegram & Bale).
+    """Dispatch Content Ideas & Telegram News to configured messengers (Telegram & Bale).
 
     All other automatic dispatches (digests, raw news alerts, studio posts)
     are canceled per user instructions.
@@ -4907,6 +4996,10 @@ def _post_cycle_alerts(articles):
         _post_cycle_ideas()
     except Exception as e:
         log(f"content-ideas auto-send error: {e}")
+    try:
+        _post_cycle_tgnews()
+    except Exception as e:
+        log(f"tgnews auto-send error: {e}")
 
 
 @app.route("/api/telegram/get-chat-id", methods=["POST"])

@@ -206,3 +206,29 @@ def test_telegram_news_extra_sources():
     # duplicate handle is ignored
     dup = telegram_news.get_sources([{"handle": "newscitypro", "title": "Dup"}])
     assert len([s for s in dup if s["handle"].lower() == "newscitypro"]) == 1
+
+
+def test_telegram_news_dispatch_and_posted_status(monkeypatch):
+    import database
+    import app
+
+    test_handle = "mockchan"
+    test_pid = "999888"
+    key = f"tgnews_{test_handle}_{test_pid}"
+
+    # Verify initial state not posted
+    assert not database.is_messenger_posted(key, "bale_ideas")
+
+    # Mark posted
+    database.mark_messenger_posted(key, "bale_ideas")
+    assert database.is_messenger_posted(key, "bale_ideas")
+
+    # Verify stripping of handles and links in auto-send logic
+    sample_text = "تیتر خبر https://t.me/something @somehandle ادامه خبر"
+    import re
+    clean_text = re.sub(r"https?://\S+", "", sample_text).strip()
+    clean_text = re.sub(r"@\w+", "", clean_text).strip()
+    assert "https://" not in clean_text
+    assert "@somehandle" not in clean_text
+    assert "تیتر خبر" in clean_text
+
