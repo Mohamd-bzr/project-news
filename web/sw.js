@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SW_VERSION = 'v24';        /* v24: telegram news automatic delivery & status badges */
+const SW_VERSION = 'v25';        /* v25: refined featured news (اخبار منتخب) motion & micro-interactions */
 const SHELL_CACHE = 'mohmd-shell-' + SW_VERSION;
 const API_CACHE = 'mohmd-api-' + SW_VERSION;
 const EXT_CACHE = 'mohmd-ext-' + SW_VERSION;

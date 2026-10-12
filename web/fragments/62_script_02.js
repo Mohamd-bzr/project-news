@@ -1153,8 +1153,6 @@ function leadWindow(pool, page){
    directly above a grid of full-colour thumbnails */
 function leadCardHTML(a){
   const assets=(a.assets||[]).slice(0,2);
-  const summ = (a.summary_fa || a.summary || '').trim();
-  const summHTML = summ ? `<div class="summ">${esc(summ)}</div>` : '';
   return `<article class="lead-card" data-id="${attr(a.id)}" role="button" tabindex="0"
       aria-label="${esc(a.title_fa||a.title)}" onclick="openArticle(${jsArg(a.id)})"
       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openArticle(${jsArg(a.id)})}">
@@ -1163,7 +1161,6 @@ function leadCardHTML(a){
         <div class="row1">${assets.map(s=>`<span class="badge b-asset">${assetIc(s)}${FA_ASSET[s]||s}</span>`).join('')}
           <span class="badge b-topic">${topicIc(a.topic)} ${FA_TOPIC[a.topic]||''}</span></div>
         <div class="lead-ttl">${esc(a.title_fa||a.title)}</div>
-        ${summHTML}
         <div class="row2"><span class="src">${esc(a.source)}</span><span class="dt">${esc(a.datetime_fa||'')}</span>
           <button class="del-btn" onclick="hideNews(${jsArg(a.id)}, event)" title="حذف این خبر از داشبورد" aria-label="حذف خبر">${ic('trash')}</button></div>
       </div></article>`;
