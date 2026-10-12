@@ -38,6 +38,18 @@ SOURCES = [
     {"handle": "newscitypro", "title": "News city pro"},
 ]
 
+def get_sources(extra_sources=None) -> list[dict]:
+    """Combine default SOURCES with any configured extra sources."""
+    items = list(SOURCES)
+    seen = {s["handle"].lower() for s in items}
+    for s in (extra_sources or []):
+        if isinstance(s, dict) and s.get("handle"):
+            h = str(s["handle"]).strip().lstrip("@")
+            if h.lower() not in seen:
+                seen.add(h.lower())
+                items.append({"handle": h, "title": s.get("title") or h})
+    return items
+
 TTL_SECONDS = 300        # how long one channel's posts stay fresh in memory
 MAX_POSTS = 20           # what one t.me/s/ page returns
 MAX_TEXT_CHARS = 2000    # a post longer than this is truncated with a trailing …
@@ -173,14 +185,15 @@ def parse_channel_page(html: str, handle: str) -> list[dict]:
     return posts
 
 
-def fetch_source(handle: str, refresh: bool = False) -> dict:
+def fetch_source(handle: str, refresh: bool = False, sources: list[dict] | None = None) -> dict:
     """One source: ``{handle, title, url, ok, error, fetched_at, posts}``.
 
     A network or parse failure is reported INSIDE the payload (ok=False) rather
     than raised, so the section keeps the other channels alive.
     """
     handle = (handle or "").strip().lstrip("@")
-    src = next((s for s in SOURCES if s["handle"].lower() == handle.lower()), None)
+    reg = sources if sources is not None else SOURCES
+    src = next((s for s in reg if s["handle"].lower() == handle.lower()), None)
     out = {"handle": handle,
            "title": src["title"] if src else handle,
            "url": f"https://t.me/{handle}",
@@ -208,6 +221,7 @@ def fetch_source(handle: str, refresh: bool = False) -> dict:
     return out
 
 
-def fetch_all(refresh: bool = False) -> list[dict]:
-    """Every source in SOURCES, each failing independently."""
-    return [fetch_source(s["handle"], refresh=refresh) for s in SOURCES]
+def fetch_all(refresh: bool = False, extra_sources: list[dict] | None = None) -> list[dict]:
+    """Every source in SOURCES (and any extra_sources), each failing independently."""
+    reg = get_sources(extra_sources)
+    return [fetch_source(s["handle"], refresh=refresh, sources=reg) for s in reg]

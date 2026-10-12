@@ -572,6 +572,7 @@ def load_config():
     ls.setdefault("provider", "auto")
     ls.setdefault("api_key", "")
     ls.setdefault("custom_endpoint", "")
+    CONFIG.setdefault("telegram_news_sources", [])
     # messenger project defaults win whenever a stale or wiped settings.json
     # left the credentials empty — the operator asked for these as defaults
     tg_sec = CONFIG.setdefault("telegram", {})
@@ -3838,10 +3839,89 @@ def api_telegram_news():
     keeps whatever channels still answer.
     """
     refresh = str(request.args.get("refresh") or "").lower() in ("1", "true", "yes")
+    extra = CONFIG.get("telegram_news_sources") or []
     try:
-        return jsonify({"ok": True, "sources": telegram_news.fetch_all(refresh=refresh)})
+        return jsonify({"ok": True, "sources": telegram_news.fetch_all(refresh=refresh, extra_sources=extra)})
     except Exception as e:
         return jsonify({"ok": False, "error": str(e), "sources": []})
+
+
+@app.route("/api/telegram_news/test", methods=["POST"])
+def api_telegram_news_test():
+    """Test connection to a public Telegram channel."""
+    data = request.get_json(silent=True) or {}
+    handle = str(data.get("handle") or "").strip().lstrip("@")
+    if not handle or not telegram_news.HANDLE_RE.match(handle):
+        return jsonify({"ok": False, "error": "شناسه یا آیدی کانال نامعتبر است (تنها حروف انگلیسی، عدد و _)."}), 400
+    res = telegram_news.fetch_source(handle, refresh=True)
+    if res.get("ok"):
+        cnt = len(res.get("posts") or [])
+        return jsonify({"ok": True, "title": res.get("title") or handle, "count": cnt})
+    return jsonify({"ok": False, "error": res.get("error") or "ارتباط برقرار نشد یا کانال عمومی نیست."}), 400
+
+
+@app.route("/api/telegram_news/sources", methods=["POST"])
+def api_telegram_news_add_source():
+    """Add a new public Telegram channel to the registry."""
+    data = request.get_json(silent=True) or {}
+    handle = str(data.get("handle") or "").strip().lstrip("@")
+    title = str(data.get("title") or "").strip() or handle
+    if not handle or not telegram_news.HANDLE_RE.match(handle):
+        return jsonify({"ok": False, "error": "شناسه کانال نامعتبر است."}), 400
+
+    extra = list(CONFIG.get("telegram_news_sources") or [])
+    if any(s.get("handle", "").lower() == handle.lower() for s in telegram_news.get_sources(extra)):
+        return jsonify({"ok": True, "message": "کانال از قبل موجود است."})
+
+    extra.append({"handle": handle, "title": title})
+    CONFIG["telegram_news_sources"] = extra
+    save_config()
+    return jsonify({"ok": True, "sources": extra})
+
+
+@app.route("/api/telegram_news/send", methods=["POST"])
+def api_telegram_news_send():
+    """Send a telegram news post to Bale or Telegram WITHOUT mentioning the source channel or link."""
+    data = request.get_json(silent=True) or {}
+    title = str(data.get("title") or "").strip()
+    text = str(data.get("text") or "").strip()
+    platform = str(data.get("platform") or "bale").lower().strip()
+
+    if not title and not text:
+        return jsonify({"ok": False, "error": "متن یا تیتر خبر ارسال نشده است."}), 400
+
+    is_telegram = (platform == "telegram")
+    target_platform = "telegram_ideas" if is_telegram else "bale_ideas"
+    cfg_fn = _telegram_cfg if is_telegram else _bale_cfg
+    send_fn = _tg_send if is_telegram else _bale_send
+    lock = TG_LOCK if is_telegram else BALE_LOCK
+
+    token, chat = cfg_fn()
+    if not token or not chat:
+        name = "تلگرام" if is_telegram else "بله"
+        return jsonify({"ok": False, "error": f"تنظیمات {name} (توکن یا شناسه چت) تنظیم نشده است."}), 400
+
+    clean_title = title or (text.split("\n")[0] if text else "خبر")
+    # Clean up any @mentions or links if they leaked into the body
+    clean_text = re.sub(r"https?://\S+", "", text).strip()
+    clean_text = re.sub(r"@\w+", "", clean_text).strip()
+
+    title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
+    parts = [title_part]
+    if clean_text and clean_text != clean_title:
+        body = clean_text[:1200]
+        parts.append(_tg_escape(body) if is_telegram else body)
+
+    final_msg = "\n\n".join(parts).strip()
+
+    with lock:
+        res = send_fn(token, chat, final_msg)
+        _breaker_record(target_platform, bool(res), res)
+        if res:
+            return jsonify({"ok": True, "message": "خبر با موفقیت به پیام‌رسان ارسال شد."})
+        else:
+            err = res.error if hasattr(res, "error") else str(res)
+            return jsonify({"ok": False, "error": f"خطا در ارسال: {err}"}), 502
 
 
 # ---------------------------------------------------------------------------

@@ -1152,22 +1152,18 @@ function leadWindow(pool, page){
    no renderer ever filled: the most credible stories ran as text-only boxes
    directly above a grid of full-colour thumbnails */
 function leadCardHTML(a){
-  /* the sanitised URL is the only URL that reaches the markup — including the
-     proxy fallback, which used to be built from the raw feed string */
-  const img0=safeUrl(a.image);
-  const img = img0
-    ? `<div class="thumb"><img src="${attr(img0)}" alt="" loading="eager" referrerpolicy="no-referrer" data-orig="${attr(img0)}" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='/api/proxy-image?url='+encodeURIComponent(this.dataset.orig);}else{this.remove()}"></div>`
-    : '';
   const assets=(a.assets||[]).slice(0,2);
+  const summ = (a.summary_fa || a.summary || '').trim();
+  const summHTML = summ ? `<div class="summ">${esc(summ)}</div>` : '';
   return `<article class="lead-card" data-id="${attr(a.id)}" role="button" tabindex="0"
       aria-label="${esc(a.title_fa||a.title)}" onclick="openArticle(${jsArg(a.id)})"
       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openArticle(${jsArg(a.id)})}">
       <div class="lead-rail"></div>
-      ${img}
       <div class="body">
         <div class="row1">${assets.map(s=>`<span class="badge b-asset">${assetIc(s)}${FA_ASSET[s]||s}</span>`).join('')}
           <span class="badge b-topic">${topicIc(a.topic)} ${FA_TOPIC[a.topic]||''}</span></div>
         <div class="lead-ttl">${esc(a.title_fa||a.title)}</div>
+        ${summHTML}
         <div class="row2"><span class="src">${esc(a.source)}</span><span class="dt">${esc(a.datetime_fa||'')}</span>
           <button class="del-btn" onclick="hideNews(${jsArg(a.id)}, event)" title="حذف این خبر از داشبورد" aria-label="حذف خبر">${ic('trash')}</button></div>
       </div></article>`;

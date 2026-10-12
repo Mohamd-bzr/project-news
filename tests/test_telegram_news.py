@@ -194,5 +194,15 @@ def test_the_route_and_shell_asset_exist():
     app_src = (root / "app.py").read_text(encoding="utf-8")
     assert '@app.route("/tgnews.js")' in app_src
     assert '@app.route("/api/telegram_news")' in app_src
+    assert '@app.route("/api/telegram_news/test"' in app_src
+    assert '@app.route("/api/telegram_news/send"' in app_src
     sw = (root / "web" / "sw.js").read_text(encoding="utf-8")
     assert "'/tgnews.js'" in sw, "the client is not precached as a shell asset"
+
+
+def test_telegram_news_extra_sources():
+    sources = telegram_news.get_sources([{"handle": "testchannel", "title": "Test Channel"}])
+    assert any(s["handle"] == "testchannel" for s in sources)
+    # duplicate handle is ignored
+    dup = telegram_news.get_sources([{"handle": "newscitypro", "title": "Dup"}])
+    assert len([s for s in dup if s["handle"].lower() == "newscitypro"]) == 1

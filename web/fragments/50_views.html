@@ -825,11 +825,25 @@
               </div>
               <div class="cb-head-actions">
                 <span class="cb-count" id="tgNewsCount">—</span>
+                <button class="btn sm ghost" type="button" onclick="TgNews.toggleAddBox()" title="افزودن کانال تلگرامی جدید" aria-label="افزودن کانال">
+                  <svg class="ic"><use href="#i-plus"/></svg>
+                  <span>افزودن کانال</span>
+                </button>
                 <button class="btn sm ghost" type="button" id="btnTgNewsRefresh" onclick="TgNews.refresh()" title="دریافت دوبارهٔ پست‌ها از تلگرام" aria-label="به‌روزرسانی">
                   <svg class="ic"><use href="#i-refresh"/></svg>
                   <span>به‌روزرسانی</span>
                 </button>
               </div>
+            </div>
+            <!-- Add Channel & Test Form (collapsed by default) -->
+            <div id="tgNewsAddBox" style="display:none;background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r2);padding:12px 16px;margin:0 0 var(--s4);">
+              <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <input type="text" id="inpTgChannelHandle" placeholder="آیدی کانال بدون @ (مثلاً: bbcpersian)" style="flex:1;min-width:180px;direction:ltr;text-align:left;">
+                <input type="text" id="inpTgChannelTitle" placeholder="نام نمایشی کانال (اختیاری)" style="flex:1;min-width:140px;">
+                <button class="btn sm ghost" type="button" id="btnTgChannelTest" onclick="TgNews.testChannel()">🧪 تست اتصال</button>
+                <button class="btn sm" type="button" id="btnTgChannelSave" onclick="TgNews.saveChannel()">➕ ثبت کانال</button>
+              </div>
+              <div id="tgChannelTestResult" style="display:none;margin-top:8px;font-size:12px;"></div>
             </div>
             <div id="tgNewsChips" class="tgnews-chips" aria-label="کانال‌های در دسترس"></div>
             <div id="tgNewsList" class="ngrid" aria-live="polite">
