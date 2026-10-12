@@ -26,6 +26,7 @@ correlation.json
 .mohmd_news.db-wal
 data/
 logs/
+var/
 .pytest_cache/
 
 # ── local backups & scratch (94 MB of pre-redesign copies never go to git) ──
