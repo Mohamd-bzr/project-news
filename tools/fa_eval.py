@@ -23,6 +23,10 @@ import re
 import sys
 from pathlib import Path
 
+# Windows console encoding safeguard
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
@@ -195,7 +199,10 @@ def main():
             nonidem.append(r)
 
     n = max(len(kept), 1)
-    print("\n-- golden-free metrics --")
+    print("\n[NOTE] The evaluation sample is stratified (A: raw fails is_persian, B: glossary terms, C: random).")
+    print("       Pass rates per stratum and overall reflect this enriched distribution and must NOT be read as production rates.")
+
+    print("\n-- overall golden-free metrics --")
     print(f"is_persian pass: raw {pass_raw}/{len(kept)} = {pass_raw/n:.1%}"
           f" | post_edit {pass_post}/{len(kept)} = {pass_post/n:.1%}")
     print(f"pass-raw-but-FAIL-after-post_edit: {len(regressed)}"
@@ -217,6 +224,56 @@ def main():
     print(f"idempotent: {len(kept)-len(nonidem)}/{len(kept)}")
     for r in nonidem[:3]:
         print(f"   non-idempotent id={r['id']}")
+
+    # ── per-stratum breakdown ──
+    from collections import defaultdict
+    strata = defaultdict(list)
+    for r in kept:
+        strata[r["stratum"]].append(r)
+
+    stratum_labels = {
+        "A": "Stratum A (raw fails is_persian)",
+        "B": "Stratum B (glossary terms in EN source)",
+        "C": "Stratum C (random sample)",
+    }
+
+    print("\n-- per-stratum breakdown --")
+    for st in sorted(strata.keys()):
+        items = strata[st]
+        sn = len(items)
+        s_raw_pass = sum(1 for r in items if is_persian(r["engine_output"]))
+        s_post_pass = sum(1 for r in items if is_persian(post_edit(r["engine_output"])))
+        s_rescued = sum(1 for r in items if not is_persian(r["engine_output"]) and is_persian(post_edit(r["engine_output"])))
+        s_still_fail = sum(1 for r in items if not is_persian(post_edit(r["engine_output"])))
+        s_regressed = sum(1 for r in items if is_persian(r["engine_output"]) and not is_persian(post_edit(r["engine_output"])))
+        s_lrr_raw = [longest_latin_run(r["engine_output"]) for r in items]
+        s_lrr_post = [longest_latin_run(post_edit(r["engine_output"])) for r in items]
+        s_lat_worse = sum(1 for a, b in zip(s_lrr_raw, s_lrr_post) if b > a)
+
+        lbl = stratum_labels.get(st, f"Stratum {st}")
+        print(f"\n{lbl} (evaluated n={sn}):")
+        print(f"  is_persian pass: raw {s_raw_pass}/{sn} ({s_raw_pass/sn:.1%}) -> post_edit {s_post_pass}/{sn} ({s_post_pass/sn:.1%})")
+        if st == "A":
+            print(f"  rescues (raw fail -> pass): {s_rescued}/{sn} ({s_rescued/sn:.1%})")
+            print(f"  remaining failing: {s_still_fail}/{sn} ({s_still_fail/sn:.1%})")
+        else:
+            print(f"  rescued: {s_rescued} | remaining failing: {s_still_fail}")
+        print(f"  regressions (raw pass -> fail): {s_regressed}")
+        print(f"  longest-Latin-run: mean raw {sum(s_lrr_raw)/sn:.2f} -> post {sum(s_lrr_post)/sn:.2f} | worsened: {s_lat_worse}")
+
+    # ── sample before/after rows (10 per stratum) ──
+    print("\n-- sample before/after rows (10 per stratum) --")
+    for st in sorted(strata.keys()):
+        items = strata[st]
+        lbl = stratum_labels.get(st, f"Stratum {st}")
+        print(f"\n{lbl} — 10 samples:")
+        for idx, r in enumerate(items[:10], 1):
+            raw = r["engine_output"]
+            post = post_edit(raw)
+            print(f"  [{idx:02d}] id={r['id']}")
+            print(f"       english         : {r['english']}")
+            print(f"       engine_output   : {raw}")
+            print(f"       post_edit_output: {post}")
 
     if not has_golden:
         print("\n(no fixed_fa present — golden metrics skipped)")
