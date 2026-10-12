@@ -173,6 +173,8 @@ const TgNews = (function () {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           post_id: postId,
+          handle: (src && src.handle) || '',
+          source_title: (src && src.title) || '',
           title: post.title || '',
           text: post.text || '',
           platform: platform

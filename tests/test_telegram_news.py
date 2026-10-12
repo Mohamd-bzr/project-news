@@ -212,8 +212,9 @@ def test_telegram_news_dispatch_and_posted_status(monkeypatch):
     import database
     import app
 
+    import uuid
     test_handle = "mockchan"
-    test_pid = "999888"
+    test_pid = uuid.uuid4().hex[:8]
     key = f"tgnews_{test_handle}_{test_pid}"
 
     # Verify initial state not posted
@@ -223,12 +224,35 @@ def test_telegram_news_dispatch_and_posted_status(monkeypatch):
     database.mark_messenger_posted(key, "bale_ideas")
     assert database.is_messenger_posted(key, "bale_ideas")
 
-    # Verify stripping of handles and links in auto-send logic
-    sample_text = "تیتر خبر https://t.me/something @somehandle ادامه خبر"
-    import re
-    clean_text = re.sub(r"https?://\S+", "", sample_text).strip()
-    clean_text = re.sub(r"@\w+", "", clean_text).strip()
-    assert "https://" not in clean_text
-    assert "@somehandle" not in clean_text
-    assert "تیتر خبر" in clean_text
+def test_clean_for_messenger_strips_footers_and_social_promos():
+    raw_sample = (
+        "🪙 تحلیل فاندامنتال ارز گرام (تون کوین): رشد GRAM کی شروع میشه؟\n\n"
+        "پروژه گرام در آستانه تحولات بزرگ قرار دارد.\n\n"
+        "شرایط فاندامنتال پروژه گرام رو بررسی می‌کنیم.\n\n"
+        "🔗 مطالعه متن کامل (https://nobitex.ir/mag/gram/)\n\n"
+        "❌ نظر شما چیه؟ اگه موافقین 👍 بذارید\n\n"
+        "⭕ مجله نوبیتکس رو در شبکه‌های اجتماعی دنبال کنید 👇\n\n"
+        "📲 بله (https://ble.ir/join/xyz) | 🌐 تلگرام (https://t.me/xyz)\n"
+    )
+    title, body = telegram_news.clean_for_messenger(
+        title="🪙 تحلیل فاندامنتال ارز گرام (تون کوین): رشد GRAM کی شروع میشه؟",
+        text=raw_sample,
+        source_title="مجله نوبیتکس",
+        source_handle="Nobitexmag",
+    )
+    assert "تحلیل فاندامنتال ارز گرام" in title
+    assert "پروژه گرام در آستانه تحولات بزرگ قرار دارد" in body
+    assert "شرایط فاندامنتال پروژه گرام رو بررسی می‌کنیم" in body
+
+    # Strictly no promo or social lines:
+    assert "مطالعه متن کامل" not in body
+    assert "شبکه‌های اجتماعی" not in body
+    assert "دنبال کنید" not in body
+    assert "بله (" not in body
+    assert "تلگرام (" not in body
+    assert "https://" not in body
+    assert "مجله نوبیتکس" not in body
+    assert "نظر شما چیه" not in body
+    assert "👍" not in body
+
 

@@ -3911,10 +3911,29 @@ def api_telegram_news_send():
         name = "تلگرام" if is_telegram else "بله"
         return jsonify({"ok": False, "error": f"تنظیمات {name} (توکن یا شناسه چت) تنظیم نشده است."}), 400
 
-    clean_title = title or (text.split("\n")[0] if text else "خبر")
-    # Clean up any @mentions or links if they leaked into the body
-    clean_text = re.sub(r"https?://\S+", "", text).strip()
-    clean_text = re.sub(r"@\w+", "", clean_text).strip()
+    handle = str(data.get("handle") or "").strip()
+    src_title = str(data.get("source_title") or "").strip()
+
+    if not handle and "_" in post_id:
+        raw_h = post_id.split("_")[0]
+        if raw_h.startswith("tgnews"):
+            parts_h = post_id.split("_")
+            if len(parts_h) >= 3:
+                handle = parts_h[1]
+        else:
+            handle = raw_h
+
+    if not src_title and handle:
+        for s in telegram_news.get_sources(CONFIG.get("telegram_news_sources")):
+            if s.get("handle", "").lower() == handle.lower():
+                src_title = s.get("title") or ""
+                break
+
+    clean_title, clean_text = telegram_news.clean_for_messenger(
+        title, text, source_title=src_title, source_handle=handle
+    )
+    if not clean_title and not clean_text:
+        return jsonify({"ok": False, "error": "متن یا تیتر خبر ارسال نشده است."}), 400
 
     title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
     parts = [title_part]
@@ -4956,9 +4975,11 @@ def _post_cycle_tgnews():
                     if not title and not text:
                         continue
 
-                    clean_title = title or (text.split("\n")[0] if text else "خبر")
-                    clean_text = re.sub(r"https?://\S+", "", text).strip()
-                    clean_text = re.sub(r"@\w+", "", clean_text).strip()
+                    clean_title, clean_text = telegram_news.clean_for_messenger(
+                        title, text, source_title=s.get("title") or "", source_handle=handle
+                    )
+                    if not clean_title and not clean_text:
+                        continue
 
                     title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
                     parts = [title_part]

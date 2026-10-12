@@ -111,6 +111,120 @@ def _first_line(text: str, limit: int = 160) -> str:
     return ""
 
 
+_PROMO_PHRASES = (
+    "مطالعه متن کامل",
+    "مشاهده متن کامل",
+    "متن کامل خبر",
+    "متن کامل گزارش",
+    "ادامه مطلب",
+    "جزئیات بیشتر",
+    "لینک خبر",
+    "شبکه‌های اجتماعی",
+    "شبکههای اجتماعی",
+    "شبکه های اجتماعی",
+    "دنبال کنید",
+    "عضویت در",
+    "کانال ما",
+    "کانال تلگرام",
+    "کانال بله",
+    "ما را دنبال",
+    "مارا دنبال",
+    "به کانال ما",
+    "پیوستن به کانال",
+    "عضو شوید",
+    "نظر شما چیه",
+    "نظرات خود را",
+    "نظرتون چیه",
+    "کامنت بذارید",
+    "کامنت بگذارید",
+    "واکنش نشان دهید",
+    "منبع خبر",
+    "منبع:",
+    "منبع :",
+)
+
+
+def is_promo_line(line: str, source_title: str = "", source_handle: str = "") -> bool:
+    """Check if a line is a promotional footer, social link, reaction or signature."""
+    l = line.strip()
+    if not l:
+        return False
+    # Check if after stripping URLs, mentions and symbols nothing remains
+    cleaned = re.sub(r"https?://\S+", "", l)
+    cleaned = re.sub(r"@\w+", "", cleaned).strip(" \t\n\r()[]{}|/\\:;.,•-–—_~*#")
+    if not cleaned:
+        return True
+
+    for p in _PROMO_PHRASES:
+        if p in l:
+            return True
+
+    # Combined messengers or social links
+    if ("بله" in l or "ble.ir" in l) and ("تلگرام" in l or "t.me" in l):
+        return True
+    if any(k in l for k in ("t.me/", "ble.ir/", "eitaa.com/", "rubika.ir/", "instagram.com/", "twitter.com/", "x.com/")):
+        return True
+
+    # Channel signature / footer
+    if source_handle and source_handle.lower() in l.lower() and len(l) < 60:
+        return True
+    if source_title and source_title.lower() in l.lower() and len(l) < 60:
+        return True
+
+    return False
+
+
+def clean_for_messenger(title: str, text: str, source_title: str = "", source_handle: str = "") -> tuple[str, str]:
+    """Clean a Telegram post for dispatching to messengers (Bale / Telegram).
+
+    Removes all URLs, handles, promo footers, social media links, reaction polls,
+    and source/channel signatures, returning (clean_title, clean_body).
+    """
+    clean_t = str(title or "").strip()
+    clean_t = re.sub(r"https?://\S+", "", clean_t)
+    clean_t = re.sub(r"@\w+", "", clean_t)
+    if source_handle:
+        clean_t = re.sub(re.escape(source_handle), "", clean_t, flags=re.IGNORECASE)
+    if source_title:
+        clean_t = re.sub(re.escape(source_title), "", clean_t, flags=re.IGNORECASE)
+    clean_t = clean_t.strip(" \t\n\r-–—:|/•")
+
+    raw_text = str(text or "")
+    lines = raw_text.split("\n")
+    out = []
+    for ln in lines:
+        if is_promo_line(ln, source_title, source_handle):
+            continue
+        c = re.sub(r"https?://\S+", "", ln)
+        c = re.sub(r"@\w+", "", c)
+        c = re.sub(r"\(\s*\)", "", c)
+        c = re.sub(r"\[\s*\]", "", c).strip()
+        # Clean broken dangling parens leftover from URLs
+        c = re.sub(r"\(\s*$", "", c).strip()
+        c = re.sub(r"^\s*\)", "", c).strip()
+        if source_handle and len(c) < 50:
+            c = re.sub(re.escape(source_handle), "", c, flags=re.IGNORECASE).strip()
+        if source_title and len(c) < 50:
+            c = re.sub(re.escape(source_title), "", c, flags=re.IGNORECASE).strip()
+        if c:
+            out.append(c)
+
+    # Strip trailing orphan symbols/emojis
+    while out and len(out[-1]) <= 3 and not any(ch.isalnum() for ch in out[-1]):
+        out.pop()
+
+    clean_b = "\n\n".join(out).strip()
+    if not clean_t and clean_b:
+        clean_t = clean_b.split("\n")[0][:160]
+
+    # If body starts with title, strip redundant first line so title is not repeated
+    if clean_t and clean_b.startswith(clean_t):
+        clean_b = clean_b[len(clean_t):].strip()
+
+    return clean_t, clean_b
+
+
+
 def _parse_views(raw: str):
     """'3.44K views' → 3440, '696 views' → 696; anything unreadable → None.
     The UI renders a missing number as «—»; it is never guessed."""
