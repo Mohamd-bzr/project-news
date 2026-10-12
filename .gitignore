@@ -24,7 +24,8 @@ data/api_keys.json
 correlation.json
 .mohmd_news.db-shm
 .mohmd_news.db-wal
-data/
+data/*
+!data/fa/
 logs/
 var/
 .pytest_cache/
