@@ -1,0 +1,18 @@
+# tests/BASELINE_FAILURES.txt — known-failing tests (baseline snapshot).
+# The gate (tools/gates.py) runs the suite and fails on ANY failing test id
+# NOT listed here, so a count of "12 failed" can never hide a swap.
+# Verified: 2026-10-12 on agent/fa-gates — pytest: 12 failed, 262 passed.
+# Format: <pytest nodeid><TAB><one-line reason + class>
+# Class legend: env-live-db | real-bug | drift-needs-decision
+tests/test_content_studio.py::test_merged_client_does_not_double_quote_jsarg	drift-needs-decision: merged client no longer emits the shared jsArg( helper (web/channel.js contract changed, test not updated) — security-adjacent, jsArg is the attribute-safe quoter
+tests/test_ideas_dispatch.py::TestIdeasDispatch::test_dispatch_ideas_to_both_messengers	real-bug: ideas dispatch to messengers assertion failure
+tests/test_messenger_gateway.py::test_ideas_push_shortens_the_link	real-bug: pushed idea contains no link at all (neither shortened nor long) — the tinyurl step never runs
+tests/test_messenger_gateway.py::test_ideas_message_is_title_then_two_paragraphs_then_link[یک جمله طولانی بدون هیچ نقطه پایانی که باید از وسط کلمه بریده نشود و درست به دو بند تقسیم شود و خواننده هم بتواند سریع بخواند و هیچ کلمه‌ای نصفه نماند-telegram-_tg_render_digest]	real-bug: _tg_render_digest no longer splits one long sentence into two paragraphs (body has 1 paragraph, contract says 2)
+tests/test_messenger_gateway.py::test_ideas_message_is_title_then_two_paragraphs_then_link[یک جمله طولانی بدون هیچ نقطه پایانی که باید از وسط کلمه بریده نشود و درست به دو بند تقسیم شود و خواننده هم بتواند سریع بخواند و هیچ کلمه‌ای نصفه نماند-bale-_bale_render_digest]	real-bug: same split regression in _bale_render_digest (1 paragraph, contract says 2)
+tests/test_messenger_gateway.py::test_ideas_summary_never_cuts_a_word_in_half	real-bug: truncated summary no longer ends with the "…" cut marker (cut is hidden, not marked)
+tests/test_messenger_gateway.py::test_ideas_summary_keeps_a_persian_decimal_point_inside_its_number	real-bug: summary not split at the Persian decimal — first block no longer ends "دلار رسید."
+tests/test_messenger_gateway.py::test_ideas_summary_splits_a_single_long_sentence_in_two	real-bug: split yields (text, "") — second block is empty, all(blocks) fails
+tests/test_messenger_gateway.py::test_ideas_push_message_is_title_two_blocks_link	real-bug: pushed idea has 3 paragraphs (title+2 blocks); the link paragraph is missing
+tests/test_messenger_gateway.py::test_ideas_push_still_fires_while_the_digest_is_off	env-live-db: live DB auto-send thread pushed 39 real telegram posts into the capture (41 != 2); flips with a virgin DB
+tests/test_messenger_gateway.py::test_ideas_push_publishes_the_repaired_persian	real-bug: repaired-Persian idea is dropped ("no Persian text") instead of sent
+tests/test_messenger_gateway.py::test_ideas_push_drops_an_english_summary_but_keeps_the_headline	real-bug: whole idea dropped instead of only the English summary; the headline is never sent
