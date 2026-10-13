@@ -210,6 +210,56 @@ IDEAS_SUMMARY_CHARS = 1000
 _IDEAS_CUT_MARKS = (".", "؟", "!")
 
 
+def _split_single_sentence(text: str) -> Tuple[str, str]:
+    """Split a single long sentence into two non-empty blocks near the middle.
+
+    Splits only at whitespace, never at a ZWNJ (\u200c), never inside a number
+    or decimal (Persian/Latin), preferring a comma or conjunction near the middle.
+    """
+    mid = len(text) // 2
+    conjunctions = {"و", "اما", "که", "ولی", "یا", "اگر", "چون", "تا", "بلکه"}
+    candidates = []
+
+    for i, c in enumerate(text):
+        if not c.isspace():
+            continue
+        if i == 0 or i == len(text) - 1:
+            continue
+        # Never split at a ZWNJ
+        if text[i - 1] == "\u200c" or text[i + 1] == "\u200c":
+            continue
+        # Never inside a number or decimal point
+        if text[i - 1].isdigit() and text[i + 1].isdigit():
+            continue
+        if text[i - 1] in (".", "٫", ",") and i >= 2 and text[i - 2].isdigit():
+            continue
+        if text[i + 1] in (".", "٫", ",") and i + 2 < len(text) and text[i + 2].isdigit():
+            continue
+
+        dist = abs(i - mid)
+        bonus = 0
+        if text[i - 1] in ("،", ",", "؛", ";"):
+            bonus += 25
+        next_word = text[i + 1:].split(None, 1)[0] if text[i + 1:].split() else ""
+        if next_word in conjunctions:
+            bonus += 20
+
+        candidates.append((dist - bonus, dist, i))
+
+    if not candidates:
+        return (text, "")
+
+    candidates.sort()
+    best_i = candidates[0][2]
+    lead = text[:best_i].strip()
+    caveat = text[best_i:].strip()
+    lead = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', lead).strip()
+    caveat = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', caveat).strip()
+    if not lead or not caveat:
+        return (text, "")
+    return (lead, caveat)
+
+
 def ideas_summary(summary_text: str,
                   max_chars: int = IDEAS_SUMMARY_CHARS) -> Tuple[str, str]:
     """A clean summary up to 1000 characters, formatted in complete sentences.
@@ -239,6 +289,10 @@ def ideas_summary(summary_text: str,
 
     lead, caveat = editorial_blocks(text)
     if lead and caveat:
+        lead_sents = split_sentences(lead)
+        if len(lead_sents) > 1:
+            lead = lead_sents[0]
+            caveat = " ".join(lead_sents[1:] + [caveat])
         lead = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', lead).strip()
         caveat = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', caveat).strip()
         return (lead, caveat)
@@ -254,7 +308,16 @@ def ideas_summary(summary_text: str,
         caveat = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', caveat).strip()
         return (lead, caveat)
 
-    # When there is only 1 sentence, keep it intact as lead; never chop mid-sentence
+    # When there is only 1 sentence:
+    # A single complete sentence (ending in punctuation) or very short text stays intact
+    words = text.split()
+    if len(words) <= 3 or text.endswith(('.', '!', '؟')):
+        return (text, "")
+
+    # A single long sentence without sentence-ending punctuation splits into two non-empty blocks
+    lead, caveat = _split_single_sentence(text)
+    if lead and caveat:
+        return (lead, caveat)
     return (text, "")
 
 
