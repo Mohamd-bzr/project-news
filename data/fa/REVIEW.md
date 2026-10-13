@@ -6,121 +6,86 @@ grouped: `بیت‌کوین` == `بیت کوین`). `evidence` = occurrences ins
 
 ### Finance / economics / trading / crypto keys (23)
 
-## algorand — NEEDS REVIEW (domain: crypto)
-- `الگوراند` — evidence=2
-- `الگورند` — evidence=0
-- aligned occurrences: 2
+## algorand — RESOLVED: entity project name (domain: crypto)
+- `الگوراند` — preferred family (in terms.tsv)
+- `الگورند` — removed
 
-## avalanche — NEEDS REVIEW (domain: crypto)
-- `آوالانچ` — evidence=2
-- `اولنچ` — evidence=0
-- aligned occurrences: 2
+## avalanche — RESOLVED: entity project name (domain: crypto)
+- `آوالانچ` — preferred family (in terms.tsv)
+- `اولنچ` — removed
 
-## bar — NEEDS REVIEW (domain: crypto,general)
-- `بَر` — evidence=0
-- `فن توکن بارسلونا` — evidence=0
-- aligned occurrences: 0
+## bar — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `BAR` -> `فن توکن بارسلونا` (ticker ONLY; lowercase common word `bar` removed from auto-replace)
 
-## blz — NEEDS REVIEW (domain: crypto)
-- `بلوزل` — evidence=0
-- `میتریل` — evidence=0
-- aligned occurrences: 0
+## blz — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `BLZ` -> `بلوزل` (ticker ONLY; lowercase `blz` removed from terms.tsv)
 
-## cryptocurrency — NEEDS REVIEW (domain: crypto,general)
-- `ارز رمزنگاری شده` — evidence=1
-- `رمز ارز` — evidence=1
-- aligned occurrences: 2
+## cryptocurrency — NEEDS REVIEW (needs_human house-style decision) (domain: crypto)
+- `ارز رمزنگاری شده` — candidate
+- `رمز ارز` — candidate
+- `رمزارز` — candidate
+- status: kept ambiguous in terms.tsv (unenforced) pending house-style decision
 
-## dawn — NEEDS REVIEW (domain: crypto,general)
-- `ارته` — evidence=0
-- `دان پروتکل` — evidence=0
-- aligned occurrences: 0
+## dawn — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `DAWN` -> `دان پروتکل` (ticker ONLY; lowercase common word `dawn` removed from auto-replace)
 
-## decentraland — NEEDS REVIEW (domain: crypto)
-- `دسنترالند` — evidence=0
-- `دیسنترالند` — evidence=0
-- aligned occurrences: 0
+## decentraland — RESOLVED: entity project name (domain: crypto)
+- `دیسنترالند` — preferred family (in terms.tsv)
+- `دسنترالند` — removed
 
-## dogecoin — auto-preferred (strong corpus evidence) (domain: crypto)
-- `دوج کوین` — evidence=26 **<-- preferred family**
-- `دوژکوین` — evidence=0
-- aligned occurrences: 26
+## dogecoin — RESOLVED: entity project name (domain: crypto)
+- `دوج کوین` — preferred family (in terms.tsv)
+- `دوژکوین` — removed
 
-## economics — NEEDS REVIEW (domain: economics,general)
-- `اقتصادیات` — evidence=0
-- `علم اقتصاد` — evidence=0
-- aligned occurrences: 0
+## economics — RESOLVED: finance term (domain: economics)
+- `اقتصاد` — preferred (in terms.tsv, single-word exact match only)
+- `علم اقتصاد` / `اقتصادیات` — replaced
 
-## ethereum — auto-preferred (strong corpus evidence) (domain: crypto)
-- `اتریوم` — evidence=1047 **<-- preferred family**
-- `اتیریم` — evidence=0
-- aligned occurrences: 1047
+## ethereum — RESOLVED: entity project name (domain: crypto)
+- `اتریوم` — preferred family (in terms.tsv)
+- `اتیریم` — removed
 
-## firo — NEEDS REVIEW (domain: crypto)
-- `فایرو (زی‌کوین سابق)` — evidence=0
-- `فیرو` — evidence=0
-- aligned occurrences: 0
+## firo — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `FIRO` -> `فیرو` (ticker ONLY; removed from terms.tsv)
 
-## monero — NEEDS REVIEW (domain: crypto)
-- `مونرو` — evidence=5
-- `مونرو (رمزارز)` — evidence=0
-- aligned occurrences: 5
+## monero — RESOLVED: entity project name (domain: crypto)
+- `مونرو` — preferred family (in terms.tsv)
+- `مونرو (رمزارز)` — removed
 
-## nano — NEEDS REVIEW (domain: crypto)
-- `نانو` — evidence=1
-- `نانو (رمزارز)` — evidence=0
-- aligned occurrences: 1
+## nano — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `NANO` -> `نانو` (ticker ONLY; lowercase prefix/word `nano` removed from terms.tsv)
 
-## neo — NEEDS REVIEW (domain: crypto)
-- `نئو` — evidence=7
-- `نئو (رمزارز)` — evidence=0
-- aligned occurrences: 7
+## neo — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `NEO` -> `نئو` (ticker ONLY; lowercase prefix/word `neo` removed from terms.tsv)
 
-## polkadot — NEEDS REVIEW (domain: crypto)
-- `پلکادات ( توکنی بر روی شبکه های غیر متمرکز)` — evidence=0
-- `پولکادات` — evidence=0
-- aligned occurrences: 0
+## polkadot — RESOLVED: entity project name (domain: crypto)
+- `پولکادات` — preferred family (in terms.tsv)
+- `پلکادات` / verbose alias — removed
 
-## pols — NEEDS REVIEW (domain: crypto)
-- `دارما کش` — evidence=0
-- `پولکااستارتر` — evidence=0
-- aligned occurrences: 0
+## pols — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `POLS` -> `پولکااستارتر` (ticker ONLY; removed from terms.tsv)
 
-## reef — NEEDS REVIEW (domain: crypto,general)
-- `آب‌سنگ` — evidence=0
-- `ریف` — evidence=0
-- aligned occurrences: 0
+## reef — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `REEF` -> `ریف` (ticker ONLY; lowercase common word `reef` removed from auto-replace)
 
-## rev — NEEDS REVIEW (domain: crypto)
-- `آر چین` — evidence=0
-- `ریون` — evidence=0
-- aligned occurrences: 0
+## rev — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `REV` -> `ریون` (ticker ONLY; lowercase common word `rev` removed from auto-replace)
 
-## ripple — auto-preferred (strong corpus evidence) (domain: crypto)
-- `رایپل` — evidence=0
-- `ریپل` — evidence=184 **<-- preferred family**
-- aligned occurrences: 184
+## ripple — RESOLVED: entity project name (domain: crypto)
+- `ریپل` — preferred family (in terms.tsv and entities.tsv)
+- `رایپل` — removed
 
-## secret — NEEDS REVIEW (domain: crypto,general)
-- `اسرارآمیز` — evidence=0
-- `سکرت` — evidence=0
-- aligned occurrences: 0
+## secret — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `SCRT` -> `سکرت` (ticker ONLY; lowercase common word `secret` removed from auto-replace)
 
-## tribe — NEEDS REVIEW (domain: crypto,general)
-- `ائل` — evidence=0
-- `ترایب` — evidence=0
-- `طایفه` — evidence=0
-- aligned occurrences: 0
+## tribe — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `TRIBE` -> `ترایب` (ticker ONLY; lowercase common word `tribe` removed from auto-replace)
 
-## xrp — NEEDS REVIEW (domain: crypto)
-- `بیت‌کوین` — evidence=158
-- `ریپل` — evidence=137
-- aligned occurrences: 295
+## xrp — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `XRP` -> `ریپل` (ticker ONLY; removed from terms.tsv)
 
-## zen — NEEDS REVIEW (domain: crypto)
-- `زیرو ایکس` — evidence=0
-- `هورایزن` — evidence=0
-- aligned occurrences: 0
+## zen — MOVED TO data/fa/tickers.tsv (domain: crypto ticker)
+- `ZEN` -> `هورایزن` (ticker ONLY; lowercase common word `zen` removed from auto-replace)
 
 ### General vocabulary keys from fa.wiktionary (155) — lower priority
 
