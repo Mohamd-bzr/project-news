@@ -97,3 +97,29 @@ def test_channel_link_sinks_and_noopener():
     assert 'attr(safeHref(p.url))' in code_tg
     assert 'rel="noopener noreferrer"' in code_tg
 
+
+def test_server_safe_url_filter():
+    """Verify app._safe_url and _ser_article neutralize dangerous schemes on server."""
+    from app import _safe_url, _ser_article
+
+    for v in MALICIOUS_VECTORS:
+        assert _safe_url(v) == "", f"Malicious scheme not neutralized: {v}"
+
+    for v in BENIGN_VECTORS:
+        assert _safe_url(v) == v, f"Benign URL rejected or modified: {v}"
+
+    assert _safe_url("") == ""
+    assert _safe_url(None) == ""
+
+    # Test serializer integration
+    art = {"id": "1", "title": "t", "link": "javascript:alert(1)", "image": "vbscript:x"}
+    ser = _ser_article(art)
+    assert ser["link"] == ""
+    assert ser["image"] == ""
+
+    art_ok = {"id": "2", "title": "t", "link": "https://example.com/a", "image": "http://example.com/b.jpg"}
+    ser_ok = _ser_article(art_ok)
+    assert ser_ok["link"] == "https://example.com/a"
+    assert ser_ok["image"] == "http://example.com/b.jpg"
+
+

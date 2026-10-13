@@ -1050,6 +1050,14 @@ def _translate_articles_inplace(articles):
 # Serializers
 # ---------------------------------------------------------------------------
 
+def _safe_url(u):
+    """Allow-list http:// and https:// schemes only; everything else returns empty string."""
+    if not u or not isinstance(u, str):
+        return ""
+    s = u.strip()
+    return s if s.lower().startswith(("http://", "https://")) else ""
+
+
 def _ser_article(a):
     # .get() everywhere: this serialises whatever the scrapers handed over, and
     # one malformed record (a feed entry without a link, say) used to raise
@@ -1061,7 +1069,7 @@ def _ser_article(a):
         "title_fa": a.get("title_fa") or "",
         "summary": (a.get("summary") or "")[:1000],
         "summary_fa": (a.get("summary_fa") or "")[:1000],
-        "link": a.get("link", ""),
+        "link": _safe_url(a.get("link", "")),
         "source": a.get("source_name", ""),
         "source_key": a.get("source_key", ""),
         "source_kind": a.get("source_kind", "crypto"),
@@ -1082,7 +1090,7 @@ def _ser_article(a):
         "reddit_comments": a.get("reddit_comments"),
         "author": a.get("author", ""),
         "flags": a.get("flags", []),
-        "image": a.get("image") or "",
+        "image": _safe_url(a.get("image") or ""),
     }
 
 
@@ -2382,7 +2390,7 @@ def api_v1_articles():
             "summary_fa": a.get("summary_fa", ""),
             "source": a.get("source_name", ""),
             "source_key": a.get("source_key", ""),
-            "link": a.get("link", ""),
+            "link": _safe_url(a.get("link", "")),
             "published": a.get("published_ts"),
             "symbols": sorted(set(a.get("symbols") or []) | set(a.get("assets") or [])),
             "topic": a.get("topic", ""),
@@ -2808,7 +2816,7 @@ def api_studio_draft():
                     "title": article.get("title_fa") or article.get("title") or aid,
                     "score": (item or {}).get("score"), "draft": result,
                     "source": article.get("source_name") or article.get("source_key") or "",
-                    "credibility": article.get("credibility"), "link": article.get("link")})
+                    "credibility": article.get("credibility"), "link": _safe_url(article.get("link"))})
 
 
 @app.route("/api/studio/drafts")
@@ -2961,7 +2969,7 @@ def api_channel_feed():
         "title_fa": it.get("title_fa", ""),
         "summary_fa": it.get("summary_fa", ""),
         "source": it.get("source", ""),
-        "link": it.get("link", ""),
+        "link": _safe_url(it.get("link", "")),
         "age_hours": it.get("age_hours"),
         "viral": it.get("viral"),
         "published_ts": it.get("published_ts"),
