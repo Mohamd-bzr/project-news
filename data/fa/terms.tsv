@@ -139,8 +139,7 @@ alexander	اسکندر	-	general	wiktionary-fa	0.70
 alexander the great	اسکندر مقدونی	-	general	wiktionary-fa	0.70
 algo	الگورند	-	crypto	vendor:crypto_names#ticker	0.75
 algol	الگول	-	general	wiktionary-fa	0.70
-algorand	الگوراند	-	crypto	wikidata:interlanguage	0.80
-algorand	الگورند	-	crypto	vendor:crypto_names	0.90
+algorand	الگوراند	-	crypto	wikidata:interlanguage	0.95
 algorithmic trading	معاملات الگوریتمی	-	markets	wikidata:interlanguage	0.80
 alhagi	اشترخار	-	general	wiktionary-fa	0.70
 alhagi	اشترخوار	-	general	wiktionary-fa	0.70
@@ -403,8 +402,7 @@ autohgal	اوتوهگال	-	general	wiktionary-fa	0.70
 automatic	اتوماتیک	-	general	wiktionary-fa	0.70
 autopsy	کالبد‌شکافی	-	general	wiktionary-fa	0.70
 ava	تراوالا	-	crypto	vendor:crypto_names#ticker	0.75
-avalanche	آوالانچ	-	crypto	wikidata:interlanguage+wikidata:term-seed	0.80
-avalanche	اولنچ	-	crypto	vendor:crypto_names	0.90
+avalanche	آوالانچ	-	crypto	wikidata:interlanguage+wikidata:term-seed	0.95
 avan	آوان	-	general	wiktionary-fa	0.70
 avarice	آز	-	general	wiktionary-fa	0.70
 avax	اولنچ	-	crypto	vendor:crypto_names#ticker	0.75
@@ -489,8 +487,6 @@ banker to the poor	بانک تهی‌دستان	-	banking	wikidata:interlanguage
 banking in india	بانکداری در هند	-	banking	wikidata:interlanguage	0.80
 banner	بنر	-	general	wiktionary-fa	0.70
 banque du liban	بانک لبنان	-	central-banks	wikidata:interlanguage	0.80
-bar	بَر	-	general	wiktionary-fa	0.70
-bar	فن توکن بارسلونا	-	crypto	vendor:crypto_names#ticker	0.75
 bar and bat mitzvah	برمیتصوا	-	general	wiktionary-fa	0.70
 barabbas	باراباس	-	general	wiktionary-fa	0.70
 barakhse	باراخسه	-	general	wiktionary-fa	0.70
@@ -575,8 +571,6 @@ blockchain	بلاک‌چین	-	crypto	wikidata:interlanguage	0.80
 blockchain game	بازی بلاک‌چین	-	crypto	wikidata:interlanguage	0.80
 blocknet	بلاک نت	-	crypto	vendor:crypto_names	0.90
 bluzelle	بلوزل	-	crypto	vendor:crypto_names	0.90
-blz	بلوزل	-	crypto	vendor:crypto_names#ticker	0.75
-blz	میتریل	-	crypto	vendor:crypto_names	0.90
 bnb	بایننس کوین	-	crypto	vendor:crypto_names#ticker	0.75
 bnt	بنکور	-	crypto	vendor:crypto_names#ticker	0.75
 board	عامله	-	general	wiktionary-fa	0.70
@@ -956,8 +950,6 @@ dasht gardan	دشت‌گردان	-	general	wiktionary-fa	0.70
 datis	داتیس	-	general	wiktionary-fa	0.70
 daughter in law	دختر خوانده	-	general	wiktionary-fa	0.70
 dauça	دائوچا	-	general	wiktionary-fa	0.70
-dawn	ارته	-	general	wiktionary-fa	0.70
-dawn	دان پروتکل	-	crypto	vendor:crypto_names#ticker	0.75
 dawn protocol	دان پروتکل	-	crypto	vendor:crypto_names	0.90
 dayaku	دیاکو	-	general	wiktionary-fa	0.70
 dayaukku	دای‌ئوک	-	general	wiktionary-fa	0.70
@@ -971,8 +963,7 @@ debasement	بی ارزش کردن	-	monetary	wikidata:interlanguage	0.80
 debris	نخاله	-	general	wiktionary-fa	0.70
 debt	قرض	-	economics	wikidata:term-seed	0.80
 debtor	وام دار	-	general	wiktionary-fa	0.70
-decentraland	دسنترالند	-	crypto	vendor:crypto_names	0.90
-decentraland	دیسنترالند	-	crypto	wikidata:interlanguage	0.80
+decentraland	دیسنترالند	-	crypto	wikidata:interlanguage	0.95
 decentralized finance	امور مالی غیرمتمرکز	-	crypto	wikidata:interlanguage+wikidata:term-seed	0.80
 decimalize	اعشار	-	general	wiktionary-fa	0.70
 decipherer	افشاگر	-	general	wiktionary-fa	0.70
@@ -1051,7 +1042,6 @@ dod of the gods	اهوره‌مزده	-	general	wiktionary-fa	0.70
 dodo	دودو	-	crypto	vendor:crypto_names+vendor:crypto_names#ticker	0.90
 doge	دوج کوین	-	crypto	vendor:crypto_names#ticker	0.75
 dogecoin	دوج کوین	-	crypto	vendor:crypto_names	0.95
-dogecoin	دوژکوین	-	crypto	wikidata:interlanguage+wikidata:term-seed	0.60
 dollar cost averaging	متوسط هزینه دلاری	-	investing	wikidata:interlanguage	0.80
 domestic market	بازار بومی	-	markets	wikidata:interlanguage	0.80
 dot	پولکادات	-	crypto	vendor:crypto_names#ticker	0.75
@@ -1094,8 +1084,7 @@ eclecticism	گلچینی	-	general	wiktionary-fa	0.70
 eco-investing	سرمایه‌گذاری سبز	-	investing	wikidata:interlanguage	0.80
 ecomi	اکومی	-	crypto	vendor:crypto_names	0.90
 economic concept	مفهوم اقتصادی	-	economics	wikidata:interlanguage	0.80
-economics	اقتصادیات	-	general	wiktionary-fa	0.70
-economics	علم اقتصاد	-	economics	wikidata:interlanguage	0.80
+economics	اقتصاد	-	general	wiktionary-fa	0.95
 economy	اقتصاد ۲	-	general	wiktionary-fa	0.70
 eczema	اگزما	-	general	wiktionary-fa	0.70
 edit	ادیت	-	general	wiktionary-fa	0.70
@@ -1173,7 +1162,6 @@ etf	صندوق قابل معامله در بورس(ETF)	-	markets	wikidata:term-
 eth	اتریوم	-	crypto	vendor:crypto_names#ticker	0.75
 ethereal	اثیری	-	general	wiktionary-fa	0.70
 ethereum	اتریوم	-	crypto	vendor:crypto_names	0.95
-ethereum	اتیریم	-	crypto	wikidata:term-seed	0.60
 ethereum classic	اتریوم کلاسیک	-	crypto	vendor:crypto_names	0.90
 ethnonym	نام‌قبایل	-	general	wiktionary-fa	0.70
 ethyl	اتیل	-	general	wiktionary-fa	0.70
@@ -1273,8 +1261,6 @@ fireclay	آتشخوار	-	general	wiktionary-fa	0.70
 firelight	بخنونه	-	general	wiktionary-fa	0.70
 firelight	غرتراک	-	general	wiktionary-fa	0.70
 firestone	سنگ چخماق	-	general	wiktionary-fa	0.70
-firo	فایرو (زی‌کوین سابق)	-	crypto	vendor:crypto_names+vendor:crypto_names#ticker	0.90
-firo	فیرو	-	crypto	wikidata:interlanguage	0.80
 first person	ضمائر	-	general	wiktionary-fa	0.70
 fiscal conservatism	محافظه‌کاری مالی	-	fiscal	wikidata:interlanguage	0.80
 fiscal drag	واپس‌کشی مالی	-	fiscal	wikidata:interlanguage	0.80
@@ -2202,8 +2188,7 @@ momentum crash	سقوط مومنتوم	-	investing	wikidata:interlanguage	0.80
 momentum investing	سرمایه‌گذاری مومنتوم	-	investing	wikidata:interlanguage	0.80
 mona	مونا کوین	-	crypto	vendor:crypto_names#ticker	0.75
 monacoin	مونا کوین	-	crypto	vendor:crypto_names	0.90
-monero	مونرو	-	crypto	vendor:crypto_names	0.90
-monero	مونرو (رمزارز)	-	crypto	wikidata:interlanguage	0.80
+monero	مونرو	-	crypto	vendor:crypto_names	0.95
 monetary authority of singapore	نهاد پولی سنگاپور	-	central-banks	wikidata:interlanguage	0.80
 monetary conditions index	شاخص شرایط پولی	-	monetary	wikidata:interlanguage	0.80
 monetary hegemony	هژمونی پولی	-	monetary	wikidata:interlanguage	0.80
@@ -2265,8 +2250,6 @@ nahj al-balagha	نهج‌البلاغه	-	general	wiktionary-fa	0.70
 namar	نامار	-	general	wiktionary-fa	0.70
 namar	نمر	-	general	wiktionary-fa	0.70
 nammaxani	ناماخانی	-	general	wiktionary-fa	0.70
-nano	نانو	-	crypto	vendor:crypto_names+vendor:crypto_names#ticker	0.90
-nano	نانو (رمزارز)	-	crypto	wikidata:interlanguage	0.80
 naptu	ناپتو	-	general	wiktionary-fa	0.70
 nar sas	نرسس	-	general	wiktionary-fa	0.70
 naram sin	نارام سین	-	general	wiktionary-fa	0.70
@@ -2295,8 +2278,6 @@ near protocol	نیر پروتکل	-	crypto	vendor:crypto_names	0.90
 nebuchadnezzar	نبوکدنصر	-	general	wiktionary-fa	0.70
 neie	نئی	-	general	wiktionary-fa	0.70
 nem	نم	-	crypto	vendor:crypto_names	0.90
-neo	نئو	-	crypto	vendor:crypto_names+vendor:crypto_names#ticker	0.90
-neo	نئو (رمزارز)	-	crypto	wikidata:interlanguage	0.80
 nervation	اعصاب	-	general	wiktionary-fa	0.70
 nervos network	نروس نتورک	-	crypto	vendor:crypto_names	0.90
 nesaya	نسایا	-	general	wiktionary-fa	0.70
@@ -2563,12 +2544,9 @@ pockmarked	آبله‌رو	-	general	wiktionary-fa	0.70
 poin	پوئن	-	general	wiktionary-fa	0.70
 point	پنت	-	general	wiktionary-fa	0.70
 political economy	اقتصاد سیاسی	-	general	wiktionary-fa	0.70
-polkadot	پلکادات ( توکنی بر روی شبکه های غیر متمرکز)	-	crypto	wikidata:term-seed	0.80
-polkadot	پولکادات	-	crypto	vendor:crypto_names	0.90
+polkadot	پولکادات	-	crypto	vendor:crypto_names	0.95
 polkastarter	پولکااستارتر	-	crypto	vendor:crypto_names	0.90
 pollutant	آلاینده	-	general	wiktionary-fa	0.70
-pols	دارما کش	-	crypto	vendor:crypto_names	0.90
-pols	پولکااستارتر	-	crypto	vendor:crypto_names#ticker	0.75
 poly	پلی مث	-	crypto	vendor:crypto_names#ticker	0.75
 polyamide	آمید	-	general	wiktionary-fa	0.70
 polydipsia	استسقا	-	general	wiktionary-fa	0.70
@@ -2735,8 +2713,6 @@ reconvert	آیینی	-	general	wiktionary-fa	0.70
 red letter	اعیاد	-	general	wiktionary-fa	0.70
 reddcoin	رد کوین	-	crypto	vendor:crypto_names	0.90
 redenomination	بازتعریف پول	-	inflation	wikidata:interlanguage	0.80
-reef	آب‌سنگ	-	general	wiktionary-fa	0.70
-reef	ریف	-	crypto	vendor:crypto_names+vendor:crypto_names#ticker	0.90
 referential	ارجاعی	-	general	wiktionary-fa	0.70
 reformation	اصلاحات	-	general	wiktionary-fa	0.70
 refusa	استنکاف	-	general	wiktionary-fa	0.70
@@ -2767,8 +2743,6 @@ respectable	آبرومند	-	general	wiktionary-fa	0.70
 rest	الباقی	-	general	wiktionary-fa	0.70
 retail banking	بانکداری خرد	-	banking	wikidata:interlanguage	0.80
 return on investment	میزان بازده	-	investing	wikidata:interlanguage	0.80
-rev	آر چین	-	crypto	vendor:crypto_names#ticker	0.75
-rev	ریون	-	crypto	vendor:crypto_names#ticker	0.75
 revain	ریون	-	crypto	vendor:crypto_names	0.90
 revenue	درآمد (حسابداری)	-	markets	wikidata:term-seed	0.80
 revocable	ابطال‌پذیر	-	general	wiktionary-fa	0.70
@@ -2778,7 +2752,6 @@ rif	ریف توکن	-	crypto	vendor:crypto_names#ticker	0.75
 right	رایت	-	general	wiktionary-fa	0.70
 right prople	حق‌الناس	-	general	wiktionary-fa	0.70
 rim sin	ریم سین	-	general	wiktionary-fa	0.70
-ripple	رایپل	-	crypto	wikidata:term-seed	0.60
 ripple	ریپل	-	crypto	wikidata:interlanguage	0.95
 risk parity	تعادل ریسک	-	markets	wikidata:interlanguage	0.80
 risk-return spectrum	طیف ریسک–بازده	-	investing	wikidata:interlanguage	0.80
@@ -2856,15 +2829,12 @@ scoial democracy	دمکراسی	-	general	wiktionary-fa	0.70
 scotch	اسکاچ	-	general	wiktionary-fa	0.70
 scoundrel	ارقه	-	general	wiktionary-fa	0.70
 scrap iron	آهن‌پاره	-	general	wiktionary-fa	0.70
-scrt	سکرت	-	crypto	vendor:crypto_names#ticker	0.75
 scrutineer	ممیز	-	general	wiktionary-fa	0.70
 scythe	درو	-	general	wiktionary-fa	0.70
 scythians	سکایان	-	general	wiktionary-fa	0.70
 seccare	آزار‌دادن	-	general	wiktionary-fa	0.70
 secondary	ثانوی	-	general	wiktionary-fa	0.70
 secondary market	بازار ثانویه	-	markets	wikidata:interlanguage	0.80
-secret	اسرارآمیز	-	general	wiktionary-fa	0.70
-secret	سکرت	-	crypto	vendor:crypto_names	0.90
 secreton	اختفا	-	general	wiktionary-fa	0.70
 sect	فرقه	-	general	wiktionary-fa	0.70
 security market line	خط بازار اوراق بهادار	-	investing	wikidata:interlanguage	0.80
@@ -3303,9 +3273,6 @@ trencher	ماکول	-	general	wiktionary-fa	0.70
 trencherman	اکول	-	general	wiktionary-fa	0.70
 trend	ترند	-	general	wiktionary-fa	0.70
 triad	آکورد‌سه‌صدایی	-	general	wiktionary-fa	0.70
-tribe	ائل	-	general	wiktionary-fa	0.70
-tribe	ترایب	-	crypto	vendor:crypto_names+vendor:crypto_names#ticker	0.90
-tribe	طایفه	-	general	wiktionary-fa	0.70
 trill	عله	-	general	wiktionary-fa	0.70
 trillion dollar club	باشگاه تریلیون دلاری	-	investing	wikidata:interlanguage	0.80
 trinitarian	اقانیم	-	general	wiktionary-fa	0.70
@@ -3590,8 +3557,6 @@ xoaren	خوارن	-	general	wiktionary-fa	0.70
 xoarena	خوارنا	-	general	wiktionary-fa	0.70
 xor	سورا	-	crypto	vendor:crypto_names#ticker	0.75
 xrafstra martya	خرفستره مرتیه	-	general	wiktionary-fa	0.70
-xrp	بیت‌کوین	-	crypto	vendor:crypto_names	0.90
-xrp	ریپل	-	crypto	vendor:crypto_names+vendor:crypto_names#ticker	0.90
 xsart	خسرت	-	general	wiktionary-fa	0.70
 xtz	تزوس	-	crypto	vendor:crypto_names#ticker	0.75
 xumurti	خومورتی	-	general	wiktionary-fa	0.70
@@ -3651,8 +3616,6 @@ zcash	زی کش	-	crypto	vendor:crypto_names	0.90
 zcash	زی‌کش	-	crypto	wikidata:interlanguage	0.80
 zec	زی کش	-	crypto	vendor:crypto_names#ticker	0.75
 zelwin	زلوین	-	crypto	vendor:crypto_names	0.90
-zen	زیرو ایکس	-	crypto	vendor:crypto_names	0.90
-zen	هورایزن	-	crypto	vendor:crypto_names#ticker	0.75
 zend	زند	-	general	wiktionary-fa	0.70
 zikirti	زیکرتو	-	general	wiktionary-fa	0.70
 zil	زیلیکا	-	crypto	vendor:crypto_names#ticker	0.75
