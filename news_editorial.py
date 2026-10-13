@@ -210,22 +210,48 @@ IDEAS_SUMMARY_CHARS = 1000
 _IDEAS_CUT_MARKS = (".", "؟", "!")
 
 
-def _split_single_sentence(text: str) -> Tuple[str, str]:
-    """Split a single long sentence into two non-empty blocks near the middle.
+_FUNCTION_WORDS = {"که", "و", "با", "در", "از", "به", "تا", "برای", "را", "این", "آن", "یا", "اما", "ولی"}
+_PUNCT_MARKS = ("،", ",", "؛", ":", "—", "–", ";")
+_CLAUSE_CONJUNCTIONS = ("اما", "ولی", "در حالی که", "با این حال", "هر چند", "هرچند")
+_MIN_SPLIT_CHARS = 140
 
-    Splits only at whitespace, never at a ZWNJ (\u200c), never inside a number
-    or decimal (Persian/Latin), preferring a comma or conjunction near the middle.
+
+def _split_single_sentence(text: str) -> Tuple[str, str]:
+    """Split a single long unpunctuated sentence into two non-empty blocks.
+
+    Applies only to long texts (>= 140 chars) without final punctuation.
+    Break-point priority:
+      (1) After punctuation (، , ؛ : — – ;) in 30-70% window
+      (2) Before clause conjunction (اما، ولی، در حالی که) in that window
+      (3) Whitespace nearest middle
+      (4) Otherwise no-op
+
+    Never breaks at ZWNJ, inside numbers/decimals, or before «و».
+    Block 1 must not end with a function word.
     """
-    mid = len(text) // 2
-    conjunctions = {"و", "اما", "که", "ولی", "یا", "اگر", "چون", "تا", "بلکه"}
-    candidates = []
+    text = text.strip()
+    if len(text) < _MIN_SPLIT_CHARS:
+        return (text, "")
+    if text.endswith((".", "!", "؟")):
+        return (text, "")
+    if len(text.split()) <= 3:
+        return (text, "")
+
+    n = len(text)
+    mid = n // 2
+    low = int(n * 0.3)
+    high = int(n * 0.7)
+
+    p1_candidates = []  # after punctuation
+    p2_candidates = []  # before clause conjunction
+    p3_candidates = []  # whitespace nearest mid
 
     for i, c in enumerate(text):
         if not c.isspace():
             continue
-        if i == 0 or i == len(text) - 1:
+        if i == 0 or i == n - 1:
             continue
-        # Never split at a ZWNJ
+        # Never break at a ZWNJ
         if text[i - 1] == "\u200c" or text[i + 1] == "\u200c":
             continue
         # Never inside a number or decimal point
@@ -233,28 +259,46 @@ def _split_single_sentence(text: str) -> Tuple[str, str]:
             continue
         if text[i - 1] in (".", "٫", ",") and i >= 2 and text[i - 2].isdigit():
             continue
-        if text[i + 1] in (".", "٫", ",") and i + 2 < len(text) and text[i + 2].isdigit():
+        if text[i + 1] in (".", "٫", ",") and i + 2 < n and text[i + 2].isdigit():
+            continue
+        # Never break before «و»
+        next_part = text[i + 1:].lstrip()
+        if re.match(r"^و(?:\s|$|\u200c)", next_part):
+            continue
+        # Block 1 must not end with a function word
+        lead_cand = text[:i].strip().rstrip("،,;؛:—-")
+        last_word = lead_cand.split()[-1] if lead_cand.split() else ""
+        if last_word in _FUNCTION_WORDS:
             continue
 
         dist = abs(i - mid)
-        bonus = 0
-        if text[i - 1] in ("،", ",", "؛", ";"):
-            bonus += 25
-        next_word = text[i + 1:].split(None, 1)[0] if text[i + 1:].split() else ""
-        if next_word in conjunctions:
-            bonus += 20
+        in_window = (low <= i <= high)
 
-        candidates.append((dist - bonus, dist, i))
+        # Priority 1: after punctuation mark in 30-70% window
+        if in_window and text[i - 1] in _PUNCT_MARKS:
+            p1_candidates.append((dist, i))
+        # Priority 2: before clause conjunction in that window
+        for conj in _CLAUSE_CONJUNCTIONS:
+            if in_window and next_part.startswith(conj):
+                p2_candidates.append((dist, i))
+                break
+        # Priority 3: any valid whitespace nearest mid
+        p3_candidates.append((dist, i))
 
-    if not candidates:
+    if p1_candidates:
+        p1_candidates.sort()
+        chosen_i = p1_candidates[0][1]
+    elif p2_candidates:
+        p2_candidates.sort()
+        chosen_i = p2_candidates[0][1]
+    elif p3_candidates:
+        p3_candidates.sort()
+        chosen_i = p3_candidates[0][1]
+    else:
         return (text, "")
 
-    candidates.sort()
-    best_i = candidates[0][2]
-    lead = text[:best_i].strip()
-    caveat = text[best_i:].strip()
-    lead = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', lead).strip()
-    caveat = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', caveat).strip()
+    lead = text[:chosen_i].strip().rstrip("،,;؛:—-")
+    caveat = text[chosen_i:].strip()
     if not lead or not caveat:
         return (text, "")
     return (lead, caveat)
