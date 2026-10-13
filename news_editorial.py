@@ -289,10 +289,6 @@ def ideas_summary(summary_text: str,
 
     lead, caveat = editorial_blocks(text)
     if lead and caveat:
-        lead_sents = split_sentences(lead)
-        if len(lead_sents) > 1:
-            lead = lead_sents[0]
-            caveat = " ".join(lead_sents[1:] + [caveat])
         lead = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', lead).strip()
         caveat = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', caveat).strip()
         return (lead, caveat)

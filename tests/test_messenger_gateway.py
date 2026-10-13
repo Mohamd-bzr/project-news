@@ -460,8 +460,9 @@ def test_ideas_summary_is_capped_at_150_chars_in_two_blocks():
 def test_ideas_summary_keeps_a_persian_decimal_point_inside_its_number():
     """«۱.۲ درصد» is not two sentences — the old splitter cut a block at «۱.»"""
     blocks = news_editorial.ideas_summary(LONG_SUMMARY)
-    assert blocks[0].endswith("دلار رسید.")
     assert "۱.۲ درصد" in blocks[0]
+    assert blocks[0].endswith("می‌داند.")
+    assert blocks[1].startswith("با این حال")
 
 
 
