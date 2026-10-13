@@ -94,7 +94,7 @@ def test_channel_link_sinks_and_noopener():
     code_tg = TGNEWS_JS.read_text(encoding="utf-8")
     assert "function safeHref(" in code_tg
     assert "_safeHref: safeHref" in code_tg
-    assert 'attr(safeHref(p.url))' in code_tg
+    assert 'attr(safeHref(esc(p.url)))' in code_tg
     assert 'rel="noopener noreferrer"' in code_tg
 
 

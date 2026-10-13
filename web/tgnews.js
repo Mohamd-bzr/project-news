@@ -49,7 +49,7 @@ const TgNews = (function () {
   function postCard(p, src) {
     const text = String(p.text || '').slice(0, 420);
     const safeTitle = esc(p.title || '(بدون تیتر)');
-    const safeUrl = attr(safeHref(p.url));
+    const safeUrl = attr(safeHref(esc(p.url)));
     const safeHandle = esc(src.handle);
     const safeText = esc(text);
 
