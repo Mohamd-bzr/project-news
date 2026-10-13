@@ -4899,7 +4899,16 @@ def _post_cycle_ideas():
                     parts.append(f"‼️ {esc_caveat}")
 
                 raw_link = str(idea.get("link") or "").strip()
-                target_url = raw_link
+                short_link = ""
+                if raw_link:
+                    try:
+                        short_link = link_shortener.shorten(
+                            raw_link, CONFIG.get("link_shortener"))
+                    except Exception:
+                        short_link = raw_link
+                target_url = short_link or raw_link
+                if target_url:
+                    parts.append(f"🔗 {target_url}")
 
                 reply_markup = None
                 if target_url and target_url.startswith(("http://", "https://")):
@@ -5284,7 +5293,16 @@ def api_ideas_send_single():
         parts.append(f"‼️ {esc_caveat}")
 
     raw_link = str(idea.get("link") or "").strip()
-    target_url = raw_link
+    short_link = ""
+    if raw_link:
+        try:
+            short_link = link_shortener.shorten(
+                raw_link, CONFIG.get("link_shortener"))
+        except Exception:
+            short_link = raw_link
+    target_url = short_link or raw_link
+    if target_url:
+        parts.append(f"🔗 {target_url}")
     reply_markup = None
     if target_url and target_url.startswith(("http://", "https://")):
         reply_markup = {

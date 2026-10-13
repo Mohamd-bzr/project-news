@@ -39,12 +39,13 @@ class TestIdeasDispatch(unittest.TestCase):
         self.assertTrue(lead)
         self.assertTrue(caveat)
 
+    @patch("link_shortener.shorten", side_effect=lambda u, *a, **k: u)
     @patch("app._channel_board")
     @patch("app._tg_send")
     @patch("app._bale_send")
     @patch("database.is_messenger_posted", return_value=False)
     @patch("database.mark_messenger_posted")
-    def test_dispatch_ideas_to_both_messengers(self, mock_mark, mock_posted, mock_bale, mock_tg, mock_board):
+    def test_dispatch_ideas_to_both_messengers(self, mock_mark, mock_posted, mock_bale, mock_tg, mock_board, mock_shorten):
         mock_board.return_value = {
             "items": [
                 {
@@ -65,27 +66,27 @@ class TestIdeasDispatch(unittest.TestCase):
 
         _post_cycle_ideas()
 
-        # Verify Telegram send called with bold title, emoji lead, ‼️ caveat, NO text link, and inline button
+        # Verify Telegram send called with bold title, emoji lead, ‼️ caveat, text link, and inline button
         self.assertTrue(mock_tg.called)
         tg_args, tg_kwargs = mock_tg.call_args
         tg_text = tg_args[2]
         self.assertIn("<b>آمریکایی‌ها برای کالاهای لوکس کمتر خرج می‌کنند</b>", tg_text)
         self.assertIn("🇺🇸 ", tg_text)
         self.assertIn("‼️ ", tg_text)
-        self.assertNotIn("🔗 لینک خبر:", tg_text)
+        self.assertIn("🔗 https://www.tgju.org/news/test-1", tg_text)
         self.assertEqual(
             tg_kwargs.get("reply_markup"),
             {"inline_keyboard": [[{"text": "🔗 مشاهده متن کامل خبر", "url": "https://www.tgju.org/news/test-1"}]]}
         )
 
-        # Verify Bale send called with bold title, emoji lead, ‼️ caveat, NO text link, and inline button
+        # Verify Bale send called with bold title, emoji lead, ‼️ caveat, text link, and inline button
         self.assertTrue(mock_bale.called)
         bale_args, bale_kwargs = mock_bale.call_args
         bale_text = bale_args[2]
         self.assertIn("*آمریکایی‌ها برای کالاهای لوکس کمتر خرج می‌کنند*", bale_text)
         self.assertIn("🇺🇸 ", bale_text)
         self.assertIn("‼️ ", bale_text)
-        self.assertNotIn("🔗 لینک خبر:", bale_text)
+        self.assertIn("🔗 https://www.tgju.org/news/test-1", bale_text)
         self.assertEqual(
             bale_kwargs.get("reply_markup"),
             {"inline_keyboard": [[{"text": "🔗 مشاهده متن کامل خبر", "url": "https://www.tgju.org/news/test-1"}]]}
