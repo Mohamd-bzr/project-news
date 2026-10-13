@@ -583,7 +583,7 @@ company	Q312	apple inc.	اپل	apple (company)		wikidata-search:seed
 company	Q1197548	micron technology	میکرون تکنولوژی			wikidata-search:seed
 company	Q2283	microsoft	مایکروسافت	microsoft.com		wikidata-search:seed
 company	Q182477	nvidia	ان‌ویدیا		ان ویدیا|شرکت اِن ویدیا|انویدیا|Nvidia	wikidata-search:seed
-company	Q16904931	ripple	رایپل	ripple labs		wikidata-search:seed
+company	Q16904931	ripple	ریپل	ripple labs		wikidata-search:seed
 company	Q20718	samsung electronics	سامسونگ الکترونیکس	samsung electronics co., ltd|samsung electric industries|samsung electronics co.|samsung electronics ltd|samsung|sλmsung		wikidata-search:seed
 company	Q1192211	strategy	مایکرواستراتژی	mstr|microstrategy|strategy inc.		wikidata-search:seed
 company	Q478214	tesla	تسلا موتورز			wikidata-search:seed
@@ -1135,13 +1135,13 @@ person	Q918630	charlie munger	چارلی مانگر	charlie thomas munger|charle
 person	Q484605	christine lagarde	کریستین لاگارد			wikidata-search:seed
 person	Q22686	donald trump	دونالد ترامپ	donald john trump|donald j. trump|djt|president donald john trump|president donald trump|president don trump	دونالد جان ترامپ|ترامپ	wikidata-search:seed
 person	Q1494852	gary gensler	گری گنسلر			wikidata-search:seed
-person	Q922169	jamie dimon	جیمی دایمن	james dimon|james "jamie" dimon		wikidata-search:seed
+person	Q922169	jamie dimon	جیمی دایمن	"james dimon|james ""jamie"" dimon"		wikidata-search:seed
 person	Q263725	janet yellen	جنت یلن	janet louise yellen|janet l. yellen|janet l yellen		wikidata-search:seed
 person	Q6182718	jerome powell	جرومی اچ. پاول	jerome h. powell|jerome hayden powell|jay powell	جروم اچ. پاول	wikidata-search:seed
 person	Q14946725	john c. williams	جان ویلیامز (اقتصاددان)	john carroll williams|john williams		wikidata-search:seed
 person	Q3218882	larry fink	لارنس فینک	laurence douglas fink|laurence d. fink|laurence fink		wikidata-search:seed
 person	Q241392	mary daly	ماری دالی			wikidata-search:seed
-person	Q51891006	michelle bowman	میشل بومن	michelle w. bowman|miki bowman|michelle w. "miki" bowman		wikidata-search:seed
+person	Q51891006	michelle bowman	میشل بومن	"michelle w. bowman|miki bowman|michelle w. ""miki"" bowman"		wikidata-search:seed
 person	Q7297378	ray dalio	ری دالیو	raymond dalio|raymond thomas dalio		wikidata-search:seed
 person	Q311147	robert kiyosaki	رابرت کیوساکی	robert toru kiyosaki|robert t. kiyosaki		wikidata-search:seed
 person	Q16197959	vitalik buterin	ویتالیک بوترین			wikidata-search:seed
