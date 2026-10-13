@@ -439,7 +439,9 @@ def test_ideas_summary_of_one_word_is_a_single_block_not_a_broken_pair():
 
 
 def test_ideas_summary_never_cuts_a_word_in_half():
-    source = "طلا صعود کرد و بازار منتظر تصمیم نرخ بهره است " * 8
+    phrase = "طلا صعود کرد و بازار منتظر تصمیم نرخ بهره است "
+    repeats = (news_editorial.IDEAS_SUMMARY_CHARS // len(phrase)) + 3
+    source = phrase * repeats
     blocks = news_editorial.ideas_summary(source.strip())
     joined = " ".join(blocks)
     assert len(joined) <= news_editorial.IDEAS_SUMMARY_CHARS
