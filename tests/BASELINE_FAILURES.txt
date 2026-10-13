@@ -6,5 +6,3 @@
 # Class legend: env-live-db | real-bug | drift-needs-decision
 tests/test_content_studio.py::test_merged_client_does_not_double_quote_jsarg	drift-needs-decision: merged client no longer emits the shared jsArg( helper (web/channel.js contract changed, test not updated) — security-adjacent, jsArg is the attribute-safe quoter
 tests/test_messenger_gateway.py::test_ideas_push_still_fires_while_the_digest_is_off	env-live-db: live DB auto-send thread pushed 39 real telegram posts into the capture (41 != 2); flips with a virgin DB
-tests/test_messenger_gateway.py::test_ideas_push_publishes_the_repaired_persian	real-bug: repaired-Persian idea is dropped ("no Persian text") instead of sent
-tests/test_messenger_gateway.py::test_ideas_push_drops_an_english_summary_but_keeps_the_headline	real-bug: whole idea dropped instead of only the English summary; the headline is never sent
