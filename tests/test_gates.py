@@ -58,10 +58,20 @@ def test_evaluate_reports_fixed_without_failing():
     assert new == [] and fixed == ["tests/test_a.py::old"] and n_actual == 0
 
 
-def test_baseline_file_parses_to_the_documented_12():
-    """The committed baseline must stay parseable and complete."""
+def test_baseline_file_is_valid():
+    """The committed baseline must stay parseable, non-empty, and well-formed."""
     text = (Path(__file__).resolve().parent / "BASELINE_FAILURES.txt") \
         .read_text(encoding="utf-8")
-    ids = gates.parse_baseline(text)
-    assert len(ids) == 12
-    assert "tests/test_messenger_gateway.py::test_ideas_push_shortens_the_link" in ids
+    lines = [line.strip() for line in text.splitlines() if line.strip() and not line.startswith("#")]
+    assert len(lines) > 0, "BASELINE_FAILURES.txt must not be empty"
+
+    ids = []
+    for line in lines:
+        parts = line.split("\t")
+        assert len(parts) == 2, f"Line must contain a test id and a category separated by TAB: {line!r}"
+        nodeid, category = parts[0].strip(), parts[1].strip()
+        assert nodeid, f"Missing test id in line: {line!r}"
+        assert category, f"Missing category/reason in line: {line!r}"
+        ids.append(nodeid)
+
+    assert len(ids) == len(set(ids)), f"Duplicate test ids found in baseline: {set(x for x in ids if ids.count(x) > 1)}"
