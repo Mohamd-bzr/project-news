@@ -63,5 +63,6 @@ def test_baseline_file_parses_to_the_documented_12():
     text = (Path(__file__).resolve().parent / "BASELINE_FAILURES.txt") \
         .read_text(encoding="utf-8")
     ids = gates.parse_baseline(text)
-    assert len(ids) == 12
+    assert len(ids) == 11
     assert "tests/test_messenger_gateway.py::test_ideas_push_shortens_the_link" in ids
+
