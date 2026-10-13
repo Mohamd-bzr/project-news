@@ -27,32 +27,36 @@
       "سود اوراق"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "بازدهی": 13,
+      "بازده": 13,
+      "سود اوراق": 0
+    },
+    "native_total": 26
   },
   {
     "id": 2,
     "en": "rate hike",
     "domain": "macro",
-    "freq": 882,
-    "classified": 645,
-    "score": 365.1,
+    "freq": 884,
+    "classified": 380,
+    "score": 0.0,
     "variants": [
       {
         "term": "افزایش نرخ بهره",
-        "share": 0.586
-      },
-      {
-        "term": "افزایش نرخ",
-        "share": 0.414
+        "share": 1.0
       }
     ],
     "recommended": "افزایش نرخ بهره",
     "context_rule": "سیاست پولی و نرخ‌های بهره",
-    "bad_variants": [
-      "افزایش نرخ"
-    ],
+    "bad_variants": [],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "افزایش نرخ بهره": 0
+    },
+    "native_total": 0
   },
   {
     "id": 3,
@@ -87,7 +91,14 @@
       "سطح حمایت"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "حمایت": 64,
+      "پشتیبانی": 3,
+      "حمایتی": 0,
+      "سطح حمایت": 0
+    },
+    "native_total": 67
   },
   {
     "id": 4,
@@ -110,14 +121,20 @@
         "share": 0.127
       }
     ],
-    "recommended": "حضانت",
+    "recommended": "نگهداری",
     "context_rule": "خدمات نگهداری و امانتداری نهادی دارایی",
     "bad_variants": [
-      "نگهداری",
+      "حضانت",
       "Custody"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "نگهداری": 9,
+      "حضانت": 0,
+      "Custody": 0
+    },
+    "native_total": 9
   },
   {
     "id": 5,
@@ -147,7 +164,13 @@
       "دفتر کل"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "Ledger": 0,
+      "لجر": 0,
+      "دفتر کل": 0
+    },
+    "native_total": 0
   },
   {
     "id": 6,
@@ -177,7 +200,13 @@
       "عرضه عمومی اولیه"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "IPO": 0,
+      "عرضه اولیه": 11,
+      "عرضه عمومی اولیه": 0
+    },
+    "native_total": 11
   },
   {
     "id": 7,
@@ -207,7 +236,13 @@
       "سهامداری"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "سرمایه‌گذاری": 0,
+      "سهامداری": 0,
+      "استیکینگ": 0
+    },
+    "native_total": 0
   },
   {
     "id": 8,
@@ -232,7 +267,12 @@
       "بازار گاوی"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "بازار صعودی": 7,
+      "بازار گاوی": 0
+    },
+    "native_total": 7
   },
   {
     "id": 9,
@@ -257,7 +297,12 @@
       "سود"
     ],
     "in_terms": true,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "درآمد": 0,
+      "سود": 0
+    },
+    "native_total": 0
   },
   {
     "id": 10,
@@ -287,7 +332,13 @@
       "اختلاف قیمت"
     ],
     "in_terms": true,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "اسپرد": 0,
+      "گسترش": 0,
+      "اختلاف قیمت": 0
+    },
+    "native_total": 0
   },
   {
     "id": 11,
@@ -306,13 +357,18 @@
         "share": 0.28
       }
     ],
-    "recommended": "انقباض پولی",
+    "recommended": "سخت‌گیرانه",
     "context_rule": "تشدید انقباض پولی",
     "bad_variants": [
-      "سخت‌گیرانه"
+      "انقباض پولی"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "سخت‌گیرانه": 0,
+      "انقباض پولی": 0
+    },
+    "native_total": 0
   },
   {
     "id": 12,
@@ -335,15 +391,20 @@
         "share": 0.091
       }
     ],
-    "recommended": "پیش‌بینی سود",
+    "recommended": "پیش‌بینی",
     "context_rule": "پیش‌بینی رسمی عملکرد شرکت توسط مدیران",
     "bad_variants": [
-      "پیش‌بینی",
       "رهنمود",
       "راهنمای سود"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "پیش‌بینی": 53,
+      "رهنمود": 0,
+      "راهنمای سود": 0
+    },
+    "native_total": 53
   },
   {
     "id": 13,
@@ -368,57 +429,58 @@
       "بازار خرسی"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "بازار نزولی": 0,
+      "بازار خرسی": 0
+    },
+    "native_total": 0
   },
   {
     "id": 14,
     "en": "rate cut",
     "domain": "macro",
     "freq": 70,
-    "classified": 56,
-    "score": 22.5,
+    "classified": 18,
+    "score": 0.0,
     "variants": [
       {
-        "term": "کاهش نرخ",
-        "share": 0.679
-      },
-      {
         "term": "کاهش نرخ بهره",
-        "share": 0.321
+        "share": 1.0
       }
     ],
     "recommended": "کاهش نرخ بهره",
     "context_rule": "سیاست پولی و نرخ‌های بهره",
-    "bad_variants": [
-      "کاهش نرخ"
-    ],
+    "bad_variants": [],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "کاهش نرخ بهره": 0
+    },
+    "native_total": 0
   },
   {
     "id": 15,
     "en": "opec",
     "domain": "oil",
-    "freq": 55,
-    "classified": 51,
-    "score": 20.5,
+    "freq": 17,
+    "classified": 17,
+    "score": 0.0,
     "variants": [
       {
-        "term": "اوپک پلاس",
-        "share": 0.627
-      },
-      {
         "term": "اوپک",
-        "share": 0.373
+        "share": 1.0
       }
     ],
-    "recommended": "اوپک پلاس",
-    "context_rule": "سازمان اوپک و تولیدکنندگان متحد",
-    "bad_variants": [
-      "اوپک"
-    ],
+    "recommended": "اوپک",
+    "context_rule": "سازمان کشورهای صادرکننده نفت",
+    "bad_variants": [],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "اوپک": 0
+    },
+    "native_total": 0
   },
   {
     "id": 16,
@@ -443,7 +505,12 @@
       "DXY"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "شاخص دلار": 0,
+      "DXY": 0
+    },
+    "native_total": 0
   },
   {
     "id": 17,
@@ -468,7 +535,12 @@
       "جریان های نقدی"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "جریان نقدی": 0,
+      "جریان های نقدی": 0
+    },
+    "native_total": 0
   },
   {
     "id": 18,
@@ -493,6 +565,11 @@
       "فروش بیش از حد"
     ],
     "in_terms": false,
-    "in_entities": false
+    "in_entities": false,
+    "native_counts": {
+      "فروش بیش از حد": 0,
+      "اشباع فروش": 0
+    },
+    "native_total": 0
   }
 ]

@@ -144,8 +144,8 @@ def test_apply_term_replies_roundtrip(tmp_path):
     assert rows[2]["fa_preferred"] == ""
     assert rows[2]["status"] == "skipped"
 
-    # Check row 4 (unmentioned -> approved default)
+    # Check row 4 (unmentioned -> pending, not enforced)
     assert rows[3]["en"] == "spread"
-    assert rows[3]["fa_preferred"] == "اسپرد"
-    assert rows[3]["status"] == "approved"
-    assert rows[3]["bad_variants"] == "گسترش"
+    assert rows[3]["fa_preferred"] == ""
+    assert rows[3]["status"] == "pending"
+    assert rows[3]["bad_variants"] == ""

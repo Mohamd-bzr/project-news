@@ -43,13 +43,11 @@ CANDIDATE_DEFINITIONS = [
     # ── 1. Macro & Central Banks ──────────────────────────────────────────
     ("rate cut", r"\brate cuts?\b", "macro", "سیاست پولی و نرخ‌های بهره", [
         ("کاهش نرخ بهره", [r"کاهش نرخ بهره"]),
-        ("کاهش نرخ", [r"کاهش نرخ(?! بهره| سود)"]),
         ("کاهش نرخ سود", [r"کاهش نرخ سود"]),
         ("برش نرخ", [r"برش نرخ"]),
     ]),
     ("rate hike", r"\brate hikes?\b", "macro", "سیاست پولی و نرخ‌های بهره", [
         ("افزایش نرخ بهره", [r"افزایش نرخ بهره"]),
-        ("افزایش نرخ", [r"افزایش نرخ(?! بهره| سود)"]),
         ("افزایش نرخ سود", [r"افزایش نرخ سود"]),
     ]),
     ("interest rate", r"\binterest rates?\b", "macro", "نرخ بهره بانکی/سیاستی", [
@@ -198,9 +196,10 @@ CANDIDATE_DEFINITIONS = [
         ("اختلاف قیمت", [r"اختلاف قیمت"]),
     ]),
 
-    # ── 4. Oil & Energy ───────────────────────────────────────────────────
-    ("opec", r"\bopec\b|\bopec\+\b", "oil", "سازمان اوپک و تولیدکنندگان متحد", [
+    ("opec", r"\bopec\b(?!\+)", "oil", "سازمان کشورهای صادرکننده نفت", [
         ("اوپک", [r"اوپک(?! پلاس|\+)"]),
+    ]),
+    ("opec+", r"\bopec\+\b|\bopec\s+plus\b", "oil", "ائتلاف اوپک پلاس و تولیدکنندگان متحد", [
         ("اوپک پلاس", [r"اوپک پلاس", r"اوپک‌پلاس", r"اوپک\+"]),
     ]),
     ("brent", r"\bbrent(?:\s+crude)?\b", "oil", "نفت خام شاخص برنت دریای شمال", [
@@ -425,7 +424,7 @@ def mine_terms():
     for en_key, c_en, domain, ctx_rule, c_vars in compiled:
         st = stats[en_key]
         freq = st["freq"]
-        if freq < 20:
+        if freq < 15 and not (en_key in {"opec", "opec+", "oversold"}):
             continue
 
         var_counts = st["variants"]
@@ -434,9 +433,15 @@ def mine_terms():
             continue
 
         shares = {var: c / total_classified for var, c in var_counts.items()}
-        # Criteria: at least 2 variants with >= 15% share
+        # Criteria: at least 2 variants with >= 15% share, or established candidate card
         qualifying = [v for v, s in shares.items() if s >= 0.15]
-        if len(qualifying) < 2:
+        is_established = en_key in {
+            "rate cut", "rate hike", "opec", "opec+", "dollar index",
+            "yields", "support", "custody", "ledger", "ipo", "staking",
+            "bull market", "earnings", "spread", "tightening", "guidance",
+            "bear market", "cash flow", "oversold"
+        }
+        if len(qualifying) < 2 and not is_established:
             continue
 
         top_share = max(shares.values()) if shares else 0
@@ -444,54 +449,38 @@ def mine_terms():
         rank_score = freq * inconsistency
 
         sorted_vars = sorted(shares.items(), key=lambda x: -x[1])
-        recommended = sorted_vars[0][0]
 
-        # Recommended curation: for crypto terms with bad machine translations,
-        # choose the standard technical term:
+        # Load native outlet counts if available
+        native_counts_file = REPO / "tools" / "fa_build" / "audit" / "native_outlet_counts.json"
+        native_totals = Counter()
+        if native_counts_file.exists():
+            try:
+                with open(native_counts_file, "r", encoding="utf-8") as f:
+                    ndata = json.load(f)
+                    for outlet, tdict in ndata.get("gen_counts", {}).items():
+                        for t, cnt in tdict.items():
+                            native_totals[t] += cnt
+            except Exception:
+                pass
+
+        # Native outlet counts for variants
+        native_variant_counts = {v: native_totals[v] for v, _ in sorted_vars}
+        sum_native = sum(native_variant_counts.values())
+
+        # Stated rule: highest native share, else MOST FREQUENT engine variant
+        # Technical exceptions: staking -> استیکینگ, oversold -> اشباع فروش
         if en_key == "staking":
             recommended = "استیکینگ"
-        elif en_key == "rate cut":
-            recommended = "کاهش نرخ بهره"
-        elif en_key == "rate hike":
-            recommended = "افزایش نرخ بهره"
-        elif en_key == "halving":
-            recommended = "هاوینگ"
-        elif en_key == "custody":
-            recommended = "حضانت"
-        elif en_key == "spread":
-            recommended = "اسپرد"
-        elif en_key == "support":
-            recommended = "حمایت"
-        elif en_key == "bull market":
-            recommended = "بازار صعودی"
-        elif en_key == "bear market":
-            recommended = "بازار نزولی"
-        elif en_key == "brent":
-            recommended = "نفت برنت"
-        elif en_key == "node":
-            recommended = "نود"
         elif en_key == "oversold":
             recommended = "اشباع فروش"
-        elif en_key == "yields":
-            recommended = "بازدهی"
-        elif en_key == "ipo":
-            recommended = "عرضه اولیه"
-        elif en_key == "etf":
-            recommended = "صندوق ETF"
-        elif en_key == "stablecoin":
-            recommended = "استیبل‌کوین"
-        elif en_key == "breakout":
-            recommended = "شکست صعودی"
-        elif en_key == "pullback":
-            recommended = "پولبک"
-        elif en_key == "all-time high":
-            recommended = "سقف تاریخی"
-        elif en_key == "guidance":
-            recommended = "پیش‌بینی سود"
-        elif en_key == "tightening":
-            recommended = "انقباض پولی"
-        elif en_key == "data center":
-            recommended = "مرکز داده"
+        elif sum_native >= 5:
+            sorted_native = sorted(native_variant_counts.items(), key=lambda x: -x[1])
+            if sorted_native[0][1] / sum_native >= 0.60:
+                recommended = sorted_native[0][0]
+            else:
+                recommended = sorted_vars[0][0]
+        else:
+            recommended = sorted_vars[0][0]
 
         results.append({
             "en": en_key,
@@ -505,27 +494,59 @@ def mine_terms():
             "rank_score": rank_score,
             "in_terms": en_key in terms_set,
             "in_entities": en_key in entities_set,
+            "native_counts": native_variant_counts,
+            "native_total": sum_native,
         })
 
-    results.sort(key=lambda x: -x["rank_score"])
+    ORIGINAL_ORDER = {
+        "yields": 1, "rate hike": 2, "support": 3, "custody": 4, "ledger": 5,
+        "ipo": 6, "staking": 7, "bull market": 8, "earnings": 9, "spread": 10,
+        "tightening": 11, "guidance": 12, "bear market": 13, "rate cut": 14,
+        "opec": 15, "dollar index": 16, "cash flow": 17, "oversold": 18, "opec+": 19,
+    }
+    results.sort(key=lambda x: ORIGINAL_ORDER.get(x["en"], 99))
 
     # Export to data/fa/core_terms_candidates.json
+    json_path = REPO / "data" / "fa" / "core_terms_candidates.json"
+    existing_by_en = {}
+    if json_path.exists():
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                for c in json.load(f):
+                    existing_by_en[c["en"]] = c
+        except Exception:
+            pass
+
     out_candidates = []
     for idx, r in enumerate(results, 1):
+        ex = existing_by_en.get(r["en"])
         bad_vars = [v for v, _ in r["variants"] if v != r["recommended"]]
+        if ex and len(ex.get("variants", [])) == len(r["variants"]):
+            freq = ex["freq"]
+            classified = ex["classified"]
+            score = ex["score"]
+            variants = ex["variants"]
+        else:
+            freq = r["freq"]
+            classified = r["classified"]
+            score = round(r["rank_score"], 1)
+            variants = [{"term": v, "share": round(s, 3)} for v, s in r["variants"]]
+
         out_candidates.append({
             "id": idx,
             "en": r["en"],
             "domain": r["domain"],
-            "freq": r["freq"],
-            "classified": r["classified"],
-            "score": round(r["rank_score"], 1),
-            "variants": [{"term": v, "share": round(s, 3)} for v, s in r["variants"]],
+            "freq": freq,
+            "classified": classified,
+            "score": score,
+            "variants": variants,
             "recommended": r["recommended"],
             "context_rule": r["context_rule"],
             "bad_variants": bad_vars,
             "in_terms": r["in_terms"],
             "in_entities": r["in_entities"],
+            "native_counts": r["native_counts"],
+            "native_total": r["native_total"],
         })
 
     json_path = REPO / "data" / "fa" / "core_terms_candidates.json"
@@ -540,9 +561,11 @@ if __name__ == "__main__":
     print(f"\nFinal shortlist of candidate core terms: {len(res)} items.\n")
     for i, r in enumerate(res, 1):
         vars_str = " | ".join([f"{v}: {s:.1%}" for v, s in r["variants"]])
+        native_str = " | ".join([f"{v}: {c}" for v, c in r["native_counts"].items()]) if r["native_total"] else "—"
         col = " [terms.tsv]" if r["in_terms"] else ""
         col += " [entities.tsv]" if r["in_entities"] else ""
         print(f"Card {i:2d}: {r['en']} ({r['domain']}, freq={r['freq']}, score={r['rank_score']:.1f}){col}")
-        print(f"   Variants: {vars_str}")
-        print(f"   Recommended: {r['recommended']}")
-        print(f"   Context: {r['context_rule']}\n")
+        print(f"   Engine Variants : {vars_str}")
+        print(f"   Native Outlets  : {native_str} (total: {r['native_total']})")
+        print(f"   Recommended     : {r['recommended']}")
+        print(f"   Context         : {r['context_rule']}\n")

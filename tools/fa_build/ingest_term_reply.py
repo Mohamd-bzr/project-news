@@ -110,13 +110,16 @@ def apply_term_replies(replies: dict, candidates_path=None, output_tsv_path=None
                 fa_preferred = rec
                 status = "approved"
         else:
-            # Not mentioned -> default approved
-            fa_preferred = rec
-            status = "approved"
+            # Not mentioned -> pending (never enforced)
+            fa_preferred = ""
+            status = "pending"
 
-        # Bad variants are other known variants
-        bad = [v for v in variants if v != fa_preferred and v]
-        bad_str = "|".join(bad)
+        # Bad variants are other known variants only if preferred is set
+        if fa_preferred:
+            bad = [v for v in variants if v != fa_preferred and v]
+            bad_str = "|".join(bad)
+        else:
+            bad_str = ""
 
         rows.append({
             "en": en,
