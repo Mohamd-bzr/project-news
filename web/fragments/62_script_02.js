@@ -2970,7 +2970,7 @@ function renderIdeas(){
   const sym=ideasSym(), cached=IDEAS_CACHE[sym];
   const summary=document.getElementById('ideasSummary');
   const allLink=document.getElementById('ideasAllLink');
-  if(cached&&cached.url&&allLink) allLink.href=cached.url;
+  if(cached&&cached.url&&allLink){ const _u=safeUrl(cached.url); if(_u) allLink.href=_u; }
   renderIdeasTfChips();
   if(typeof renderIdeasToolbar==='function') renderIdeasToolbar();   /* FILTER MODEL 3 toolbar */
   if(!cached){

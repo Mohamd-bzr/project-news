@@ -8,6 +8,7 @@ import subprocess
 import pytest
 
 CHANNEL_JS = pathlib.Path(__file__).resolve().parent.parent / "web" / "channel.js"
+TGNEWS_JS = pathlib.Path(__file__).resolve().parent.parent / "web" / "tgnews.js"
 
 
 def _node():
@@ -39,34 +40,37 @@ BENIGN_VECTORS = [
 
 
 def test_channel_safe_href_schemes():
-    """Verify Channel._safeHref disallows non-http(s) schemes and preserves valid URLs."""
+    """Verify Channel._safeHref and TgNews._safeHref disallow non-http(s) schemes and preserve valid URLs."""
     node = _node()
     harness = f"""
     global.window = global;
     require({json.dumps(str(CHANNEL_JS))});
+    require({json.dumps(str(TGNEWS_JS))});
     const mal = {json.dumps(MALICIOUS_VECTORS)};
     const ben = {json.dumps(BENIGN_VECTORS)};
 
-    for (const v of mal) {{
-        const res = window.Channel._safeHref(v);
-        if (res !== '#') {{
-            console.error(JSON.stringify({{ err: 'Malicious scheme not neutralized', input: v, got: res }}));
+    for (const mod of [window.Channel, window.TgNews]) {{
+        for (const v of mal) {{
+            const res = mod._safeHref(v);
+            if (res !== '#') {{
+                console.error(JSON.stringify({{ err: 'Malicious scheme not neutralized', input: v, got: res }}));
+                process.exit(1);
+            }}
+        }}
+
+        for (const v of ben) {{
+            const res = mod._safeHref(v);
+            if (res !== v) {{
+                console.error(JSON.stringify({{ err: 'Benign URL mutated or rejected', input: v, got: res }}));
+                process.exit(1);
+            }}
+        }}
+
+        // Empty or falsy input
+        if (mod._safeHref('') !== '#' || mod._safeHref(null) !== '#' || mod._safeHref(undefined) !== '#') {{
+            console.error('Falsy input must return #');
             process.exit(1);
         }}
-    }}
-
-    for (const v of ben) {{
-        const res = window.Channel._safeHref(v);
-        if (res !== v) {{
-            console.error(JSON.stringify({{ err: 'Benign URL mutated or rejected', input: v, got: res }}));
-            process.exit(1);
-        }}
-    }}
-
-    // Empty or falsy input
-    if (window.Channel._safeHref('') !== '#' || window.Channel._safeHref(null) !== '#' || window.Channel._safeHref(undefined) !== '#') {{
-        console.error('Falsy input must return #');
-        process.exit(1);
     }}
 
     console.log('OK');
@@ -77,20 +81,19 @@ def test_channel_safe_href_schemes():
 
 
 def test_channel_link_sinks_and_noopener():
-    """Verify that all link sinks in channel.js use safeHref, attr, and rel='noopener noreferrer'."""
-    code = CHANNEL_JS.read_text(encoding="utf-8")
+    """Verify that all link sinks in channel.js and tgnews.js use safeHref, attr, and rel='noopener noreferrer'."""
+    code_channel = CHANNEL_JS.read_text(encoding="utf-8")
+    assert "function safeHref(" in code_channel
+    assert "_safeHref: safeHref" in code_channel
+    assert 'attr(safeHref(it.link))' in code_channel
+    assert 'rel="noopener noreferrer"' in code_channel
+    assert 'attr(safeHref(l.link))' in code_channel
+    assert 'safeHref(it.link)' in code_channel
+    assert "noopener,noreferrer" in code_channel
 
-    # safeHref definition and export
-    assert "function safeHref(" in code
-    assert "_safeHref: safeHref" in code
+    code_tg = TGNEWS_JS.read_text(encoding="utf-8")
+    assert "function safeHref(" in code_tg
+    assert "_safeHref: safeHref" in code_tg
+    assert 'attr(safeHref(p.url))' in code_tg
+    assert 'rel="noopener noreferrer"' in code_tg
 
-    # itemCard linkAction
-    assert 'attr(safeHref(it.link))' in code
-    assert 'rel="noopener noreferrer"' in code
-
-    # openDispatchModal link
-    assert 'attr(safeHref(l.link))' in code
-
-    # openSource fallback
-    assert 'safeHref(it.link)' in code
-    assert "noopener,noreferrer" in code
