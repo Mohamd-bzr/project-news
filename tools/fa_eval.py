@@ -135,14 +135,19 @@ def load_rows():
             if not line:
                 continue
             o = json.loads(line)
+            pref = (o.get("pref") or "").strip()
             fixed = (o.get("fixed_fa") or o.get("fixed") or "").strip()
+            if not pref and fixed:
+                pref = "fixed"
             rows.append({"id": str(o.get("id", "")),
                          "english": o.get("english") or o.get("source") or "",
                          "engine_output": o.get("engine_output")
                          or o.get("output") or "",
+                         "post_edit_output": o.get("post_edit_output") or "",
                          "fixed_fa": fixed,
+                         "pref": pref,
                          "stratum": o.get("stratum", "?")})
-            has_golden = has_golden or bool(fixed)
+            has_golden = has_golden or bool(fixed or pref)
         return rows, "golden.jsonl", has_golden
     tpl = REPO / "data" / "fa" / "golden_template.tsv"
     lines = tpl.read_text(encoding="utf-8-sig").splitlines()
@@ -150,10 +155,16 @@ def load_rows():
         c = line.split("\t")
         if len(c) < 5:
             continue
+        pref = c[5].strip() if len(c) > 5 else ""
+        fixed = c[4].strip()
+        if not pref and fixed:
+            pref = "fixed"
         rows.append({"id": c[0], "english": c[1], "engine_output": c[2],
-                     "fixed_fa": c[4].strip(),
+                     "post_edit_output": c[3] if len(c) > 3 else "",
+                     "fixed_fa": fixed,
+                     "pref": pref,
                      "stratum": "ABC"[min(i // 100, 2)]})
-        has_golden = has_golden or bool(c[4].strip())
+        has_golden = has_golden or bool(fixed or pref)
     return rows, "golden_template.tsv", has_golden
 
 
@@ -276,10 +287,10 @@ def main():
             print(f"       post_edit_output: {post}")
 
     if not has_golden:
-        print("\n(no fixed_fa present — golden metrics skipped)")
+        print("\n(no opinion/fixed_fa present — golden metrics skipped)")
         return
 
-    # ── golden metrics: term accuracy, chrF, edit distance ──
+    # ── golden metrics: opinion tallies, chrF, edit distance, term accuracy ──
     import csv
     terms = {}
     for name in ("terms.tsv", "entities.tsv"):
@@ -296,7 +307,7 @@ def main():
             multi.setdefault(k.split(" ")[0], []).append(k)
 
     def fam_variants(fa):
-        z = "\\u200c"
+        z = "\u200c"
         return {fa, fa.replace(z, " "), fa.replace(" ", z)}
 
     def term_hits(text_en, out):
@@ -313,23 +324,130 @@ def main():
                     found += 1
         return found, total
 
-    gold = [r for r in kept if r["fixed_fa"]]
-    ta_post = ta_gold = g_chrf = g_lev_post = g_lev_raw = 0.0
-    for r in gold:
-        f, t = term_hits(r["english"], post_edit(r["engine_output"]))
-        ta_post += f / t if t else 1.0
-        f2, t2 = term_hits(r["english"], r["fixed_fa"])
-        ta_gold += f2 / t2 if t2 else 1.0
-        g_chrf += chrf(post_edit(r["engine_output"]), r["fixed_fa"])
-        g_lev_post += levenshtein(post_edit(r["engine_output"]), r["fixed_fa"])
-        g_lev_raw += levenshtein(r["engine_output"], r["fixed_fa"])
-    m = max(len(gold), 1)
-    print("\n-- golden metrics (over corrected rows) --")
-    print(f"corrected rows: {len(gold)}")
-    print(f"term accuracy: post_edit {ta_post/m:.3f} | golden {ta_gold/m:.3f}")
-    print(f"chrF(post_edit, golden): {g_chrf/m:.1f}")
-    print(f"edit distance to golden: post_edit mean {g_lev_post/m:.1f} "
-          f"| raw mean {g_lev_raw/m:.1f}")
+    opinion_rows = [r for r in kept if r.get("pref") or r.get("fixed_fa")]
+    if not opinion_rows:
+        print("\n(no opinion rows found in evaluated set)")
+        return
+
+    def calc_opinion_stats(row_list):
+        cnt_post_ok = sum(1 for r in row_list if r.get("pref") == "post_ok")
+        cnt_raw_better = sum(1 for r in row_list if r.get("pref") == "raw_better")
+        cnt_fixed = sum(1 for r in row_list if r.get("pref") == "fixed")
+
+        tot = max(len(row_list), 1)
+        chrf_post_sum = chrf_raw_sum = 0.0
+        lev_post_sum = lev_raw_sum = 0.0
+        ta_post_sum = ta_raw_sum = ta_gold_sum = 0.0
+
+        for r in row_list:
+            ref = r["fixed_fa"]
+            raw = r["engine_output"]
+            post = post_edit(raw)
+
+            chrf_post_sum += chrf(post, ref)
+            chrf_raw_sum += chrf(raw, ref)
+            lev_post_sum += levenshtein(post, ref)
+            lev_raw_sum += levenshtein(raw, ref)
+
+            f_p, t_p = term_hits(r["english"], post)
+            ta_post_sum += f_p / t_p if t_p else 1.0
+            f_r, t_r = term_hits(r["english"], raw)
+            ta_raw_sum += f_r / t_r if t_r else 1.0
+            f_g, t_g = term_hits(r["english"], ref)
+            ta_gold_sum += f_g / t_g if t_g else 1.0
+
+        return {
+            "n": len(row_list),
+            "post_ok": cnt_post_ok,
+            "raw_better": cnt_raw_better,
+            "fixed": cnt_fixed,
+            "chrf_post": chrf_post_sum / tot,
+            "chrf_raw": chrf_raw_sum / tot,
+            "lev_post": lev_post_sum / tot,
+            "lev_raw": lev_raw_sum / tot,
+            "ta_post": ta_post_sum / tot,
+            "ta_raw": ta_raw_sum / tot,
+            "ta_gold": ta_gold_sum / tot,
+        }
+
+    print("\n-- opinion & golden metrics --")
+    print(f"opinion rows: {len(opinion_rows)}")
+
+    # Per-stratum opinion metrics
+    op_strata = defaultdict(list)
+    for r in opinion_rows:
+        op_strata[r["stratum"]].append(r)
+
+    for st in sorted(op_strata.keys()):
+        s_stats = calc_opinion_stats(op_strata[st])
+        sn = s_stats["n"]
+        lbl = stratum_labels.get(st, f"Stratum {st}")
+        print(f"\n{lbl} (opinion n={sn}):")
+        print(f"  preferences: post_ok={s_stats['post_ok']}/{sn} ({s_stats['post_ok']/sn:.1%}) "
+              f"| raw_better={s_stats['raw_better']}/{sn} ({s_stats['raw_better']/sn:.1%}) "
+              f"| fixed={s_stats['fixed']}/{sn} ({s_stats['fixed']/sn:.1%})")
+        print(f"  chrF to fixed_fa: post_edit {s_stats['chrf_post']:.1f} vs raw {s_stats['chrf_raw']:.1f} "
+              f"(delta: {s_stats['chrf_post'] - s_stats['chrf_raw']:+.1f})")
+        print(f"  edit distance: post_edit mean {s_stats['lev_post']:.1f} vs raw mean {s_stats['lev_raw']:.1f}")
+        print(f"  term accuracy: post_edit {s_stats['ta_post']:.3f} | raw {s_stats['ta_raw']:.3f} | golden {s_stats['ta_gold']:.3f}")
+
+    # Overall opinion metrics
+    ov = calc_opinion_stats(opinion_rows)
+    m = ov["n"]
+    pct_raw_better = ov["raw_better"] / m if m else 0.0
+
+    print("\n-- overall opinion metrics --")
+    print(f"total opinion rows: {m}")
+    print(f"preferences: post_ok={ov['post_ok']}/{m} ({ov['post_ok']/m:.1%}) "
+          f"| raw_better={ov['raw_better']}/{m} ({pct_raw_better:.1%}) "
+          f"| fixed={ov['fixed']}/{m} ({ov['fixed']/m:.1%})")
+    print(f"chrF(post_edit, fixed_fa): {ov['chrf_post']:.1f} | chrF(raw, fixed_fa): {ov['chrf_raw']:.1f} "
+          f"(delta: {ov['chrf_post'] - ov['chrf_raw']:+.1f})")
+    print(f"edit distance: post_edit mean {ov['lev_post']:.1f} | raw mean {ov['lev_raw']:.1f}")
+    print(f"term accuracy: post_edit {ov['ta_post']:.3f} | raw {ov['ta_raw']:.3f} | golden {ov['ta_gold']:.3f}")
+
+    # Regressions
+    regressed_rows = []
+    for r in opinion_rows:
+        ref = r["fixed_fa"]
+        raw = r["engine_output"]
+        post = post_edit(raw)
+        cp = chrf(post, ref)
+        cr = chrf(raw, ref)
+        lp = levenshtein(post, ref)
+        lr = levenshtein(raw, ref)
+        is_reg = (r.get("pref") == "raw_better") or (cp < cr) or (lp > lr)
+        if is_reg:
+            regressed_rows.append((r, cp, cr, lp, lr))
+
+    # Verdict
+    enable_verdict = (pct_raw_better <= 0.10) and (ov["chrf_post"] >= ov["chrf_raw"])
+    print("\n" + "=" * 50)
+    if enable_verdict:
+        print("VERDICT: ENABLE")
+        print("Conditions met: raw_better <= 10% AND chrF(post_edit) >= chrF(raw).")
+    else:
+        print("VERDICT: DO NOT ENABLE")
+        reasons = []
+        if pct_raw_better > 0.10:
+            reasons.append(f"raw_better ({pct_raw_better:.1%}) > 10% threshold")
+        if ov["chrf_post"] < ov["chrf_raw"]:
+            reasons.append(f"chrF(post_edit) {ov['chrf_post']:.1f} < chrF(raw) {ov['chrf_raw']:.1f}")
+        print(f"Conditions failed: {', '.join(reasons)}")
+
+    if regressed_rows:
+        print(f"\nRegressed rows ({len(regressed_rows)}/{m}):")
+        for r, cp, cr, lp, lr in regressed_rows:
+            print(f"  [id={r['id']} | stratum={r['stratum']} | pref={r.get('pref')}]")
+            print(f"    EN       : {r['english']}")
+            print(f"    Raw      : {r['engine_output']} (chrF={cr:.1f}, dist={lr})")
+            print(f"    PostEdit : {post_edit(r['engine_output'])} (chrF={cp:.1f}, dist={lp})")
+            print(f"    Fixed    : {r['fixed_fa']}")
+
+    print("\nNote: Per-stratum subsets of ~10 rows (e.g. Stratum A, C) are anecdotal due to sample size;")
+    print("      the quality verdict is judged across the aggregate evaluated opinion set.")
+    print("      (fa_post_edit toggle remains untouched: OFF)")
+    print("=" * 50)
 
 
 if __name__ == "__main__":

@@ -2,15 +2,15 @@
 """
 ingest_golden_reply.py — ingest reviewer corrections into golden_template.tsv.
 =============================================================================
-Parses reviewer reply lines like:
-  12: متن اصلاح شده
-  25: ترجمه بهتر
+Accepts three line forms in reviewer reply:
+  "<n>: <Persian text>"  -> fixed_fa = that text, pref = "fixed"
+  "<n> ok"               -> post_edit output acceptable -> fixed_fa = post_edit_output, pref = "post_ok"
+  "<n> raw"              -> raw engine output was better -> fixed_fa = engine_output, pref = "raw_better"
 
-Matches the review pack index (1..40) to the corresponding row in
-data/fa/golden_template.tsv (or data/fa/review_pack_40.json) and fills
-the fixed_fa column.
-
-Preserves UTF-8 with BOM, CRLF, and all existing columns.
+Rows not mentioned stay blank (= no opinion, excluded from tallies).
+Maintains a 6-column header: id, english, engine_output, post_edit_output, fixed_fa, pref.
+Preserves UTF-8 BOM, CRLF line endings, and existing data.
+Malformed lines are ignored with a warning.
 """
 import csv
 import json
@@ -23,16 +23,17 @@ TSV_PATH = REPO / "data" / "fa" / "golden_template.tsv"
 PACK_PATH = REPO / "data" / "fa" / "review_pack_40.json"
 
 
-def load_review_pack():
-    if PACK_PATH.exists():
-        with open(PACK_PATH, "r", encoding="utf-8") as f:
+def load_review_pack(repo_path=None):
+    pack_file = (repo_path / "data" / "fa" / "review_pack_40.json") if repo_path else PACK_PATH
+    if pack_file.exists():
+        with open(pack_file, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    # Fallback to computing the 40 rows deterministically
-    sys.path.insert(0, str(REPO))
+    tsv_file = (repo_path / "data" / "fa" / "golden_template.tsv") if repo_path else TSV_PATH
+    sys.path.insert(0, str(repo_path or REPO))
     from tools.fa_eval import is_english_source
 
-    lines = TSV_PATH.read_text(encoding="utf-8-sig").splitlines()
+    lines = tsv_file.read_text(encoding="utf-8-sig").splitlines()
     reader = csv.reader(lines, delimiter="\t")
     next(reader, None)
 
@@ -53,58 +54,111 @@ def load_review_pack():
     return rows_a[:10] + rows_b[:20] + rows_c[:10]
 
 
+def parse_line(line):
+    """
+    Parses a single line into (idx, pref, fixed_text) or None if empty,
+    or ('bad', line) if malformed.
+    """
+    s = line.strip()
+    if not s:
+        return None
+
+    # Form 1: "<n> ok" or "<n> raw" (with optional :, -, or whitespace)
+    m_kw = re.match(r"^(\d+)\s*(?:[:：\-]\s*)?(ok|raw)\s*$", s, re.IGNORECASE)
+    if m_kw:
+        idx = int(m_kw.group(1))
+        kw = m_kw.group(2).lower()
+        pref = "post_ok" if kw == "ok" else "raw_better"
+        return (idx, pref, "")
+
+    # Form 2: "<n>: <Persian text>"
+    m_fixed = re.match(r"^(\d+)\s*[:：\-]\s*(.+)$", s)
+    if m_fixed:
+        idx = int(m_fixed.group(1))
+        text = m_fixed.group(2).strip()
+        if text.lower() == "ok":
+            return (idx, "post_ok", "")
+        if text.lower() == "raw":
+            return (idx, "raw_better", "")
+        if text:
+            return (idx, "fixed", text)
+
+    return ("bad", s)
+
+
 def parse_replies(text):
-    """Parses text containing lines like '12: <Persian>' into {12: '<Persian>'}."""
+    """
+    Parses full reply text.
+    Returns dict: {item_idx: (pref, fixed_text)}
+    Warns on malformed lines.
+    """
     results = {}
     for line in text.splitlines():
-        line = line.strip()
-        if not line:
+        parsed = parse_line(line)
+        if parsed is None:
             continue
-        m = re.match(r"^(\d+)\s*[:：\-]\s*(.*)$", line)
-        if m:
-            num = int(m.group(1))
-            val = m.group(2).strip()
-            if val:
-                results[num] = val
+        if parsed[0] == "bad":
+            print(f"[WARN] Ignored bad line: {parsed[1]!r}", file=sys.stderr)
+            continue
+        idx, pref, val = parsed
+        results[idx] = (pref, val)
     return results
 
 
-def apply_corrections(corrections):
-    pack = load_review_pack()
+def apply_corrections(corrections, tsv_path=None, pack_path=None):
+    """
+    Applies parsed corrections {num: (pref, val)} to golden_template.tsv.
+    Maintains 6 columns: id, english, engine_output, post_edit_output, fixed_fa, pref.
+    Preserves UTF-8 BOM and CRLF.
+    """
+    tsv_file = Path(tsv_path) if tsv_path else TSV_PATH
+    pack = load_review_pack(tsv_file.parents[2]) if tsv_path else load_review_pack()
     pack_map = {idx + 1: item for idx, item in enumerate(pack)}
 
-    # Map target article id -> corrected text
-    id_to_fixed = {}
-    for num, fixed_text in corrections.items():
+    # Map article id -> (fixed_fa, pref)
+    id_to_data = {}
+    for num, (pref, custom_text) in corrections.items():
         if num in pack_map:
-            art_id = pack_map[num]["id"]
-            id_to_fixed[art_id] = fixed_text
+            item = pack_map[num]
+            art_id = item["id"]
+            if pref == "fixed":
+                id_to_data[art_id] = (custom_text, "fixed")
+            elif pref == "post_ok":
+                id_to_data[art_id] = (item["post"], "post_ok")
+            elif pref == "raw_better":
+                id_to_data[art_id] = (item["raw"], "raw_better")
         else:
-            print(f"[WARN] Item #{num} out of range (expected 1..{len(pack)})")
+            print(f"[WARN] Item #{num} out of range (expected 1..{len(pack)})", file=sys.stderr)
 
-    lines = TSV_PATH.read_text(encoding="utf-8-sig").splitlines()
-    out_lines = []
-    header = lines[0]
-    out_lines.append(header)
+    lines = tsv_file.read_text(encoding="utf-8-sig").splitlines()
+    if not lines:
+        return 0
+
+    header_cols = lines[0].split("\t")
+    if len(header_cols) < 6:
+        header_cols = ["id", "english", "engine_output", "post_edit_output", "fixed_fa", "pref"]
+    out_lines = ["\t".join(header_cols)]
 
     updated_count = 0
     for line in lines[1:]:
         if not line.strip():
             continue
         parts = line.split("\t")
-        while len(parts) < 5:
+        while len(parts) < 6:
             parts.append("")
         art_id = parts[0]
-        if art_id in id_to_fixed:
-            parts[4] = id_to_fixed[art_id]
+        if art_id in id_to_data:
+            fixed_val, pref_val = id_to_data[art_id]
+            parts[4] = fixed_val
+            parts[5] = pref_val
             updated_count += 1
         out_lines.append("\t".join(parts))
 
-    with open(TSV_PATH, "w", encoding="utf-8-sig", newline="") as f:
+    with open(tsv_file, "w", encoding="utf-8-sig", newline="") as f:
         for l in out_lines:
             f.write(l + "\r\n")
 
-    print(f"Applied {updated_count} corrections to {TSV_PATH}")
+    print(f"Applied {updated_count} opinion(s) to {tsv_file}")
     return updated_count
 
 
@@ -120,10 +174,10 @@ def main():
 
     corrections = parse_replies(text)
     if not corrections:
-        print("No corrections found in input (expected format: '12: <Persian>').")
+        print("No valid corrections found in input.", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Parsed {len(corrections)} corrections: {sorted(corrections.keys())}")
+    print(f"Parsed {len(corrections)} items: {sorted(corrections.keys())}")
     apply_corrections(corrections)
 
 
