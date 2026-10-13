@@ -128,3 +128,62 @@ def test_real_corpus_titles_converge():
     assert "۳.۵" in out and "۸۴۰۰۰" in out
     assert "می\u200cتواند" in out and "کتاب\u200cها" in out
     assert post_edit(out) == out
+
+
+def test_latin_residue_9_defect_regressions():
+    """Regression tests for the 9 examples where general word replacements were wrong."""
+    # 1. Gold -> زر in fund/product name prevented
+    assert "Gold" in post_edit("یادداشت‌های مرتبط با VanEck Gold Miners ETF منتشر شد")
+    assert "زر" not in post_edit("یادداشت‌های مرتبط با VanEck Gold Miners ETF منتشر شد")
+
+    # 2. Gold -> زر and ETF expansion prevented
+    s2 = post_edit("معاملات با Physical Gold Etf (AAAU)")
+    assert "Physical Gold Etf" in s2
+    assert "صندوق قابل معامله در بورس(ETF)" not in s2
+    assert "زر" not in s2
+
+    # 3. Strike -> اصابت prevented in capitalized run
+    s3 = post_edit("متن صورتجلسه Fed Minutes Strike Hawkish منتشر شد")
+    assert "Strike" in s3
+    assert "اصابت" not in s3
+
+    # 4. Premium -> حق بیمه prevented in fund/product name
+    s4 = post_edit("گزارش سود صندوق Equity Premium Income ETF")
+    assert "Premium" in s4
+    assert "حق بیمه" not in s4
+
+    # 5. 1win Markets mangled brand prevented (win -> وینک avoided)
+    s5 = post_edit("افزایش قیمت در پلتفرم 1win Markets گزارش شد")
+    assert "win" in s5
+    assert "وینک" not in s5
+
+    # 6. The -> دِ prevented in publication name
+    s6 = post_edit("گزارش منتشر شده در The Coin Republic")
+    assert "The Coin Republic" in s6
+    assert "دِ" not in s6
+
+    # 7. Top -> تاپ prevented in fund name
+    s7 = post_edit("سود سهام Roundhill Top WeeklyPay ETF اعلام شد")
+    assert "Top" in s7
+    assert "تاپ" not in s7
+
+    # 8. Fetch.ai dotted brand rewriting prevented
+    s8 = post_edit("هک پلتفرم‌های Fetch.ai and NuNet گزارش شد")
+    assert "Fetch.ai" in s8
+    assert "فچ ای‌آی" not in s8
+
+    # 9. NEAR -> نیر پروتکل word addition prevented in ETF span
+    s9 = post_edit("تأیید درخواست Bitwise NEAR ETF در بورس")
+    assert "Bitwise NEAR ETF" in s9
+    assert "نیر پروتکل" not in s9
+
+
+def test_latin_residue_vetted_entities_and_projects_work():
+    """Good proper name replacements continue to happen."""
+    assert post_edit("پروژه Ripple") == "پروژه ریپل"
+    assert post_edit("شبکه Cardano") == "شبکه کاردانو"
+    assert post_edit("قیمت Solana") == "قیمت سولانا"
+    assert post_edit("ارز Ethereum") == "ارز اتریوم"
+    assert post_edit("شبکه Bitcoin") == "شبکه بیت\u200cکوین"
+    assert post_edit("سهام Citigroup") == "سهام سیتی\u200cگروپ"
+    assert post_edit("بانک Standard Chartered") == "بانک استاندارد چارترد"

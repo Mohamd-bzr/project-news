@@ -1158,7 +1158,7 @@ esther	استِر	-	general	wiktionary-fa	0.70
 esther and mordechai	استرمردخای	-	general	wiktionary-fa	0.70
 etc	اتریوم کلاسیک	-	crypto	vendor:crypto_names#ticker	0.75
 eterna	خالدین	-	general	wiktionary-fa	0.70
-etf	صندوق قابل معامله در بورس(ETF)	-	markets	wikidata:term-seed	0.80
+etf	صندوق قابل معامله در بورس(ETF)	-	markets	deprecated:ticker_expansion	0.00
 eth	اتریوم	-	crypto	vendor:crypto_names#ticker	0.75
 ethereal	اثیری	-	general	wiktionary-fa	0.70
 ethereum	اتریوم	-	crypto	vendor:crypto_names	0.95
@@ -1166,7 +1166,7 @@ ethereum classic	اتریوم کلاسیک	-	crypto	vendor:crypto_names	0.90
 ethnonym	نام‌قبایل	-	general	wiktionary-fa	0.70
 ethyl	اتیل	-	general	wiktionary-fa	0.70
 ethyl alcohol	اتیلیک	-	general	wiktionary-fa	0.70
-etn	الکترونیوم	-	crypto	vendor:crypto_names#ticker	0.75
+etn	الکترونیوم	-	crypto	deprecated:ticker_expansion	0.00
 ettore conti of verampio, count of verampio	اتوره کونتی	-	finance	wikidata:interlanguage	0.80
 etymology	ریشه شناسی	-	general	wiktionary-fa	0.70
 eucalyptus	اکالیپتوس	-	general	wiktionary-fa	0.70

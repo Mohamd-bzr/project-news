@@ -116,6 +116,88 @@ class Lexicon:
             return (ZWNJ not in fa, -r[1], len(fa), fa)
         return sorted(rows, key=sort_key)[0][0]
 
+    def _load_latin(self):
+        """Loads vetted entity and project-name entries for Latin residue replacement.
+
+        Rules:
+          * ONLY entities.tsv + vetted crypto project-names from terms.tsv.
+          * Rows with source wiktionary-fa, and any common English words
+            (from common_english_stoplist.txt), are NEVER included.
+          * Ticker expansions and ETF/ETN are never included.
+        """
+        stop_path = self.data_dir / "common_english_stoplist.txt"
+        stoplist = set()
+        if stop_path.exists():
+            with open(stop_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    w = line.strip().lower()
+                    if w:
+                        stoplist.add(w)
+
+        latin_entries = {}
+        # 1. entities.tsv (proper names)
+        ent_path = self.data_dir / "entities.tsv"
+        if ent_path.exists():
+            with open(ent_path, encoding="utf-8", newline="") as f:
+                for row in csv.DictReader(f, delimiter="\t"):
+                    key = norm_en_key(row.get("en"))
+                    fa = (row.get("fa") or "").strip()
+                    if not key or not fa or key in stoplist:
+                        continue
+                    if key in {"etf", "etn"} or any(c.isdigit() or c in ".-" for c in key):
+                        continue
+                    latin_entries.setdefault(key, []).append((fa, 0.85, "entity"))
+
+        # 2. Vetted crypto project names from terms.tsv
+        terms_path = self.data_dir / "terms.tsv"
+        if terms_path.exists():
+            with open(terms_path, encoding="utf-8", newline="") as f:
+                for row in csv.DictReader(f, delimiter="\t"):
+                    src = row.get("source") or ""
+                    dom = row.get("domain") or ""
+                    if dom != "crypto" or "vendor:crypto_names" not in src or "#ticker" in src or "wiktionary-fa" in src:
+                        continue
+                    try:
+                        conf = float(row.get("confidence") or 0)
+                    except ValueError:
+                        conf = 0.0
+                    if conf < 0.8:
+                        continue
+                    key = norm_en_key(row.get("en"))
+                    fa = (row.get("fa") or "").strip()
+                    if not key or not fa or key in stoplist:
+                        continue
+                    if key in {"etf", "etn"} or any(c.isdigit() or c in ".-" for c in key):
+                        continue
+                    latin_entries.setdefault(key, []).append((fa, conf, "term"))
+
+        # Build unambiguous map
+        m = {}
+        for key, rows in latin_entries.items():
+            fams = {}
+            for fa, conf, _kind in rows:
+                fams.setdefault(canon_fa(fa), []).append((fa, conf, _kind))
+            if len(fams) == 1:
+                m[key] = self._representative(next(iter(fams.values())))
+        self._latin_table = m
+        return m
+
+    @property
+    def latin_table(self):
+        if getattr(self, "_latin_table", None) is None:
+            self._load_latin()
+        return self._latin_table
+
+    def latin_fa_for(self, en_key):
+        """Vetted Persian rendering for Latin residue replacement, or None."""
+        return self.latin_table.get(norm_en_key(en_key))
+
+    def is_exact_entity(self, en_key):
+        """True if the EN key is an exact entry in entities.tsv."""
+        key = norm_en_key(en_key)
+        rows = self.table.get(key)
+        return bool(rows and any(r[2] == "entity" for r in rows))
+
     def fa_for(self, en_key, min_conf=0.8):
         """Persian rendering for an EN key, or None (missing/ambiguous)."""
         rows = self.table.get(norm_en_key(en_key))

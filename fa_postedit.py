@@ -117,33 +117,80 @@ def _to_persian_digits(s):
     return s.translate(_DIGIT_MAP)
 
 
-def _replace_latin(part, lex):
-    """Greedy longest-match (3/2/1 tokens) unambiguous residue replacement."""
-    tokens = list(_LATIN_TOKEN_RE.finditer(part))
-    if not tokens:
-        return part
+# Latin tokens and product/fund span protections
+_PRODUCT_KW_RE = re.compile(r"\b(ETF|ETN|Fund|Trust|Notes)\b", re.IGNORECASE)
+_LATIN_SPAN_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9.'\"&/-]*(?:\s+[A-Za-z0-9][A-Za-z0-9.'\"&/-]*)*")
+_CLEAN_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9])([A-Za-z]+)(?![A-Za-z0-9])")
+_COMPOUND_TOKEN_RE = re.compile(r"[0-9.-]")
+
+
+def _is_protected_latin_span(span_text, lex):
+    """Leaves Latin spans that look like fund/product names untouched unless
+    the whole span is an exact entities.tsv entry."""
+    if lex.is_exact_entity(span_text):
+        return False
+    words = re.findall(r"\b[A-Za-z0-9]+\b", span_text)
+    if len(words) >= 3 and all(w[0].isupper() for w in words):
+        return True                    # capitalised run of 3+ tokens
+    if _PRODUCT_KW_RE.search(span_text):
+        return True                    # contains ETF|ETN|Fund|Trust|Notes
+    return False
+
+
+def _replace_latin_in_span(span, lex):
+    """Replaces clean Latin words inside an unprotected span."""
+    # Find whole word tokens in span. Tokens with digits/dots/hyphens are skipped.
+    raw_tokens = list(re.finditer(r"\b\S+\b", span))
+    clean_tokens = []
+    for t in raw_tokens:
+        tok_str = t.group(0)
+        # Never touch tokens that contain digits, dots or hyphens inside a name (1win, Fetch.ai)
+        if _COMPOUND_TOKEN_RE.search(tok_str) or not tok_str.isalpha():
+            continue
+        clean_tokens.append(t)
+
+    if not clean_tokens:
+        return span
+
     result, cursor, i = [], 0, 0
-    while i < len(tokens):
+    while i < len(clean_tokens):
         replaced = None
         for width in (3, 2, 1):
-            if i + width > len(tokens):
+            if i + width > len(clean_tokens):
                 continue
-            window = tokens[i:i + width]
-            phrase = " ".join(t.group(0) for t in window)
-            fa = _lookup(phrase, lex, window)
+            window = clean_tokens[i:i + width]
+            # Ensure window tokens are contiguous in span
+            win_start = window[0].start()
+            win_end = window[-1].end()
+            inter = span[win_start:win_end]
+            expected_phrase = " ".join(t.group(0) for t in window)
+            if inter != expected_phrase:
+                continue
+            fa = _lookup(expected_phrase, lex, window)
             if fa is not None:
-                replaced = (fa, window[0].start(), window[-1].end())
+                replaced = (fa, win_start, win_end)
                 i += width
                 break
         if replaced is None:
             i += 1
             continue
         fa, start, end = replaced
-        result.append(part[cursor:start])
+        result.append(span[cursor:start])
         result.append(fa)
         cursor = end
-    result.append(part[cursor:])
+    result.append(span[cursor:])
     return "".join(result)
+
+
+def _replace_latin(part, lex):
+    """Greedy longest-match (3/2/1 tokens) unambiguous residue replacement."""
+    def _sub_span(m):
+        span = m.group(0)
+        if _is_protected_latin_span(span, lex):
+            return span
+        return _replace_latin_in_span(span, lex)
+
+    return _LATIN_SPAN_RE.sub(_sub_span, part)
 
 
 def _canonicalize_fa(part, lex):
@@ -188,11 +235,12 @@ def _lookup(phrase, lex, window):
     if not low or len(low) < 3:
         return None
     first = window[0].group(0)
-    if first.isupper() and len(first) <= 5:
-        return None                    # ticker-shaped: too ambiguous
-    fa = lex.fa_for(low)
+    # Ticker-shaped, ETF, ETN are never replaced or expanded
+    if (first.isupper() and len(first) <= 5) or low in {"etf", "etn"}:
+        return None
+    fa = lex.latin_fa_for(low)
     if fa is None and low.endswith("'s"):
-        fa = lex.fa_for(low[:-2])
+        fa = lex.latin_fa_for(low[:-2])
     return fa
 
 

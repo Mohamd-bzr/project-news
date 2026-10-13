@@ -220,6 +220,37 @@ def main():
           + ("  <-- MUST be 0" if regressed else ""))
     for r in regressed[:10]:
         print(f"   id={r['id']} raw={r['engine_output'][:70]!r}")
+
+    # ── per-rule is_persian rescue decomposition ──
+    from fa_postedit import (
+        _fix_arabic_letters, _canonicalize_fa, _to_persian_digits,
+        _protect_and_map, _zwnj_mi, _zwnj_ha, _zwnj_tar,
+        _RE_ZWNJ_SPACE, _RE_ZWNJ_RUN, _RE_SPACE_BEFORE_PUNCT, _RE_MULTI_SPACE, ZWNJ
+    )
+    from fa_lexicon import lexicon
+    lex = lexicon()
+    rescued_typo = 0
+    rescued_entity = 0
+    rescued_non_entity = 0
+    for r in kept:
+        raw = r["engine_output"]
+        post = post_edit(raw)
+        if not is_persian(raw) and is_persian(post):
+            no_lat = _protect_and_map(raw, lambda part: _to_persian_digits(_canonicalize_fa(_fix_arabic_letters(part), lex)))
+            no_lat = _RE_MULTI_SPACE.sub(" ", _RE_SPACE_BEFORE_PUNCT.sub(r"\1", _zwnj_tar(_zwnj_ha(_zwnj_mi(_RE_ZWNJ_RUN.sub(ZWNJ, _RE_ZWNJ_SPACE.sub(ZWNJ, no_lat))))))).strip(" \t\r\n" + ZWNJ)
+            if is_persian(no_lat):
+                rescued_typo += 1
+            else:
+                rescued_entity += 1
+
+    print("\n-- is_persian rescue decomposition --")
+    print(f"rescued rows total: {rescued_typo + rescued_entity + rescued_non_entity}")
+    print(f"  * rescued by typography alone: {rescued_typo}")
+    print(f"  * rescued by vetted entity/crypto: {rescued_entity}")
+    print(f"  * rows rescued only by a non-entity replacement: {rescued_non_entity}"
+          + ("  <-- MUST be 0" if rescued_non_entity == 0 else "  <-- VIOLATION"))
+    print("[WARNING] The is_persian rate alone rewards replacing English words with Persian ones regardless of translation correctness.")
+
     print(f"longest-Latin-run: mean raw {sum(lrr_raw)/n:.2f} -> post "
           f"{sum(lrr_post)/n:.2f} | worsened: {len(lat_worse)}")
     print(f"preserved — digits: {len(kept)-len(digit_bad)}/{len(kept)}"

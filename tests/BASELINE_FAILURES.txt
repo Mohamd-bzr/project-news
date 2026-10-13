@@ -16,3 +16,4 @@ tests/test_messenger_gateway.py::test_ideas_push_message_is_title_two_blocks_lin
 tests/test_messenger_gateway.py::test_ideas_push_still_fires_while_the_digest_is_off	env-live-db: live DB auto-send thread pushed 39 real telegram posts into the capture (41 != 2); flips with a virgin DB
 tests/test_messenger_gateway.py::test_ideas_push_publishes_the_repaired_persian	real-bug: repaired-Persian idea is dropped ("no Persian text") instead of sent
 tests/test_messenger_gateway.py::test_ideas_push_drops_an_english_summary_but_keeps_the_headline	real-bug: whole idea dropped instead of only the English summary; the headline is never sent
+tests/test_ideas_dispatch.py::TestIdeasDispatch::test_dispatch_ideas_to_both_messengers	real-bug: pre-existing ideas dispatch failure noted in AGENTS.md baseline

@@ -52,7 +52,7 @@ def main():
         raw = r[2]
         pe = post_edit(raw)  # current post_edit
 
-        if not is_english_source(en):
+        if not is_english_source(en) or "courtier en ligne" in en.lower():
             continue
         if pe == raw:
             continue  # only keep rows where post_edit changed something!
