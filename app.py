@@ -51,6 +51,7 @@ from report_generator import build_all_reports, build_report
 from indicators import chart_payload
 from translate import (translate_many, translate_one, translate_paragraphs,
                        cache_stats, save_cache, is_persian, to_persian)
+import translate  # Phase-3 hook: load_config() sets translate.POST_EDIT
 from fa_format import fa_datetime, fa_date, fa_time, fa_ago, fa_digits
 from dashboard_html import APP_HTML
 from news_intelligence import (
@@ -118,6 +119,9 @@ DEFAULT_CONFIG = {
     "sources_enabled": {k: True for k in SOURCES},
     "custom_sources": {},             # key -> {name, rss, trust}
     "report_max_age_hours": 24,      # default news window (24h) — selectable in settings
+    # Phase-3 FA quality hook: deterministic post-editing of every translation
+    # (fa_postedit.post_edit). Default OFF; flip in settings.json by hand.
+    "fa_post_edit": False,
     # News hygiene (settings tab). Social feeds are Reddit-style sentiment posts
     # and the short ones are mostly stubs ("$BTC to the moon"); both pollute a
     # feed that is meant to be readable analysis.
@@ -591,6 +595,9 @@ def load_config():
     ba_sec.setdefault("send_ideas", True)
     _init_discord_bot()
     _init_ai_config()
+    # Phase-3 FA quality hook: deterministic post-editing of every translation
+    # (fa_postedit.post_edit). Default OFF — "fa_post_edit": true enables it.
+    translate.POST_EDIT = bool(CONFIG.get("fa_post_edit", False))
 
 
 DISCORD_CONFIG = CONFIG.get('discord', {})

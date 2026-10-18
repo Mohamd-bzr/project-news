@@ -1,0 +1,27 @@
+{
+ "artifact": "entities.tsv",
+ "rows": 1345,
+ "sources": [
+  {
+   "name": "Wikidata (SPARQL, CC0)",
+   "url": "https://query.wikidata.org/sparql",
+   "license": "CC0-1.0",
+   "detail": "bank=464, central_bank=93, commodity=8, country=212, crypto_exchange=17, currency=303, stock_exchange=130, stock_index=68"
+  },
+  {
+   "name": "Wikidata (search+getentities, CC0)",
+   "url": "https://www.wikidata.org/w/api.php",
+   "license": "CC0-1.0",
+   "detail": "commodity=13, company=12, org=6, person=19"
+  },
+  {
+   "name": "project corpus audit seeds",
+   "url": "docs/fa_audit.md §5/§9",
+   "license": "n/a (input list)",
+   "detail": "82 English names: corpus-audit finance/crypto names + traded commodities"
+  }
+ ],
+ "notes": [
+  "No inferred rows: entities without an fa Wikidata label are skipped (never fabricated)."
+ ]
+}
