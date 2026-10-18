@@ -309,10 +309,8 @@ def _protect_and_map(text, fn):
 _FA_WORD_BOUND_LEFT = r"(?<![" + _PERSIAN_LETTER + r"\u200c])"
 _FA_WORD_BOUND_RIGHT = r"(?![" + _PERSIAN_LETTER + r"\u200c])"
 
-_COIN_PREFIXES = (
-    r"(?:بیت|دوج|لایت|استیبل|آلت|میم|بایننس|فایل|شیت|پپه|بایت|کردیت|ریون|رد"
-    r"|سیا|سیس|تل|تیت|وایت|مونا|اینو|انجین|بیسید)"
-)
+# D5: coin names compound prefixes (approved coin compounds: بیت، دوج، لایت، استیبل، آلت، میم + coin names from TSV)
+_COIN_PREFIXES = r"(?:بیت|دوج|لایت|استیبل|آلت|میم|بایننس|فایل|شیت|پپه)"
 _RE_COIN_SPACE = re.compile(
     _FA_WORD_BOUND_LEFT + f"({_COIN_PREFIXES})" + r" +کوین"
 )

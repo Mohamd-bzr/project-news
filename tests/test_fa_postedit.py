@@ -240,10 +240,13 @@ def test_enforce_terms_all_rules():
     # D5: coin names (ZWNJ, never space)
     assert enforce_terms("خرید بیت کوین و دوج کوین", "buying Bitcoin and Dogecoin") == "خرید بیت‌کوین و دوج‌کوین"
     assert enforce_terms("قیمت لایت کوین و استیبل کوین", "Litecoin and stablecoin prices") == "قیمت لایت‌کوین و استیبل‌کوین"
-    # D5 negative: generic word + کوین must NOT be replaced
+    # D5 negative: generic words + کوین must NOT be replaced
     assert enforce_terms("این کوین در حال رشد است", "this coin is growing") == "این کوین در حال رشد است"
     assert enforce_terms("خرید یک کوین جدید", "buying a coin") == "خرید یک کوین جدید"
     assert enforce_terms("آن کوین و هر کوین دیگر", "that coin and every other coin") == "آن کوین و هر کوین دیگر"
+    assert enforce_terms("رد کوین توسط نهاد ناظر", "rejection of the coin by regulators") == "رد کوین توسط نهاد ناظر"
+    assert enforce_terms("سیا کوین را بررسی کرد", "CIA investigated the coin") == "سیا کوین را بررسی کرد"
+
 
     # Support (TA context vs non-TA)
     ta_src = "Bitcoin breaks key support level on price chart"
