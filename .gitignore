@@ -24,8 +24,10 @@ data/api_keys.json
 correlation.json
 .mohmd_news.db-shm
 .mohmd_news.db-wal
-data/
+data/*
+!data/fa/
 logs/
+var/
 .pytest_cache/
 
 # ── local backups & scratch (94 MB of pre-redesign copies never go to git) ──

@@ -1,0 +1,648 @@
+{
+  "total_instances": 49582,
+  "distinct_pairs": 3468,
+  "top_60": [
+    [
+      "بیت کوین",
+      "بیت‌کوین",
+      5993,
+      "zwnj_spacing",
+      true,
+      "(a) ZWNJ/spacing"
+    ],
+    [
+      "می کند",
+      "می‌کند",
+      4004,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می دهد",
+      "می‌دهد",
+      1945,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می تواند",
+      "می‌تواند",
+      1540,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می کند.",
+      "می‌کند.",
+      1486,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می شود",
+      "می‌شود",
+      1319,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می گوید",
+      "می‌گوید",
+      994,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "خزانه داری",
+      "خزانه‌داری",
+      743,
+      "zwnj_spacing",
+      true,
+      "(a) ZWNJ/spacing"
+    ],
+    [
+      "می دهد.",
+      "می‌دهد.",
+      699,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می کنند",
+      "می‌کنند",
+      610,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می یابد",
+      "می‌یابد",
+      606,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "دارایی های",
+      "دارایی‌های",
+      522,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می کند،",
+      "می‌کند،",
+      501,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می شود.",
+      "می‌شود.",
+      485,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "سرمایه گذاری",
+      "سرمایه‌گذاری",
+      479,
+      "zwnj_spacing",
+      true,
+      "(a) ZWNJ/spacing"
+    ],
+    [
+      "داده های",
+      "داده‌های",
+      452,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "بلاک چین",
+      "بلاک‌چین",
+      402,
+      "zwnj_spacing",
+      true,
+      "(a) ZWNJ/spacing"
+    ],
+    [
+      "می رسد",
+      "می‌رسد",
+      384,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "Solana",
+      "سولانا",
+      382,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "پایین ترین",
+      "پایین‌ترین",
+      370,
+      "zwnj_tar",
+      true,
+      "(a) suffix tar/tarin ZWNJ"
+    ],
+    [
+      "Dogecoin",
+      "دوج کوین",
+      364,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "می کنند.",
+      "می‌کنند.",
+      314,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "Coinbase",
+      "کوینبیس",
+      281,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "Cardano",
+      "کاردانو",
+      269,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "می دهند",
+      "می‌دهند",
+      252,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می توانند",
+      "می‌توانند",
+      249,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "بیت کوین،",
+      "بیت‌کوین،",
+      247,
+      "zwnj_spacing",
+      true,
+      "(a) ZWNJ/spacing"
+    ],
+    [
+      "هزینه های",
+      "هزینه‌های",
+      243,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "بیت",
+      "بیت‌کوین",
+      237,
+      "fa_canon",
+      true,
+      "(a) spelling canonicalization"
+    ],
+    [
+      "می شود،",
+      "می‌شود،",
+      233,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می ماند",
+      "می‌ماند",
+      219,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "Zcash",
+      "زی‌کش",
+      213,
+      "fa_canon",
+      true,
+      "(a) spelling canonicalization"
+    ],
+    [
+      "می دهد،",
+      "می‌دهد،",
+      207,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می رود",
+      "می‌رود",
+      205,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می شوند",
+      "می‌شوند",
+      198,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "شرکت های",
+      "شرکت‌های",
+      194,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می گیرد",
+      "می‌گیرد",
+      176,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "نگرانی های",
+      "نگرانی‌های",
+      174,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "بیت کوین:",
+      "بیت‌کوین:",
+      166,
+      "zwnj_spacing",
+      true,
+      "(a) ZWNJ/spacing"
+    ],
+    [
+      "می کنند،",
+      "می‌کنند،",
+      165,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "Bitget",
+      "بیتگت",
+      164,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "کوین ها",
+      "کوین‌ها",
+      163,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می گویند",
+      "می‌گویند",
+      162,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "Ripple",
+      "ریپل",
+      161,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "جریان های",
+      "جریان‌های",
+      160,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "بانک های",
+      "بانک‌های",
+      158,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می یابد.",
+      "می‌یابد.",
+      146,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می آورد",
+      "می‌آورد",
+      145,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "گسترده تر",
+      "گسترده‌تر",
+      142,
+      "zwnj_tar",
+      true,
+      "(a) suffix tar/tarin ZWNJ"
+    ],
+    [
+      "می کند:",
+      "می‌کند:",
+      136,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "قیمت های",
+      "قیمت‌های",
+      136,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "(NASDAQ:",
+      "(نزدک:",
+      131,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "پول های",
+      "پول‌های",
+      130,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می شود؟",
+      "می‌شود؟",
+      129,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "پرداخت های",
+      "پرداخت‌های",
+      127,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "نرخ ها",
+      "نرخ‌ها",
+      125,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "قیمت ها",
+      "قیمت‌ها",
+      124,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می گذارد.",
+      "می‌گذارد.",
+      120,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می رسد.",
+      "می‌رسد.",
+      120,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می کند؟",
+      "می‌کند؟",
+      118,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ]
+  ],
+  "tail_20": [
+    [
+      "ضعف های",
+      "ضعف‌های",
+      1,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "داری Solana",
+      "سولانا",
+      8,
+      "fa_canon",
+      true,
+      "(a) spelling canonicalization"
+    ],
+    [
+      "می رود،",
+      "می‌رود،",
+      37,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "نمی",
+      "نمی‌افتد",
+      1,
+      "other",
+      false,
+      "[!UNAPPROVED / OUTSIDE RULES]"
+    ],
+    [
+      "می خورد،",
+      "می‌خورد،",
+      2,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می",
+      "می‌رود:",
+      3,
+      "other",
+      false,
+      "[!UNAPPROVED / OUTSIDE RULES]"
+    ],
+    [
+      "پایانه های",
+      "پایانه‌های",
+      3,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "Stacks",
+      "استکس",
+      6,
+      "entity_replacement",
+      true,
+      "(d) exact entity replacement"
+    ],
+    [
+      "پاسخ",
+      "پاسخ‌ها",
+      1,
+      "other",
+      false,
+      "[!UNAPPROVED / OUTSIDE RULES]"
+    ],
+    [
+      "هادی ها",
+      "هادی‌ها",
+      9,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می در",
+      "می‌در",
+      1,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "بازنده ها،",
+      "بازنده‌ها،",
+      1,
+      "zwnj_spacing",
+      true,
+      "(a) ZWNJ/spacing"
+    ],
+    [
+      "طول ...",
+      "طول...",
+      1,
+      "digits",
+      true,
+      "(c) digits"
+    ],
+    [
+      "می بخشد",
+      "می‌بخشد",
+      11,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "ها، واکنش ها",
+      "واکنش‌ها",
+      1,
+      "other",
+      false,
+      "[!UNAPPROVED / OUTSIDE RULES]"
+    ],
+    [
+      "می سازند،",
+      "می‌سازند،",
+      1,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "ده ها",
+      "ده‌ها",
+      31,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ],
+    [
+      "می رود؟",
+      "می‌رود؟",
+      32,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "می دارند",
+      "می‌دارند",
+      10,
+      "zwnj_mi",
+      true,
+      "(a) prefix mi/nemi ZWNJ"
+    ],
+    [
+      "بلاک چین های",
+      "بلاک‌چین‌های",
+      3,
+      "zwnj_ha",
+      true,
+      "(a) suffix ha/hay ZWNJ"
+    ]
+  ]
+}
