@@ -182,12 +182,60 @@ def _replace_latin_in_span(span, lex):
     return "".join(result)
 
 
+def _replace_latin_in_protected_span(span, lex):
+    """Replaces exact multi-word entities (or whole-span single entities) from entities.tsv
+    inside a protected span, leaving the rest of the span intact."""
+    raw_tokens = list(re.finditer(r"\b\S+\b", span))
+    clean_tokens = []
+    for t in raw_tokens:
+        tok_str = t.group(0)
+        if _COMPOUND_TOKEN_RE.search(tok_str) or not tok_str.isalpha():
+            continue
+        clean_tokens.append(t)
+
+    if not clean_tokens:
+        return span
+
+    result, cursor, i = [], 0, 0
+    max_w = min(len(clean_tokens), 6)
+    while i < len(clean_tokens):
+        replaced = None
+        for width in range(max_w, 0, -1):
+            if i + width > len(clean_tokens):
+                continue
+            window = clean_tokens[i:i + width]
+            win_start = window[0].start()
+            win_end = window[-1].end()
+            inter = span[win_start:win_end]
+            expected_phrase = " ".join(t.group(0) for t in window)
+            if inter != expected_phrase:
+                continue
+            if width == 1 and span.strip() != expected_phrase:
+                continue
+            if not lex.is_exact_entity(expected_phrase):
+                continue
+            fa = lex.latin_fa_for(expected_phrase)
+            if fa is not None:
+                replaced = (fa, win_start, win_end)
+                i += width
+                break
+        if replaced is None:
+            i += 1
+            continue
+        fa, start, end = replaced
+        result.append(span[cursor:start])
+        result.append(fa)
+        cursor = end
+    result.append(span[cursor:])
+    return "".join(result)
+
+
 def _replace_latin(part, lex):
     """Greedy longest-match (3/2/1 tokens) unambiguous residue replacement."""
     def _sub_span(m):
         span = m.group(0)
         if _is_protected_latin_span(span, lex):
-            return span
+            return _replace_latin_in_protected_span(span, lex)
         return _replace_latin_in_span(span, lex)
 
     return _LATIN_SPAN_RE.sub(_sub_span, part)

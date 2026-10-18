@@ -204,6 +204,16 @@ def test_latin_residue_vetted_entities_and_projects_work():
     assert post_edit("بانک Standard Chartered") == "بانک استاندارد چارترد"
 
 
+def test_protected_latin_span_entity_replacement():
+    """Item 4: Multi-word entities from entities.tsv are replaced inside protected spans."""
+    # Standard Chartered Back OKX -> Standard Chartered is an entity (len > 1), Back OKX stays Latin
+    assert post_edit("Standard Chartered Back OKX") == "استاندارد چارترد Back OKX"
+    # VanEck Gold Miners ETF -> VanEck not in entities.tsv, single words (Gold, Miners) not replaced
+    assert post_edit("VanEck Gold Miners ETF") == "VanEck Gold Miners ETF"
+    # Goldman Sachs Physical Gold Etf (AAAU) -> Goldman Sachs is replaced, remainder stays Latin
+    assert post_edit("Goldman Sachs Physical Gold Etf (AAAU)") == "گلدمن ساکس Physical Gold Etf (AAAU)"
+
+
 def test_enforce_terms_all_rules():
     """Item 3: Pin all owner decisions (D1-D5 positive/negative, approved cards, review rules)."""
     from fa_postedit import enforce_terms, apply_custody_review, apply_yield_review
