@@ -101,3 +101,15 @@ If you notice a problem outside scope, list it in your final report. Do not fix 
 - File shapes: `app.py` 7266 lines / 70 routes, `dashboard_html.py` 9286 lines
   (one raw string, `APP_HTML`), `PROJECT_BLUEPRINT.md` 974 lines (superseded by
   `docs/ARCHITECTURE.md`).
+
+## Git safety (hard rules)
+- Before ANY edit run `git branch --show-current` and `git status`. If the branch is not yours or the tree has changes you
+  did not make, STOP and report.
+- Work only in your own `git worktree add E:\worktrees\<task> -b agent/<task> <base>`. Never switch branches in e:\freebuff
+  and never merge to main yourself unless the owner's prompt explicitly authorizes a named merge.
+- FORBIDDEN without a prior written report of what would be lost AND the owner's approval: git branch -D, git worktree
+  remove --force, git reset --hard, git clean, git checkout -- <path>, git stash drop, force-push, deleting or overwriting
+  any file in e:\freebuff, restoring a backup over a live database.
+- Never write to the live settings.json or .mohmd_news.db; tests run against copies.
+- Do not read other tools' session data (opencode.db, Cline logs, etc.).
+
