@@ -141,6 +141,20 @@ def chrf(hyp, ref, max_n=6, beta=2.0):
     return 100.0 * (sum(fs) / len(fs)) if fs else 0.0
 
 
+def evaluate_opinion_verdict(opinion_rows, raw_better_rate=0.0, chrf_post=0.0, chrf_raw=0.0):
+    """Pure decision for golden opinion set. Requires >= 30 opinion rows."""
+    if len(opinion_rows) < 30:
+        return "INSUFFICIENT DATA - no verdict", [f"opinion rows: {len(opinion_rows)} < 30 required"]
+    if raw_better_rate <= 0.10 and chrf_post >= chrf_raw:
+        return "ENABLE", ["Conditions met: raw_better <= 10% AND chrF(post_edit) >= chrF(raw)."]
+    reasons = []
+    if raw_better_rate > 0.10:
+        reasons.append(f"raw_better ({raw_better_rate:.1%}) > 10% threshold")
+    if chrf_post < chrf_raw:
+        reasons.append(f"chrF(post_edit) {chrf_post:.1f} < chrF(raw) {chrf_raw:.1f}")
+    return "DO NOT ENABLE", reasons
+
+
 def load_rows():
     """(rows, source_label, has_golden) — tolerant reader for both shapes."""
     jl = REPO / "data" / "fa" / "golden.jsonl"
@@ -233,6 +247,14 @@ def run_db_decision_review(regressed=None):
     samples_d3 = []
     samples_d4 = []
 
+    changed_texts = 0
+    corpus_digit_bad = []
+    corpus_num_bad = []
+    corpus_url_bad = []
+    corpus_ticker_bad = []
+    corpus_nonidem = []
+    corpus_lat_worse = []
+
     for row_id, en_title, fa_title, en_summ, fa_summ in rows:
         pairs = []
         if fa_title and is_english_source(en_title):
@@ -250,6 +272,22 @@ def run_db_decision_review(regressed=None):
                 raw_pass += 1
             if p_p:
                 post_pass += 1
+
+            if pe != fa:
+                changed_texts += 1
+                if digit_count(fa) != digit_count(pe):
+                    corpus_digit_bad.append((en, fa, pe))
+                if sorted(numbers(fa)) != sorted(numbers(pe)):
+                    corpus_num_bad.append((en, fa, pe))
+                if any(u not in pe for u in urls(fa)):
+                    corpus_url_bad.append((en, fa, pe))
+                if any(t not in pe for t in tickers(fa)):
+                    corpus_ticker_bad.append((en, fa, pe))
+                if post_edit(pe, source_en=en) != pe:
+                    corpus_nonidem.append((en, fa, pe))
+                if longest_latin_run(pe) > longest_latin_run(fa):
+                    corpus_lat_worse.append((en, fa, pe))
+
             if not r_p and p_p:
                 no_lat = _protect_and_map(fa, lambda part: _to_persian_digits(_canonicalize_fa(_fix_arabic_letters(part), lex)))
                 no_lat = _RE_MULTI_SPACE.sub(" ", _RE_SPACE_BEFORE_PUNCT.sub(r"\1", _zwnj_tar(_zwnj_ha(_zwnj_mi(_RE_ZWNJ_RUN.sub(ZWNJ, _RE_ZWNJ_SPACE.sub(ZWNJ, no_lat))))))).strip(" \t\r\n" + ZWNJ)
@@ -342,6 +380,14 @@ def run_db_decision_review(regressed=None):
     print(f"is_persian Rescues by Entity: {rescued_entity}")
     print(f"is_persian Rescues ONLY by Non-Entity: {rescued_non_entity} (MUST be 0)")
 
+    print(f"\n-- Whole Corpus Preservation Invariants (Evaluated Changed Texts: {changed_texts}/{total_texts}) --")
+    print(f"  * digits preserved: {changed_texts - len(corpus_digit_bad)}/{changed_texts}")
+    print(f"  * numbers preserved: {changed_texts - len(corpus_num_bad)}/{changed_texts}")
+    print(f"  * URLs preserved: {changed_texts - len(corpus_url_bad)}/{changed_texts}")
+    print(f"  * tickers preserved: {changed_texts - len(corpus_ticker_bad)}/{changed_texts}")
+    print(f"  * idempotent: {changed_texts - len(corpus_nonidem)}/{changed_texts}")
+    print(f"  * no Latin run worsened: {changed_texts - len(corpus_lat_worse)}/{changed_texts}")
+
     print("\n-- Rows Changed Per Term in core_terms.tsv --")
     for term, count in term_counts.items():
         print(f"  {term:25}: {count} rows")
@@ -413,8 +459,8 @@ def run_db_decision_review(regressed=None):
     print("\n" + "=" * 70)
     num_regressed = len(regressed) if regressed else 0
     if rescued_non_entity == 0 and num_regressed == 0:
-        print("VERDICT: RECOMMENDATION: FLIP fa_post_edit=True")
-        print("Conditions met: 0 regressions in preservation gates, non-entity rescue counter is 0.")
+        print("VERDICT: AUTOMATED PRESERVATION GATES PASSED (0 regressions, non-entity rescue = 0).")
+        print("         Final enablement requires human review set (>=30 opinion rows; currently golden.jsonl not populated).")
     else:
         print(f"VERDICT: NOT READY: regressions={num_regressed}, non_entity_rescue={rescued_non_entity}")
     print("      (fa_post_edit toggle remains untouched: OFF)")
@@ -706,19 +752,16 @@ def main():
             regressed_rows.append((r, cp, cr, lp, lr))
 
     # Verdict
-    enable_verdict = (pct_raw_better <= 0.10) and (ov["chrf_post"] >= ov["chrf_raw"])
     print("\n" + "=" * 50)
-    if enable_verdict:
-        print("VERDICT: ENABLE")
-        print("Conditions met: raw_better <= 10% AND chrF(post_edit) >= chrF(raw).")
-    else:
-        print("VERDICT: DO NOT ENABLE")
-        reasons = []
-        if pct_raw_better > 0.10:
-            reasons.append(f"raw_better ({pct_raw_better:.1%}) > 10% threshold")
-        if ov["chrf_post"] < ov["chrf_raw"]:
-            reasons.append(f"chrF(post_edit) {ov['chrf_post']:.1f} < chrF(raw) {ov['chrf_raw']:.1f}")
-        print(f"Conditions failed: {', '.join(reasons)}")
+    verdict, reasons = evaluate_opinion_verdict(
+        opinion_rows,
+        raw_better_rate=pct_raw_better,
+        chrf_post=ov["chrf_post"],
+        chrf_raw=ov["chrf_raw"],
+    )
+    print(f"VERDICT: {verdict}")
+    for reason in reasons:
+        print(f"  {reason}")
 
     if regressed_rows:
         print(f"\nRegressed rows ({len(regressed_rows)}/{m}):")

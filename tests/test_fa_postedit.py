@@ -278,3 +278,25 @@ def test_enforce_terms_all_rules():
     res2 = enforce_terms(res1, s)
     assert res1 == res2
     assert res1 == "بازار ارزهای دیجیتال و بازار صعودی و بیت‌کوین"
+
+
+def test_fa_eval_sample_size_verdict_gate():
+    """Item 1: Verdict gate requires >= 30 human opinion rows."""
+    from tools.fa_eval import evaluate_opinion_verdict
+
+    # Case 1: < 30 rows -> INSUFFICIENT DATA
+    dummy_rows = [{"pref": "post_ok"}] * 29
+    verdict, reasons = evaluate_opinion_verdict(dummy_rows, raw_better_rate=0.0, chrf_post=80.0, chrf_raw=70.0)
+    assert verdict == "INSUFFICIENT DATA - no verdict"
+    assert "30 required" in reasons[0]
+
+    # Case 2: >= 30 rows and passes conditions -> ENABLE
+    valid_rows = [{"pref": "post_ok"}] * 30
+    verdict, reasons = evaluate_opinion_verdict(valid_rows, raw_better_rate=0.05, chrf_post=80.0, chrf_raw=70.0)
+    assert verdict == "ENABLE"
+
+    # Case 3: >= 30 rows but fails raw_better threshold -> DO NOT ENABLE
+    verdict, reasons = evaluate_opinion_verdict(valid_rows, raw_better_rate=0.15, chrf_post=80.0, chrf_raw=70.0)
+    assert verdict == "DO NOT ENABLE"
+
+
