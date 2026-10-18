@@ -271,6 +271,9 @@ def test_enforce_terms_all_rules():
     # D4 Review (yields)
     assert apply_yield_review("بازدهی شرکت عالی بود", "the business performed well") == "بازدهی شرکت عالی بود"
     assert apply_yield_review("کاهش بازدهی اوراق ۱۰ ساله خزانه‌داری", "10-year treasury yields decline") == "کاهش بازده اوراق ۱۰ ساله خزانه‌داری"
+    assert enforce_terms("افزایش بازدهی اوراق قرضه خزانه‌داری", "Treasury bond yields rise") == "افزایش بازده اوراق قرضه خزانه‌داری"
+    assert enforce_terms("بازدهی سهام شرکت خوب بود", "corporate performance was strong") == "بازدهی سهام شرکت خوب بود"
+
 
     # Native Persian (source_en is None): NEVER changes anything
     assert enforce_terms("رمزارزها و بازار گاوی", None) == "رمزارزها و بازار گاوی"

@@ -441,6 +441,10 @@ def _enforce_terms_free(text_fa: str, source_en: str) -> str:
     if re.search(r"\boversold\b", source_en, re.IGNORECASE):
         res = _RE_OVERSOLD.sub("اشباع فروش", res)
 
+    # D4: yield / yields
+    if _RE_YIELD_EN.search(source_en) and _RE_YIELD_CTX.search(source_en):
+        res = _RE_BAZDEHI.sub("بازده", res)
+
     return res
 
 
