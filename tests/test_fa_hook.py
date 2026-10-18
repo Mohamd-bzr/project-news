@@ -101,6 +101,30 @@ def test_is_persian_thresholds_untouched():
     assert translate._PERSIAN_MIN_SHARE == 0.45
 
 
+def test_source_en_forwarding_to_post_edit(monkeypatch):
+    """English keys forward source_en; Persian keys forward source_en=None."""
+    calls = []
+
+    def mock_post_edit(text, lex=None, source_en=None):
+        calls.append((text, source_en))
+        return text
+
+    monkeypatch.setattr(translate, "_LOADED", True)
+    monkeypatch.setattr(translate, "_CACHE", {})
+    monkeypatch.setattr(translate, "_DIRTY", False)
+    monkeypatch.setattr(translate, "_translate_batch",
+                        lambda texts: ["ترجمه متن" for _ in texts])
+    monkeypatch.setattr(translate, "POST_EDIT", True)
+    monkeypatch.setattr(translate, "post_edit", mock_post_edit)
+
+    en_key = "Bitcoin reaches new high"
+    fa_key = "قیمت طلا افزایش یافت"
+    translate.translate_many([en_key, fa_key])
+
+    assert ( "ترجمه متن", en_key ) in calls
+    assert ( fa_key, None ) in calls
+
+
 def test_benchmark_post_edit_10k_mixed():
     """Report-only benchmark: no fragile time threshold."""
     samples = [

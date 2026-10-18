@@ -255,7 +255,7 @@ def _protect_and_map(text, fn):
     return "".join(parts)
 
 
-def post_edit(text, lex=None):
+def post_edit(text, lex=None, source_en=None):
     """Deterministic Persian post-editing. Pure, idempotent, safe."""
     if text is None:
         return None

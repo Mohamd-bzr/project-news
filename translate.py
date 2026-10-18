@@ -42,13 +42,19 @@ from fa_postedit import post_edit  # Phase-3 deterministic FA post-editing
 # cache invalidation; post_edit() itself is idempotent by contract.
 POST_EDIT = False
 
+_FA_CHAR_RE = re.compile(r"[\u0600-\u06FF]")
 
-def _post_edit_safe(text):
+
+def _has_persian_letter(s: str) -> bool:
+    return bool(_FA_CHAR_RE.search(s or ""))
+
+
+def _post_edit_safe(text, source_en=None):
     """post_edit() that can never raise and never erases a non-empty text."""
     if not POST_EDIT or not text:
         return text
     try:
-        edited = post_edit(text)
+        edited = post_edit(text, source_en=source_en)
     except Exception:
         return text                     # fail-safe: never raise into the cycle
     return edited if edited else text   # empty/None for non-empty -> raw text
@@ -58,7 +64,11 @@ def _apply_post_edit(out: dict) -> dict:
     """Phase-3 hook at the output boundary; identity while POST_EDIT is off."""
     if not POST_EDIT or not out:
         return out
-    return {k: _post_edit_safe(v) for k, v in out.items()}
+    res = {}
+    for k, v in out.items():
+        src_en = k if not _has_persian_letter(k) else None
+        res[k] = _post_edit_safe(v, source_en=src_en)
+    return res
 
 
 BASE_DIR = Path(__file__).parent
