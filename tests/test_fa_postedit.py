@@ -202,3 +202,69 @@ def test_latin_residue_vetted_entities_and_projects_work():
     assert post_edit("شبکه Bitcoin") == "شبکه بیت\u200cکوین"
     assert post_edit("سهام Citigroup") == "سهام سیتی\u200cگروپ"
     assert post_edit("بانک Standard Chartered") == "بانک استاندارد چارترد"
+
+
+def test_enforce_terms_all_rules():
+    """Item 3: Pin all owner decisions (D1-D5 positive/negative, approved cards, review rules)."""
+    from fa_postedit import enforce_terms, apply_custody_review, apply_yield_review
+
+    # D1: cryptocurrency / cryptocurrencies
+    assert enforce_terms("قیمت رمزارز کاهش یافت", "cryptocurrency price dropped") == "قیمت ارز دیجیتال کاهش یافت"
+    assert enforce_terms("قیمت رمز ارز کاهش یافت", "cryptocurrency price dropped") == "قیمت ارز دیجیتال کاهش یافت"
+    assert enforce_terms("بازار رمزارزها صعودی شد", "cryptocurrencies market surged") == "بازار ارزهای دیجیتال صعودی شد"
+    assert enforce_terms("بازار رمز ارزها صعودی شد", "cryptocurrencies market surged") == "بازار ارزهای دیجیتال صعودی شد"
+    assert enforce_terms("ارزهای رمزنگاری شده محبوب", "popular cryptocurrencies") == "ارزهای دیجیتال محبوب"
+    assert enforce_terms("معرفی رمزارزی جدید", "launching a new cryptocurrency") == "معرفی ارز دیجیتالی جدید"
+    # D1 negative: without crypto/cryptocurrency in source, no replacement
+    assert enforce_terms("بازار رمزارزها", "stock market update") == "بازار رمزارزها"
+
+    # D2: bull / bear market
+    assert enforce_terms("ورود به بازار گاوی", "entering a bull market") == "ورود به بازار صعودی"
+    assert enforce_terms("تحلیل بازارهای گاوی", "analysis of bull markets") == "تحلیل بازارهای صعودی"
+    assert enforce_terms("آغاز بازار خرسی", "start of a bear market") == "آغاز بازار نزولی"
+    assert enforce_terms("تحلیل بازارهای خرسی", "bear markets history") == "تحلیل بازارهای نزولی"
+
+    # D5: coin names (ZWNJ, never space)
+    assert enforce_terms("خرید بیت کوین و دوج کوین", "buying Bitcoin and Dogecoin") == "خرید بیت‌کوین و دوج‌کوین"
+    assert enforce_terms("قیمت لایت کوین و استیبل کوین", "Litecoin and stablecoin prices") == "قیمت لایت‌کوین و استیبل‌کوین"
+    # D5 negative: generic word + کوین must NOT be replaced
+    assert enforce_terms("این کوین در حال رشد است", "this coin is growing") == "این کوین در حال رشد است"
+    assert enforce_terms("خرید یک کوین جدید", "buying a coin") == "خرید یک کوین جدید"
+    assert enforce_terms("آن کوین و هر کوین دیگر", "that coin and every other coin") == "آن کوین و هر کوین دیگر"
+
+    # Support (TA context vs non-TA)
+    ta_src = "Bitcoin breaks key support level on price chart"
+    assert enforce_terms("شکست سطح پشتیبانی کلیدی", ta_src) == "شکست سطح حمایت کلیدی"
+    non_ta_src = "Contact our customer support team 24/7"
+    assert enforce_terms("تماس با تیم پشتیبانی مشتری", non_ta_src) == "تماس با تیم پشتیبانی مشتری"
+
+    # Staking (سهامداری only, never سرمایه‌گذاری)
+    staking_src = "Ethereum staking rewards increase"
+    assert enforce_terms("پاداش سهامداری اتریوم افزایش یافت", staking_src) == "پاداش استیکینگ اتریوم افزایش یافت"
+    assert enforce_terms("سرمایه‌گذاری در اتریوم سودآور است", staking_src) == "سرمایه‌گذاری در اتریوم سودآور است"
+
+    # Oversold
+    oversold_src = "RSI indicator signals oversold territory"
+    assert enforce_terms("اندیکاتور در منطقه فروش بیش از حد است", oversold_src) == "اندیکاتور در منطقه اشباع فروش است"
+
+    # D3 Review (custody)
+    assert apply_custody_review("دعوای حضانت فرزند", "child custody hearing") == "دعوای حضانت فرزند"
+    assert apply_custody_review("متهم در بازداشت و نگهداری پلیس است", "suspect remains in custody at police station") == "متهم در بازداشت و نگهداری پلیس است"
+    assert apply_custody_review("خدمات حضانت دارایی دیجیتال", "digital asset custody service") == "خدمات نگهداری امن دارایی دیجیتال"
+    assert apply_custody_review("پلتفرم نگهداری بیت کوین", "bitcoin custody platform") == "پلتفرم نگهداری امن بیت کوین"
+
+    # D4 Review (yields)
+    assert apply_yield_review("بازدهی شرکت عالی بود", "the business performed well") == "بازدهی شرکت عالی بود"
+    assert apply_yield_review("کاهش بازدهی اوراق ۱۰ ساله خزانه‌داری", "10-year treasury yields decline") == "کاهش بازده اوراق ۱۰ ساله خزانه‌داری"
+
+    # Native Persian (source_en is None): NEVER changes anything
+    assert enforce_terms("رمزارزها و بازار گاوی", None) == "رمزارزها و بازار گاوی"
+    assert post_edit("رمزارزها و بازار گاوی", source_en=None) == "رمزارزها و بازار گاوی"
+
+    # Idempotency
+    t = "بازار رمزارزها و بازار گاوی و بیت کوین"
+    s = "cryptocurrencies and bull market with Bitcoin"
+    res1 = enforce_terms(t, s)
+    res2 = enforce_terms(res1, s)
+    assert res1 == res2
+    assert res1 == "بازار ارزهای دیجیتال و بازار صعودی و بیت‌کوین"

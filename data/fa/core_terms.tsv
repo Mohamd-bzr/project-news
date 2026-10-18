@@ -1,19 +1,23 @@
 en	fa_preferred	bad_variants	context_rule	status	source
-yields			بازده اوراق قرضه و خزانه‌داری	pending	audit:mohmd_news
+cryptocurrency	ارز دیجیتال	رمزارز|رمز ارز|ارز رمزنگاری شده|ارز رمزنگاریشده|ارز رمزنگاری‌ شده	-	enabled	owner:decision:D1
+cryptocurrencies	ارزهای دیجیتال	رمزارزها|رمز ارزها|ارزهای رمزنگاری شده|ارزهای رمزنگاریشده|ارزهای رمزنگاری‌ شده	-	enabled	owner:decision:D1
+bull market	بازار صعودی	بازار گاوی	-	enabled	owner:decision:D2
+bear market	بازار نزولی	بازار خرسی	-	enabled	owner:decision:D2
+coin names	prefix+ZWNJ+کوین	prefix+space+کوین	بیت|دوج|لایت|استیبل|آلت|میم|بایننس|فایل|شیت|پپه|بایت|کردیت|ریون|رد|سیا|سیس|تل|تیت|وایت|مونا|اینو|انجین|بیسید	enabled	owner:decision:D5
+support	حمایت	پشتیبانی	technical analysis	enabled	owner:approved
+staking	استیکینگ	سهامداری	-	enabled	owner:approved
+oversold	اشباع فروش	فروش بیش از حد	-	enabled	owner:approved
+custody	نگهداری امن	حضانت|نگهداری	crypto/finance context	review	owner:decision:D3
+yields	بازده	بازدهی	finance/treasury context	review	owner:decision:D4
+yield	بازده	بازدهی	finance/treasury context	review	owner:decision:D4
 rate hike			سیاست پولی و نرخ‌های بهره	skipped	audit:mohmd_news
-support	حمایت	پشتیبانی|حمایتی|سطح حمایت	سطح حمایت قیمتی در تحلیل تکنیکال	approved	audit:mohmd_news
-custody			خدمات نگهداری و امانتداری نهادی دارایی	pending	audit:mohmd_news
 ledger			دفتر کل توزیع‌شده یا برند کیف پول سخت‌افزاری	skipped	audit:mohmd_news
 ipo			عرضه اولیه عمومی سهام	pending	audit:mohmd_news
-staking	استیکینگ	سرمایه‌گذاری|سهامداری	سپرده‌گذاری دارایی در پروتکل اثبات سهام	approved	audit:mohmd_news
-bull market			بازار صعودی و روند گاوی	pending	audit:mohmd_news
 earnings			گزارش سود و عملکرد مالی شرکت‌ها	skipped	audit:mohmd_news
 spread			اختلاف قیمت خرید و فروش / اسپرد	pending	audit:mohmd_news
 tightening			تشدید انقباض پولی	pending	audit:mohmd_news
 guidance			پیش‌بینی رسمی عملکرد شرکت توسط مدیران	skipped	audit:mohmd_news
-bear market			بازار نزولی و روند خرسی	pending	audit:mohmd_news
 rate cut			سیاست پولی و نرخ‌های بهره	skipped	audit:mohmd_news
 opec			سازمان کشورهای صادرکننده نفت	skipped	audit:mohmd_news
 dollar index			شاخص برابری دلار آمریکا	pending	audit:mohmd_news
 cash flow			جریان ورود و خروج نقدینگی شرکت	skipped	audit:mohmd_news
-oversold	اشباع فروش	فروش بیش از حد	ناحیه اشباع فروش در اندیکاتورها	approved	audit:mohmd_news

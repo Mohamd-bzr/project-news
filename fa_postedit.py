@@ -255,6 +255,158 @@ def _protect_and_map(text, fn):
     return "".join(parts)
 
 
+# ---------------------------------------------------------------------------
+# Core term enforcement (Owner decisions D1-D5 + approved terms)
+# ---------------------------------------------------------------------------
+_FA_WORD_BOUND_LEFT = r"(?<![" + _PERSIAN_LETTER + r"\u200c])"
+_FA_WORD_BOUND_RIGHT = r"(?![" + _PERSIAN_LETTER + r"\u200c])"
+
+_COIN_PREFIXES = (
+    r"(?:بیت|دوج|لایت|استیبل|آلت|میم|بایننس|فایل|شیت|پپه|بایت|کردیت|ریون|رد"
+    r"|سیا|سیس|تل|تیت|وایت|مونا|اینو|انجین|بیسید)"
+)
+_RE_COIN_SPACE = re.compile(
+    _FA_WORD_BOUND_LEFT + f"({_COIN_PREFIXES})" + r" +کوین"
+)
+
+# TA context keywords for support rule
+_RE_TA_CONTEXT = re.compile(
+    r"\b(resistance|level|levels|break|breakout|breaks|chart|charts|price|prices"
+    r"|trend|bounce|zone|zones|floor|ceiling|technical|ta|moving average|rsi|indicator)\b",
+    re.IGNORECASE,
+)
+
+# Bad variants for D1 (cryptocurrency)
+_RE_D1_PLURAL_INDEF = re.compile(
+    _FA_WORD_BOUND_LEFT + r"(?:رمزارز|رمز ارز|ارزهای رمزنگاری[\u200c ]?شده)هایی" + _FA_WORD_BOUND_RIGHT
+)
+_RE_D1_PLURAL_INDEF_EH = re.compile(
+    _FA_WORD_BOUND_LEFT + r"ارزهای رمزنگاری[\u200c ]?شده‌ای" + _FA_WORD_BOUND_RIGHT
+)
+_RE_D1_PLURAL = re.compile(
+    _FA_WORD_BOUND_LEFT + r"(?:(?:رمزارز|رمز ارز|ارزهای رمزنگاری[\u200c ]?شده)(?:ها|های)|ارزهای رمزنگاری[\u200c ]?شده)" + _FA_WORD_BOUND_RIGHT
+)
+_RE_D1_SING_INDEF_EH = re.compile(
+    _FA_WORD_BOUND_LEFT + r"ارز رمزنگاری[\u200c ]?شده‌ای" + _FA_WORD_BOUND_RIGHT
+)
+_RE_D1_SING_INDEF_YEH = re.compile(
+    _FA_WORD_BOUND_LEFT + r"(?:رمزارز|رمز ارز)ی" + _FA_WORD_BOUND_RIGHT
+)
+_RE_D1_SING = re.compile(
+    _FA_WORD_BOUND_LEFT + r"(?:رمزارز|رمز ارز|ارز رمزنگاری[\u200c ]?شده)" + _FA_WORD_BOUND_RIGHT
+)
+
+# D2 Bull / Bear market
+_RE_D2_BULL_PLURAL = re.compile(_FA_WORD_BOUND_LEFT + r"بازارهای گاوی" + _FA_WORD_BOUND_RIGHT)
+_RE_D2_BULL_SING = re.compile(_FA_WORD_BOUND_LEFT + r"بازار گاوی" + _FA_WORD_BOUND_RIGHT)
+_RE_D2_BEAR_PLURAL = re.compile(_FA_WORD_BOUND_LEFT + r"بازارهای خرسی" + _FA_WORD_BOUND_RIGHT)
+_RE_D2_BEAR_SING = re.compile(_FA_WORD_BOUND_LEFT + r"بازار خرسی" + _FA_WORD_BOUND_RIGHT)
+
+# Support (TA context)
+_RE_SUPPORT_PLURAL_HAYE = re.compile(_FA_WORD_BOUND_LEFT + r"پشتیبانی‌های" + _FA_WORD_BOUND_RIGHT)
+_RE_SUPPORT_PLURAL_HA = re.compile(_FA_WORD_BOUND_LEFT + r"پشتیبانی‌ها" + _FA_WORD_BOUND_RIGHT)
+_RE_SUPPORT_SING = re.compile(_FA_WORD_BOUND_LEFT + r"پشتیبانی" + _FA_WORD_BOUND_RIGHT)
+
+# Staking (سهامداری only, never سرمایه‌گذاری)
+_RE_STAKING_PLURAL_HAYE = re.compile(_FA_WORD_BOUND_LEFT + r"سهامداری‌های" + _FA_WORD_BOUND_RIGHT)
+_RE_STAKING_PLURAL_HA = re.compile(_FA_WORD_BOUND_LEFT + r"سهامداری‌ها" + _FA_WORD_BOUND_RIGHT)
+_RE_STAKING_SING = re.compile(_FA_WORD_BOUND_LEFT + r"سهامداری" + _FA_WORD_BOUND_RIGHT)
+
+# Oversold
+_RE_OVERSOLD = re.compile(_FA_WORD_BOUND_LEFT + r"فروش بیش از حد" + _FA_WORD_BOUND_RIGHT)
+
+# D3 (custody) — STATUS: review (disabled in enforce_terms)
+_RE_CUSTODY_EN = re.compile(r"\bcustod(?:y|ian|ial)\b", re.IGNORECASE)
+_RE_CUSTODY_CTX = re.compile(
+    r"\b(crypto|bitcoin|digital asset|etf|wallet|institutional|exchange|bank|service|solution|provider|platform)\b",
+    re.IGNORECASE,
+)
+_RE_CUSTODY_NEG = re.compile(r"\b(child|in custody|police|arrest|detain|jail|prison)\b", re.IGNORECASE)
+_RE_HESANAT = re.compile(_FA_WORD_BOUND_LEFT + r"حضانت" + _FA_WORD_BOUND_RIGHT)
+_RE_NEGAHDARI = re.compile(_FA_WORD_BOUND_LEFT + r"نگهداری" + _FA_WORD_BOUND_RIGHT)
+
+
+def apply_custody_review(text_fa: str, source_en: str) -> str:
+    """D3 custody rule (for review/eval). Replaces حضانت and standalone نگهداری (1st occurrence only)."""
+    if not source_en or not _RE_CUSTODY_EN.search(source_en):
+        return text_fa
+    if not _RE_CUSTODY_CTX.search(source_en) or _RE_CUSTODY_NEG.search(source_en):
+        return text_fa
+    res = _RE_HESANAT.sub("نگهداری امن", text_fa)
+    if "نگهداری امن" not in res and _RE_NEGAHDARI.search(res):
+        res = _RE_NEGAHDARI.sub("نگهداری امن", res, count=1)
+    return res
+
+
+# D4 (yield/yields) — STATUS: review (disabled in enforce_terms)
+_RE_YIELD_EN = re.compile(r"\byields?\b", re.IGNORECASE)
+_RE_YIELD_CTX = re.compile(
+    r"\b(treasury|bond|bonds|note|notes|10-year|2-year|rate|rates|curve|basis points|bps|dividend|dividends)\b",
+    re.IGNORECASE,
+)
+_RE_BAZDEHI = re.compile(_FA_WORD_BOUND_LEFT + r"بازدهی" + _FA_WORD_BOUND_RIGHT)
+
+
+def apply_yield_review(text_fa: str, source_en: str) -> str:
+    """D4 yield rule (for review/eval). Replaces بازدهی with بازده in finance context."""
+    if not source_en or not _RE_YIELD_EN.search(source_en):
+        return text_fa
+    if not _RE_YIELD_CTX.search(source_en):
+        return text_fa
+    return _RE_BAZDEHI.sub("بازده", text_fa)
+
+
+def _enforce_terms_free(text_fa: str, source_en: str) -> str:
+    """Core terms replacement on text outside protected spans."""
+    res = text_fa
+
+    # D5 coin names: only on English-source texts (source_en is not None)
+    res = _RE_COIN_SPACE.sub(lambda m: m.group(1) + ZWNJ + "کوین", res)
+
+    # D1: cryptocurrency / cryptocurrencies
+    if re.search(r"\bcrypto[\s-]?currenc(?:y|ies)\b", source_en, re.IGNORECASE):
+        res = _RE_D1_PLURAL_INDEF.sub("ارزهای دیجیتالی", res)
+        res = _RE_D1_PLURAL_INDEF_EH.sub("ارزهای دیجیتالی", res)
+        res = _RE_D1_PLURAL.sub("ارزهای دیجیتال", res)
+        res = _RE_D1_SING_INDEF_EH.sub("ارز دیجیتالی", res)
+        res = _RE_D1_SING_INDEF_YEH.sub("ارز دیجیتالی", res)
+        res = _RE_D1_SING.sub("ارز دیجیتال", res)
+
+    # D2: bull market / bear market
+    if re.search(r"\bbull\s+markets?\b", source_en, re.IGNORECASE):
+        res = _RE_D2_BULL_PLURAL.sub("بازارهای صعودی", res)
+        res = _RE_D2_BULL_SING.sub("بازار صعودی", res)
+    if re.search(r"\bbear\s+markets?\b", source_en, re.IGNORECASE):
+        res = _RE_D2_BEAR_PLURAL.sub("بازارهای نزولی", res)
+        res = _RE_D2_BEAR_SING.sub("بازار نزولی", res)
+
+    # Support (TA context only)
+    if re.search(r"\bsupport\b", source_en, re.IGNORECASE) and _RE_TA_CONTEXT.search(source_en):
+        res = _RE_SUPPORT_PLURAL_HAYE.sub("حمایت‌های", res)
+        res = _RE_SUPPORT_PLURAL_HA.sub("حمایت‌ها", res)
+        res = _RE_SUPPORT_SING.sub("حمایت", res)
+
+    # Staking (سهامداری only, never سرمایه‌گذاری)
+    if re.search(r"\bstaking\b", source_en, re.IGNORECASE):
+        res = _RE_STAKING_PLURAL_HAYE.sub("استیکینگ‌های", res)
+        res = _RE_STAKING_PLURAL_HA.sub("استیکینگ‌ها", res)
+        res = _RE_STAKING_SING.sub("استیکینگ", res)
+
+    # Oversold
+    if re.search(r"\boversold\b", source_en, re.IGNORECASE):
+        res = _RE_OVERSOLD.sub("اشباع فروش", res)
+
+    return res
+
+
+def enforce_terms(text_fa: str, source_en: str | None = None) -> str:
+    """Enforce owner-decided core terms on English-source translations.
+    Idempotent, safe, never touches native-Persian texts or protected spans."""
+    if not text_fa or not source_en:
+        return text_fa
+    return _protect_and_map(text_fa, lambda p: _enforce_terms_free(p, source_en))
+
+
 def post_edit(text, lex=None, source_en=None):
     """Deterministic Persian post-editing. Pure, idempotent, safe."""
     if text is None:
@@ -271,6 +423,8 @@ def post_edit(text, lex=None, source_en=None):
         part = _fix_arabic_letters(part)
         part = _replace_latin(part, lex)
         part = _canonicalize_fa(part, lex)
+        if source_en:
+            part = _enforce_terms_free(part, source_en)
         return _to_persian_digits(part)
 
     s = _protect_and_map(s, _free)
