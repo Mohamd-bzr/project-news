@@ -123,3 +123,60 @@ def test_server_safe_url_filter():
     assert ser_ok["image"] == "http://example.com/b.jpg"
 
 
+def test_settings_messenger_escaping():
+    """Verify that error, hint, and chat titles in settings fragment are HTML escaped against XSS."""
+    node = _node()
+    frag_path = pathlib.Path(__file__).resolve().parent.parent / "web" / "fragments" / "62_script_02.js"
+    assert frag_path.exists()
+    harness = f"""
+    const fs = require('fs');
+    const code = fs.readFileSync({json.dumps(str(frag_path))}, 'utf8');
+
+    // Minimal DOM / runtime mock
+    function esc(s) {{
+        return String(s || '').replace(/&/g, '&amp;')
+                              .replace(/</g, '&lt;')
+                              .replace(/>/g, '&gt;')
+                              .replace(/"/g, '&quot;')
+                              .replace(/'/g, '&#39;');
+    }}
+
+    const xss = '<img src=x onerror=alert(1)>';
+    const escaped = esc(xss);
+
+    // Verify error and hint interpolations in Bale block are escaped
+    const baleErrMatch = code.match(/box\\.innerHTML\\s*=\\s*`<div[^>]*>✗ \\${{([^}}]+)}}<\\/div>`/);
+    if (!baleErrMatch || !baleErrMatch[1].includes('esc(')) {{
+        console.error('Bale box.innerHTML error is not escaped with esc()');
+        process.exit(1);
+    }}
+
+    const baleHintMatch = code.match(/⚠️ \\${{([^}}]+)}}/);
+    if (!baleHintMatch || !baleHintMatch[1].includes('esc(')) {{
+        console.error('Bale box.innerHTML hint is not escaped with esc()');
+        process.exit(1);
+    }}
+
+    // Verify chat title interpolations in Bale and Telegram loops
+    const chatTitleMatches = code.matchAll(/<span><b>\\${{([^}}]+)}}<\\/b>/g);
+    let count = 0;
+    for (const m of chatTitleMatches) {{
+        count++;
+        if (!m[1].includes('esc(')) {{
+            console.error('Chat title interpolation not escaped: ' + m[1]);
+            process.exit(1);
+        }}
+    }}
+    if (count < 2) {{
+        console.error('Expected at least 2 chat title loops (Bale & Telegram), found: ' + count);
+        process.exit(1);
+    }}
+
+    console.log('OK');
+    """
+
+    res = subprocess.run([node, "-e", harness], capture_output=True, text=True, encoding="utf-8")
+    assert res.returncode == 0, f"Node security harness failed:\n{res.stdout}\n{res.stderr}"
+
+
+

@@ -4185,7 +4185,7 @@ async function detectBaleChat(){
       toast('✗ خطا: ' + (d.error || 'ارتباط برقرار نشد'));
       if(box){
         box.style.display = 'block';
-        box.innerHTML = `<div style="background:rgba(235,87,87,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--dn,#eb5757);color:var(--dn,#eb5757);font-size:0.85rem">✗ ${d.error || 'خطا در بررسی توکن بله'}</div>`;
+        box.innerHTML = `<div style="background:rgba(235,87,87,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--dn,#eb5757);color:var(--dn,#eb5757);font-size:0.85rem">✗ ${esc(d.error || 'خطا در بررسی توکن بله')}</div>`;
       }
       return;
     }
@@ -4211,7 +4211,7 @@ async function detectBaleChat(){
       if(box){
         box.style.display = 'block';
         box.innerHTML = `<div style="background:rgba(243,156,18,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--warn,#f39c12);color:var(--warn,#f39c12);font-size:0.85rem">
-          ⚠️ ${d.hint || 'پیامی در ربات بله یافت نشد.'}
+          ⚠️ ${esc(d.hint || 'پیامی در ربات بله یافت نشد.')}
         </div>`;
       }
     }
