@@ -295,5 +295,49 @@ def test_html_builders_xss_vectors():
     assert res.returncode == 0, f"Node XSS vectors harness failed:\n{res.stdout}\n{res.stderr}"
 
 
+def test_security_headers():
+    """Verify security headers on /, /api/health, an API route, web asset, and proxy-image."""
+    import hashlib
+    from app import app, IMAGE_CACHE_DIR
+    client = app.test_client()
+
+    # 1. Routes check
+    routes = [
+        "/",
+        "/api/health",
+        "/api/news",
+        "/manifest.webmanifest",
+    ]
+
+    for route in routes:
+        resp = client.get(route)
+        assert resp.headers.get("X-Content-Type-Options") == "nosniff", f"Missing nosniff on {route}"
+        assert resp.headers.get("X-Frame-Options") == "SAMEORIGIN", f"Missing SAMEORIGIN on {route}"
+        assert resp.headers.get("Referrer-Policy") == "strict-origin-when-cross-origin", f"Missing Referrer-Policy on {route}"
+        assert "Content-Security-Policy" not in resp.headers, f"CSP must not be set on {route}"
+
+    # 2. Proxy image route (verifying existing headers stay and new ones are added)
+    raw_url = "https://example.com/test_security_header_image.jpg"
+    url_hash = hashlib.sha256(raw_url.encode("utf-8")).hexdigest()
+    cached_file = IMAGE_CACHE_DIR / url_hash
+    meta_file = IMAGE_CACHE_DIR / (url_hash + ".meta")
+    cached_file.write_bytes(b"\xff\xd8\xff\xe0\x00\x10JFIF" + b"dummy")
+    meta_file.write_text("image/jpeg", encoding="utf-8")
+    try:
+        resp = client.get(f"/api/proxy-image?url={raw_url}")
+        assert resp.status_code == 200
+        # Existing headers stay
+        assert resp.headers.get("Cache-Control") == "public, max-age=86400"
+        assert resp.headers.get("X-Content-Type-Options") == "nosniff"
+        # New headers added
+        assert resp.headers.get("X-Frame-Options") == "SAMEORIGIN"
+        assert resp.headers.get("Referrer-Policy") == "strict-origin-when-cross-origin"
+        assert "Content-Security-Policy" not in resp.headers
+    finally:
+        cached_file.unlink(missing_ok=True)
+        meta_file.unlink(missing_ok=True)
+
+
+
 
 
