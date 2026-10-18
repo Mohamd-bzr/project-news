@@ -258,10 +258,15 @@ def test_enforce_terms_all_rules():
     assert enforce_terms("اندیکاتور در منطقه فروش بیش از حد است", oversold_src) == "اندیکاتور در منطقه اشباع فروش است"
 
     # D3 Review (custody)
+    # Positive case: حضانت in financial/crypto context -> نگهداری امن
+    assert apply_custody_review("خدمات حضانت دارایی دیجیتال", "digital asset custody service") == "خدمات نگهداری امن دارایی دیجیتال"
+    assert apply_custody_review("حضانت نهادی بیت‌کوین", "institutional bitcoin custody solutions") == "نگهداری امن نهادی بیت‌کوین"
+    # Negative cases: child custody, in custody (police) -> untouched
     assert apply_custody_review("دعوای حضانت فرزند", "child custody hearing") == "دعوای حضانت فرزند"
     assert apply_custody_review("متهم در بازداشت و نگهداری پلیس است", "suspect remains in custody at police station") == "متهم در بازداشت و نگهداری پلیس است"
-    assert apply_custody_review("خدمات حضانت دارایی دیجیتال", "digital asset custody service") == "خدمات نگهداری امن دارایی دیجیتال"
-    assert apply_custody_review("پلتفرم نگهداری بیت کوین", "bitcoin custody platform") == "پلتفرم نگهداری امن بیت کوین"
+    # Standalone نگهداری and self-custody wallet: standalone نگهداری must NOT be replaced
+    assert apply_custody_review("پلتفرم نگهداری بیت کوین", "bitcoin custody platform") == "پلتفرم نگهداری بیت کوین"
+    assert apply_custody_review("کیف پول خود نگهداری ارز دیجیتال", "self-custody crypto wallet") == "کیف پول خود نگهداری ارز دیجیتال"
 
     # D4 Review (yields)
     assert apply_yield_review("بازدهی شرکت عالی بود", "the business performed well") == "بازدهی شرکت عالی بود"

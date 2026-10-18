@@ -375,15 +375,12 @@ _RE_NEGAHDARI = re.compile(_FA_WORD_BOUND_LEFT + r"نگهداری" + _FA_WORD_BO
 
 
 def apply_custody_review(text_fa: str, source_en: str) -> str:
-    """D3 custody rule (for review/eval). Replaces حضانت and standalone نگهداری (1st occurrence only)."""
+    """D3 custody rule (for review/eval). Replaces only حضانت -> نگهداری امن in finance context."""
     if not source_en or not _RE_CUSTODY_EN.search(source_en):
         return text_fa
     if not _RE_CUSTODY_CTX.search(source_en) or _RE_CUSTODY_NEG.search(source_en):
         return text_fa
-    res = _RE_HESANAT.sub("نگهداری امن", text_fa)
-    if "نگهداری امن" not in res and _RE_NEGAHDARI.search(res):
-        res = _RE_NEGAHDARI.sub("نگهداری امن", res, count=1)
-    return res
+    return _RE_HESANAT.sub("نگهداری امن", text_fa)
 
 
 # D4 (yield/yields) — STATUS: review (disabled in enforce_terms)
