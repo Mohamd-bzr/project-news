@@ -179,4 +179,121 @@ def test_settings_messenger_escaping():
     assert res.returncode == 0, f"Node security harness failed:\n{res.stdout}\n{res.stderr}"
 
 
+def test_html_builders_xss_vectors():
+    """Verify that HTML builders neutralize <img src=x onerror=alert(1)> and "><svg onload=alert(1)>."""
+    node = _node()
+    frag_62 = pathlib.Path(__file__).resolve().parent.parent / "web" / "fragments" / "62_script_02.js"
+    frag_64 = pathlib.Path(__file__).resolve().parent.parent / "web" / "fragments" / "64_script_03.js"
+    tg_js = pathlib.Path(__file__).resolve().parent.parent / "web" / "tgnews.js"
+
+    harness = f"""
+    const fs = require('fs');
+    const vm = require('vm');
+
+    const PAYLOADS = [
+        '<img src=x onerror=alert(1)>',
+        '"><svg onload=alert(1)>'
+    ];
+
+    const sandbox = {{
+        window: {{}},
+        document: {{
+            getElementById: (id) => ({{
+                value: '',
+                textContent: '',
+                innerHTML: '',
+                style: {{}},
+                classList: {{ add: () => {{}}, remove: () => {{}}, toggle: () => false }},
+                querySelectorAll: () => [],
+                querySelector: () => null,
+            }}),
+            createElement: (t) => ({{
+                style: {{}},
+                setAttribute: () => {{}},
+                querySelector: () => null,
+            }}),
+            addEventListener: () => {{}},
+            removeEventListener: () => {{}},
+        }},
+        location: {{ protocol: 'https:', host: 'localhost' }},
+        localStorage: {{ getItem: () => null, setItem: () => {{}} }},
+        DATA: {{ articles: [], sources: [], config: {{ assets: [] }}, rules: {{}}, market: {{}}, assets_meta: {{}}, kind_labels: {{}} }},
+        UI: {{ view: 'feed', asset: 'all', topic: 'all' }},
+        console: console,
+        setTimeout: () => {{}},
+        clearTimeout: () => {{}},
+        requestAnimationFrame: (cb) => setTimeout(cb, 16),
+        cancelAnimationFrame: () => {{}},
+        fetch: () => new Promise(() => {{}}),
+        addEventListener: () => {{}},
+        removeEventListener: () => {{}},
+    }};
+    sandbox.window = sandbox;
+    vm.createContext(sandbox);
+
+    vm.runInContext(fs.readFileSync({json.dumps(str(frag_62))}, 'utf8'), sandbox);
+    vm.runInContext(fs.readFileSync({json.dumps(str(frag_64))}, 'utf8'), sandbox);
+    vm.runInContext(fs.readFileSync({json.dumps(str(tg_js))}, 'utf8'), sandbox);
+
+    function assertSafe(html, payload, builderName) {{
+        if (html.includes(payload)) {{
+            console.error('XSS payload found unescaped in ' + builderName + ': ' + payload);
+            process.exit(1);
+        }}
+        // Payload must appear safely escaped
+        const escPayload = sandbox.esc(payload);
+        if (!html.includes(escPayload)) {{
+            console.error('Escaped payload not found in ' + builderName + ': ' + html);
+            process.exit(1);
+        }}
+    }}
+
+    for (const p of PAYLOADS) {{
+        // 1. cardHTML (asset symbol and topic_fa)
+        const c1 = sandbox.cardHTML({{ id: '1', title: 't', assets: [p], source: 's' }});
+        assertSafe(c1, p, 'cardHTML (asset)');
+        const c2 = sandbox.cardHTML({{ id: '2', title: 't', topic_fa: p, source: 's' }});
+        assertSafe(c2, p, 'cardHTML (topic_fa)');
+
+        // 2. leadCardHTML (asset symbol and topic)
+        const l1 = sandbox.leadCardHTML({{ id: '3', title: 't', assets: [p], topic: 'tech', source: 's' }});
+        assertSafe(l1, p, 'leadCardHTML (asset)');
+        const l2 = sandbox.leadCardHTML({{ id: '4', title: 't', assets: [], topic_fa: p, source: 's' }});
+        assertSafe(l2, p, 'leadCardHTML (topic)');
+
+        // 3. ideaCardHTML (symbol_dir)
+        const i1 = sandbox.ideaCardHTML({{ id: '5', title: 't', symbol_dir: p }});
+        assertSafe(i1, p, 'ideaCardHTML (symbol_dir)');
+
+        // 4. tbChipHTML
+        const tb = sandbox.tbChipHTML(sandbox.esc(p), 'setTopicFilter(' + sandbox.jsArg(p) + ')');
+        assertSafe(tb, p, 'tbChipHTML');
+
+        // 5. etfCardHTML
+        const etf = sandbox.etfCardHTML('BTC', {{ name: p, group: p, change_pct: 1.5 }});
+        assertSafe(etf, p, 'etfCardHTML');
+    }}
+
+    // 6. verify TgNews.renderChips and detectBaleChat patterns
+    const code62 = fs.readFileSync({json.dumps(str(frag_62))}, 'utf8');
+    if (!code62.includes('data-bale-chatpick=')) {{
+        console.error('detectBaleChat must use data-bale-chatpick instead of inline onclick');
+        process.exit(1);
+    }}
+
+    const codetg = fs.readFileSync({json.dumps(str(tg_js))}, 'utf8');
+    if (!codetg.includes('TgNews.pick(') || !codetg.includes('jsArg(s.handle)')) {{
+        console.error('TgNews.renderChips must wrap s.handle in jsArg()');
+        process.exit(1);
+    }}
+
+    console.log('OK');
+    process.exit(0);
+    """
+
+    res = subprocess.run([node, "-e", harness], capture_output=True, text=True, encoding="utf-8")
+    assert res.returncode == 0, f"Node XSS vectors harness failed:\n{res.stdout}\n{res.stderr}"
+
+
+
 

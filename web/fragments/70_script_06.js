@@ -65,7 +65,7 @@ const FreebuffWatchlist = (function(){
     grid.innerHTML = assets.map(s => {
       const active = cur.includes(s);
       const name = typeof faAssetName==='function' ? faAssetName(s) : s;
-      return `<div class="watchlist-card ${active?'active':''}" onclick="FreebuffWatchlist.toggle('${s}')">
+      return `<div class="watchlist-card ${active?'active':''}" onclick="FreebuffWatchlist.toggle(${jsArg(s)})">
         <span>${typeof assetIc==='function'?assetIc(s):'🪙'} <b>${esc(name)}</b></span>
         <span>${active ? '✅' : '⚪'}</span>
       </div>`;
