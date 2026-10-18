@@ -301,7 +301,7 @@ def run_db_decision_review(regressed=None):
                         rescued_non_entity += 1
 
             # Check D1
-            if re.search(r"\bcrypto[\s-]?currenc(?:y|ies)\b", en, re.I):
+            if re.search(r"\b(?:crypto[\s-]?currenc(?:y|ies)|crypto|digital\s+assets?)\b", en, re.I):
                 before = fa
                 after = _RE_D1_SING.sub("ارز دیجیتال", _RE_D1_PLURAL.sub("ارزهای دیجیتال", before))
                 if before != after:

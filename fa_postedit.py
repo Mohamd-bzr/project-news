@@ -408,8 +408,8 @@ def _enforce_terms_free(text_fa: str, source_en: str) -> str:
     # D5 coin names: only on English-source texts (source_en is not None)
     res = _RE_COIN_SPACE.sub(lambda m: m.group(1) + ZWNJ + "کوین", res)
 
-    # D1: cryptocurrency / cryptocurrencies
-    if re.search(r"\bcrypto[\s-]?currenc(?:y|ies)\b", source_en, re.IGNORECASE):
+    # D1: cryptocurrency / cryptocurrencies / crypto / digital assets
+    if re.search(r"\b(?:crypto[\s-]?currenc(?:y|ies)|crypto|digital\s+assets?)\b", source_en, re.IGNORECASE):
         res = _RE_D1_PLURAL_INDEF.sub("ارزهای دیجیتالی", res)
         res = _RE_D1_PLURAL_INDEF_EH.sub("ارزهای دیجیتالی", res)
         res = _RE_D1_PLURAL.sub("ارزهای دیجیتال", res)

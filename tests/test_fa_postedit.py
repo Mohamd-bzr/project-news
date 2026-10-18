@@ -218,14 +218,17 @@ def test_enforce_terms_all_rules():
     """Item 3: Pin all owner decisions (D1-D5 positive/negative, approved cards, review rules)."""
     from fa_postedit import enforce_terms, apply_custody_review, apply_yield_review
 
-    # D1: cryptocurrency / cryptocurrencies
+    # D1: cryptocurrency / cryptocurrencies / crypto / digital assets
     assert enforce_terms("قیمت رمزارز کاهش یافت", "cryptocurrency price dropped") == "قیمت ارز دیجیتال کاهش یافت"
-    assert enforce_terms("قیمت رمز ارز کاهش یافت", "cryptocurrency price dropped") == "قیمت ارز دیجیتال کاهش یافت"
+    assert enforce_terms("قیمت رمز ارز کاهش یافت", "crypto price dropped") == "قیمت ارز دیجیتال کاهش یافت"
     assert enforce_terms("بازار رمزارزها صعودی شد", "cryptocurrencies market surged") == "بازار ارزهای دیجیتال صعودی شد"
-    assert enforce_terms("بازار رمز ارزها صعودی شد", "cryptocurrencies market surged") == "بازار ارزهای دیجیتال صعودی شد"
-    assert enforce_terms("ارزهای رمزنگاری شده محبوب", "popular cryptocurrencies") == "ارزهای دیجیتال محبوب"
-    assert enforce_terms("معرفی رمزارزی جدید", "launching a new cryptocurrency") == "معرفی ارز دیجیتالی جدید"
-    # D1 negative: without crypto/cryptocurrency in source, no replacement
+    assert enforce_terms("بازار رمز ارزها صعودی شد", "digital assets market surged") == "بازار ارزهای دیجیتال صعودی شد"
+    assert enforce_terms("ارزهای رمزنگاری شده محبوب", "popular digital asset options") == "ارزهای دیجیتال محبوب"
+    assert enforce_terms("معرفی رمزارزی جدید", "launching a new crypto") == "معرفی ارز دیجیتالی جدید"
+    # D1 کریپتو preserved: never rewritten to ارز دیجیتال
+    assert enforce_terms("آزمایشگاه کریپتو برای آینده", "Morgan Stanley builds crypto lab") == "آزمایشگاه کریپتو برای آینده"
+    assert post_edit("سرمایه‌گذاری در کریپتو", source_en="investing in crypto") == "سرمایه‌گذاری در کریپتو"
+    # D1 negative: without crypto/cryptocurrency/digital asset in source, no replacement
     assert enforce_terms("بازار رمزارزها", "stock market update") == "بازار رمزارزها"
 
     # D2: bull / bear market
