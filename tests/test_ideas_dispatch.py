@@ -43,9 +43,11 @@ class TestIdeasDispatch(unittest.TestCase):
     @patch("app._channel_board")
     @patch("app._tg_send")
     @patch("app._bale_send")
+    @patch("app._telegram_cfg", return_value=("tok", "@chat"))
+    @patch("app._bale_cfg", return_value=("tok", "@chat"))
     @patch("database.is_messenger_posted", return_value=False)
     @patch("database.mark_messenger_posted")
-    def test_dispatch_ideas_to_both_messengers(self, mock_mark, mock_posted, mock_bale, mock_tg, mock_board, mock_shorten):
+    def test_dispatch_ideas_to_both_messengers(self, mock_mark, mock_posted, mock_bale_cfg, mock_tg_cfg, mock_bale, mock_tg, mock_board, mock_shorten):
         mock_board.return_value = {
             "items": [
                 {
