@@ -387,6 +387,15 @@ def run_db_decision_review(regressed=None):
     print(f"  * tickers preserved: {changed_texts - len(corpus_ticker_bad)}/{changed_texts}")
     print(f"  * idempotent: {changed_texts - len(corpus_nonidem)}/{changed_texts}")
     print(f"  * no Latin run worsened: {changed_texts - len(corpus_lat_worse)}/{changed_texts}")
+    safe_mechanical = (
+        len(corpus_digit_bad) == 0 and
+        len(corpus_num_bad) == 0 and
+        len(corpus_url_bad) == 0 and
+        len(corpus_ticker_bad) == 0 and
+        len(corpus_nonidem) == 0 and
+        len(corpus_lat_worse) == 0
+    )
+    print(f"SAFE TO ENABLE (mechanical invariants): {'yes' if safe_mechanical else 'no'}")
 
     print("\n-- Rows Changed Per Term in core_terms.tsv --")
     for term, count in term_counts.items():
@@ -463,6 +472,7 @@ def run_db_decision_review(regressed=None):
         print("         Final enablement requires human review set (>=30 opinion rows; currently golden.jsonl not populated).")
     else:
         print(f"VERDICT: NOT READY: regressions={num_regressed}, non_entity_rescue={rescued_non_entity}")
+    print(f"SAFE TO ENABLE (mechanical invariants): {'yes' if safe_mechanical else 'no'}")
     print("      (fa_post_edit toggle remains untouched: OFF)")
     print("=" * 70)
 

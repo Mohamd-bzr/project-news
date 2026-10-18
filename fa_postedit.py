@@ -84,7 +84,7 @@ _RE_TAR = re.compile(r"(?P<w>[%s]+) (?=(?:\u062a\u0631|\u062a\u0631\u06cc"
                      r"\u0646)(?![%s]))" % (_PERSIAN_LETTER, _PERSIAN_LETTER))
 _RE_ZWNJ_SPACE = re.compile(r" *\u200c *")
 _RE_ZWNJ_RUN = re.compile(r"\u200c{2,}")
-_RE_SPACE_BEFORE_PUNCT = re.compile(r" +([،؟؛,.!?:])")
+_RE_SPACE_BEFORE_PUNCT = re.compile(r" +([،؟؛,.!?:])(?![A-Za-z0-9])")
 _RE_MULTI_SPACE = re.compile(r" {2,}")
 
 
@@ -212,6 +212,8 @@ def _replace_latin_in_protected_span(span, lex):
                 continue
             if width == 1 and span.strip() != expected_phrase:
                 continue
+            if any(t.group(0).isupper() and 2 <= len(t.group(0)) <= 5 for t in window):
+                continue
             if not lex.is_exact_entity(expected_phrase):
                 continue
             fa = lex.latin_fa_for(expected_phrase)
@@ -282,9 +284,8 @@ def _lookup(phrase, lex, window):
     low = phrase.lower()
     if not low or len(low) < 3:
         return None
-    first = window[0].group(0)
-    # Ticker-shaped, ETF, ETN are never replaced or expanded
-    if (first.isupper() and len(first) <= 5) or low in {"etf", "etn"}:
+    # Ticker-shaped (any uppercase token 2-5 chars), ETF, ETN are never replaced or expanded
+    if any(t.group(0).isupper() and 2 <= len(t.group(0)) <= 5 for t in window) or low in {"etf", "etn"}:
         return None
     fa = lex.latin_fa_for(low)
     if fa is None and low.endswith("'s"):
