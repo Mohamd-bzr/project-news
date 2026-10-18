@@ -210,6 +210,100 @@ IDEAS_SUMMARY_CHARS = 1000
 _IDEAS_CUT_MARKS = (".", "؟", "!")
 
 
+_FUNCTION_WORDS = {"که", "و", "با", "در", "از", "به", "تا", "برای", "را", "این", "آن", "یا", "اما", "ولی"}
+_PUNCT_MARKS = ("،", ",", "؛", ":", "—", "–", ";")
+_CLAUSE_CONJUNCTIONS = ("اما", "ولی", "در حالی که", "با این حال", "هر چند", "هرچند")
+_MIN_SPLIT_CHARS = 140
+
+
+def _split_single_sentence(text: str) -> Tuple[str, str]:
+    """Split a single long unpunctuated sentence into two non-empty blocks.
+
+    Applies only to long texts (>= 140 chars) without final punctuation.
+    Break-point priority:
+      (1) After punctuation (، , ؛ : — – ;) in 30-70% window
+      (2) Before clause conjunction (اما، ولی، در حالی که) in that window
+      (3) Whitespace nearest middle
+      (4) Otherwise no-op
+
+    Never breaks at ZWNJ, inside numbers/decimals, or before «و».
+    Block 1 must not end with a function word.
+    """
+    text = text.strip()
+    if len(text) < _MIN_SPLIT_CHARS:
+        return (text, "")
+    if text.endswith((".", "!", "؟")):
+        return (text, "")
+    if len(text.split()) <= 3:
+        return (text, "")
+
+    n = len(text)
+    mid = n // 2
+    low = int(n * 0.3)
+    high = int(n * 0.7)
+
+    p1_candidates = []  # after punctuation
+    p2_candidates = []  # before clause conjunction
+    p3_candidates = []  # whitespace nearest mid
+
+    for i, c in enumerate(text):
+        if not c.isspace():
+            continue
+        if i == 0 or i == n - 1:
+            continue
+        # Never break at a ZWNJ
+        if text[i - 1] == "\u200c" or text[i + 1] == "\u200c":
+            continue
+        # Never inside a number or decimal point
+        if text[i - 1].isdigit() and text[i + 1].isdigit():
+            continue
+        if text[i - 1] in (".", "٫", ",") and i >= 2 and text[i - 2].isdigit():
+            continue
+        if text[i + 1] in (".", "٫", ",") and i + 2 < n and text[i + 2].isdigit():
+            continue
+        # Never break before «و»
+        next_part = text[i + 1:].lstrip()
+        if re.match(r"^و(?:\s|$|\u200c)", next_part):
+            continue
+        # Block 1 must not end with a function word
+        lead_cand = text[:i].strip().rstrip("،,;؛:—-")
+        last_word = lead_cand.split()[-1] if lead_cand.split() else ""
+        if last_word in _FUNCTION_WORDS:
+            continue
+
+        dist = abs(i - mid)
+        in_window = (low <= i <= high)
+
+        # Priority 1: after punctuation mark in 30-70% window
+        if in_window and text[i - 1] in _PUNCT_MARKS:
+            p1_candidates.append((dist, i))
+        # Priority 2: before clause conjunction in that window
+        for conj in _CLAUSE_CONJUNCTIONS:
+            if in_window and next_part.startswith(conj):
+                p2_candidates.append((dist, i))
+                break
+        # Priority 3: any valid whitespace nearest mid
+        p3_candidates.append((dist, i))
+
+    if p1_candidates:
+        p1_candidates.sort()
+        chosen_i = p1_candidates[0][1]
+    elif p2_candidates:
+        p2_candidates.sort()
+        chosen_i = p2_candidates[0][1]
+    elif p3_candidates:
+        p3_candidates.sort()
+        chosen_i = p3_candidates[0][1]
+    else:
+        return (text, "")
+
+    lead = text[:chosen_i].strip().rstrip("،,;؛:—-")
+    caveat = text[chosen_i:].strip()
+    if not lead or not caveat:
+        return (text, "")
+    return (lead, caveat)
+
+
 def ideas_summary(summary_text: str,
                   max_chars: int = IDEAS_SUMMARY_CHARS) -> Tuple[str, str]:
     """A clean summary up to 1000 characters, formatted in complete sentences.
@@ -254,7 +348,16 @@ def ideas_summary(summary_text: str,
         caveat = re.sub(r'[\s،,;؛]+(?:و|یا|اما|که|به)$', '', caveat).strip()
         return (lead, caveat)
 
-    # When there is only 1 sentence, keep it intact as lead; never chop mid-sentence
+    # When there is only 1 sentence:
+    # A single complete sentence (ending in punctuation) or very short text stays intact
+    words = text.split()
+    if len(words) <= 3 or text.endswith(('.', '!', '؟')):
+        return (text, "")
+
+    # A single long sentence without sentence-ending punctuation splits into two non-empty blocks
+    lead, caveat = _split_single_sentence(text)
+    if lead and caveat:
+        return (lead, caveat)
     return (text, "")
 
 

@@ -4882,6 +4882,7 @@ def _post_cycle_ideas():
 
             sent = 0
             skipped = 0
+            skipped_summary = 0
             is_telegram = (platform == "telegram_ideas")
             for idea in candidates:
                 title_fa = str(idea.get("title_fa") or "").strip()
@@ -4895,15 +4896,18 @@ def _post_cycle_ideas():
                 if not is_persian(summary_fa):
                     summary_fa = fixed.get(str(idea.get("summary") or "").strip(), "") or fixed.get(summary_fa, "")
                 if not is_persian(summary_fa):
-                    skipped += 1
-                    continue           # strictly Persian summary required — skip if English or empty
+                    summary_fa = ""
+                    skipped_summary += 1
 
                 # Cache back into idea so future lookups / UI see Persian
                 idea["title_fa"] = title_fa
                 idea["summary_fa"] = summary_fa
 
                 # ~500-1000 character summary split into two blocks
-                b_lead, b_caveat = news_editorial.ideas_summary(summary_fa, max_chars=IDEAS_SUMMARY_CHARS)
+                b_lead, b_caveat = (
+                    news_editorial.ideas_summary(summary_fa, max_chars=IDEAS_SUMMARY_CHARS)
+                    if summary_fa else ("", "")
+                )
                 market_emoji = news_editorial.detect_market_emoji(idea) or "🪙"
 
                 clean_title = news_editorial.clean_editorial_title(title_fa)
@@ -4923,7 +4927,16 @@ def _post_cycle_ideas():
                     parts.append(f"‼️ {esc_caveat}")
 
                 raw_link = str(idea.get("link") or "").strip()
-                target_url = raw_link
+                short_link = ""
+                if raw_link:
+                    try:
+                        short_link = link_shortener.shorten(
+                            raw_link, CONFIG.get("link_shortener"))
+                    except Exception:
+                        short_link = raw_link
+                target_url = short_link or raw_link
+                if target_url:
+                    parts.append(f"🔗 {target_url}")
 
                 reply_markup = None
                 if target_url and target_url.startswith(("http://", "https://")):
@@ -4947,9 +4960,14 @@ def _post_cycle_ideas():
                     elif _breaker_open(platform):
                         break   # dead API — stop mid-run, resume next cycle
                 _time.sleep(0.5)
-            if sent or skipped:
+            if sent or skipped or skipped_summary:
+                details = []
+                if skipped:
+                    details.append(f"{skipped} dropped (non-Persian headline)")
+                if skipped_summary:
+                    details.append(f"{skipped_summary} summary omitted (non-Persian summary)")
                 log(f"{platform}: {sent} content idea(s) sent"
-                    + (f", {skipped} dropped (no Persian text)" if skipped else ""))
+                    + (f", {', '.join(details)}" if details else ""))
         except Exception as e:
             log(f"{platform} ideas auto-send error: {e}")
 
@@ -5308,7 +5326,16 @@ def api_ideas_send_single():
         parts.append(f"‼️ {esc_caveat}")
 
     raw_link = str(idea.get("link") or "").strip()
-    target_url = raw_link
+    short_link = ""
+    if raw_link:
+        try:
+            short_link = link_shortener.shorten(
+                raw_link, CONFIG.get("link_shortener"))
+        except Exception:
+            short_link = raw_link
+    target_url = short_link or raw_link
+    if target_url:
+        parts.append(f"🔗 {target_url}")
     reply_markup = None
     if target_url and target_url.startswith(("http://", "https://")):
         reply_markup = {
