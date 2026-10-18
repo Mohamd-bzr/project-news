@@ -314,3 +314,37 @@ def test_fa_eval_sample_size_verdict_gate():
     assert verdict == "DO NOT ENABLE"
 
 
+def test_cpi_phrase_idempotency_and_ticker_preservation():
+    """Mechanical invariant tests:
+    - CPI phrase (مصرف کننده) idempotency
+    - zero ticker loss (CME, HDFC, BBVA, BNP)
+    - no Latin-run growth across domain extensions (.ada, .eth)
+    """
+    from translate import longest_latin_run
+    from tools.fa_eval import tickers
+
+    # 1. CPI idempotency
+    cpi_fa = "گزارش شاخص قیمت مصرف کننده سپتامبر"
+    cpi_en = "September Consumer Price Index report"
+    pe1 = post_edit(cpi_fa, source_en=cpi_en)
+    pe2 = post_edit(pe1, source_en=cpi_en)
+    assert pe1 == pe2, f"CPI phrase non-idempotent: {pe1!r} != {pe2!r}"
+
+    # 2. Ticker preservation
+    ticker_cases = [
+        ("CME Group Inc. پس از عقب نشینی صنعت", "CME Group Inc. is shelving plans", "CME"),
+        ("Gap-Up محو می شود زیرا IT و HDFC Bank Nifty را", "Gap-Up fades as IT and HDFC Bank drag Nifty", "HDFC"),
+        ("اخبار XRP: Ripple با Garanti BBVA Custody", "XRP News: Ripple with Garanti BBVA Custody", "BBVA"),
+        ("O BNP Paribas و o Deutsche Bank", "O BNP Paribas e o Deutsche Bank", "BNP"),
+    ]
+    for raw_fa, src_en, ticker in ticker_cases:
+        out = post_edit(raw_fa, source_en=src_en)
+        assert ticker in tickers(out), f"Ticker {ticker} was lost in output: {out!r}"
+
+    # 3. No Latin-run growth on dot extensions
+    ada_fa = "اگر به .ada چراغ سبز داده شود، Cardano جایگاهی را"
+    ada_out = post_edit(ada_fa)
+    assert longest_latin_run(ada_out) <= longest_latin_run(ada_fa)
+
+
+
