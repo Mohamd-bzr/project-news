@@ -106,11 +106,26 @@ def test_fa_spelling_variants_canonicalized():
     # the NO-SEPARATOR joined spelling is NOT rewritten: merging/splitting
     # words is a REVIEW.md decision; only space<->ZWNJ is pure typography
     assert post_edit("قیمت بیتکوین بالا رفت") == "قیمت بیتکوین بالا رفت"
-    # two-word phrases never collapse into one word
+    # two-word phrases never collapse into one word without English source (item 1a)
     assert post_edit("صرافی رمز ارز معتبر است") == "صرافی رمز ارز معتبر است"
+    assert post_edit("بازار رمز ارزها نوسان دارد") == "بازار رمز ارزها نوسان دارد"
     # different words (different families) are never merged
     assert "بازده" in post_edit("بازده بازار افزایش یافت")
     assert post_edit("کتاب جدید") == "کتاب جدید"
+
+
+def test_acronym_and_digit_inconsistencies_pinned():
+    # Item 1b: All-caps acronyms <= 5 chars are NOT replaced from Latin residue
+    assert post_edit("پرونده با SEC در جریان است") == "پرونده با SEC در جریان است"
+    assert post_edit("بیانیه FED منتشر شد") == "بیانیه FED منتشر شد"
+    assert post_edit("تصمیم ECB اعلام شد") == "تصمیم ECB اعلام شد"
+    # NASDAQ is vetted in entities.tsv and allowed to replace
+    assert post_edit("نماد در (NASDAQ: AAPL)") == "نماد در (نزدک: AAPL)"
+
+    # Item 1c: Persian digits are never converted to Latin
+    assert post_edit("نرخ ۳۵ درصد اعلام شد") == "نرخ ۳۵ درصد اعلام شد"
+    assert post_edit("ساعت ۱۷:۳۵ به وقت تهران") == "ساعت ۱۷:۳۵ به وقت تهران"
+    assert post_edit("شماره ۳۵") == "شماره ۳۵"
 
 
 def test_none_and_empty_passthrough():
