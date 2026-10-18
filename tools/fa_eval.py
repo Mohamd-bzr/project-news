@@ -31,7 +31,23 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 from translate import is_persian, longest_latin_run      # noqa: E402
-from fa_postedit import post_edit                        # noqa: E402
+from fa_postedit import (                                # noqa: E402
+    post_edit,
+    enforce_terms,
+    apply_custody_review,
+    apply_yield_review,
+    _RE_COIN_SPACE,
+    _RE_TA_CONTEXT,
+    _RE_D1_PLURAL,
+    _RE_D1_SING,
+    _RE_D2_BULL_SING,
+    _RE_D2_BULL_PLURAL,
+    _RE_D2_BEAR_SING,
+    _RE_D2_BEAR_PLURAL,
+    _RE_SUPPORT_SING,
+    _RE_STAKING_SING,
+    _RE_OVERSOLD,
+)
 
 DIG_RE = re.compile("[0-9\\u06f0-\\u06f9]")
 NUM_RE = re.compile("[0-9\\u06f0-\\u06f9]+(?:[.,\\u066b][0-9\\u06f0-\\u06f9]+)*")
@@ -168,6 +184,243 @@ def load_rows():
     return rows, "golden_template.tsv", has_golden
 
 
+def run_db_decision_review(regressed=None):
+    db_path = Path("E:/freebuff/.mohmd_news.db")
+    if not db_path.exists():
+        print(f"\n[DB REVIEW] Database not found at {db_path}; skipping DB corpus review.")
+        return
+
+    import sqlite3
+    conn = sqlite3.connect(f"file:{db_path.as_posix()}?mode=ro", uri=True)
+    c = conn.cursor()
+    rows = c.execute(
+        "SELECT id, title, title_fa, summary, summary_fa FROM articles WHERE title IS NOT NULL"
+    ).fetchall()
+
+    from fa_postedit import (
+        _fix_arabic_letters, _canonicalize_fa, _to_persian_digits,
+        _protect_and_map, _zwnj_mi, _zwnj_ha, _zwnj_tar,
+        _RE_ZWNJ_SPACE, _RE_ZWNJ_RUN, _RE_SPACE_BEFORE_PUNCT, _RE_MULTI_SPACE, ZWNJ
+    )
+    from fa_lexicon import lexicon
+    lex = lexicon()
+
+    total_texts = 0
+    raw_pass = 0
+    post_pass = 0
+    rescued_typo = 0
+    rescued_entity = 0
+    rescued_non_entity = 0
+
+    term_counts = {
+        "D1 (cryptocurrency)": 0,
+        "D2 (bull market)": 0,
+        "D2 (bear market)": 0,
+        "D5 (coin names)": 0,
+        "support": 0,
+        "staking": 0,
+        "oversold": 0,
+        "D3 (custody - review)": 0,
+        "D4 (yield - review)": 0,
+    }
+
+    samples_d1 = []
+    samples_d2 = []
+    samples_d5 = []
+    samples_support = []
+    samples_staking = []
+    samples_oversold = []
+    samples_d3 = []
+    samples_d4 = []
+
+    for row_id, en_title, fa_title, en_summ, fa_summ in rows:
+        pairs = []
+        if fa_title and is_english_source(en_title):
+            pairs.append((en_title, fa_title))
+        if fa_summ and en_summ and is_english_source(en_summ):
+            pairs.append((en_summ, fa_summ))
+
+        row_hits = set()
+        for en, fa in pairs:
+            total_texts += 1
+            r_p = is_persian(fa)
+            pe = post_edit(fa, source_en=en)
+            p_p = is_persian(pe)
+            if r_p:
+                raw_pass += 1
+            if p_p:
+                post_pass += 1
+            if not r_p and p_p:
+                no_lat = _protect_and_map(fa, lambda part: _to_persian_digits(_canonicalize_fa(_fix_arabic_letters(part), lex)))
+                no_lat = _RE_MULTI_SPACE.sub(" ", _RE_SPACE_BEFORE_PUNCT.sub(r"\1", _zwnj_tar(_zwnj_ha(_zwnj_mi(_RE_ZWNJ_RUN.sub(ZWNJ, _RE_ZWNJ_SPACE.sub(ZWNJ, no_lat))))))).strip(" \t\r\n" + ZWNJ)
+                if is_persian(no_lat):
+                    rescued_typo += 1
+                else:
+                    post_no_terms = post_edit(fa, source_en=None)
+                    if is_persian(post_no_terms):
+                        rescued_entity += 1
+                    else:
+                        rescued_non_entity += 1
+
+            # Check D1
+            if re.search(r"\bcrypto[\s-]?currenc(?:y|ies)\b", en, re.I):
+                before = fa
+                after = _RE_D1_SING.sub("ارز دیجیتال", _RE_D1_PLURAL.sub("ارزهای دیجیتال", before))
+                if before != after:
+                    row_hits.add("D1 (cryptocurrency)")
+                    if len(samples_d1) < 20 and (en, before, after) not in samples_d1:
+                        samples_d1.append((en, before, after))
+
+            # Check D2
+            if re.search(r"\bbull\s+markets?\b", en, re.I):
+                if _RE_D2_BULL_SING.search(fa) or _RE_D2_BULL_PLURAL.search(fa):
+                    row_hits.add("D2 (bull market)")
+                    pe_d2 = _RE_D2_BULL_SING.sub("بازار صعودی", _RE_D2_BULL_PLURAL.sub("بازارهای صعودی", fa))
+                    if len(samples_d2) < 20 and (en, fa, pe_d2) not in samples_d2:
+                        samples_d2.append((en, fa, pe_d2))
+            if re.search(r"\bbear\s+markets?\b", en, re.I):
+                if _RE_D2_BEAR_SING.search(fa) or _RE_D2_BEAR_PLURAL.search(fa):
+                    row_hits.add("D2 (bear market)")
+                    pe_d2 = _RE_D2_BEAR_SING.sub("بازار نزولی", _RE_D2_BEAR_PLURAL.sub("بازارهای نزولی", fa))
+                    if len(samples_d2) < 20 and (en, fa, pe_d2) not in samples_d2:
+                        samples_d2.append((en, fa, pe_d2))
+
+            # Check D5
+            if _RE_COIN_SPACE.search(fa):
+                row_hits.add("D5 (coin names)")
+                pe_d5 = _RE_COIN_SPACE.sub(lambda m: m.group(1) + ZWNJ + "کوین", fa)
+                if len(samples_d5) < 20 and (en, fa, pe_d5) not in samples_d5:
+                    samples_d5.append((en, fa, pe_d5))
+
+            # Check support
+            if re.search(r"\bsupport\b", en, re.I) and _RE_TA_CONTEXT.search(en):
+                if _RE_SUPPORT_SING.search(fa):
+                    row_hits.add("support")
+                    pe_supp = _RE_SUPPORT_SING.sub("حمایت", fa)
+                    if len(samples_support) < 20 and (en, fa, pe_supp) not in samples_support:
+                        samples_support.append((en, fa, pe_supp))
+
+            # Check staking
+            if re.search(r"\bstaking\b", en, re.I):
+                if _RE_STAKING_SING.search(fa):
+                    row_hits.add("staking")
+                    pe_stk = _RE_STAKING_SING.sub("استیکینگ", fa)
+                    if len(samples_staking) < 20 and (en, fa, pe_stk) not in samples_staking:
+                        samples_staking.append((en, fa, pe_stk))
+
+            # Check oversold
+            if re.search(r"\boversold\b", en, re.I):
+                if _RE_OVERSOLD.search(fa):
+                    row_hits.add("oversold")
+                    pe_over = _RE_OVERSOLD.sub("اشباع فروش", fa)
+                    if len(samples_oversold) < 20 and (en, fa, pe_over) not in samples_oversold:
+                        samples_oversold.append((en, fa, pe_over))
+
+            # Check D3 review
+            c_after = apply_custody_review(fa, en)
+            if c_after != fa:
+                row_hits.add("D3 (custody - review)")
+                if len(samples_d3) < 20 and (en, fa, c_after) not in samples_d3:
+                    samples_d3.append((en, fa, c_after))
+
+            # Check D4 review
+            y_after = apply_yield_review(fa, en)
+            if y_after != fa:
+                row_hits.add("D4 (yield - review)")
+                if len(samples_d4) < 20 and (en, fa, y_after) not in samples_d4:
+                    samples_d4.append((en, fa, y_after))
+
+        for h in row_hits:
+            term_counts[h] += 1
+
+    print("\n" + "=" * 70)
+    print("DECISION REVIEW & CORPUS EVALUATION (.mohmd_news.db)")
+    print("=" * 70)
+
+    print(f"\nCorpus Texts Evaluated: {total_texts}")
+    print(f"Whole Corpus is_persian Pass Rate: raw {raw_pass}/{total_texts} ({raw_pass/total_texts:.2%}) -> post_edit {post_pass}/{total_texts} ({post_pass/total_texts:.2%})")
+    print(f"is_persian Rescues by Entity: {rescued_entity}")
+    print(f"is_persian Rescues ONLY by Non-Entity: {rescued_non_entity} (MUST be 0)")
+
+    print("\n-- Rows Changed Per Term in core_terms.tsv --")
+    for term, count in term_counts.items():
+        print(f"  {term:25}: {count} rows")
+
+    print("\n-- 20 Real DB Examples: D1 (cryptocurrency -> ارز دیجیتال / ارزهای دیجیتال) --")
+    for i, (en, raw, pe) in enumerate(samples_d1[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     POST: {pe}")
+
+    print("\n-- 20 Real DB Examples: D2 (bull/bear market -> بازار صعودی / نزولی) --")
+    for i, (en, raw, pe) in enumerate(samples_d2[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     POST: {pe}")
+
+    print("\n-- 20 Real DB Examples: D5 (coin names prefix+ZWNJ+کوین) --")
+    for i, (en, raw, pe) in enumerate(samples_d5[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     POST: {pe}")
+
+    print("\n-- Real DB Examples: support -> حمایت (Technical Analysis Context) --")
+    for i, (en, raw, pe) in enumerate(samples_support[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     POST: {pe}")
+
+    print(f"\n-- Real DB Examples: staking -> استیکینگ (سهامداری only, n={len(samples_staking)}) --")
+    for i, (en, raw, pe) in enumerate(samples_staking[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     POST: {pe}")
+
+    print(f"\n-- Real DB Examples: oversold -> اشباع فروش (فروش بیش از حد, n={len(samples_oversold)}) --")
+    for i, (en, raw, pe) in enumerate(samples_oversold[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     POST: {pe}")
+
+    print("\n-- D3 (custody -> نگهداری امن) Review: 20 Real Examples --")
+    for i, (en, raw, pe) in enumerate(samples_d3[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     REV : {pe}")
+
+    def d3_risk(item):
+        en, raw, rev = item
+        score = 0
+        if "حضانت" not in raw and "نگهداری" in raw:
+            score += 10
+        if re.search(r"self-?custod", en, re.I) or "خود" in raw:
+            score += 5
+        if re.search(r"\b(service|solution|provider)\b", en, re.I):
+            score += 2
+        return score
+
+    d3_riskiest = sorted(samples_d3, key=d3_risk, reverse=True)[:5]
+    print("\n-- D3 (custody) Top 5 Riskiest Examples (Review) --")
+    for i, (en, raw, pe) in enumerate(d3_riskiest, 1):
+        print(f"[{i}] EN  : {en}\n    RAW : {raw}\n    REV : {pe}")
+
+    print("\n-- D4 (yield/yields -> بازده) Review: 20 Real Examples --")
+    for i, (en, raw, pe) in enumerate(samples_d4[:20], 1):
+        print(f"[{i:02}] EN  : {en}\n     RAW : {raw}\n     REV : {pe}")
+
+    def d4_risk(item):
+        en, raw, rev = item
+        score = 0
+        if re.search(r"\b(?:yields?\s+(?:\d+|just|\$|around|near|above|below|over|more|less|a\s|at\s))\b", en, re.I):
+            score += 10
+        if re.search(r"\b(?:dividend|earnings|cash flow)\s+yields?\b", en, re.I):
+            score += 5
+        if re.search(r"^(?:higher|lower|rising|falling)\s+yields\b", en, re.I):
+            score += 3
+        return score
+
+    d4_riskiest = sorted(samples_d4, key=d4_risk, reverse=True)[:5]
+    print("\n-- D4 (yield/yields) Top 5 Riskiest Examples (Review) --")
+    for i, (en, raw, pe) in enumerate(d4_riskiest, 1):
+        print(f"[{i}] EN  : {en}\n    RAW : {raw}\n    REV : {pe}")
+
+    print("\n" + "=" * 70)
+    num_regressed = len(regressed) if regressed else 0
+    if rescued_non_entity == 0 and num_regressed == 0:
+        print("VERDICT: RECOMMENDATION: FLIP fa_post_edit=True")
+        print("Conditions met: 0 regressions in preservation gates, non-entity rescue counter is 0.")
+    else:
+        print(f"VERDICT: NOT READY: regressions={num_regressed}, non_entity_rescue={rescued_non_entity}")
+    print("      (fa_post_edit toggle remains untouched: OFF)")
+    print("=" * 70)
+
+
 def main():
     rows, source, has_golden = load_rows()
     print(f"source: {source}  rows={len(rows)}  golden_available={has_golden}")
@@ -187,7 +440,7 @@ def main():
         [], [], [], [], [], [], []
     lrr_raw, lrr_post = [], []
     for r in kept:
-        raw, post = r["engine_output"], post_edit(r["engine_output"])
+        raw, post = r["engine_output"], post_edit(r["engine_output"], source_en=r["english"])
         rp, pp = is_persian(raw), is_persian(post)
         pass_raw += rp
         pass_post += pp
@@ -206,7 +459,7 @@ def main():
             url_bad.append(r)
         if any(t not in post for t in tickers(raw)):
             ticker_bad.append(r)
-        if post_edit(post) != post:
+        if post_edit(post, source_en=r["english"]) != post:
             nonidem.append(r)
 
     n = max(len(kept), 1)
@@ -311,7 +564,7 @@ def main():
         print(f"\n{lbl} — 10 samples:")
         for idx, r in enumerate(items[:10], 1):
             raw = r["engine_output"]
-            post = post_edit(raw)
+            post = post_edit(raw, source_en=r["english"])
             print(f"  [{idx:02d}] id={r['id']}")
             print(f"       english         : {r['english']}")
             print(f"       engine_output   : {raw}")
@@ -319,6 +572,7 @@ def main():
 
     if not has_golden:
         print("\n(no opinion/fixed_fa present — golden metrics skipped)")
+        run_db_decision_review(regressed=regressed)
         return
 
     # ── golden metrics: opinion tallies, chrF, edit distance, term accuracy ──
@@ -479,6 +733,7 @@ def main():
     print("      the quality verdict is judged across the aggregate evaluated opinion set.")
     print("      (fa_post_edit toggle remains untouched: OFF)")
     print("=" * 50)
+    run_db_decision_review(regressed=regressed)
 
 
 if __name__ == "__main__":
