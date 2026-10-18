@@ -22,6 +22,20 @@ const TgNews = (function () {
   const escFallback = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const esc = (s) => (typeof window.esc === 'function' ? window.esc(s) : escFallback(s));
+  const attr = (s) => (typeof window.attr === 'function' ? window.attr(s) : esc(s));
+  const jsArg = (v) => (typeof window.jsArg === 'function' ? window.jsArg(v) : JSON.stringify(String(v == null ? '' : v)));
+
+  function safeHref(u) {
+    const raw = String(u == null ? '' : u).replace(/[\u0000-\u001f\u007f-\u009f]/g, '').trim();
+    if (!raw) return '#';
+    const dec = (typeof window.sanDecode === 'function' ? window.sanDecode(raw) : raw);
+    const probe = dec.replace(/[\s\u0000-\u001f\u007f-\u009f]/g, '').toLowerCase();
+    const m = /^([a-z][a-z0-9+.\-]*):/.exec(probe);
+    if (!m) return '#';
+    const scheme = m[1];
+    if (scheme === 'http' || scheme === 'https') return raw;
+    return '#';
+  }
 
   /* ISO → «۱۴۰۴/۰۷/۲۰ — ۱۲:۳۷» ; an empty timestamp is an explicit gap. */
   function faWhen(iso) {
@@ -36,7 +50,7 @@ const TgNews = (function () {
   function postCard(p, src) {
     const text = String(p.text || '').slice(0, 420);
     const safeTitle = esc(p.title || '(بدون تیتر)');
-    const safeUrl = esc(p.url);
+    const safeUrl = attr(safeHref(esc(p.url)));
     const safeHandle = esc(src.handle);
     const safeText = esc(text);
 
@@ -74,7 +88,7 @@ const TgNews = (function () {
           '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' +
             baleBtn +
             tgBtn +
-            '<a class="b-card-act link" href="' + safeUrl + '" target="_blank" rel="noopener" title="مشاهدهٔ پست در تلگرام">🔗 پست</a>' +
+            '<a class="b-card-act link" href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" title="مشاهدهٔ پست در تلگرام">🔗 پست</a>' +
             '<span class="dt">' + faWhen(p.time) + '</span>' +
           '</div>' +
         '</div>' +
@@ -89,7 +103,7 @@ const TgNews = (function () {
     const sources = (S.data || {}).sources || [];
     host.innerHTML = sources.map(s =>
       '<button class="chip' + (S.picked === s.handle ? ' on' : '') + '" type="button" ' +
-      'onclick="TgNews.pick(\'' + esc(s.handle) + '\')" ' +
+      'onclick="TgNews.pick(' + jsArg(s.handle) + ')" ' +
       'title="' + esc(s.url) + '">@' + esc(s.handle) +
       ' <span class="n">' + fa((s.posts || []).length) + '</span></button>').join('');
   }
@@ -295,7 +309,8 @@ const TgNews = (function () {
       } catch (e) {
         if (typeof toast === 'function') toast('❌ خطای ارتباط: ' + e.message);
       }
-    }
+    },
+    _safeHref: safeHref
   };
 })();
 

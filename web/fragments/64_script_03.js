@@ -127,7 +127,7 @@ function showTvFail(msg){
   fail.style.display='block';
   const sym=(window.__rep&&window.__rep.symbol)||'';
   const url='https://www.tradingview.com/chart/?symbol='+encodeURIComponent(tvSymbolFor(sym));
-  fail.innerHTML=(msg||'نمودار تریدینگ‌ویو بارگذاری نشد (اینترنت یا تاخیر ویجت).')+
+  fail.innerHTML=(esc(msg)||'نمودار تریدینگ‌ویو بارگذاری نشد (اینترنت یا تاخیر ویجت).')+
     ` <a class="mlink" href="${url}" target="_blank" rel="noopener">باز کردن در تریدینگ‌ویو</a>`;
 }
 /* «⛶ بزرگ‌نمایی»: the panel leaves the grid and fills the viewport */
@@ -231,7 +231,7 @@ document.addEventListener('keydown', e=>{ if(e.key==='Escape') tbCloseAll(null);
    it pointing at a button that has moved */
 window.addEventListener('resize', ()=>tbCloseAll(null));
 function tbChipHTML(label, act){
-  return `<button class="tb-chip" title="حذف این فیلتر" onclick="${act}">${label}<span class="x">✕</span></button>`;
+  return `<button class="tb-chip" title="حذف این فیلتر" onclick="${attr(act)}">${label}<span class="x">✕</span></button>`;
 }
 /* items = [[label, onclick], …]; assetChip is an optional non-removable chip */
 function tbPaint(badgeId, liveId, btnId, items, assetChip, lang){
@@ -271,10 +271,10 @@ function setQ(v){ const q=document.getElementById('q'); if(q) q.value=v; renderF
 function renderFeedToolbar(){
   const items=[];
   if(UI.onlyBookmarked) items.push([ic('star')+' نشان‌شده‌ها', "UI.onlyBookmarked=false;renderChips();renderFeed()"]);
-  if(UI.asset&&UI.asset!=='all') items.push([assetIc(UI.asset)+' '+faAssetName(UI.asset), "setAssetFilter('"+UI.asset+"')"]);
-  if(UI.topic&&UI.topic!=='all') items.push([topicIc(UI.topic)+' '+(FA_TOPIC[UI.topic]||UI.topic), "setTopicFilter('"+UI.topic+"')"]);
+  if(UI.asset&&UI.asset!=='all') items.push([assetIc(UI.asset)+' '+esc(faAssetName(UI.asset)), "setAssetFilter("+jsArg(UI.asset)+")"]);
+  if(UI.topic&&UI.topic!=='all') items.push([topicIc(UI.topic)+' '+esc(FA_TOPIC[UI.topic]||UI.topic), "setTopicFilter("+jsArg(UI.topic)+")"]);
   const kind=valOf('kindSel');
-  if(kind&&kind!=='all') items.push([ic('book')+' '+(((typeof DATA!=='undefined'&&DATA&&DATA.kind_labels)||{})[kind]||kind), "setSel('kindSel','all')"]);
+  if(kind&&kind!=='all') items.push([ic('book')+' '+esc((((typeof DATA!=='undefined'&&DATA&&DATA.kind_labels)||{})[kind]||kind)), "setSel('kindSel','all')"]);
   const src=valOf('srcSel');
   if(src&&src!=='all') items.push([ic('bank')+' '+esc(src), "setSel('srcSel','all')"]);
   const cred=parseInt(valOf('credSlider')||'0',10)||0;

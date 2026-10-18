@@ -1,0 +1,40 @@
+{
+ "artifact": "terms.tsv",
+ "rows": 3674,
+ "sources": [
+  {
+   "name": "vendor/persian-crypto-words (MIT)",
+   "url": "vendor/persian-crypto-words/crypto_names.txt",
+   "license": "MIT",
+   "detail": "local file; semantic line scan (EN/FA/ticker), contradicting duplicate FA values dropped"
+  },
+  {
+   "name": "Wikidata via enwiki categories (CC0)",
+   "url": "https://www.wikidata.org/w/api.php (sites=enwiki)",
+   "license": "CC0-1.0",
+   "detail": "finance:Category:Finance, economics:Category:Economics, monetary:Category:Monetary policy, markets:Category:Financial markets, trading:Category:Commodity exchanges, crypto:Category:Cryptocurrencies, central-banks:Category:Central banks, banking:Category:Banking, stock-market:Category:Stock markets, commodities:Category:Commodities, inflation:Category:Inflation, currencies:Category:Currencies, fiscal:Category:Fiscal policy, investing:Category:Investment"
+  },
+  {
+   "name": "Wikidata term seeds (CC0)",
+   "url": "https://www.wikidata.org/w/api.php (wbsearchentities)",
+   "license": "CC0-1.0",
+   "detail": "75 generic finance/econ/trading/crypto terms from docs/fa_audit.md §6"
+  },
+  {
+   "name": "fa.wiktionary dump (CC BY-SA 4.0)",
+   "url": "https://dumps.wikimedia.org/fawiktionary/latest/fawiktionary-latest-pages-articles.xml.bz2",
+   "license": "CC BY-SA 4.0",
+   "detail": "interwiki [[en:...]] links on fa pages"
+  },
+  {
+   "name": "project corpus (read-only)",
+   "url": ".mohmd_news.db articles.title/title_fa",
+   "license": "n/a (own data)",
+   "detail": "evidence counts for REVIEW.md only"
+  }
+ ],
+ "notes": [
+  "contested keys: 178 (open: 167); pos '-' where no source states it (never guessed).",
+  "vendor/list.txt skipped: FA-only, cannot form EN->FA pairs."
+ ]
+}

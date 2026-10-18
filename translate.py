@@ -31,6 +31,45 @@ from pathlib import Path
 import requests
 
 from fa_format import fa_digits  # canonical Persian-digit helper
+from fa_postedit import post_edit  # Phase-3 deterministic FA post-editing
+
+
+# ---------------------------------------------------------------------------
+# Phase-3 quality hook (default OFF)
+# ---------------------------------------------------------------------------
+# app.py::load_config() flips POST_EDIT from settings.json ("fa_post_edit").
+# The cache keeps RAW values, so toggling is instantly reversible with no
+# cache invalidation; post_edit() itself is idempotent by contract.
+POST_EDIT = False
+
+_FA_CHAR_RE = re.compile(r"[\u0600-\u06FF]")
+
+
+def _has_persian_letter(s: str) -> bool:
+    return bool(_FA_CHAR_RE.search(s or ""))
+
+
+def _post_edit_safe(text, source_en=None):
+    """post_edit() that can never raise and never erases a non-empty text."""
+    if not POST_EDIT or not text:
+        return text
+    try:
+        edited = post_edit(text, source_en=source_en)
+    except Exception:
+        return text                     # fail-safe: never raise into the cycle
+    return edited if edited else text   # empty/None for non-empty -> raw text
+
+
+def _apply_post_edit(out: dict) -> dict:
+    """Phase-3 hook at the output boundary; identity while POST_EDIT is off."""
+    if not POST_EDIT or not out:
+        return out
+    res = {}
+    for k, v in out.items():
+        src_en = k if not _has_persian_letter(k) else None
+        res[k] = _post_edit_safe(v, source_en=src_en)
+    return res
+
 
 BASE_DIR = Path(__file__).parent
 CACHE_FILE = BASE_DIR / ".translate_cache.json"
@@ -232,15 +271,17 @@ def to_persian(candidate, source=None) -> str:
     to fall back to when the candidate turns out not to be Persian.
     """
     if is_persian(candidate):
-        return str(candidate).strip()
+        # is_persian() still validates the RAW candidate; only the returned
+        # text goes through the Phase-3 hook (identity while POST_EDIT is off)
+        return _post_edit_safe(str(candidate).strip())
     if source:
         got = translate_one(str(source).strip())
         if is_persian(got):
-            return str(got).strip()
+            return _post_edit_safe(str(got).strip())
     return ""
 
 
-def translate_many(texts, persian_digits: bool = True) -> dict:
+def _translate_many_raw(texts, persian_digits: bool = True) -> dict:
     """
     Translate an iterable of English strings to Persian.
     Returns {original: persian}; missing / failed entries are simply absent.
@@ -299,6 +340,13 @@ def translate_many(texts, persian_digits: bool = True) -> dict:
                     _DIRTY = True
 
     return out
+
+
+def translate_many(texts, persian_digits: bool = True) -> dict:
+    """Public entry point: same contract as _translate_many_raw(), plus the
+    Phase-3 hook — post_edit() applied at the output boundary when POST_EDIT
+    is on. The cache inside keeps RAW values only."""
+    return _apply_post_edit(_translate_many_raw(texts, persian_digits))
 
 
 def translate_one(text: str, persian_digits: bool = True):

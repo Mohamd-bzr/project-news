@@ -51,6 +51,7 @@ from report_generator import build_all_reports, build_report
 from indicators import chart_payload
 from translate import (translate_many, translate_one, translate_paragraphs,
                        cache_stats, save_cache, is_persian, to_persian)
+import translate  # Phase-3 hook: load_config() sets translate.POST_EDIT
 from fa_format import fa_datetime, fa_date, fa_time, fa_ago, fa_digits
 from dashboard_html import APP_HTML
 from news_intelligence import (
@@ -118,6 +119,9 @@ DEFAULT_CONFIG = {
     "sources_enabled": {k: True for k in SOURCES},
     "custom_sources": {},             # key -> {name, rss, trust}
     "report_max_age_hours": 24,      # default news window (24h) — selectable in settings
+    # Phase-3 FA quality hook: deterministic post-editing of every translation
+    # (fa_postedit.post_edit). Default OFF; flip in settings.json by hand.
+    "fa_post_edit": False,
     # News hygiene (settings tab). Social feeds are Reddit-style sentiment posts
     # and the short ones are mostly stubs ("$BTC to the moon"); both pollute a
     # feed that is meant to be readable analysis.
@@ -591,6 +595,9 @@ def load_config():
     ba_sec.setdefault("send_ideas", True)
     _init_discord_bot()
     _init_ai_config()
+    # Phase-3 FA quality hook: deterministic post-editing of every translation
+    # (fa_postedit.post_edit). Default OFF — "fa_post_edit": true enables it.
+    translate.POST_EDIT = bool(CONFIG.get("fa_post_edit", False))
 
 
 DISCORD_CONFIG = CONFIG.get('discord', {})
@@ -1050,6 +1057,14 @@ def _translate_articles_inplace(articles):
 # Serializers
 # ---------------------------------------------------------------------------
 
+def _safe_url(u):
+    """Allow-list http:// and https:// schemes only; everything else returns empty string."""
+    if not u or not isinstance(u, str):
+        return ""
+    s = u.strip()
+    return s if s.lower().startswith(("http://", "https://")) else ""
+
+
 def _ser_article(a):
     # .get() everywhere: this serialises whatever the scrapers handed over, and
     # one malformed record (a feed entry without a link, say) used to raise
@@ -1061,7 +1076,7 @@ def _ser_article(a):
         "title_fa": a.get("title_fa") or "",
         "summary": (a.get("summary") or "")[:1000],
         "summary_fa": (a.get("summary_fa") or "")[:1000],
-        "link": a.get("link", ""),
+        "link": _safe_url(a.get("link", "")),
         "source": a.get("source_name", ""),
         "source_key": a.get("source_key", ""),
         "source_kind": a.get("source_kind", "crypto"),
@@ -1082,7 +1097,7 @@ def _ser_article(a):
         "reddit_comments": a.get("reddit_comments"),
         "author": a.get("author", ""),
         "flags": a.get("flags", []),
-        "image": a.get("image") or "",
+        "image": _safe_url(a.get("image") or ""),
     }
 
 
@@ -1158,6 +1173,15 @@ def _no_store(resp):
         resp.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
         resp.headers["Pragma"] = "no-cache"
         resp.headers["Expires"] = "0"
+    return resp
+
+
+@app.after_request
+def _security_headers(resp):
+    """Set baseline defense-in-depth security headers without overriding existing route headers."""
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
     return resp
 
 
@@ -2382,7 +2406,7 @@ def api_v1_articles():
             "summary_fa": a.get("summary_fa", ""),
             "source": a.get("source_name", ""),
             "source_key": a.get("source_key", ""),
-            "link": a.get("link", ""),
+            "link": _safe_url(a.get("link", "")),
             "published": a.get("published_ts"),
             "symbols": sorted(set(a.get("symbols") or []) | set(a.get("assets") or [])),
             "topic": a.get("topic", ""),
@@ -2808,7 +2832,7 @@ def api_studio_draft():
                     "title": article.get("title_fa") or article.get("title") or aid,
                     "score": (item or {}).get("score"), "draft": result,
                     "source": article.get("source_name") or article.get("source_key") or "",
-                    "credibility": article.get("credibility"), "link": article.get("link")})
+                    "credibility": article.get("credibility"), "link": _safe_url(article.get("link"))})
 
 
 @app.route("/api/studio/drafts")
@@ -2961,7 +2985,7 @@ def api_channel_feed():
         "title_fa": it.get("title_fa", ""),
         "summary_fa": it.get("summary_fa", ""),
         "source": it.get("source", ""),
-        "link": it.get("link", ""),
+        "link": _safe_url(it.get("link", "")),
         "age_hours": it.get("age_hours"),
         "viral": it.get("viral"),
         "published_ts": it.get("published_ts"),

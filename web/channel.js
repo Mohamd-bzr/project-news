@@ -18,6 +18,20 @@ const Channel = (function () {
   const escFallback = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const esc = (s) => (typeof window.esc === 'function' ? window.esc(s) : escFallback(s));
+  const attr = (s) => (typeof window.attr === 'function' ? window.attr(s) : esc(s));
+  const jsArg = (v) => (typeof window.jsArg === 'function' ? window.jsArg(v) : JSON.stringify(String(v == null ? '' : v)).replace(/&/g, '&amp;').replace(/"/g, '&quot;'));
+
+  function safeHref(u) {
+    const raw = String(u == null ? '' : u).replace(/[\u0000-\u001f\u007f-\u009f]/g, '').trim();
+    if (!raw) return '#';
+    const dec = (typeof window.sanDecode === 'function' ? window.sanDecode(raw) : raw);
+    const probe = dec.replace(/[\s\u0000-\u001f\u007f-\u009f]/g, '').toLowerCase();
+    const m = /^([a-z][a-z0-9+.\-]*):/.exec(probe);
+    if (!m) return '#';
+    const scheme = m[1];
+    if (scheme === 'http' || scheme === 'https') return raw;
+    return '#';
+  }
 
   /* the feed's badge tags: bucket -> (emoji, label) */
   const TAGS = {
@@ -39,7 +53,7 @@ const Channel = (function () {
     const lane = esc(it.primary_bucket || 'tech');
     const tag = TAGS[it.primary_bucket] || ['', it.bucket_label || 'فناوری و AI'];
     const safeId = String(it.id || '').replace(/[^\w-]/g, '');
-    const open = safeId ? ' onclick="Channel.openSource(\'' + safeId + '\')"' : '';
+    const open = it.id ? ' onclick="Channel.openSource(' + jsArg(it.id) + ')"' : '';
     const v = Math.max(0, Math.min(100, Number(it.viral) || 0));
     const vcls = v >= 65 ? 'hot' : (v >= 45 ? 'warm' : 'cool');
 
@@ -49,11 +63,11 @@ const Channel = (function () {
       : '<span class="badge b-pending" title="در صف ارسال خودکار بله">⏳ در صف بله</span>';
 
     const sendAction = isBaleSent
-      ? '<button class="b-card-act sent" type="button" onclick="event.stopPropagation(); Channel.sendSingle(\'' + safeId + '\', \'bale\', this)" title="ارسال دوباره به بله">🔄 ارسال مجدد</button>'
-      : '<button class="b-card-act" type="button" onclick="event.stopPropagation(); Channel.sendSingle(\'' + safeId + '\', \'bale\', this)" title="ارسال فوری همین خبر به کانال بله">📤 ارسال به بله</button>';
+      ? '<button class="b-card-act sent" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'bale\', this)" title="ارسال دوباره به بله">🔄 ارسال مجدد</button>'
+      : '<button class="b-card-act" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'bale\', this)" title="ارسال فوری همین خبر به کانال بله">📤 ارسال به بله</button>';
 
     const linkAction = it.link
-      ? '<a class="b-card-act link" href="' + esc(it.link) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="مشاهده خبر اصلی در وب‌سایت منبع">🔗 منبع خبر</a>'
+      ? '<a class="b-card-act link" href="' + attr(safeHref(it.link)) + '" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" title="مشاهده خبر اصلی در وب‌سایت منبع">🔗 منبع خبر</a>'
       : '';
 
     return '<article class="ncard" data-lane="' + lane + '" data-id="' +
@@ -283,7 +297,7 @@ const Channel = (function () {
                 '<td><span class="badge ' + (isB ? 'b-bale' : 'b-tg') + '">' + (isB ? 'بله' : 'تلگرام') + '</span></td>' +
                 '<td class="ttl-col">' + esc(l.title_fa || l.title || 'بدون تیتر') + '</td>' +
                 '<td class="dt-col">' + dt + '</td>' +
-                '<td>' + (l.link ? '<a href="' + esc(l.link) + '" target="_blank" rel="noopener" class="link-btn">مشاهده</a>' : '—') + '</td>' +
+                '<td>' + (l.link ? '<a href="' + attr(safeHref(l.link)) + '" target="_blank" rel="noopener noreferrer" class="link-btn">مشاهده</a>' : '—') + '</td>' +
               '</tr>';
             }).join('') +
             '</tbody></table></div>'
@@ -324,7 +338,10 @@ const Channel = (function () {
       openArticle(id);
     } else {
       const it = (S.feed && S.feed.items) ? S.feed.items.find(x => x.id === id) : null;
-      if (it && it.link) window.open(it.link, '_blank', 'noopener,noreferrer');
+      if (it && it.link) {
+        const u = safeHref(it.link);
+        if (u !== '#') window.open(u, '_blank', 'noopener,noreferrer');
+      }
     }
   }
 
@@ -343,6 +360,7 @@ const Channel = (function () {
     sendSingle: sendSingle,
     openDispatchModal: openDispatchModal,
     testBalePing: testBalePing,
+    _safeHref: safeHref,
     _s: S
   };
 })();

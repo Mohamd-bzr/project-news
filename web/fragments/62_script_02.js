@@ -1158,8 +1158,8 @@ function leadCardHTML(a){
       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openArticle(${jsArg(a.id)})}">
       <div class="lead-rail"></div>
       <div class="body">
-        <div class="row1">${assets.map(s=>`<span class="badge b-asset">${assetIc(s)}${FA_ASSET[s]||s}</span>`).join('')}
-          <span class="badge b-topic">${topicIc(a.topic)} ${FA_TOPIC[a.topic]||''}</span></div>
+        <div class="row1">${assets.map(s=>`<span class="badge b-asset">${assetIc(s)}${esc(FA_ASSET[s]||s)}</span>`).join('')}
+          <span class="badge b-topic">${topicIc(a.topic)} ${esc(FA_TOPIC[a.topic]||a.topic_fa||'')}</span></div>
         <div class="lead-ttl">${esc(a.title_fa||a.title)}</div>
         <div class="row2"><span class="src">${esc(a.source)}</span><span class="dt">${esc(a.datetime_fa||'')}</span>
           <button class="del-btn" onclick="hideNews(${jsArg(a.id)}, event)" title="حذف این خبر از داشبورد" aria-label="حذف خبر">${ic('trash')}</button></div>
@@ -1501,7 +1501,7 @@ function renderKindSel(){
   let html='<option value="all">همه دسته‌های منبع</option>';
   for(const [k,fa] of Object.entries(labels)){
     if(!counts[k]) continue;
-    html+=`<option value="${k}">${fa} (${toFa(counts[k])})</option>`;
+    html+=`<option value="${attr(k)}">${esc(fa)} (${toFa(counts[k])})</option>`;
   }
   sel.innerHTML=html;
   if([...sel.options].some(o=>o.value===cur)) sel.value=cur;
@@ -1603,9 +1603,9 @@ function cardHTML(a){
      paint does not have to build and then throw away a full grid */
   if(a.__sk!=null) return '<div class="skcard skeleton"></div>';
   const _as=(a.assets||[]);
-  const chips=_as.slice(0,2).map(s=>`<span class="badge b-asset">${assetIc(s)}${FA_ASSET[s]||s}</span>`).join('')
+  const chips=_as.slice(0,2).map(s=>`<span class="badge b-asset">${assetIc(s)}${esc(FA_ASSET[s]||s)}</span>`).join('')
     + (_as.length>2?`<span class="badge more">+${toFa(_as.length-2)}</span>`:'');
-  const tp=a.topic_fa?`<span class="badge b-topic">${topicIc(a.topic)} ${FA_TOPIC[a.topic]||a.topic_fa}</span>`:'';
+  const tp=a.topic_fa?`<span class="badge b-topic">${topicIc(a.topic)} ${esc(FA_TOPIC[a.topic]||a.topic_fa)}</span>`:'';
   /* a headline can arrive on the news channel before the first /api/data
      payload has landed, and this renderer used to reach straight into DATA
      for the source-kind labels — one early story was enough to throw inside
@@ -1800,7 +1800,7 @@ async function openArticle(id, fa){
     b.innerHTML=`
       <div class="row1" style="display:flex;gap:6px;flex-wrap:wrap">
         <span class="badge b-topic">${topicIc(d.topic)} ${esc(FA_TOPIC[d.topic]||'')}</span>${assets}
-        ${(DATA.kind_labels||{})[d.source_kind]?`<span class="badge b-kind">${DATA.kind_labels[d.source_kind]}</span>`:''}
+        ${(DATA.kind_labels||{})[d.source_kind]?`<span class="badge b-kind">${esc(DATA.kind_labels[d.source_kind])}</span>`:''}
       </div>
       <h2>${esc(d.title_fa||d.title)}</h2>
       ${d.title_fa?`<div class="h2en">${esc(d.title)}</div>`:''}
@@ -2946,7 +2946,7 @@ function ideaCardHTML(x){
     ${thumb}
     <div class="idea-body">
       <div class="idea-top">
-        <span class="dir ${dcls}">${dlabel}</span>
+        <span class="dir ${dcls}">${esc(dlabel)}</span>
         ${x.symbol?`<span class="idea-sym ltr">${esc(x.symbol)}</span>`:''}
         ${(!x.image&&x.interval)?`<span class="badge b-kind ltr">${esc(tfLabel(x.interval))}</span>`:''}
         ${when?`<span class="idea-when">${esc(when)}</span>`:''}
@@ -2970,7 +2970,7 @@ function renderIdeas(){
   const sym=ideasSym(), cached=IDEAS_CACHE[sym];
   const summary=document.getElementById('ideasSummary');
   const allLink=document.getElementById('ideasAllLink');
-  if(cached&&cached.url&&allLink) allLink.href=cached.url;
+  if(cached&&cached.url&&allLink){ const _u=safeUrl(cached.url); if(_u) allLink.href=_u; }
   renderIdeasTfChips();
   if(typeof renderIdeasToolbar==='function') renderIdeasToolbar();   /* FILTER MODEL 3 toolbar */
   if(!cached){
@@ -3045,7 +3045,7 @@ function renderIdeaModal(sym,x,faMode){
        : `<button class="btn sm" id="ideaFaBtn" onclick="ideaToFa(${jsArg(sym)},${jsArg(x.id)})">🇮🇷 ترجمهٔ فارسی متن کامل</button>`);
   b.innerHTML=`
     <div class="row1" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-      <span class="dir ${dcls}" style="font-weight:800">${dlabel}</span>${ideaBadges(x)}
+      <span class="dir ${dcls}" style="font-weight:800">${esc(dlabel)}</span>${ideaBadges(x)}
     </div>
     <h2>${esc(titleShown||'')}</h2>
     ${(faMode&&fa&&fa.title_fa)?`<div class="h2en">${esc(x.title)}</div>`:''}
@@ -3122,7 +3122,7 @@ function renderEtfGroupChips(){
   if(typeof renderEtfToolbar==='function') renderEtfToolbar();
   let h=`<button class="chip ${cur==='all'?'on':''}" onclick="setEtfGroup('all')">همه <span class="n">${toFa(Object.keys(q).length)}</span></button>`;
   ETF_GROUP_ORDER.filter(g=>counts[g]).forEach(g=>{
-    h+=`<button class="chip ${cur===g?'on':''}" onclick="setEtfGroup(${jsArg(g)})">${ETF_GROUP_FA[g]||g} <span class="n">${toFa(counts[g])}</span></button>`;
+    h+=`<button class="chip ${cur===g?'on':''}" onclick="setEtfGroup(${jsArg(g)})">${esc(ETF_GROUP_FA[g]||g)} <span class="n">${toFa(counts[g])}</span></button>`;
   });
   box.innerHTML=h;
 }
@@ -3156,7 +3156,7 @@ function renderEtfLive(targetId){
   const order=ETF_GROUP_ORDER.filter(g=>groups[g])
     .concat(Object.keys(groups).filter(g=>!ETF_GROUP_ORDER.includes(g)).sort());
   box.innerHTML=order.map(g=>
-    `<section class="etfgroup"><h4 class="etfgroup-t">${ETF_GROUP_FA[g]||g}<span class="n">${toFa(groups[g].length)} صندوق</span></h4>`+
+    `<section class="etfgroup"><h4 class="etfgroup-t">${esc(ETF_GROUP_FA[g]||g)}<span class="n">${toFa(groups[g].length)} صندوق</span></h4>`+
     `<div class="etfgrid">${groups[g].map(s=>etfCardHTML(s,q[s])).join('')}</div></section>`).join('');
   if(sum){
     const ups=syms.filter(s=>((q[s]||{}).change_pct||0)>=0).length;
@@ -4185,33 +4185,40 @@ async function detectBaleChat(){
       toast('✗ خطا: ' + (d.error || 'ارتباط برقرار نشد'));
       if(box){
         box.style.display = 'block';
-        box.innerHTML = `<div style="background:rgba(235,87,87,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--dn,#eb5757);color:var(--dn,#eb5757);font-size:0.85rem">✗ ${d.error || 'خطا در بررسی توکن بله'}</div>`;
+        box.innerHTML = `<div style="background:rgba(235,87,87,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--dn,#eb5757);color:var(--dn,#eb5757);font-size:0.85rem">✗ ${esc(d.error || 'خطا در بررسی توکن بله')}</div>`;
       }
       return;
     }
     if(d.chats && d.chats.length > 0){
       const latest = d.chats[d.chats.length - 1];
       document.getElementById('baleChat').value = latest.id;
-      toast(`✓ چت بله شناسایی شد: ${latest.title} (${latest.id})`);
+      toast('✓ چت بله شناسایی شد: ' + (latest.title || latest.id));
       if(box){
         box.style.display = 'block';
         let html = '<div style="background:var(--panel-2);padding:10px 14px;border-radius:8px;border:1px solid var(--rule);font-size:0.85rem">';
         html += `<div style="color:var(--up);margin-bottom:8px">✓ ربات @${esc(d.bot_username || '')} در بله متصل است. چت‌های شناسایی‌شده:</div>`;
         d.chats.forEach(c => {
+          const cid = String(c.id == null ? '' : c.id);
           html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--rule-2)">
-            <span><b>${esc(c.title || '')}</b> <span style="opacity:0.7">(${esc(c.type || '')})</span> <code style="direction:ltr;display:inline-block">${esc(c.id || '')}</code></span>
-            <button class="btn sm" type="button" onclick="document.getElementById('baleChat').value='${esc(c.id || '')}';toast('شناسه چت بله انتخاب شد');">انتخاب</button>
+            <span><b>${esc(c.title || '')}</b> <span style="opacity:0.7">(${esc(c.type || '')})</span> <code style="direction:ltr;display:inline-block">${esc(cid)}</code></span>
+            <button class="btn sm" type="button" data-bale-chatpick="${esc(cid)}">انتخاب</button>
           </div>`;
         });
         html += '</div>';
         box.innerHTML = html;
+        box.querySelectorAll('[data-bale-chatpick]').forEach(b => {
+          b.addEventListener('click', () => {
+            document.getElementById('baleChat').value = b.getAttribute('data-bale-chatpick');
+            toast('شناسه چت بله انتخاب شد');
+          });
+        });
       }
     } else {
       toast('ربات بله متصل است اما پیامی دریافت نکرده است');
       if(box){
         box.style.display = 'block';
         box.innerHTML = `<div style="background:rgba(243,156,18,0.12);padding:10px 14px;border-radius:8px;border:1px solid var(--warn,#f39c12);color:var(--warn,#f39c12);font-size:0.85rem">
-          ⚠️ ${d.hint || 'پیامی در ربات بله یافت نشد.'}
+          ⚠️ ${esc(d.hint || 'پیامی در ربات بله یافت نشد.')}
         </div>`;
       }
     }

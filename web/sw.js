@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SW_VERSION = 'v25';        /* v25: refined featured news (اخبار منتخب) motion & micro-interactions */
+const SW_VERSION = 'v28';        /* v28: HTML builder & concatenation sink sanitization */
 const SHELL_CACHE = 'mohmd-shell-' + SW_VERSION;
 const API_CACHE = 'mohmd-api-' + SW_VERSION;
 const EXT_CACHE = 'mohmd-ext-' + SW_VERSION;

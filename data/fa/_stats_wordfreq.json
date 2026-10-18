@@ -1,0 +1,21 @@
+{
+ "artifact": "fa_wordfreq.tsv",
+ "rows": 785138,
+ "sources": [
+  {
+   "name": "fa.wikipedia dump (CC BY-SA 4.0)",
+   "url": "https://dumps.wikimedia.org/fawiki/latest/fawiki-latest-pages-articles.xml.bz2",
+   "license": "CC BY-SA 4.0",
+   "detail": "namespace 0, redirects skipped, crude deterministic markup strip; words len>=2, Persian script only"
+  },
+  {
+   "name": "project feeds (own data)",
+   "url": ".mohmd_news.db articles.title_fa/summary_fa",
+   "license": "n/a (own data)",
+   "detail": "vocabulary=13930"
+  }
+ ],
+ "notes": [
+  "pruned: kept rows with total>=2 or feed>=1; file=17.9MB; vocab_kept=785138 vocab_total=1409816"
+ ]
+}
