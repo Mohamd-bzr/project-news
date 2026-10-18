@@ -23,6 +23,7 @@ const TgNews = (function () {
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const esc = (s) => (typeof window.esc === 'function' ? window.esc(s) : escFallback(s));
   const attr = (s) => (typeof window.attr === 'function' ? window.attr(s) : esc(s));
+  const jsArg = (v) => (typeof window.jsArg === 'function' ? window.jsArg(v) : JSON.stringify(String(v == null ? '' : v)));
 
   function safeHref(u) {
     const raw = String(u == null ? '' : u).replace(/[\u0000-\u001f\u007f-\u009f]/g, '').trim();
@@ -102,7 +103,7 @@ const TgNews = (function () {
     const sources = (S.data || {}).sources || [];
     host.innerHTML = sources.map(s =>
       '<button class="chip' + (S.picked === s.handle ? ' on' : '') + '" type="button" ' +
-      'onclick="TgNews.pick(\'' + esc(s.handle) + '\')" ' +
+      'onclick="TgNews.pick(' + jsArg(s.handle) + ')" ' +
       'title="' + esc(s.url) + '">@' + esc(s.handle) +
       ' <span class="n">' + fa((s.posts || []).length) + '</span></button>').join('');
   }

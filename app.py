@@ -1169,6 +1169,15 @@ def _no_store(resp):
     return resp
 
 
+@app.after_request
+def _security_headers(resp):
+    """Set baseline defense-in-depth security headers without overriding existing route headers."""
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "SAMEORIGIN")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    return resp
+
+
 # Paths that keep answering without the shared secret while the gate is armed.
 # The first group authenticates itself (an API key or the webhook's own secret).
 # The second group is exempt only because the dashboard has no way to send the
