@@ -39,8 +39,10 @@ def _sanitize_config(obj):
             k_low = k.lower()
             if k == "telegram_channels":
                 res[k] = []
+            elif k == "tv_webhook_secret":
+                res[k] = "test-tv-secret"
             elif k in ("token", "proxy", "api_key", "youtube_key", "instagram_token",
-                       "instagram_user_id", "openai_key", "webhook_url", "tv_webhook_secret") or \
+                       "instagram_user_id", "openai_key", "webhook_url") or \
                  any(sec in k_low for sec in ["secret", "password"]):
                 res[k] = ""
             elif k in ("chat", "channel_id"):
