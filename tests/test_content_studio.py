@@ -477,8 +477,12 @@ def test_publish_rejects_a_broken_image_payload(client, monkeypatch):
     assert r.status_code == 400
 
 
-def test_config_endpoint_round_trips_and_masks_secrets(client):
+def test_config_endpoint_round_trips_and_masks_secrets(client, tmp_path, monkeypatch):
     import app
+    tmp_config = tmp_path / "settings.json"
+    tmp_config.write_text(app.CONFIG_FILE.read_text(encoding="utf-8") if app.CONFIG_FILE.exists() else "{}", encoding="utf-8")
+    monkeypatch.setattr(app, "CONFIG_FILE", tmp_config)
+    monkeypatch.setenv("MOHMD_CONFIG", str(tmp_config))
     before = json.loads(json.dumps(app.CONFIG.get("content_studio") or {}))
     try:
         r = client.post("/api/studio/config",
@@ -495,8 +499,12 @@ def test_config_endpoint_round_trips_and_masks_secrets(client):
         app.save_config()
 
 
-def test_config_endpoint_ignores_unknown_and_bad_values(client):
+def test_config_endpoint_ignores_unknown_and_bad_values(client, tmp_path, monkeypatch):
     import app
+    tmp_config = tmp_path / "settings.json"
+    tmp_config.write_text(app.CONFIG_FILE.read_text(encoding="utf-8") if app.CONFIG_FILE.exists() else "{}", encoding="utf-8")
+    monkeypatch.setattr(app, "CONFIG_FILE", tmp_config)
+    monkeypatch.setenv("MOHMD_CONFIG", str(tmp_config))
     before = json.loads(json.dumps(app.CONFIG.get("content_studio") or {}))
     try:
         r = client.post("/api/studio/config",
