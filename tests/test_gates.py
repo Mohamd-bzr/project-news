@@ -58,12 +58,11 @@ def test_evaluate_reports_fixed_without_failing():
     assert new == [] and fixed == ["tests/test_a.py::old"] and n_actual == 0
 
 
-def test_baseline_file_is_valid_and_non_empty():
-    """The committed baseline must stay parseable, non-empty, and free of duplicate entries."""
+def test_baseline_file_is_valid():
+    """The committed baseline must stay parseable and free of duplicate entries (may be empty)."""
     text = (Path(__file__).resolve().parent / "BASELINE_FAILURES.txt") \
         .read_text(encoding="utf-8")
     lines = [line.strip() for line in text.splitlines() if line.strip() and not line.startswith("#")]
-    assert len(lines) > 0, "BASELINE_FAILURES.txt must not be empty"
 
     allowed_classes = {"env-live-db", "real-bug", "drift-needs-decision"}
     seen_ids = set()
@@ -78,5 +77,23 @@ def test_baseline_file_is_valid_and_non_empty():
 
     parsed = gates.parse_baseline(text)
     assert parsed == seen_ids
+
+
+def test_evaluate_empty_baseline_clean_run():
+    """An empty baseline with 0 failures produces no new and no fixed failures."""
+    new, fixed, summary, n_actual = gates.evaluate("0 failed, 300 passed\n", "# comments only\n")
+    assert new == []
+    assert fixed == []
+    assert n_actual == 0
+
+
+def test_evaluate_empty_baseline_with_failure():
+    """An empty baseline flags any failure as a NEW failure."""
+    out = ("1 failed, 299 passed\n"
+           "FAILED tests/test_core.py::test_simple - AssertionError: x\n")
+    new, fixed, summary, n_actual = gates.evaluate(out, "# comments only\n")
+    assert new == ["tests/test_core.py::test_simple"]
+    assert fixed == []
+    assert n_actual == 1
 
 

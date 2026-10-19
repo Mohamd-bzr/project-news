@@ -1,8 +1,7 @@
 # tests/BASELINE_FAILURES.txt — known-failing tests (baseline snapshot).
 # The gate (tools/gates.py) runs the suite and fails on ANY failing test id
 # NOT listed here, so a count of "12 failed" can never hide a swap.
-# Verified: 2026-10-12 on agent/fa-gates — pytest: 12 failed, 262 passed.
+# Verified: 2026-10-19 on agent/hermetic-tests — pytest: 0 failed, 300 passed.
 # Format: <pytest nodeid><TAB><one-line reason + class>
 # Class legend: env-live-db | real-bug | drift-needs-decision
-tests/test_messenger_gateway.py::test_ideas_push_still_fires_while_the_digest_is_off	env-live-db: live DB auto-send thread pushed 39 real telegram posts into the capture (41 != 2); flips with a virgin DB
 
