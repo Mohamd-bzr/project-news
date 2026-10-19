@@ -11,9 +11,10 @@ import contextlib
 import json
 import sqlite3
 import time
+import os
 from pathlib import Path
 
-DB_FILE = Path(__file__).parent / ".mohmd_news.db"
+DB_FILE = Path(os.environ["MOHMD_DB"]) if os.environ.get("MOHMD_DB") else (Path(__file__).parent / ".mohmd_news.db")
 _LEGACY_DB_FILE = Path(__file__).parent / ".hermes.db"
 
 

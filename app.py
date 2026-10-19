@@ -84,7 +84,7 @@ from article_extract import (                                # noqa: E402
 )
 
 BASE_DIR = Path(__file__).parent
-CONFIG_FILE = BASE_DIR / "settings.json"
+CONFIG_FILE = Path(os.environ["MOHMD_CONFIG"]) if os.environ.get("MOHMD_CONFIG") else (BASE_DIR / "settings.json")
 REPORTS_DIR = BASE_DIR / "reports"
 REPORTS_DIR.mkdir(exist_ok=True)
 
@@ -6239,12 +6239,10 @@ if __name__ == "__main__":
         log("WARNING: tv_webhook_secret is still the factory default — set a "
             "real secret before exposing /webhook/tv.")
 
-    # Pre-warm the macro / Fear&Greed strips in the background: on a cold
-    # cache they cost four Yahoo round trips, which used to add ~2.5s to the
-    # very first /api/data the browser asked for after boot.
-    threading.Thread(target=lambda: (_macro_cached(), _fng_cached(),
-                                     live_prices()),
-                     daemon=True).start()
+    if os.environ.get("MOHMD_NO_BACKGROUND") != "1":
+        threading.Thread(target=lambda: (_macro_cached(), _fng_cached(),
+                                         live_prices()),
+                         daemon=True).start()
 
     try:
         from database import init_db, load_articles_for_state, load_bodies
@@ -6280,9 +6278,8 @@ if __name__ == "__main__":
     except Exception as _dbe:
         log(f"[db] hydration error: {_dbe}")
 
-    # Warm the newest bodies in the background right away — the modal must
-    # never wait for extraction (network-bound, up to ~15s per article).
-    threading.Thread(target=warm_article_bodies, daemon=True).start()
+    if os.environ.get("MOHMD_NO_BACKGROUND") != "1":
+        threading.Thread(target=warm_article_bodies, daemon=True).start()
 
     def _studio_signal_loop():
         """Keep the demand providers warm: cold they cost ~10s of network."""
@@ -6298,11 +6295,12 @@ if __name__ == "__main__":
                 log(f"[studio] signal warm failed: {e}")
             time.sleep(300)
 
-    threading.Thread(target=_studio_signal_loop, daemon=True).start()
-
-    if "--once" in sys.argv:
+    if os.environ.get("MOHMD_NO_BACKGROUND") == "1":
+        log("[boot] MOHMD_NO_BACKGROUND=1: skipping background loops and pre-warming")
+    elif "--once" in sys.argv:
         run_cycle("once")
     else:
+        threading.Thread(target=_studio_signal_loop, daemon=True).start()
         threading.Thread(target=run_cycle, kwargs={"reason": "boot"}, daemon=True).start()
         threading.Thread(target=scheduler_loop, daemon=True).start()
         # the push clock: prices + releases leave the server on their own
