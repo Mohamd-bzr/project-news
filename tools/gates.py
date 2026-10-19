@@ -30,7 +30,7 @@ DEFAULT_BASELINE = REPO / "tests" / "BASELINE_FAILURES.txt"
 
 # short summary line: `FAILED <nodeid> - <reason...>` (or `ERROR <nodeid>`)
 _FAILED_RE = re.compile(r"^(?:FAILED|ERROR) (.+?)(?: - .*)?$")
-_SUMMARY_RE = re.compile(r"^(\d+ failed[^\n]*)", re.M)
+_SUMMARY_RE = re.compile(r"^((?:\d+ failed|\d+ passed)[^\n]*)", re.M)
 _U_ESCAPED = re.compile(r"\\u([0-9a-fA-F]{4})|\\U([0-9a-fA-F]{8})")
 
 
