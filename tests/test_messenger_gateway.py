@@ -183,7 +183,9 @@ def test_ideas_push_shortens_the_link(monkeypatch):
     app._MESSENGER_BREAKER.clear()
 
     app._post_cycle_ideas()
-    assert sent_to and "https://tinyurl.com/abc12" in sent_to[0]
+    assert sent_to
+    assert "https://tinyurl.com/abc12" not in sent_to[0]
+    assert "🔗" not in sent_to[0]
 
 
 def test_breaker_opens_after_two_connection_failures(monkeypatch):
@@ -406,10 +408,11 @@ def test_ideas_message_is_title_then_two_paragraphs_then_link(key, render, summa
     # the title leads…
     assert paras[0].startswith("<b>") or paras[0].startswith("**")
     assert IDEA["title_fa"][:20] in paras[0].replace("<", "").replace(">", "")
-    # …the link is the last line, on its own…
-    assert paras[-1] == f"🔗 {IDEA['link']}"
-    # …and everything between is the summary in exactly two blocks
-    body = paras[1:-1]
+    # …the link is absent per owner decision…
+    assert "🔗" not in text
+    assert IDEA['link'] not in text
+    # …and everything following title is the summary in exactly two blocks
+    body = paras[1:]
     assert len(body) == 2, body
     # the 🏦/‼️ markers are decoration; the summary text is the 150-char budget
     summary_only = " ".join(_summary_text(p) for p in body)
@@ -428,8 +431,8 @@ def test_ideas_message_without_a_summary_is_title_then_link(key, render):
     """With nothing to summarise the message is title → link, not empty blocks."""
     text = _ideas_render(key, render, _ideas_article(summary=""))
     paras = [p.strip() for p in text.split("\n\n") if p.strip()]
-    assert len(paras) == 2
-    assert paras[-1] == f"🔗 {IDEA['link']}"
+    assert len(paras) == 1
+    assert "🔗" not in text
 
 
 def test_ideas_summary_of_one_word_is_a_single_block_not_a_broken_pair():
@@ -480,9 +483,9 @@ def test_ideas_summary_splits_a_single_long_sentence_in_two():
 def test_ideas_link_survives_a_custom_template(key, render):
     """«زیر لینک باشه» holds even when the operator's template buries it."""
     text = _ideas_render(key, render, template="{title}\n\n{summary_blocks}\n\n{link_line}\n\nپایان")
-    assert text.strip().endswith(f"🔗 {IDEA['link']}")
+    assert "🔗" not in text
     text_no_slot = _ideas_render(key, render, template="{title}\n\n{summary_blocks}")
-    assert text_no_slot.strip().endswith(f"🔗 {IDEA['link']}")
+    assert "🔗" not in text_no_slot
 
 
 def test_ideas_push_message_is_title_two_blocks_link(monkeypatch):
@@ -507,8 +510,9 @@ def test_ideas_push_message_is_title_two_blocks_link(monkeypatch):
     assert sent, "the board item must go out"
     paras = [p.strip() for p in sent[0].split("\n\n") if p.strip()]
     assert IDEA["title_fa"][:20].replace("*", "") in paras[0]
-    assert len(paras) == 4                      # title · block · block · link
-    assert paras[-1] == "🔗 https://opizo.com/abc"
+    assert len(paras) == 3                      # title · block · block
+    assert "🔗" not in sent[0]
+    assert "https://opizo.com/abc" not in sent[0]
 
 
 # ── ideas-only: the bundled news digest is off unless explicitly asked for ──
@@ -720,8 +724,8 @@ def test_ideas_push_drops_an_english_summary_but_keeps_the_headline(monkeypatch)
     sent = _bale_only_push(monkeypatch, [idea])
     assert len(sent) == 1
     paras = [p for p in sent[0].split("\n\n") if p.strip()]
-    assert len(paras) == 2           # headline + link, no English summary block
-    assert paras[-1] == f"🔗 {idea['link']}"
+    assert len(paras) == 1           # headline only, no English summary and no link
+    assert "🔗" not in sent[0]
     assert idea["title_fa"][:20] in paras[0]
     assert "Gold Rallies" not in sent[0]
 

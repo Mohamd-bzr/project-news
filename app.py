@@ -4205,7 +4205,7 @@ def _tg_render_digest(articles, tg):
         clean_title = news_editorial.clean_editorial_title(raw_title)
         title = _tg_escape(clean_title)
         url = _tg_escape(a.get("link") or "")
-        title_html = f'<a href="{url}">{title}</a>' if (include_link and url) else title
+        title_html = title if tg.get("ideas_mode") else (f'<a href="{url}">{title}</a>' if (include_link and url) else title)
         cred = int(round((a.get("credibility") or 0) * 100))
         stars = "★" * max(1, round(cred / 20)) if show_stars else ""
         assets = [x for x in (a.get("assets") or [])][:3]
@@ -4247,7 +4247,7 @@ def _tg_render_digest(articles, tg):
                 pass   # fall back to the plain summary above
 
         key_point_str = f"📌 <b>نکته کلیدی:</b> {_tg_escape(takeaway)}\n\n" if (takeaway and "{key_point}" in tpl) else ""
-        link_line = ("🔗 " + url) if (include_link and url and tg.get("link_on_own_line")) else ""
+        link_line = ("🔗 " + url) if (include_link and url and tg.get("link_on_own_line") and not tg.get("ideas_mode")) else ""
 
         msg = tpl.format(index=fa_digits(i) if fa else i,
                          title=title_html,
@@ -4456,7 +4456,7 @@ def _bale_render_digest(articles, bale):
                 pass   # fall back to the plain summary above
 
         key_point_str = f"📌 **نکته کلیدی:** {takeaway}\n\n" if (takeaway and "{key_point}" in tpl) else ""
-        link_line = ("🔗 " + url) if (include_link and url) else ""
+        link_line = ("🔗 " + url) if (include_link and url and not bale.get("ideas_mode")) else ""
 
         msg = tpl.format(index=fa_digits(i) if fa else i,
                          title=title,

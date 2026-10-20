@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import news_editorial
+import app
 from app import _post_cycle_ideas, _post_cycle_alerts
 
 
@@ -75,24 +76,18 @@ class TestIdeasDispatch(unittest.TestCase):
         self.assertIn("<b>آمریکایی‌ها برای کالاهای لوکس کمتر خرج می‌کنند</b>", tg_text)
         self.assertIn("🇺🇸 ", tg_text)
         self.assertIn("‼️ ", tg_text)
-        self.assertIn("🔗 https://www.tgju.org/news/test-1", tg_text)
-        self.assertEqual(
-            tg_kwargs.get("reply_markup"),
-            {"inline_keyboard": [[{"text": "🔗 مشاهده متن کامل خبر", "url": "https://www.tgju.org/news/test-1"}]]}
-        )
+        self.assertNotIn("🔗", tg_text)
+        self.assertIsNone(tg_kwargs.get("reply_markup"))
 
-        # Verify Bale send called with bold title, emoji lead, ‼️ caveat, text link, and inline button
+        # Verify Bale send called with bold title, emoji lead, ‼️ caveat, NO link, and NO inline button
         self.assertTrue(mock_bale.called)
         bale_args, bale_kwargs = mock_bale.call_args
         bale_text = bale_args[2]
         self.assertIn("*آمریکایی‌ها برای کالاهای لوکس کمتر خرج می‌کنند*", bale_text)
         self.assertIn("🇺🇸 ", bale_text)
         self.assertIn("‼️ ", bale_text)
-        self.assertIn("🔗 https://www.tgju.org/news/test-1", bale_text)
-        self.assertEqual(
-            bale_kwargs.get("reply_markup"),
-            {"inline_keyboard": [[{"text": "🔗 مشاهده متن کامل خبر", "url": "https://www.tgju.org/news/test-1"}]]}
-        )
+        self.assertNotIn("🔗", bale_text)
+        self.assertIsNone(bale_kwargs.get("reply_markup"))
 
     @patch("app._post_cycle_ideas")
     @patch("app._post_cycle_telegram")
@@ -152,6 +147,91 @@ class TestIdeasDispatch(unittest.TestCase):
         # Must be complete
         self.assertEqual(lead, anthropic_sentence)
         self.assertEqual(caveat, "")
+
+
+    @patch("app._tg_send")
+    @patch("app._bale_send")
+    def test_messenger_ideas_only_skips_all_other_senders(self, mock_bale, mock_tg):
+        with patch.dict(app.CONFIG, {"messenger_ideas_only": True}):
+            app._post_cycle_telegram([{"id": "a1"}])
+            app._post_cycle_bale([{"id": "a2"}])
+            app._post_cycle_tgnews()
+            app._studio_autopost()
+            self.assertFalse(mock_tg.called)
+            self.assertFalse(mock_bale.called)
+
+    @patch("link_shortener.shorten", side_effect=lambda u, *a, **k: u)
+    @patch("app._channel_board")
+    @patch("app._tg_send")
+    @patch("app._bale_send")
+    @patch("app._telegram_cfg", return_value=("tok", "@chat"))
+    @patch("app._bale_cfg", return_value=("tok", "@chat"))
+    @patch("database.is_messenger_posted", return_value=False)
+    @patch("database.mark_messenger_posted")
+    def test_messenger_ideas_only_still_sends_ideas(self, mock_mark, mock_posted, mock_bale_cfg, mock_tg_cfg, mock_bale, mock_tg, mock_board, mock_shorten):
+        mock_board.return_value = {
+            "items": [{
+                "id": "idea_keep",
+                "title_fa": "تست ارسال ایده در حالت فقط ایده",
+                "summary_fa": "متن تستی که باید حتما ارسال شود و متوقف نگردد.",
+                "link": "https://example.com/keep",
+                "primary_bucket": "global",
+            }]
+        }
+        mock_tg.return_value = MagicMock(ok=True)
+        mock_bale.return_value = MagicMock(ok=True)
+        with patch.dict(app.CONFIG, {"messenger_ideas_only": True}):
+            _post_cycle_ideas()
+            self.assertTrue(mock_tg.called)
+            self.assertTrue(mock_bale.called)
+
+    def test_manual_single_idea_send_works(self):
+        with app.app.test_client() as client:
+            with patch("app._bale_cfg", return_value=("tok", "@chat")),                  patch("app._bale_send", return_value=MagicMock(ok=True)) as mock_send,                  patch("database.is_messenger_posted", return_value=False),                  patch("database.mark_messenger_posted"),                  patch("app._channel_board", return_value={"items": [{
+                     "id": "single_idea_1",
+                     "title_fa": "تست ارسال تکی ایده دستی",
+                     "summary_fa": "توضیحات ایده برای ارسال دستی.",
+                     "link": "https://example.com/single"
+                 }]}):
+                r = client.post("/api/ideas/send-single", json={"id": "single_idea_1", "platform": "bale"})
+                self.assertEqual(r.status_code, 200)
+                self.assertTrue(mock_send.called)
+                args, kwargs = mock_send.call_args
+                self.assertNotIn("🔗", args[2])
+                self.assertIsNone(kwargs.get("reply_markup"))
+
+    def test_ideas_post_v2_false_uses_old_composer_without_links(self):
+        idea = {
+            "id": "v1_test",
+            "title_fa": "آمریکایی‌ها برای کالاهای لوکس کمتر خرج می‌کنند",
+            "summary_fa": (
+                "داده‌های سیتی (Citi) نشان می‌دهد خرید کالاهای لوکس در آمریکا کاهش یافته است. "
+                "اما بیشترین افت در جواهرات و ساعت دیده می‌شود."
+            ),
+            "link": "https://example.com/v1",
+        }
+        with patch.dict(app.CONFIG, {"ideas_post_v2": False}):
+            rendered = app._render_content_idea(idea, is_telegram=False)
+            self.assertIn("*آمریکایی‌ها برای کالاهای لوکس کمتر خرج می‌کنند*", rendered)
+            self.assertIn("🇺🇸 ", rendered)
+            self.assertIn("‼️ ", rendered)
+            self.assertNotIn("🔗", rendered)
+            self.assertNotIn("https://example.com/v1", rendered)
+
+    def test_ideas_post_v2_true_uses_compose_post(self):
+        idea = {
+            "id": "v2_test",
+            "title_fa": "نهنگ بیت‌کوین پس از ۱۳ سال، ۳۴ میلیون دلار BTC جابه‌جا کرد",
+            "summary_fa": (
+                "یک کیف پول قدیمی که از سال ۲۰۱۳ غیرفعال بود، ۴۱۱.۴۵ بیت‌کوین به ارزش حدود ۳۴ میلیون دلار را به آدرسی جدید منتقل کرد. "
+                "این بیت‌کوین‌ها در سال ۲۰۱۳ خریداری شده بودند."
+            ),
+            "link": "https://example.com/v2",
+        }
+        with patch.dict(app.CONFIG, {"ideas_post_v2": True}):
+            rendered = app._render_content_idea(idea, is_telegram=False)
+            self.assertIn("*🔥نهنگ بیت‌کوین", rendered)
+            self.assertNotIn("🔗", rendered)
 
 
 if __name__ == "__main__":
