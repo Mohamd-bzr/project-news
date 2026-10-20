@@ -13,7 +13,7 @@
 'use strict';
 
 const TgNews = (function () {
-  const S = { data: null, busy: false, picked: null };
+  const S = { data: null, busy: false, picked: { telegram: null, bale: null } };
 
   const el = (id) => document.getElementById(id);
   const fa = (n) => (typeof toFa === 'function' ? toFa(n) : String(n));
@@ -53,6 +53,10 @@ const TgNews = (function () {
     const safeUrl = attr(safeHref(esc(p.url)));
     const safeHandle = esc(src.handle);
     const safeText = esc(text);
+    const isBaleChan = (src.type === 'bale');
+    const chanBadge = isBaleChan
+      ? '<span class="badge" style="background:rgba(46,189,133,0.15);color:var(--up);border:1px solid rgba(46,189,133,0.3);">🟢 @' + safeHandle + '</span>'
+      : '<span class="badge b-asset">🔵 @' + safeHandle + '</span>';
 
     const isBale = Boolean(p.posted_bale);
     const isTg = Boolean(p.posted_telegram);
@@ -73,10 +77,12 @@ const TgNews = (function () {
       ? '<button class="b-card-act sent" type="button" data-act="send-tg" title="ارسال دوباره به تلگرام (بدون ذکر منبع و لینک)">🔄 تلگرام</button>'
       : '<button class="b-card-act" type="button" data-act="send-tg" title="ارسال به پیام‌رسان تلگرام (بدون ذکر منبع و لینک)">📤 تلگرام</button>';
 
+    const postLinkTitle = isBaleChan ? 'مشاهدهٔ پست در بله' : 'مشاهدهٔ پست در تلگرام';
+
     return '<article class="ncard" data-id="' + esc(src.handle + '/' + p.id) + '">' +
       '<div class="body">' +
         '<div class="row1">' +
-          '<span class="badge b-asset">@' + safeHandle + '</span>' +
+          chanBadge +
           (p.media ? '<span class="badge b-viral">📎 ' + esc(p.media) + '</span>' : '') +
           baleBadge +
           tgBadge +
@@ -88,7 +94,7 @@ const TgNews = (function () {
           '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' +
             baleBtn +
             tgBtn +
-            '<a class="b-card-act link" href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" title="مشاهدهٔ پست در تلگرام">🔗 پست</a>' +
+            '<a class="b-card-act link" href="' + safeUrl + '" target="_blank" rel="noopener noreferrer" title="' + esc(postLinkTitle) + '">🔗 پست</a>' +
             '<span class="dt">' + faWhen(p.time) + '</span>' +
           '</div>' +
         '</div>' +
@@ -97,38 +103,71 @@ const TgNews = (function () {
     '</article>';
   }
 
-  function renderChips() {
-    const host = el('tgNewsChips');
-    if (!host) return;
-    const sources = (S.data || {}).sources || [];
-    host.innerHTML = sources.map(s =>
-      '<button class="chip' + (S.picked === s.handle ? ' on' : '') + '" type="button" ' +
-      'onclick="TgNews.pick(' + jsArg(s.handle) + ')" ' +
-      'title="' + esc(s.url) + '">@' + esc(s.handle) +
-      ' <span class="n">' + fa((s.posts || []).length) + '</span></button>').join('');
-  }
+  function renderView(platform) {
+    const isBale = (platform === 'bale');
+    const hostId = isBale ? 'baleNewsList' : 'tgNewsList';
+    const chipsId = isBale ? 'baleNewsChips' : 'tgNewsChips';
+    const manageId = isBale ? 'baleNewsManageList' : 'tgNewsManageList';
+    const railId = isBale ? 'cntBaleNews' : 'cntTgNews';
+    const countId = isBale ? 'baleNewsCount' : 'tgNewsCount';
 
-  function render() {
-    const host = el('tgNewsList');
-    if (!host) return;
-    const sources = (S.data || {}).sources || [];
-    const rail = el('cntTgNews');
+    const host = el(hostId);
+    const chipsHost = el(chipsId);
+    const manageHost = el(manageId);
+    const rail = el(railId);
+    const count = el(countId);
+
+    const allSources = (S.data || {}).sources || [];
+    const sources = allSources.filter(s => isBale ? (s.type === 'bale') : ((s.type || 'telegram') !== 'bale'));
+
     if (rail) {
       const total = sources.reduce((n, s) => n + (s.posts || []).length, 0);
       rail.textContent = fa(total);
       rail.style.display = total ? '' : 'none';
     }
-    const count = el('tgNewsCount');
     if (count) count.textContent = fa(sources.length) + ' کانال';
 
-    renderChips();
+    const picked = S.picked[platform];
+
+    if (chipsHost) {
+      chipsHost.innerHTML = sources.map(s => {
+        const icon = isBale ? '🟢 ' : '🔵 ';
+        return '<button class="chip' + (picked === s.handle ? ' on' : '') + '" type="button" ' +
+          'onclick="TgNews.pick(' + jsArg(s.handle) + ',' + jsArg(platform) + ')" ' +
+          'title="' + esc(s.url) + '">' +
+          icon + '@' + esc(s.handle) +
+          ' <span class="n">' + fa((s.posts || []).length) + '</span>' +
+          '<span class="chip-del" onclick="event.stopPropagation();TgNews.deleteChannel(' + jsArg(s.handle) + ')" title="حذف این کانال" aria-label="حذف">×</span>' +
+          '</button>';
+      }).join('');
+    }
+
+    if (manageHost) {
+      if (!sources.length) {
+        manageHost.innerHTML = '<span style="font-size:12px;color:var(--ink-3);">هیچ کانالی در این بخش ثبت نشده است.</span>';
+      } else {
+        const pLabel = isBale ? 'بله' : 'تلگرام';
+        manageHost.innerHTML = '<span style="font-size:12px;color:var(--ink-2);font-weight:600;">کانال‌های ثبت‌شده ' + pLabel + ':</span> ' +
+          sources.map(s => {
+            const icon = isBale ? '🟢' : '🔵';
+            return '<span style="display:inline-flex;align-items:center;gap:6px;background:var(--wash);border:1px solid var(--rule);border-radius:var(--r1);padding:3px 8px;font-size:12px;">' +
+              icon + ' <strong>@' + esc(s.handle) + '</strong>' +
+              '<button type="button" class="btn sm ghost" style="padding:1px 6px;height:22px;color:var(--dn);font-size:11px;" onclick="TgNews.deleteChannel(' + jsArg(s.handle) + ')" title="حذف کانال">🗑️ حذف</button>' +
+              '</span>';
+          }).join(' ');
+      }
+    }
+
+    if (!host) return;
 
     if (!sources.length) {
-      host.innerHTML = '<div class="cb-empty">کانالی تنظیم نشده است — از دکمه «افزودن کانال» یک کانال اضافه کنید.</div>';
+      const pName = isBale ? 'بله' : 'تلگرام';
+      host.innerHTML = '<div class="cb-empty">کانال ' + pName + ' تنظیم نشده است — از دکمه «افزودن کانال» یک کانال اضافه کنید.</div>';
       return;
     }
-    const shown = S.picked
-      ? sources.filter(s => s.handle === S.picked)
+
+    const shown = picked
+      ? sources.filter(s => s.handle === picked)
       : sources;
 
     const cards = [];
@@ -143,7 +182,6 @@ const TgNews = (function () {
       ? cards.join('')
       : '<div class="cb-empty">پستی برای نمایش نیست.</div>';
 
-    // Bind send action buttons
     host.querySelectorAll('article.ncard').forEach(art => {
       const id = art.getAttribute('data-id');
       const slash = (id || '').indexOf('/');
@@ -169,6 +207,11 @@ const TgNews = (function () {
         });
       }
     });
+  }
+
+  function render() {
+    renderView('telegram');
+    renderView('bale');
   }
 
   async function sendPost(post, src, platform, btn) {
@@ -222,7 +265,6 @@ const TgNews = (function () {
   async function load(force) {
     if (S.busy) return;
     S.busy = true;
-    const host = el('tgNewsList');
     try {
       const r = await fetch('/api/telegram_news' + (force ? '?refresh=1' : ''));
       const j = await r.json();
@@ -231,45 +273,60 @@ const TgNews = (function () {
       render();
     } catch (e) {
       console.error('TgNews.load:', e);
-      if (host) host.innerHTML = '<div class="cb-empty">دریافت پست‌ها ممکن نشد — ' + esc(e.message || e) + '</div>';
+      ['tgNewsList', 'baleNewsList'].forEach(id => {
+        const h = el(id);
+        if (h) h.innerHTML = '<div class="cb-empty">دریافت پست‌ها ممکن نشد — ' + esc(e.message || e) + '</div>';
+      });
     } finally {
       S.busy = false;
     }
   }
 
   return {
-    mount: function () { if (!S.data) load(false); else render(); },
+    mount: function (platform) {
+      if (!S.data) load(false);
+      else render();
+    },
     refresh: function () { load(true); },
-    pick: function (handle) {
-      S.picked = (S.picked === handle) ? null : handle;
+    pick: function (handle, platform) {
+      const p = platform || 'telegram';
+      S.picked[p] = (S.picked[p] === handle) ? null : handle;
       render();
     },
-    toggleAddBox: function () {
-      const box = el('tgNewsAddBox');
+    toggleAddBox: function (platform) {
+      const boxId = (platform === 'bale') ? 'baleNewsAddBox' : 'tgNewsAddBox';
+      const box = el(boxId);
       if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
     },
-    testChannel: async function () {
-      const inp = el('inpTgChannelHandle');
-      const res = el('tgChannelTestResult');
-      const handle = (inp ? inp.value : '').trim().replace(/^@/, '');
+    testChannel: async function (platform) {
+      const isB = (platform === 'bale');
+      const inpHId = isB ? 'inpBaleChannelHandle' : 'inpTgChannelHandle';
+      const resId = isB ? 'baleChannelTestResult' : 'tgChannelTestResult';
+      const inp = el(inpHId);
+      const res = el(resId);
+      let handle = (inp ? inp.value : '').trim().replace(/^@/, '');
+      let cType = isB ? 'bale' : 'telegram';
+      if (handle.indexOf('ble.ir') >= 0) cType = 'bale';
+      handle = handle.replace(/^https?:\/\/(?:ble\.ir|t\.me)\//i, '').replace(/^\/+|\/+$/g, '').replace(/^@/, '');
       if (!handle) {
         if (typeof toast === 'function') toast('ابتدا آیدی کانال را وارد کنید');
         return;
       }
+      const platformName = cType === 'bale' ? 'بله' : 'تلگرام';
       if (res) {
         res.style.display = 'block';
-        res.innerHTML = '<span class="spinner sm"></span> در حال بررسی ارتباط با کانال @' + esc(handle) + '...';
+        res.innerHTML = '<span class="spinner sm"></span> در حال بررسی ارتباط با کانال @' + esc(handle) + ' در ' + platformName + '...';
       }
       try {
         const r = await fetch('/api/telegram_news/test', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ handle: handle })
+          body: JSON.stringify({ handle: handle, type: cType })
         });
         const j = await r.json();
         if (res) {
           if (j && j.ok) {
-            res.innerHTML = '<span style="color:var(--up);">✅ کانال «' + esc(j.title || handle) + '» عمومی است و ' + fa(j.count) + ' پست با موفقیت دریافت شد.</span>';
+            res.innerHTML = '<span style="color:var(--up);">✅ کانال «' + esc(j.title || handle) + '» (' + platformName + ') عمومی است و ' + fa(j.count) + ' پست با موفقیت دریافت شد.</span>';
           } else {
             res.innerHTML = '<span style="color:var(--dn);">❌ خطا: ' + esc((j && j.error) || 'کانال در دسترس نیست') + '</span>';
           }
@@ -278,10 +335,19 @@ const TgNews = (function () {
         if (res) res.innerHTML = '<span style="color:var(--dn);">❌ خطای اتصال به سرور: ' + esc(e.message) + '</span>';
       }
     },
-    saveChannel: async function () {
-      const inpH = el('inpTgChannelHandle');
-      const inpT = el('inpTgChannelTitle');
-      const handle = (inpH ? inpH.value : '').trim().replace(/^@/, '');
+    saveChannel: async function (platform) {
+      const isB = (platform === 'bale');
+      const inpHId = isB ? 'inpBaleChannelHandle' : 'inpTgChannelHandle';
+      const inpTId = isB ? 'inpBaleChannelTitle' : 'inpTgChannelTitle';
+      const resId = isB ? 'baleChannelTestResult' : 'tgChannelTestResult';
+      const boxId = isB ? 'baleNewsAddBox' : 'tgNewsAddBox';
+
+      const inpH = el(inpHId);
+      const inpT = el(inpTId);
+      let handle = (inpH ? inpH.value : '').trim().replace(/^@/, '');
+      let cType = isB ? 'bale' : 'telegram';
+      if (handle.indexOf('ble.ir') >= 0) cType = 'bale';
+      handle = handle.replace(/^https?:\/\/(?:ble\.ir|t\.me)\//i, '').replace(/^\/+|\/+$/g, '').replace(/^@/, '');
       const title = (inpT ? inpT.value : '').trim();
       if (!handle) {
         if (typeof toast === 'function') toast('آیدی کانال را وارد کنید');
@@ -291,20 +357,42 @@ const TgNews = (function () {
         const r = await fetch('/api/telegram_news/sources', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ handle: handle, title: title })
+          body: JSON.stringify({ handle: handle, title: title, type: cType })
         });
         const j = await r.json();
         if (j && j.ok) {
           if (typeof toast === 'function') toast('✅ کانال با موفقیت افزوده شد');
           if (inpH) inpH.value = '';
           if (inpT) inpT.value = '';
-          const res = el('tgChannelTestResult');
+          const res = el(resId);
           if (res) res.style.display = 'none';
-          const box = el('tgNewsAddBox');
+          const box = el(boxId);
           if (box) box.style.display = 'none';
           load(true);
         } else {
           if (typeof toast === 'function') toast('❌ خطا: ' + ((j && j.error) || 'افزودن ناموفق بود'));
+        }
+      } catch (e) {
+        if (typeof toast === 'function') toast('❌ خطای ارتباط: ' + e.message);
+      }
+    },
+    deleteChannel: async function (handle) {
+      if (!handle) return;
+      if (!confirm('آیا از حذف کانال @' + handle + ' از بخش اخبار اطمینان دارید؟')) return;
+      try {
+        const r = await fetch('/api/telegram_news/sources/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ handle: handle })
+        });
+        const j = await r.json();
+        if (j && j.ok) {
+          if (typeof toast === 'function') toast('✅ کانال @' + handle + ' با موفقیت حذف شد');
+          if (S.picked.telegram === handle) S.picked.telegram = null;
+          if (S.picked.bale === handle) S.picked.bale = null;
+          load(true);
+        } else {
+          if (typeof toast === 'function') toast('❌ حذف ناموفق: ' + ((j && j.error) || 'خطا در عملیات'));
         }
       } catch (e) {
         if (typeof toast === 'function') toast('❌ خطای ارتباط: ' + e.message);

@@ -165,7 +165,7 @@ def _client_js():
 def test_client_is_wired_into_the_dashboard():
     from dashboard_html import APP_HTML
     for needle in ('id="nav-tgnews"', 'id="view-tgnews"', 'id="tgNewsList"',
-                   'id="tgNewsChips"', '/tgnews.js'):
+                   'id="tgNewsChips"', 'id="nav-balenews"', 'id="view-balenews"', '/tgnews.js'):
         assert needle in APP_HTML, f"{needle} is missing from the dashboard"
 
 
@@ -256,3 +256,112 @@ def test_clean_for_messenger_strips_footers_and_social_promos():
     assert "👍" not in body
 
 
+
+
+# ─────────────────────── Bale Channel & Delete Tests ───────────────────────
+
+BALE_PAGE = """
+<html><body>
+<div class="MessageItem_messageWrapper__E9ZFU ChatWrapper_messageBlock__Wrs5L" data-sid="6395891297690950116-101">
+ <div class="BaseBubble_bubble__4oHot DefaultBubble_bubble__s_5uz Text_textMessage__nC_tz MessageItem_bubble__38sVg">
+  <a class="Preview_preview__B_ivv" href="/chan/old/1">
+   <div class="Preview_details__CVlWn">
+    <div class="Text_text__Um9IF TextPreview_text_preview___Mz_e"><span>نقل قول قدیمی</span></div>
+   </div>
+  </a>
+  <div class="Text_text__Um9IF">
+   <span class="p"><strong>تیتر خبر اول بله</strong></span><br/>
+   <span class="p"><img class="emoji" data-codepoints="1f539"/>متن کامل خبر اول در پیام‌رسان بله</span>
+   <span class="p"><a class="mention" href="https://ble.ir/chan">@chan</a></span>
+  </div>
+  <div class="Info_meta___R9G5">
+   <div class="Info_ViewWrapper__O75PK"><p class="Info_Text__LVysg">2.5K</p></div>
+   <p class="Info_date__fCTQ4">10:45</p>
+  </div>
+ </div>
+</div>
+<div class="MessageItem_messageWrapper__E9ZFU" data-sid="6395891297690950116-102">
+ <div class="Photo_photo_message__yDO5Q">photo!</div>
+ <div class="Text_text__Um9IF"><span>تیتر خبر دوم بله همراه با تصویر</span></div>
+ <div class="Info_meta___R9G5">
+  <div class="Info_ViewWrapper__O75PK"><p class="Info_Text__LVysg">500</p></div>
+  <p class="Info_date__fCTQ4">11:00</p>
+ </div>
+</div>
+</body></html>
+"""
+
+
+def test_parse_bale_channel_page():
+    posts = telegram_news.parse_bale_channel_page(BALE_PAGE, "chan")
+    # Newest first
+    assert len(posts) == 2
+    assert posts[0]["id"] == "102"
+    assert posts[1]["id"] == "101"
+
+    p101 = posts[1]
+    assert "تیتر خبر اول بله" in p101["title"]
+    assert "متن کامل خبر اول در پیام‌رسان بله" in p101["text"]
+    assert "نقل قول قدیمی" not in p101["text"]
+    assert "https://ble.ir/chan" not in p101["text"]
+    assert "🔹" in p101["text"]
+    assert p101["views"] == 2500
+    assert p101["time"] == "10:45"
+    assert p101["media"] is None
+
+    p102 = posts[0]
+    assert p102["media"] == "photo"
+    assert p102["views"] == 500
+    assert p102["time"] == "11:00"
+
+
+def test_bale_fetch_source_with_mock(monkeypatch):
+    class _Resp:
+        text = BALE_PAGE
+        def raise_for_status(self): return None
+
+    monkeypatch.setattr(telegram_news.requests, "get", lambda url, **kw: _Resp())
+    src = {"handle": "chan", "title": "Bale Chan", "type": "bale"}
+    res = telegram_news.fetch_source("chan", refresh=True, sources=[src])
+    assert res["ok"] is True
+    assert res["type"] == "bale"
+    assert len(res["posts"]) == 2
+
+
+def test_channel_add_bale_and_delete_endpoints(monkeypatch, tmp_path):
+    import app
+    # isolate config
+    monkeypatch.setitem(app.CONFIG, "telegram_news_sources", [])
+    monkeypatch.setitem(app.CONFIG, "telegram_news_deleted_sources", [])
+    monkeypatch.setattr(app, "save_config", lambda: None)
+
+    client = app.app.test_client()
+
+    # Add Bale channel
+    r1 = client.post("/api/telegram_news/sources", json={
+        "handle": "https://ble.ir/bale_test_chan",
+        "title": "Bale Test",
+        "type": "bale"
+    })
+    assert r1.status_code == 200
+    sources = app.CONFIG.get("telegram_news_sources") or []
+    assert any(s["handle"] == "bale_test_chan" and s["type"] == "bale" for s in sources)
+
+    # Delete Bale channel
+    r2 = client.post("/api/telegram_news/sources/delete", json={
+        "handle": "bale_test_chan"
+    })
+    assert r2.status_code == 200
+    sources_after = app.CONFIG.get("telegram_news_sources") or []
+    assert not any(s["handle"] == "bale_test_chan" for s in sources_after)
+
+    # Delete default channel (newscitypro)
+    r3 = client.post("/api/telegram_news/sources/delete", json={
+        "handle": "newscitypro"
+    })
+    assert r3.status_code == 200
+    deleted = app.CONFIG.get("telegram_news_deleted_sources") or []
+    assert "newscitypro" in deleted
+    # Verify get_sources no longer includes newscitypro
+    active = telegram_news.get_sources(sources_after, deleted)
+    assert not any(s["handle"] == "newscitypro" for s in active)

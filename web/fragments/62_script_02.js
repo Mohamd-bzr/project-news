@@ -1008,7 +1008,8 @@ function showView(v, skipPick){
   }
   if(v==='settings'||v==='assets') renderAssetTable();
   if(v==='channel'&&window.Channel) window.Channel.mount();
-  if(v==='tgnews'&&window.TgNews) window.TgNews.mount();
+  if(v==='tgnews'&&window.TgNews) window.TgNews.mount('telegram');
+  if(v==='balenews'&&window.TgNews) window.TgNews.mount('bale');
   if(v==='monitor') loadMonitor();
   if(v==='calendar'){ if(ECON) renderCalendar(); else loadCalendar(); }
   if(v==='alerts') initAlerts();

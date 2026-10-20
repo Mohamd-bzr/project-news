@@ -3860,7 +3860,7 @@ def api_ideas_translate():
 # ---------------------------------------------------------------------------
 @app.route("/api/telegram_news")
 def api_telegram_news():
-    """Latest posts of every configured Telegram channel (cached ~5 min).
+    """Latest posts of every configured channel (Telegram & Bale, cached ~5 min).
 
     A channel that is dead, renamed or made private comes back with ok=False
     and an error string instead of failing the whole response, so the board
@@ -3868,8 +3868,9 @@ def api_telegram_news():
     """
     refresh = str(request.args.get("refresh") or "").lower() in ("1", "true", "yes")
     extra = CONFIG.get("telegram_news_sources") or []
+    deleted = CONFIG.get("telegram_news_deleted_sources") or []
     try:
-        sources = telegram_news.fetch_all(refresh=refresh, extra_sources=extra)
+        sources = telegram_news.fetch_all(refresh=refresh, extra_sources=extra, deleted_sources=deleted)
         import database
         for s in sources:
             h = s.get("handle") or ""
@@ -3885,35 +3886,82 @@ def api_telegram_news():
 
 @app.route("/api/telegram_news/test", methods=["POST"])
 def api_telegram_news_test():
-    """Test connection to a public Telegram channel."""
+    """Test connection to a public Telegram or Bale channel."""
     data = request.get_json(silent=True) or {}
-    handle = str(data.get("handle") or "").strip().lstrip("@")
+    raw_h = str(data.get("handle") or "").strip()
+    chan_type = str(data.get("type") or "").strip().lower()
+    if "ble.ir" in raw_h:
+        chan_type = "bale"
+    if not chan_type:
+        chan_type = "telegram"
+    handle = raw_h.replace("https://ble.ir/", "").replace("http://ble.ir/", "")
+    handle = handle.replace("https://t.me/", "").replace("http://t.me/", "")
+    handle = handle.strip().lstrip("@").strip("/")
     if not handle or not telegram_news.HANDLE_RE.match(handle):
         return jsonify({"ok": False, "error": "شناسه یا آیدی کانال نامعتبر است (تنها حروف انگلیسی، عدد و _)."}), 400
-    res = telegram_news.fetch_source(handle, refresh=True)
+    res = telegram_news.fetch_source(handle, refresh=True, sources=[{"handle": handle, "title": handle, "type": chan_type}])
     if res.get("ok"):
         cnt = len(res.get("posts") or [])
-        return jsonify({"ok": True, "title": res.get("title") or handle, "count": cnt})
+        return jsonify({"ok": True, "title": res.get("title") or handle, "count": cnt, "type": chan_type})
     return jsonify({"ok": False, "error": res.get("error") or "ارتباط برقرار نشد یا کانال عمومی نیست."}), 400
 
 
 @app.route("/api/telegram_news/sources", methods=["POST"])
 def api_telegram_news_add_source():
-    """Add a new public Telegram channel to the registry."""
+    """Add a new public Telegram or Bale channel to the registry."""
     data = request.get_json(silent=True) or {}
-    handle = str(data.get("handle") or "").strip().lstrip("@")
+    raw_h = str(data.get("handle") or "").strip()
+    chan_type = str(data.get("type") or "").strip().lower()
+    if "ble.ir" in raw_h:
+        chan_type = "bale"
+    if chan_type not in ("telegram", "bale"):
+        chan_type = "telegram"
+    handle = raw_h.replace("https://ble.ir/", "").replace("http://ble.ir/", "")
+    handle = handle.replace("https://t.me/", "").replace("http://t.me/", "")
+    handle = handle.strip().lstrip("@").strip("/")
     title = str(data.get("title") or "").strip() or handle
     if not handle or not telegram_news.HANDLE_RE.match(handle):
         return jsonify({"ok": False, "error": "شناسه کانال نامعتبر است."}), 400
+
+    deleted = [d for d in (CONFIG.get("telegram_news_deleted_sources") or []) if str(d).lower() != handle.lower()]
+    CONFIG["telegram_news_deleted_sources"] = deleted
 
     extra = list(CONFIG.get("telegram_news_sources") or [])
     if any(s.get("handle", "").lower() == handle.lower() for s in telegram_news.get_sources(extra)):
         return jsonify({"ok": True, "message": "کانال از قبل موجود است."})
 
-    extra.append({"handle": handle, "title": title})
+    extra.append({"handle": handle, "title": title, "type": chan_type})
     CONFIG["telegram_news_sources"] = extra
     save_config()
     return jsonify({"ok": True, "sources": extra})
+
+
+@app.route("/api/telegram_news/sources/delete", methods=["POST"])
+@app.route("/api/telegram_news/sources/<path:handle>", methods=["DELETE"])
+def api_telegram_news_delete_source(handle=None):
+    """Delete a channel from the registry."""
+    if not handle:
+        data = request.get_json(silent=True) or {}
+        handle = data.get("handle")
+    clean_h = str(handle or "").strip().lstrip("@").lower()
+    if not clean_h:
+        return jsonify({"ok": False, "error": "شناسه کانال ارسال نشده است."}), 400
+
+    extra = [s for s in (CONFIG.get("telegram_news_sources") or []) if s.get("handle", "").lower() != clean_h]
+    CONFIG["telegram_news_sources"] = extra
+
+    deleted = list(CONFIG.get("telegram_news_deleted_sources") or [])
+    if clean_h not in [d.lower() for d in deleted]:
+        deleted.append(clean_h)
+    CONFIG["telegram_news_deleted_sources"] = deleted
+
+    telegram_news._CACHE.pop(clean_h, None)
+    telegram_news._CACHE.pop(f"telegram:{clean_h}", None)
+    telegram_news._CACHE.pop(f"bale:{clean_h}", None)
+
+    save_config()
+    current = telegram_news.get_sources(extra, deleted)
+    return jsonify({"ok": True, "message": "کانال با موفقیت حذف شد.", "sources": current})
 
 
 @app.route("/api/telegram_news/send", methods=["POST"])

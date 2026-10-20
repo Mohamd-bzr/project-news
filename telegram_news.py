@@ -35,19 +35,33 @@ from bs4 import BeautifulSoup
 #: The registry. Add a channel by adding a line — the endpoint reads this list
 #: and nothing else. ``handle`` is the public @username (letters, digits, _).
 SOURCES = [
-    {"handle": "newscitypro", "title": "News city pro"},
+    {"handle": "newscitypro", "title": "News city pro", "type": "telegram"},
+    {"handle": "iribnews", "title": "خبرگزاری صدا و سیما", "type": "bale"},
 ]
 
-def get_sources(extra_sources=None) -> list[dict]:
-    """Combine default SOURCES with any configured extra sources."""
-    items = list(SOURCES)
-    seen = {s["handle"].lower() for s in items}
+def get_sources(extra_sources=None, deleted_sources=None) -> list[dict]:
+    """Combine default SOURCES with any configured extra sources, excluding deleted."""
+    disabled = {str(d).lower().strip().lstrip("@") for d in (deleted_sources or [])}
+    items = []
+    seen = set()
+    for s in SOURCES:
+        h = s["handle"].lower()
+        if h not in disabled:
+            seen.add(h)
+            items.append({
+                "handle": s["handle"],
+                "title": s.get("title") or s["handle"],
+                "type": s.get("type", "telegram"),
+                "url": s.get("url") or f"https://t.me/{s['handle']}",
+            })
     for s in (extra_sources or []):
         if isinstance(s, dict) and s.get("handle"):
             h = str(s["handle"]).strip().lstrip("@")
-            if h.lower() not in seen:
+            stype = (s.get("type") or "telegram").lower().strip()
+            if h.lower() not in seen and h.lower() not in disabled:
                 seen.add(h.lower())
-                items.append({"handle": h, "title": s.get("title") or h})
+                url = s.get("url") or (f"https://ble.ir/s/{h}" if stype == "bale" else f"https://t.me/{h}")
+                items.append({"handle": h, "title": s.get("title") or h, "type": stype, "url": url})
     return items
 
 TTL_SECONDS = 300        # how long one channel's posts stay fresh in memory
@@ -299,43 +313,139 @@ def parse_channel_page(html: str, handle: str) -> list[dict]:
     return posts
 
 
-def fetch_source(handle: str, refresh: bool = False, sources: list[dict] | None = None) -> dict:
-    """One source: ``{handle, title, url, ok, error, fetched_at, posts}``.
+def _clean_bale_text(node, handle: str) -> str:
+    """Clean text from Bale message node, decoding emoji and dropping self links / quotes."""
+    if node is None:
+        return ""
+    clone = BeautifulSoup(str(node), "html.parser")
+    for p in clone.find_all(class_=re.compile(r"Preview_preview")):
+        p.decompose()
+    for br in clone.find_all("br"):
+        br.replace_with("\n")
+    for img in clone.find_all("img", class_="emoji"):
+        cp = img.get("data-codepoints")
+        if cp:
+            try:
+                ch = "".join(chr(int(c, 16)) for c in cp.split("-"))
+                img.replace_with(ch)
+            except Exception:
+                img.replace_with(" ")
+        else:
+            img.replace_with(" ")
+    self_links = {f"https://ble.ir/{handle}".lower(), f"https://ble.ir/{handle}/".lower(),
+                  f"https://ble.ir/s/{handle}".lower(), f"https://ble.ir/s/{handle}/".lower()}
+    for a in clone.find_all("a", href=True):
+        label = a.get_text(" ", strip=True)
+        href = a["href"].strip()
+        if href.lower() in self_links or f"@{handle.lower()}" == label.lower():
+            a.decompose()
+        elif href.startswith(("http://", "https://")):
+            a.replace_with(f"{label} ({href})" if label and label != href else href)
+        else:
+            a.replace_with(label)
+    lines = [ln.strip() for ln in clone.get_text().split("\n")]
+    out, blanks = [], 0
+    for ln in lines:
+        blanks = blanks + 1 if not ln else 0
+        if blanks <= 1:
+            out.append(ln)
+    return "\n".join(out).strip()
 
-    A network or parse failure is reported INSIDE the payload (ok=False) rather
-    than raised, so the section keeps the other channels alive.
+
+def parse_bale_channel_page(html: str, handle: str) -> list[dict]:
+    """The newest-first posts of one ``ble.ir/s/<handle>`` page.
+
+    Bale lays the page's messages window out OLDEST-first, so the
+    collected rows are reversed before returning.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    posts: list[dict] = []
+    wrappers = soup.find_all(lambda tag: tag.name == "div" and (
+        tag.get("data-sid") or (tag.get("class") and any("messageWrapper" in c for c in tag.get("class", [])))
+    ))
+    for wrap in wrappers[:MAX_POSTS]:
+        sid = wrap.get("data-sid") or ""
+        msg_id = sid.split("-")[-1] if "-" in sid else (sid or f"{len(posts)+1}")
+
+        text_el = None
+        for cand in wrap.find_all(class_=re.compile(r"Text_text")):
+            if not cand.find_parent(class_=re.compile(r"Preview_preview")):
+                text_el = cand
+                break
+        text = _clean_bale_text(text_el, handle)
+
+        media = None
+        for kind in ("video", "photo", "document", "animation", "audio", "file"):
+            if wrap.find(class_=re.compile(rf"{kind}", re.I)):
+                media = kind
+                break
+
+        if not text and not media:
+            continue
+
+        time_el = wrap.find(class_=re.compile(r"Info_date|date", re.I))
+        when = time_el.get_text(strip=True) if time_el else ""
+
+        views_el = wrap.find(class_=re.compile(r"Info_ViewWrapper|Info_Text", re.I))
+        views_text = views_el.get_text(strip=True) if views_el else ""
+
+        posts.append({
+            "id": msg_id,
+            "url": f"https://ble.ir/s/{handle}",
+            "title": _first_line(text),
+            "text": text[:MAX_TEXT_CHARS],
+            "time": when,
+            "views": _parse_views(views_text),
+            "media": media,
+        })
+    posts.reverse()
+    return posts
+
+
+def fetch_source(handle: str, refresh: bool = False, sources: list[dict] | None = None) -> dict:
+    """One source: ``{handle, title, type, url, ok, error, fetched_at, posts}``.
+
+    Supports both Telegram and Bale channels.
     """
     handle = (handle or "").strip().lstrip("@")
     reg = sources if sources is not None else SOURCES
     src = next((s for s in reg if s["handle"].lower() == handle.lower()), None)
+    stype = (src.get("type") if src else "telegram") or "telegram"
+    default_url = f"https://ble.ir/s/{handle}" if stype == "bale" else f"https://t.me/{handle}"
     out = {"handle": handle,
            "title": src["title"] if src else handle,
-           "url": f"https://t.me/{handle}",
+           "type": stype,
+           "url": src.get("url") if src else default_url,
            "ok": False, "error": "", "fetched_at": 0.0, "posts": []}
     if not HANDLE_RE.match(handle):
         out["error"] = "invalid_handle"
         return out
 
+    cache_key = f"{stype}:{handle.lower()}"
     now = time.time()
     if not refresh:
-        hit = _CACHE.get(handle)
+        hit = _CACHE.get(cache_key)
         if hit and now - hit[0] < TTL_SECONDS:
             return hit[1]
 
+    fetch_url = f"https://ble.ir/s/{handle}" if stype == "bale" else f"https://t.me/s/{handle}"
     try:
-        r = requests.get(f"https://t.me/s/{handle}", headers=_HEADERS, timeout=15)
+        r = requests.get(fetch_url, headers=_HEADERS, timeout=15)
         r.raise_for_status()
-        posts = parse_channel_page(r.text, handle)
+        if stype == "bale":
+            posts = parse_bale_channel_page(r.text, handle)
+        else:
+            posts = parse_channel_page(r.text, handle)
     except Exception as e:                  # one dead channel, not a dead section
         out["error"] = f"{type(e).__name__}: {e}"[:200]
         return out
 
     out.update(ok=True, fetched_at=now, posts=posts)
-    _CACHE[handle] = (now, out)
+    _CACHE[cache_key] = (now, out)
     return out
 
 
-def fetch_all(refresh: bool = False, extra_sources: list[dict] | None = None) -> list[dict]:
-    """Every source in SOURCES (and any extra_sources), each failing independently."""
-    reg = get_sources(extra_sources)
+def fetch_all(refresh: bool = False, extra_sources: list[dict] | None = None, deleted_sources: list[str] | None = None) -> list[dict]:
+    """Every source in SOURCES (and any extra_sources), excluding deleted_sources."""
+    reg = get_sources(extra_sources, deleted_sources)
     return [fetch_source(s["handle"], refresh=refresh, sources=reg) for s in reg]
