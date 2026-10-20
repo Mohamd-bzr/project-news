@@ -122,6 +122,10 @@ DEFAULT_CONFIG = {
     # Phase-3 FA quality hook: deterministic post-editing of every translation
     # (fa_postedit.post_edit). Default OFF; flip in settings.json by hand.
     "fa_post_edit": False,
+    # ideas post template v2 and messenger scoping switches
+    "messenger_ideas_only": False,
+    "ideas_post_v2": False,
+    "ideas_max_per_cycle": 3,
     # News hygiene (settings tab). Social feeds are Reddit-style sentiment posts
     # and the short ones are mostly stubs ("$BTC to the moon"); both pollute a
     # feed that is meant to be readable analysis.
@@ -4791,6 +4795,59 @@ def _breaker_record(platform, ok, res=None):
         log(f"{platform}: API unreachable ×{st['fails']} — auto-sends paused 10 minutes")
 
 
+def _render_content_idea(idea: dict, is_telegram: bool = True) -> str:
+    """Render a Content Idea for Telegram or Bale without links or buttons.
+
+    Uses ideas_post.compose_post when CONFIG['ideas_post_v2'] is True;
+    otherwise uses legacy news_editorial.ideas_summary composer.
+    """
+    if CONFIG.get("ideas_post_v2", False):
+        import ideas_post
+        aid = str(idea.get("id") or "")
+        if aid:
+            with _FA_CONTENT_LOCK:
+                cached = FA_CONTENT_CACHE.get(aid + "|fa") or FA_CONTENT_CACHE.get(aid)
+            if cached and isinstance(cached, list):
+                idea["paragraphs"] = cached
+            elif cached and isinstance(cached, dict):
+                idea["paragraphs"] = cached.get("paragraphs") or []
+        res = ideas_post.compose_post(idea)
+        if not res:
+            return ""
+        if is_telegram:
+            title_part = f"<b>{_tg_escape(res['title'])}</b>"
+            esc_blocks = [_tg_escape(b) for b in res["blocks"]]
+            return f"{title_part}\n\n" + "\n\n".join(esc_blocks)
+        else:
+            title_part = f"*{res['title']}*"
+            return f"{title_part}\n\n" + "\n\n".join(res["blocks"])
+
+    # Legacy composer (unconditionally NO link or button)
+    import news_editorial
+    from news_editorial import IDEAS_SUMMARY_CHARS
+
+    title_fa = str(idea.get("title_fa") or "").strip()
+    clean_title = news_editorial.clean_editorial_title(title_fa)
+    title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
+
+    summary_fa = str(idea.get("summary_fa") or "").strip()
+    b_lead, b_caveat = (
+        news_editorial.ideas_summary(summary_fa, max_chars=IDEAS_SUMMARY_CHARS)
+        if summary_fa else ("", "")
+    )
+    market_emoji = news_editorial.detect_market_emoji(idea) or "🪙"
+    esc_lead = _tg_escape(b_lead) if is_telegram and b_lead else (b_lead or "")
+    esc_caveat = _tg_escape(b_caveat) if is_telegram and b_caveat else (b_caveat or "")
+
+    parts = [title_part]
+    if esc_lead:
+        parts.append(f"{market_emoji} {esc_lead}")
+    if esc_caveat:
+        parts.append(f"‼️ {esc_caveat}")
+
+    return "\n\n".join(p for p in parts if p).strip()
+
+
 def _post_cycle_ideas():
     """Push the ranked content-ideas board to Telegram AND Bale, automatically.
 
@@ -4903,50 +4960,8 @@ def _post_cycle_ideas():
                 idea["title_fa"] = title_fa
                 idea["summary_fa"] = summary_fa
 
-                # ~500-1000 character summary split into two blocks
-                b_lead, b_caveat = (
-                    news_editorial.ideas_summary(summary_fa, max_chars=IDEAS_SUMMARY_CHARS)
-                    if summary_fa else ("", "")
-                )
-                market_emoji = news_editorial.detect_market_emoji(idea) or "🪙"
-
-                clean_title = news_editorial.clean_editorial_title(title_fa)
-                if is_telegram:
-                    title_part = f"<b>{_tg_escape(clean_title)}</b>"
-                    esc_lead = _tg_escape(b_lead) if b_lead else ""
-                    esc_caveat = _tg_escape(b_caveat) if b_caveat else ""
-                else:
-                    title_part = f"*{clean_title}*" if clean_title else ""
-                    esc_lead = b_lead or ""
-                    esc_caveat = b_caveat or ""
-
-                parts = [title_part]
-                if esc_lead:
-                    parts.append(f"{market_emoji} {esc_lead}")
-                if esc_caveat:
-                    parts.append(f"‼️ {esc_caveat}")
-
-                raw_link = str(idea.get("link") or "").strip()
-                short_link = ""
-                if raw_link:
-                    try:
-                        short_link = link_shortener.shorten(
-                            raw_link, CONFIG.get("link_shortener"))
-                    except Exception:
-                        short_link = raw_link
-                target_url = short_link or raw_link
-                if target_url:
-                    parts.append(f"🔗 {target_url}")
-
+                text = _render_content_idea(idea, is_telegram=is_telegram)
                 reply_markup = None
-                if target_url and target_url.startswith(("http://", "https://")):
-                    reply_markup = {
-                        "inline_keyboard": [[
-                            {"text": "🔗 مشاهده متن کامل خبر", "url": target_url}
-                        ]]
-                    }
-
-                text = "\n\n".join(p for p in parts if p).strip()
 
                 if not text:
                     continue
@@ -4957,9 +4972,14 @@ def _post_cycle_ideas():
                     if res:
                         database.mark_messenger_posted(idea.get("id"), platform)
                         sent += 1
+                        log(f"[{platform}] ideas sent: id={idea.get('id')} chars={len(text)} text={text[:300]}")
                     elif _breaker_open(platform):
                         break   # dead API — stop mid-run, resume next cycle
                 _time.sleep(0.5)
+                if CONFIG.get("ideas_post_v2", False):
+                    max_cycle = int(CONFIG.get("ideas_max_per_cycle") or 3)
+                    if sent >= max_cycle:
+                        break
             if sent or skipped or skipped_summary:
                 details = []
                 if skipped:
@@ -5309,47 +5329,17 @@ def api_ideas_send_single():
     idea["title_fa"] = title_fa
     idea["summary_fa"] = summary_fa
 
-    b_lead, b_caveat = news_editorial.ideas_summary(summary_fa, max_chars=IDEAS_SUMMARY_CHARS)
-    market_emoji = news_editorial.detect_market_emoji(idea) or "🪙"
-
-    if is_telegram:
-        esc_lead = _tg_escape(b_lead) if b_lead else ""
-        esc_caveat = _tg_escape(b_caveat) if b_caveat else ""
-    else:
-        esc_lead = b_lead or ""
-        esc_caveat = b_caveat or ""
-
-    parts = [title_part]
-    if esc_lead:
-        parts.append(f"{market_emoji} {esc_lead}")
-    if esc_caveat:
-        parts.append(f"‼️ {esc_caveat}")
-
-    raw_link = str(idea.get("link") or "").strip()
-    short_link = ""
-    if raw_link:
-        try:
-            short_link = link_shortener.shorten(
-                raw_link, CONFIG.get("link_shortener"))
-        except Exception:
-            short_link = raw_link
-    target_url = short_link or raw_link
-    if target_url:
-        parts.append(f"🔗 {target_url}")
+    text = _render_content_idea(idea, is_telegram=is_telegram)
     reply_markup = None
-    if target_url and target_url.startswith(("http://", "https://")):
-        reply_markup = {
-            "inline_keyboard": [[
-                {"text": "🔗 مشاهده متن کامل خبر", "url": target_url}
-            ]]
-        }
-    text = "\n\n".join(p for p in parts if p).strip()
+    if not text:
+        return jsonify({"ok": False, "error": "قالب‌بندی متن ایده ناموفق بود."}), 400
 
     with lock:
         res = send_fn(token, chat, text, reply_markup=reply_markup)
         _breaker_record(target_platform, bool(res), res)
         if res:
             database.mark_messenger_posted(idea_id, target_platform)
+            log(f"[{target_platform}] ideas sent: id={idea_id} chars={len(text)} text={text[:300]}")
             return jsonify({"ok": True, "message": "ایده با موفقیت ارسال شد."})
         else:
             err = res.error if hasattr(res, "error") else str(res)
@@ -5778,6 +5768,18 @@ def api_settings():
 
         if "auto_reports" in data:
             CONFIG["auto_reports"] = bool(data["auto_reports"])
+
+        if "messenger_ideas_only" in data:
+            CONFIG["messenger_ideas_only"] = bool(data["messenger_ideas_only"])
+
+        if "ideas_post_v2" in data:
+            CONFIG["ideas_post_v2"] = bool(data["ideas_post_v2"])
+
+        if "ideas_max_per_cycle" in data:
+            try:
+                CONFIG["ideas_max_per_cycle"] = max(1, int(data["ideas_max_per_cycle"]))
+            except (TypeError, ValueError):
+                pass
 
         if "openai_key" in data and not _is_secret_mask(str(data["openai_key"] or "")):
             ai_cfg = CONFIG.setdefault("ai", {})
