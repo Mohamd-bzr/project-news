@@ -534,6 +534,10 @@ const TgNews = (function () {
       if (box) box.style.display = 'none';
       if (typeof toast === 'function') toast('✅ کانال مقصد با موفقیت انتخاب و ذخیره شد: ' + chatId);
     },
+    toggleBaleSettings: function () {
+      const d = el('baleNewsSettingsDetails');
+      if (d) d.open = !d.open;
+    },
     loadBaleNewsBotConfig: loadBaleNewsBotConfig,
     _safeHref: safeHref
   };
