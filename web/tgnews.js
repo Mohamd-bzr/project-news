@@ -538,6 +538,21 @@ const TgNews = (function () {
       const d = el('baleNewsSettingsDetails');
       if (d) d.open = !d.open;
     },
+    pushAllBaleNews: async function () {
+      if (typeof toast === 'function') toast('در حال ارسال اخبار جدید به کانال بله...');
+      try {
+        const r = await fetch('/api/balenews/push-now', { method: 'POST' });
+        const j = await r.json();
+        if (j && j.ok) {
+          if (typeof toast === 'function') toast('✅ ' + (j.message || 'ارسال اخبار آغاز شد'));
+          setTimeout(function () { TgNews.refresh(); }, 2500);
+        } else {
+          if (typeof toast === 'function') toast('❌ خطا: ' + ((j && j.error) || 'ارسال نشد'));
+        }
+      } catch (e) {
+        if (typeof toast === 'function') toast('❌ خطای ارتباط: ' + e.message);
+      }
+    },
     loadBaleNewsBotConfig: loadBaleNewsBotConfig,
     _safeHref: safeHref
   };

@@ -5160,6 +5160,74 @@ def _post_cycle_tgnews():
             log(f"{platform} tgnews auto-send error: {e}")
 
 
+def _post_cycle_balenews():
+    """Automatically dispatch new posts from monitored Bale channels to the dedicated Bale News channel."""
+    token, chat = _balenews_cfg()
+    if not token or not chat:
+        return
+    if _breaker_open("balenews"):
+        return
+
+    import telegram_news
+    import database
+    import time as _time
+
+    extra = CONFIG.get("telegram_news_sources") or []
+    deleted = CONFIG.get("telegram_news_deleted_sources") or []
+    sources = telegram_news.get_sources(extra, deleted)
+    bale_sources = [s for s in sources if s.get("type") == "bale"]
+    if not bale_sources:
+        return
+
+    sent = 0
+    for s in bale_sources:
+        handle = s.get("handle") or ""
+        try:
+            fetched = telegram_news.fetch_source(handle, refresh=False, sources=sources)
+        except Exception as e:
+            log(f"balenews fetch error for @{handle}: {e}")
+            continue
+
+        for p in (fetched.get("posts") or []):
+            pid = p.get("id") or ""
+            key = f"tgnews_{handle}_{pid}"
+            if database.is_messenger_posted(key, "bale_ideas"):
+                continue
+
+            title = str(p.get("title") or "").strip()
+            text = str(p.get("text") or "").strip()
+            if not title and not text:
+                continue
+
+            clean_title, clean_text = telegram_news.clean_for_messenger(
+                title, text, source_title=s.get("title") or "", source_handle=handle
+            )
+            if not clean_title and not clean_text:
+                continue
+
+            title_part = f"*{clean_title}*"
+            parts = [title_part]
+            if clean_text and clean_text != clean_title:
+                parts.append(clean_text[:1200])
+            final_msg = "\n\n".join(parts).strip()
+            if not final_msg:
+                continue
+
+            with BALE_LOCK:
+                res = _bale_send(token, chat, final_msg)
+                _breaker_record("balenews", bool(res), res)
+                if res:
+                    database.mark_messenger_posted(key, "bale_ideas")
+                    sent += 1
+                    log(f"[balenews] post sent to {chat}: {key}")
+                elif _breaker_open("balenews"):
+                    break
+            _time.sleep(0.5)
+
+    if sent:
+        log(f"balenews: {sent} post(s) automatically dispatched to channel {chat}")
+
+
 def _post_cycle_alerts(articles):
     """Dispatch Content Ideas & Telegram News to configured messengers (Telegram & Bale).
 
@@ -5170,6 +5238,10 @@ def _post_cycle_alerts(articles):
         _post_cycle_ideas()
     except Exception as e:
         log(f"content-ideas auto-send error: {e}")
+    try:
+        _post_cycle_balenews()
+    except Exception as e:
+        log(f"balenews auto-send error: {e}")
     try:
         _post_cycle_tgnews()
     except Exception as e:
@@ -5671,6 +5743,23 @@ def api_balenews_config():
         "has_token": bool(tok),
         "chat": cfg.get("chat") or "",
     })
+
+
+@app.route("/api/balenews/push-now", methods=["POST"])
+def api_balenews_push_now():
+    """Immediately dispatch all unsent posts from Bale channels to the destination channel."""
+    token, chat = _balenews_cfg()
+    if not token or not chat:
+        return jsonify({"ok": False, "error": "ربات یا کانال مقصد اخبار بله تنظیم نشده است."}), 400
+
+    def _run():
+        try:
+            _post_cycle_balenews()
+        except Exception as e:
+            log(f"balenews push-now error: {e}")
+
+    threading.Thread(target=_run, daemon=True).start()
+    return jsonify({"ok": True, "message": "ارسال اخبار بله به کانال مقصد آغاز شد."})
 
 
 @app.route("/api/balenews/test", methods=["POST"])

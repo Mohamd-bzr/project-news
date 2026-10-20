@@ -468,3 +468,12 @@ def test_custom_assets_multi_word_keywords():
     assert "BRENT" in found1
     found2 = sources.detect_assets("Nikkei 225 advances in Tokyo trade", "", custom=patterns)
     assert "N225" in found2
+
+
+def test_balenews_push_now_endpoint(monkeypatch):
+    import app
+    monkeypatch.setitem(app.CONFIG, "balenews_bot", {"token": "FAKE:BOT", "chat": "5544759284"})
+    client = app.app.test_client()
+    res = client.post("/api/balenews/push-now")
+    assert res.status_code == 200
+    assert res.json.get("ok") is True
