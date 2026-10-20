@@ -128,7 +128,7 @@ const TgNews = (function () {
     if (count) count.textContent = fa(sources.length) + ' کانال';
     const destEl = el(isBale ? 'baleDestStatus' : 'tgDestStatus');
     if (destEl) {
-      const destChat = isBale ? (S.data && S.data.bale_chat) : (S.data && S.data.telegram_chat);
+      const destChat = isBale ? (S.data && (S.data.balenews_chat || S.data.bale_chat)) : (S.data && S.data.telegram_chat);
       if (destChat) {
         destEl.innerHTML = (isBale ? '🟢' : '🔵') + ' ارسال به چت مقصد: <strong>' + esc(destChat) + '</strong>';
       } else {
@@ -273,22 +273,48 @@ const TgNews = (function () {
     }
   }
 
-  async function load(force) {
-    if (S.busy) return;
+  async function load(force, platform) {
+    if (S.busy) {
+      if (typeof toast === 'function') toast('در حال دریافت اطلاعات پست‌ها، لطفاً کمی صبر کنید…');
+      return;
+    }
     S.busy = true;
+    const btn = platform === 'bale' ? el('btnBaleNewsRefresh') : (platform === 'telegram' ? el('btnTgNewsRefresh') : null);
+    const oldHtml = btn ? btn.innerHTML : '';
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner sm"></span> <span>در حال دریافت…</span>';
+    }
+    const pLabel = platform === 'bale' ? 'کانال‌های بله' : (platform === 'telegram' ? 'کانال‌های تلگرام' : 'کانال‌های تلگرام و بله');
+    if (force && typeof toast === 'function') {
+      toast('در حال بررسی و دریافت جدیدترین پست‌های ' + pLabel + '…');
+    }
     try {
-      const r = await fetch('/api/telegram_news' + (force ? '?refresh=1' : ''));
+      const url = '/api/telegram_news' + (force ? ('?refresh=1&_t=' + Date.now()) : '');
+      const r = await fetch(url, { cache: 'no-store' });
       const j = await r.json();
       if (!j || j.ok === false) throw new Error((j && j.error) || ('HTTP ' + r.status));
       S.data = j;
       render();
+      if (force && typeof toast === 'function') {
+        toast('✅ پست‌های ' + pLabel + ' با موفقیت به‌روزرسانی شد');
+      }
     } catch (e) {
       console.error('TgNews.load:', e);
+      if (force && typeof toast === 'function') {
+        toast('❌ خطا در دریافت اخبار: ' + (e.message || e));
+      }
       ['tgNewsList', 'baleNewsList'].forEach(id => {
         const h = el(id);
-        if (h) h.innerHTML = '<div class="cb-empty">دریافت پست‌ها ممکن نشد — ' + esc(e.message || e) + '</div>';
+        if (h && (!S.data || !S.data.sources || !S.data.sources.length)) {
+          h.innerHTML = '<div class="cb-empty">دریافت پست‌ها ممکن نشد — ' + esc(e.message || e) + '</div>';
+        }
       });
     } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = oldHtml || ('<svg class="ic"><use href="#i-refresh"/></svg> <span>به‌روزرسانی</span>');
+      }
       S.busy = false;
     }
   }
@@ -312,11 +338,11 @@ const TgNews = (function () {
 
   return {
     mount: function (platform) {
-      if (!S.data) load(false);
+      if (!S.data) load(false, platform);
       else render();
       if (platform === 'bale') loadBaleNewsBotConfig();
     },
-    refresh: function () { load(true); },
+    refresh: function (platform) { load(true, platform); },
     pick: function (handle, platform) {
       const p = platform || 'telegram';
       S.picked[p] = (S.picked[p] === handle) ? null : handle;
