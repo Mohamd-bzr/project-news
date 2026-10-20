@@ -235,6 +235,7 @@ DEFAULT_CONFIG = {
         "summary_assets": ["BTC", "ETH", "SOL", "XAU"],
         "summary_interval": 3600,
     },
+    "balenews_bot": {"token": "", "chat": ""},
 }
 
 # source kinds that count as "social" for the hygiene filter
@@ -255,6 +256,7 @@ def _mask_secrets(cfg: dict) -> dict:
                     d[k] = _SECRET_MASK
     _m(out.get("telegram"), ("token",))
     _m(out.get("bale"), ("token",))
+    _m(out.get("balenews_bot"), ("token",))
     _m(out.get("discord"), ("token", "webhook_url"))
     _m(out.get("content_studio"), ("youtube_key", "instagram_token"))
     _m(out.get("ai"), ("openai_key",))
@@ -3880,11 +3882,14 @@ def api_telegram_news():
                 p["posted_bale"] = database.is_messenger_posted(key, "bale_ideas")
                 p["posted_telegram"] = database.is_messenger_posted(key, "telegram_ideas")
         bale_tok, bale_chat = _bale_cfg()
+        bn_tok, bn_chat = _balenews_cfg()
         tg_tok, tg_chat = _telegram_cfg()
         return jsonify({
             "ok": True,
             "sources": sources,
             "bale_chat": bale_chat,
+            "balenews_chat": bn_chat,
+            "has_balenews_token": bool(bn_tok),
             "telegram_chat": tg_chat,
         })
     except Exception as e:
@@ -3981,11 +3986,22 @@ def api_telegram_news_send():
     if not title and not text:
         return jsonify({"ok": False, "error": "متن یا تیتر خبر ارسال نشده است."}), 400
 
+    from_view = str(data.get("from_view") or "").lower().strip()
+    src_type = str(data.get("source_type") or "").lower().strip()
     is_telegram = (platform == "telegram")
     target_platform = "telegram_ideas" if is_telegram else "bale_ideas"
-    cfg_fn = _telegram_cfg if is_telegram else _bale_cfg
-    send_fn = _tg_send if is_telegram else _bale_send
-    lock = TG_LOCK if is_telegram else BALE_LOCK
+    if is_telegram:
+        cfg_fn = _telegram_cfg
+        send_fn = _tg_send
+        lock = TG_LOCK
+    else:
+        # If sending from the Bale News tab or for a Bale channel, use dedicated Bale News bot config!
+        if from_view == "balenews" or src_type == "bale":
+            cfg_fn = _balenews_cfg
+        else:
+            cfg_fn = _bale_cfg
+        send_fn = _bale_send
+        lock = BALE_LOCK
 
     token, chat = cfg_fn()
     if not token or not chat:
@@ -5600,6 +5616,62 @@ def api_bale_get_chat_id():
         "chats": [],
         "hint": f"ربات @{bot_user} متصل شد، اما چت فعالی ثبت نشده است. برای دریافت Chat ID: در بله به @{bot_user} پیام بفرستید (دکمه شروع) یا ربات را به کانال/گروه اضافه کرده و مجدداً روی دکمه تشخیص خودکار کلیک کنید."
     })
+
+
+def _balenews_cfg():
+    """Bale bot token & destination chat configured specifically for Bale News tab."""
+    cfg = CONFIG.get("balenews_bot") or {}
+    token = (cfg.get("token") or "").strip()
+    chat = (cfg.get("chat") or "").strip()
+    if token and chat:
+        return _bale_clean_token(token), _bale_clean_chat(chat)
+    return _bale_cfg()
+
+
+@app.route("/api/balenews/config", methods=["GET", "POST"])
+def api_balenews_config():
+    """Get or update dedicated Bale News bot token and destination chat."""
+    if request.method == "POST":
+        data = request.get_json(silent=True) or {}
+        token = str(data.get("token") or "").strip()
+        chat = str(data.get("chat") or "").strip()
+        with _CONFIG_LOCK:
+            cur = CONFIG.setdefault("balenews_bot", {})
+            if not isinstance(cur, dict):
+                cur = CONFIG["balenews_bot"] = {}
+            if token and token != _SECRET_MASK:
+                cur["token"] = _bale_clean_token(token)
+            if "chat" in data:
+                cur["chat"] = _bale_clean_chat(chat)
+            save_config()
+        return jsonify({"ok": True, "message": "تنظیمات ربات اخبار بله ذخیره شد."})
+
+    cfg = CONFIG.get("balenews_bot") or {}
+    tok = cfg.get("token") or ""
+    return jsonify({
+        "ok": True,
+        "token": _SECRET_MASK if tok else "",
+        "has_token": bool(tok),
+        "chat": cfg.get("chat") or "",
+    })
+
+
+@app.route("/api/balenews/test", methods=["POST"])
+def api_balenews_test():
+    """Send test message using dedicated Bale News bot token and chat."""
+    data = request.get_json(silent=True) or {}
+    token = _bale_clean_token(data.get("token") or "")
+    chat = _bale_clean_chat(data.get("chat") or "")
+    if not token or token == _SECRET_MASK:
+        saved_tok, _ = _balenews_cfg()
+        token = saved_tok
+    if not chat:
+        _, saved_chat = _balenews_cfg()
+        chat = saved_chat
+    if not token or not chat:
+        return jsonify({"ok": False, "error": "توکن ربات و شناسه کانال مقصد اخبار بله هر دو الزامی هستند."}), 400
+    res = _bale_send(token, chat, "پیام تست ربات اخبار بله — ارتباط با کانال برقرار است ✓")
+    return jsonify({"ok": bool(res), "error": res.error if not res else ""})
 
 
 @app.route("/api/bale/test", methods=["POST"])

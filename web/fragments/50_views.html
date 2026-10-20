@@ -870,14 +870,46 @@
               </div>
               <div class="cb-head-actions">
                 <span class="cb-count" id="baleNewsCount">—</span>
-                <button class="btn sm ghost" type="button" onclick="showView('alerts');switchMessengerTab('bale')" title="تنظیمات ارسال و ربات بله">
-                  <svg class="ic"><use href="#i-gear"/></svg>
-                  <span>تنظیمات ربات بله</span>
-                </button>
                 <button class="btn sm ghost" type="button" id="btnBaleNewsRefresh" onclick="TgNews.refresh()" title="دریافت دوبارهٔ پست‌ها از بله" aria-label="به‌روزرسانی">
                   <svg class="ic"><use href="#i-refresh"/></svg>
                   <span>به‌روزرسانی</span>
                 </button>
+              </div>
+            </div>
+
+            <!-- ══ BALE NEWS BOT & CHANNEL DASHBOARD ══ -->
+            <div id="baleNewsBotDashboard" style="background:var(--panel-2);border:1px solid var(--rule);border-radius:var(--r2);padding:14px 18px;margin:0 0 var(--s4);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span style="font-size:1.2rem;">🟢</span>
+                  <div>
+                    <h4 style="margin:0;font-size:13.5px;font-weight:700;color:var(--ink-1);">داشبورد تنظیمات ربات و کانال مقصد (مخصوص اخبار بله)</h4>
+                    <p style="margin:2px 0 0;font-size:11.5px;color:var(--ink-3);">این تنظیمات کاملاً مستقل از ربات اصلی سیستم است و پست‌های این بخش به این کانال ارسال می‌شوند.</p>
+                  </div>
+                </div>
+                <div id="baleNewsBotBadge" style="font-size:11.5px;padding:3px 10px;border-radius:var(--r1);background:var(--wash);border:1px solid var(--rule);">
+                  کانال مقصد فعال: <strong id="lblBaleDestChat">—</strong>
+                </div>
+              </div>
+
+              <div class="formgrid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:12px;">
+                <div>
+                  <label style="font-size:11.5px;font-weight:600;color:var(--ink-2);margin-bottom:4px;display:block;">توکن ربات اختصاصی بله (از BotFather@ در بله):</label>
+                  <div style="display:flex;gap:6px;">
+                    <input type="password" id="inpBaleNewsBotToken" placeholder="توکن ربات بله (مثلاً: 123456789:ABC...)" style="flex:1;direction:ltr;text-align:left;">
+                    <button type="button" class="btn ghost sm" onclick="TgNews.toggleBaleTokenEye()" title="نمایش/مخفی توکن">👁️</button>
+                  </div>
+                </div>
+                <div>
+                  <label style="font-size:11.5px;font-weight:600;color:var(--ink-2);margin-bottom:4px;display:block;">شناسه یا آیدی کانال مقصد در بله (Chat ID):</label>
+                  <input type="text" id="inpBaleNewsBotChat" placeholder="مثلاً: @my_bale_channel یا عددی مثل 12345678" style="width:100%;direction:ltr;text-align:left;">
+                </div>
+              </div>
+
+              <div style="display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap;">
+                <button class="btn sm" type="button" id="btnSaveBaleNewsBot" onclick="TgNews.saveBaleNewsBot()">💾 ذخیره تنظیمات این ربات</button>
+                <button class="btn sm ghost" type="button" id="btnTestBaleNewsBot" onclick="TgNews.testBaleNewsBot()">🧪 ارسال پیام تست به این کانال</button>
+                <span id="baleNewsBotStatusMsg" style="font-size:12px;margin-inline-start:8px;"></span>
               </div>
             </div>
             <!-- Channel Management Dashboard -->

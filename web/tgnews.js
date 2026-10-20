@@ -243,7 +243,9 @@ const TgNews = (function () {
           source_title: (src && src.title) || '',
           title: post.title || '',
           text: post.text || '',
-          platform: platform
+          platform: platform,
+          from_view: (src && src.type === 'bale') ? 'balenews' : 'tgnews',
+          source_type: (src && src.type) || 'telegram'
         })
       });
       const j = await r.json();
@@ -291,10 +293,28 @@ const TgNews = (function () {
     }
   }
 
+  async function loadBaleNewsBotConfig() {
+    try {
+      const r = await fetch('/api/balenews/config');
+      const j = await r.json();
+      if (j && j.ok) {
+        const inpT = el('inpBaleNewsBotToken');
+        const inpC = el('inpBaleNewsBotChat');
+        const lbl = el('lblBaleDestChat');
+        if (inpT && j.has_token) inpT.value = j.token;
+        if (inpC) inpC.value = j.chat || '';
+        if (lbl) lbl.textContent = j.chat || 'تنظیم‌نشده';
+      }
+    } catch (e) {
+      console.warn('loadBaleNewsBotConfig:', e);
+    }
+  }
+
   return {
     mount: function (platform) {
       if (!S.data) load(false);
       else render();
+      if (platform === 'bale') loadBaleNewsBotConfig();
     },
     refresh: function () { load(true); },
     pick: function (handle, platform) {
@@ -407,6 +427,61 @@ const TgNews = (function () {
         if (typeof toast === 'function') toast('❌ خطای ارتباط: ' + e.message);
       }
     },
+    toggleBaleTokenEye: function () {
+      const inp = el('inpBaleNewsBotToken');
+      if (inp) inp.type = (inp.type === 'password') ? 'text' : 'password';
+    },
+    saveBaleNewsBot: async function () {
+      const inpT = el('inpBaleNewsBotToken');
+      const inpC = el('inpBaleNewsBotChat');
+      const status = el('baleNewsBotStatusMsg');
+      const token = (inpT ? inpT.value : '').trim();
+      const chat = (inpC ? inpC.value : '').trim();
+      if (status) status.innerHTML = '<span class="spinner sm"></span> در حال ذخیره...';
+      try {
+        const r = await fetch('/api/balenews/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token, chat: chat })
+        });
+        const j = await r.json();
+        if (j && j.ok) {
+          if (typeof toast === 'function') toast('✅ تنظیمات ربات اخبار بله ذخیره شد');
+          if (status) status.innerHTML = '<span style="color:var(--up);">✅ ذخیره شد</span>';
+          const lbl = el('lblBaleDestChat');
+          if (lbl) lbl.textContent = chat || 'تنظیم‌نشده';
+        } else {
+          if (status) status.innerHTML = '<span style="color:var(--dn);">❌ خطا: ' + esc((j && j.error) || 'خطا در ذخیره') + '</span>';
+        }
+      } catch (e) {
+        if (status) status.innerHTML = '<span style="color:var(--dn);">❌ خطا: ' + esc(e.message) + '</span>';
+      }
+    },
+    testBaleNewsBot: async function () {
+      const inpT = el('inpBaleNewsBotToken');
+      const inpC = el('inpBaleNewsBotChat');
+      const status = el('baleNewsBotStatusMsg');
+      const token = (inpT ? inpT.value : '').trim();
+      const chat = (inpC ? inpC.value : '').trim();
+      if (status) status.innerHTML = '<span class="spinner sm"></span> در حال ارسال پیام تست...';
+      try {
+        const r = await fetch('/api/balenews/test', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token, chat: chat })
+        });
+        const j = await r.json();
+        if (j && j.ok) {
+          if (status) status.innerHTML = '<span style="color:var(--up);">✅ پیام تست با موفقیت ارسال شد</span>';
+          if (typeof toast === 'function') toast('✅ پیام تست به کانال بله ارسال شد');
+        } else {
+          if (status) status.innerHTML = '<span style="color:var(--dn);">❌ خطا: ' + esc((j && j.error) || 'ارسال نشد') + '</span>';
+        }
+      } catch (e) {
+        if (status) status.innerHTML = '<span style="color:var(--dn);">❌ خطای ارتباط: ' + esc(e.message) + '</span>';
+      }
+    },
+    loadBaleNewsBotConfig: loadBaleNewsBotConfig,
     _safeHref: safeHref
   };
 })();

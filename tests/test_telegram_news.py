@@ -365,3 +365,51 @@ def test_channel_add_bale_and_delete_endpoints(monkeypatch, tmp_path):
     # Verify get_sources no longer includes newscitypro
     active = telegram_news.get_sources(sources_after, deleted)
     assert not any(s["handle"] == "newscitypro" for s in active)
+
+
+def test_balenews_bot_config_and_test_endpoints(monkeypatch):
+    import app
+    # Keep main bale config separate
+    main_bale_before = {"token": "MAIN_TOKEN_123", "chat": "@main_bale_channel"}
+    monkeypatch.setitem(app.CONFIG, "bale", dict(main_bale_before))
+    monkeypatch.setitem(app.CONFIG, "balenews_bot", {"token": "", "chat": ""})
+    monkeypatch.setattr(app, "save_config", lambda: None)
+
+    client = app.app.test_client()
+
+    # Initial state: balenews bot is empty
+    r1 = client.get("/api/balenews/config")
+    assert r1.status_code == 200
+    assert r1.json.get("has_token") is False
+    assert r1.json.get("chat") == ""
+
+    # Save dedicated balenews bot config
+    r2 = client.post("/api/balenews/config", json={
+        "token": "DEDICATED_BOT_456:DEF",
+        "chat": "@dedicated_bale_channel"
+    })
+    assert r2.status_code == 200
+    assert app.CONFIG["balenews_bot"]["chat"] == "@dedicated_bale_channel"
+    assert app.CONFIG["balenews_bot"]["token"] == "DEDICATED_BOT_456:DEF"
+    # Crucial: MAIN BALE CONFIG IS COMPLETELY UNTOUCHED!
+    assert app.CONFIG["bale"] == main_bale_before
+
+    # Secret masking on GET
+    r3 = client.get("/api/balenews/config")
+    assert r3.json.get("has_token") is True
+    assert r3.json.get("token") == "••••••"
+    assert r3.json.get("chat") == "@dedicated_bale_channel"
+
+    # Test send endpoint
+    sent_calls = []
+    class FakeRes:
+        error = ""
+        def __bool__(self): return True
+
+    monkeypatch.setattr(app, "_bale_send", lambda tok, chat, msg: (sent_calls.append((tok, chat, msg)), FakeRes())[1])
+
+    r4 = client.post("/api/balenews/test", json={})
+    assert r4.status_code == 200
+    assert len(sent_calls) == 1
+    assert sent_calls[0][0] == "DEDICATED_BOT_456:DEF"
+    assert sent_calls[0][1] == "@dedicated_bale_channel"
