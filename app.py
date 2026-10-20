@@ -4479,6 +4479,9 @@ def _bale_render_digest(articles, bale):
 
 
 def _studio_autopost(articles=None):
+    if CONFIG.get("messenger_ideas_only", False):
+        log("_studio_autopost: skipped (ideas-only mode)")
+        return
     """Post the day's best-scoring story to Telegram, if the operator asked for it.
 
     Off by default, one post per cycle at most, never the same story twice
@@ -4625,6 +4628,9 @@ def content_studio_signals():
 
 
 def _post_cycle_telegram(articles):
+    if CONFIG.get("messenger_ideas_only", False):
+        log("_post_cycle_telegram: skipped (ideas-only mode)")
+        return
     """Post qualified articles individually to Telegram with deduplication.
 
     Off by default: the channel runs ideas-only («فقط باید ایده‌های محتوایی …
@@ -4704,6 +4710,9 @@ def _post_cycle_telegram(articles):
 
 
 def _post_cycle_bale(articles):
+    if CONFIG.get("messenger_ideas_only", False):
+        log("_post_cycle_bale: skipped (ideas-only mode)")
+        return
     """Post qualified articles individually to Bale messenger with deduplication.
 
     Off by default, same reason as the Telegram digest above.
@@ -4993,6 +5002,9 @@ def _post_cycle_ideas():
 
 
 def _post_cycle_tgnews():
+    if CONFIG.get("messenger_ideas_only", False):
+        log("_post_cycle_tgnews: skipped (ideas-only mode)")
+        return
     """Automatically dispatch new public Telegram channel news to configured messengers.
 
     Strictly without mentioning the source channel, handle or link.
