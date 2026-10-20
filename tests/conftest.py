@@ -47,6 +47,8 @@ def _sanitize_config(obj):
                 res[k] = ""
             elif k in ("chat", "channel_id"):
                 res[k] = "" if isinstance(v, str) else 0
+            elif k in ("messenger_ideas_only", "ideas_post_v2"):
+                res[k] = False
             elif isinstance(v, (dict, list)):
                 res[k] = _sanitize_config(v)
             else:
