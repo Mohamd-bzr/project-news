@@ -3879,7 +3879,14 @@ def api_telegram_news():
                 key = f"tgnews_{h}_{pid}"
                 p["posted_bale"] = database.is_messenger_posted(key, "bale_ideas")
                 p["posted_telegram"] = database.is_messenger_posted(key, "telegram_ideas")
-        return jsonify({"ok": True, "sources": sources})
+        bale_tok, bale_chat = _bale_cfg()
+        tg_tok, tg_chat = _telegram_cfg()
+        return jsonify({
+            "ok": True,
+            "sources": sources,
+            "bale_chat": bale_chat,
+            "telegram_chat": tg_chat,
+        })
     except Exception as e:
         return jsonify({"ok": False, "error": str(e), "sources": []})
 
@@ -3894,11 +3901,10 @@ def api_telegram_news_test():
         chan_type = "bale"
     if not chan_type:
         chan_type = "telegram"
-    handle = raw_h.replace("https://ble.ir/", "").replace("http://ble.ir/", "")
-    handle = handle.replace("https://t.me/", "").replace("http://t.me/", "")
-    handle = handle.strip().lstrip("@").strip("/")
+    handle = re.sub(r"^https?://(?:ble\.ir|t\.me)/(?:s/)?", "", raw_h, flags=re.IGNORECASE)
+    handle = handle.strip().lstrip("@").rstrip("/")
     if not handle or not telegram_news.HANDLE_RE.match(handle):
-        return jsonify({"ok": False, "error": "شناسه یا آیدی کانال نامعتبر است (تنها حروف انگلیسی، عدد و _)."}), 400
+        return jsonify({"ok": False, "error": "شناسه یا آیدی کانال نامعتبر است (حروف، عدد، _ و - مجاز است)."}), 400
     res = telegram_news.fetch_source(handle, refresh=True, sources=[{"handle": handle, "title": handle, "type": chan_type}])
     if res.get("ok"):
         cnt = len(res.get("posts") or [])
@@ -3916,12 +3922,11 @@ def api_telegram_news_add_source():
         chan_type = "bale"
     if chan_type not in ("telegram", "bale"):
         chan_type = "telegram"
-    handle = raw_h.replace("https://ble.ir/", "").replace("http://ble.ir/", "")
-    handle = handle.replace("https://t.me/", "").replace("http://t.me/", "")
-    handle = handle.strip().lstrip("@").strip("/")
+    handle = re.sub(r"^https?://(?:ble\.ir|t\.me)/(?:s/)?", "", raw_h, flags=re.IGNORECASE)
+    handle = handle.strip().lstrip("@").rstrip("/")
     title = str(data.get("title") or "").strip() or handle
     if not handle or not telegram_news.HANDLE_RE.match(handle):
-        return jsonify({"ok": False, "error": "شناسه کانال نامعتبر است."}), 400
+        return jsonify({"ok": False, "error": "شناسه کانال نامعتبر است (حروف، عدد، _ و - مجاز است)."}), 400
 
     deleted = [d for d in (CONFIG.get("telegram_news_deleted_sources") or []) if str(d).lower() != handle.lower()]
     CONFIG["telegram_news_deleted_sources"] = deleted

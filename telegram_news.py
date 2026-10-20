@@ -70,7 +70,7 @@ MAX_TEXT_CHARS = 2000    # a post longer than this is truncated with a trailing 
 
 #: Telegram's own username shape (5–32 chars, may not end in _) — also the
 #: guard that keeps a caller-supplied handle from becoming part of a URL.
-HANDLE_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_]{3,31}$")
+HANDLE_RE = re.compile(r"^[A-Za-z0-9_-]{2,64}$")
 
 _HEADERS = {
     "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -314,12 +314,15 @@ def parse_channel_page(html: str, handle: str) -> list[dict]:
 
 
 def _clean_bale_text(node, handle: str) -> str:
-    """Clean text from Bale message node, decoding emoji and dropping self links / quotes."""
+    """Clean text from Bale message node, decoding emoji and dropping self links, quotes, and reactions."""
     if node is None:
         return ""
     clone = BeautifulSoup(str(node), "html.parser")
-    for p in clone.find_all(class_=re.compile(r"Preview_preview")):
-        p.decompose()
+    # Decompose reactions, meta info, previews, dates, views, and thumbnails
+    for junk in clone.find_all(class_=re.compile(
+        r"Reactions_|reaction|Info_|Preview_|NarrowBubble_senderInfo|Thumbnail_|MediaIcon_|date|view", re.I
+    )):
+        junk.decompose()
     for br in clone.find_all("br"):
         br.replace_with("\n")
     for img in clone.find_all("img", class_="emoji"):
@@ -346,6 +349,9 @@ def _clean_bale_text(node, handle: str) -> str:
     lines = [ln.strip() for ln in clone.get_text().split("\n")]
     out, blanks = [], 0
     for ln in lines:
+        cleaned_symbols = re.sub(r"[\d۰-۹\s.,]+", "", ln)
+        if ln and not cleaned_symbols:
+            continue
         blanks = blanks + 1 if not ln else 0
         if blanks <= 1:
             out.append(ln)
@@ -364,30 +370,41 @@ def parse_bale_channel_page(html: str, handle: str) -> list[dict]:
         tag.get("data-sid") or (tag.get("class") and any("messageWrapper" in c for c in tag.get("class", [])))
     ))
     for wrap in wrappers[:MAX_POSTS]:
-        sid = wrap.get("data-sid") or ""
-        msg_id = sid.split("-")[-1] if "-" in sid else (sid or f"{len(posts)+1}")
+        wrap_copy = BeautifulSoup(str(wrap), "html.parser")
 
-        text_el = None
-        for cand in wrap.find_all(class_=re.compile(r"Text_text")):
-            if not cand.find_parent(class_=re.compile(r"Preview_preview")):
-                text_el = cand
-                break
-        text = _clean_bale_text(text_el, handle)
+        sid = wrap_copy.find("div", attrs={"data-sid": True})
+        sid_val = sid.get("data-sid") if sid else (wrap.get("data-sid") or "")
+        msg_id = sid_val.split("-")[-1] if "-" in sid_val else (sid_val or f"{len(posts)+1}")
+
+        time_el = wrap_copy.find(class_=re.compile(r"Info_date|date", re.I))
+        when = time_el.get_text(strip=True) if time_el else ""
+
+        views_el = wrap_copy.find(class_=re.compile(r"Info_ViewWrapper|Info_Text", re.I))
+        views_text = views_el.get_text(strip=True) if views_el else ""
 
         media = None
         for kind in ("video", "photo", "document", "animation", "audio", "file"):
-            if wrap.find(class_=re.compile(rf"{kind}", re.I)):
+            if wrap_copy.find(class_=re.compile(rf"{kind}", re.I)):
                 media = kind
                 break
 
+        # Strip reactions and meta info from wrap_copy before extracting text
+        for junk in wrap_copy.find_all(class_=re.compile(
+            r"Reactions_|reaction|Info_|Preview_|NarrowBubble_senderInfo|Thumbnail_|MediaIcon_|date|view", re.I
+        )):
+            junk.decompose()
+
+        # Find the specific text element
+        text_el = wrap_copy.find(class_=re.compile(r"Text_text__|Video_caption|Photo_caption"))
+        if not text_el:
+            for cand in wrap_copy.find_all(class_=re.compile(r"Text_text")):
+                if "textMessage" not in "".join(cand.get("class", [])):
+                    text_el = cand
+                    break
+
+        text = _clean_bale_text(text_el, handle)
         if not text and not media:
             continue
-
-        time_el = wrap.find(class_=re.compile(r"Info_date|date", re.I))
-        when = time_el.get_text(strip=True) if time_el else ""
-
-        views_el = wrap.find(class_=re.compile(r"Info_ViewWrapper|Info_Text", re.I))
-        views_text = views_el.get_text(strip=True) if views_el else ""
 
         posts.append({
             "id": msg_id,

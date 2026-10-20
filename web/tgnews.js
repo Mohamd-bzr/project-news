@@ -126,6 +126,15 @@ const TgNews = (function () {
       rail.style.display = total ? '' : 'none';
     }
     if (count) count.textContent = fa(sources.length) + ' کانال';
+    const destEl = el(isBale ? 'baleDestStatus' : 'tgDestStatus');
+    if (destEl) {
+      const destChat = isBale ? (S.data && S.data.bale_chat) : (S.data && S.data.telegram_chat);
+      if (destChat) {
+        destEl.innerHTML = (isBale ? '🟢' : '🔵') + ' ارسال به چت مقصد: <strong>' + esc(destChat) + '</strong>';
+      } else {
+        destEl.innerHTML = '';
+      }
+    }
 
     const picked = S.picked[platform];
 
