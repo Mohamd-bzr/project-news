@@ -428,3 +428,31 @@ def test_bale_clean_chat_formats():
     assert _bale_clean_chat("-5544759284") == "5544759284"
     assert _bale_clean_chat("https://bale.ai/dolar_taala") == "@dolar_taala"
     assert _bale_clean_chat("") == ""
+
+
+def test_single_sentence_idea_composes_successfully():
+    import ideas_post
+    item = {
+        "title_fa": "رشد بیت‌کوین و بازارهای سهام پس از کاهش نرخ بهره",
+        "summary_fa": "ارزش بیت‌کوین در معاملات روز گذشته ۵ درصد افزایش یافت زیرا سرمایه‌گذاران انتظار رشد اقتصادی دارند."
+    }
+    res = ideas_post.compose_post(item)
+    assert res is not None, "Single sentence idea should compose successfully, not return None"
+    assert "title" in res
+    assert len(res.get("blocks", [])) >= 1
+    # Check that block starts with an allowed emoji
+    first_block = res["blocks"][0]
+    assert any(first_block.startswith(e) for e in ideas_post.PALETTE_EMOJIS)
+
+
+def test_ideas_dispatch_status_includes_balenews():
+    import app
+    client = app.app.test_client()
+    res = client.get("/api/ideas/dispatch-status")
+    assert res.status_code == 200
+    data = res.json
+    assert data.get("ok") is True
+    assert "balenews" in data
+    assert "bale" in data
+    assert "telegram" in data
+    assert "recent_logs" in data

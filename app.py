@@ -4901,15 +4901,14 @@ def _render_content_idea(idea: dict, is_telegram: bool = True) -> str:
             elif cached and isinstance(cached, dict):
                 idea["paragraphs"] = cached.get("paragraphs") or []
         res = ideas_post.compose_post(idea)
-        if not res:
-            return ""
-        if is_telegram:
-            title_part = f"<b>{_tg_escape(res['title'])}</b>"
-            esc_blocks = [_tg_escape(b) for b in res["blocks"]]
-            return f"{title_part}\n\n" + "\n\n".join(esc_blocks)
-        else:
-            title_part = f"*{res['title']}*"
-            return f"{title_part}\n\n" + "\n\n".join(res["blocks"])
+        if res:
+            if is_telegram:
+                title_part = f"<b>{_tg_escape(res['title'])}</b>"
+                esc_blocks = [_tg_escape(b) for b in res["blocks"]]
+                return f"{title_part}\n\n" + "\n\n".join(esc_blocks)
+            else:
+                title_part = f"*{res['title']}*"
+                return f"{title_part}\n\n" + "\n\n".join(res["blocks"])
 
     # Legacy composer (unconditionally NO link or button)
     import news_editorial
@@ -5301,8 +5300,10 @@ def api_ideas_dispatch_status():
     import database
     bale_tok, bale_chat = _bale_cfg()
     tg_tok, tg_chat = _telegram_cfg()
+    bn_tok, bn_chat = _balenews_cfg()
     bale_cfg = dict(CONFIG.get("bale") or {})
     tg_cfg = dict(CONFIG.get("telegram") or {})
+    bn_cfg = dict(CONFIG.get("balenews_bot") or {})
 
     # Check board stats
     board = _channel_board() or {}
@@ -5340,6 +5341,11 @@ def api_ideas_dispatch_status():
             "total_sent_alltime": len(posted_tg),
         },
         "total_board_ideas": len(items),
+        "balenews": {
+            "configured": bool(bn_tok and bn_chat),
+            "chat": bn_chat,
+            "has_token": bool(bn_tok),
+        },
         "recent_logs": recent_logs,
     })
 

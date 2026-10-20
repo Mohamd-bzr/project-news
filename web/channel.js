@@ -247,6 +247,7 @@ const Channel = (function () {
 
       const b = j.bale || {};
       const tg = j.telegram || {};
+      const bn = j.balenews || {};
       const logs = j.recent_logs || [];
 
       let html = '<div class="dispatch-modal-content">' +
@@ -254,17 +255,17 @@ const Channel = (function () {
           '<div style="display:flex;align-items:center;gap:10px;">' +
             '<span style="font-size:24px;">📨</span>' +
             '<div>' +
-              '<h3 style="margin:0;font-size:16px;color:var(--ink-1);">وضعیت و تاریخچه ارسال به بله و تلگرام</h3>' +
-              '<p style="margin:2px 0 0 0;font-size:12px;color:var(--ink-3);">پایش وضعیت ربات، کانال متصل و گزارش خبرهای ارسال‌شده</p>' +
+              '<h3 style="margin:0;font-size:16px;color:var(--ink-1);">وضعیت و تاریخچه خبرهای ارسال‌شده</h3>' +
+              '<p style="margin:2px 0 0 0;font-size:12px;color:var(--ink-3);">پایش وضعیت ربات‌ها، کانال‌های متصل و گزارش خبرهای ارسال‌شده به بله و تلگرام</p>' +
             '</div>' +
           '</div>' +
         '</div>' +
 
         '<div class="dispatch-grid">' +
           '<div class="dispatch-card">' +
-            '<div class="dh"><strong>پیام‌رسان بله</strong>' + (b.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + '</div>' +
+            '<div class="dh"><strong>ایده‌های محتوایی (بله)</strong>' + (b.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + '</div>' +
             '<div class="row"><span>کانال مقصد:</span> <code dir="ltr" style="font-weight:bold;color:var(--accent);">' + esc(b.chat || 'تنظیم نشده') + '</code></div>' +
-            '<div class="row"><span>وضعیت اتصال ربات:</span> <span>' + (b.configured ? 'آماده ارسال' : 'نیازمند توکن و چت') + '</span></div>' +
+            '<div class="row"><span>وضعیت:</span> <span>' + (b.configured ? 'آماده ارسال' : 'نیازمند توکن و چت') + '</span></div>' +
             '<div class="row"><span>ارسال‌شده در این تخته:</span> <strong>' + fa(b.posted_count || 0) + ' ایده</strong></div>' +
             '<div class="row"><span>در صف ارسال:</span> <strong>' + fa(b.unsent_count || 0) + ' ایده</strong></div>' +
             '<div style="margin-top:12px;display:flex;gap:8px;">' +
@@ -274,17 +275,26 @@ const Channel = (function () {
           '</div>' +
 
           '<div class="dispatch-card">' +
+            '<div class="dh"><strong>اخبار بله (کانال اختصاصی)</strong>' + (bn.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + '</div>' +
+            '<div class="row"><span>کانال مقصد:</span> <code dir="ltr" style="font-weight:bold;color:var(--accent);">' + esc(bn.chat || 'تنظیم نشده') + '</code></div>' +
+            '<div class="row"><span>وضعیت ربات:</span> <span>' + (bn.configured ? 'آماده ارسال اخبار بله' : 'تنظیم‌نشده') + '</span></div>' +
+            '<div style="margin-top:12px;display:flex;gap:8px;">' +
+              '<button class="btn sm ghost" style="flex:1" onclick="showView(\'balenews\'); closeModal(\'ideasDispatchOverlay\');">⚙️ رفتن به اخبار بله</button>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="dispatch-card">' +
             '<div class="dh"><strong>پیام‌رسان تلگرام</strong>' + (tg.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + '</div>' +
             '<div class="row"><span>کانال مقصد:</span> <code dir="ltr" style="font-weight:bold;">' + esc(tg.chat || 'تنظیم نشده') + '</code></div>' +
-            '<div class="row"><span>وضعیت اتصال ربات:</span> <span>' + (tg.configured ? 'آماده ارسال' : 'تنظیم نشده') + '</span></div>' +
-            '<div class="row"><span>ارسال‌شده در این تخته:</span> <strong>' + fa(tg.posted_count || 0) + ' ایده</strong></div>' +
+            '<div class="row"><span>وضعیت ربات:</span> <span>' + (tg.configured ? 'آماده ارسال' : 'تنظیم نشده') + '</span></div>' +
+            '<div class="row"><span>ارسال‌شده:</span> <strong>' + fa(tg.posted_count || 0) + ' ایده</strong></div>' +
             '<div class="row"><span>در صف ارسال:</span> <strong>' + fa(tg.unsent_count || 0) + ' ایده</strong></div>' +
           '</div>' +
         '</div>' +
 
         '<div class="dispatch-logs-section">' +
           '<h4 style="margin:16px 0 8px 0;font-size:13.5px;display:flex;justify-content:space-between;align-items:center;">' +
-            '<span>تاریخچه آخرین خبرهای ارسال‌شده</span>' +
+            '<span>تاریخچه آخرین خبرهای ارسال‌شده (ایده‌ها و اخبار)</span>' +
             '<span style="font-size:12px;color:var(--ink-3);font-weight:normal;">' + fa(logs.length) + ' مورد اخیر</span>' +
           '</h4>' +
           (logs.length ? '<div class="dispatch-table-wrap"><table class="dispatch-table">' +
@@ -293,9 +303,19 @@ const Channel = (function () {
             logs.map(l => {
               const dt = l.posted_ts ? new Date(l.posted_ts * 1000).toLocaleTimeString('fa-IR', {hour: '2-digit', minute:'2-digit'}) : '—';
               const isB = l.platform && l.platform.includes('bale');
+              let title = l.title_fa || l.title;
+              if (!title && l.article_id) {
+                if (String(l.article_id).startsWith('tgnews_')) {
+                  const parts = String(l.article_id).split('_');
+                  title = 'خبر ارسالی کانال @' + (parts[1] || 'تلگرام/بله');
+                } else {
+                  title = 'ایده شماره ' + l.article_id;
+                }
+              }
+              title = title || 'بدون تیتر';
               return '<tr>' +
                 '<td><span class="badge ' + (isB ? 'b-bale' : 'b-tg') + '">' + (isB ? 'بله' : 'تلگرام') + '</span></td>' +
-                '<td class="ttl-col">' + esc(l.title_fa || l.title || 'بدون تیتر') + '</td>' +
+                '<td class="ttl-col">' + esc(title) + '</td>' +
                 '<td class="dt-col">' + dt + '</td>' +
                 '<td>' + (l.link ? '<a href="' + attr(safeHref(l.link)) + '" target="_blank" rel="noopener noreferrer" class="link-btn">مشاهده</a>' : '—') + '</td>' +
               '</tr>';

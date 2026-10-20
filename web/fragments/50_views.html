@@ -825,6 +825,10 @@
               </div>
               <div class="cb-head-actions">
                 <span class="cb-count" id="tgNewsCount">—</span>
+                <button class="btn sm outline" type="button" onclick="Channel.openDispatchModal()" title="مشاهده وضعیت و تاریخچه خبرهای ارسال‌شده">
+                  <svg class="ic"><use href="#i-file"/></svg>
+                  <span>گزارش ارسال‌ها</span>
+                </button>
                 <button class="btn sm ghost" type="button" onclick="showView('alerts');switchMessengerTab('tg')" title="تنظیمات ارسال و ربات تلگرام">
                   <svg class="ic"><use href="#i-gear"/></svg>
                   <span>تنظیمات ربات تلگرام</span>
@@ -870,6 +874,10 @@
               </div>
               <div class="cb-head-actions">
                 <span class="cb-count" id="baleNewsCount">—</span>
+                <button class="btn sm outline" type="button" onclick="Channel.openDispatchModal()" title="مشاهده وضعیت و تاریخچه خبرهای ارسال‌شده">
+                  <svg class="ic"><use href="#i-file"/></svg>
+                  <span>گزارش ارسال‌ها</span>
+                </button>
                 <button class="btn sm ghost" type="button" id="btnBaleNewsRefresh" onclick="TgNews.refresh()" title="دریافت دوبارهٔ پست‌ها از بله" aria-label="به‌روزرسانی">
                   <svg class="ic"><use href="#i-refresh"/></svg>
                   <span>به‌روزرسانی</span>
@@ -910,6 +918,7 @@
                 <button class="btn sm" type="button" id="btnSaveBaleNewsBot" onclick="TgNews.saveBaleNewsBot()">💾 ذخیره تنظیمات این ربات</button>
                 <button class="btn sm ghost" type="button" id="btnTestBaleNewsBot" onclick="TgNews.testBaleNewsBot()">🧪 ارسال پیام تست به این کانال</button>
                 <button class="btn sm ghost" type="button" id="btnDetectBaleNewsChat" onclick="TgNews.detectBaleNewsChat()">🔍 تشخیص خودکار کانال مقصد</button>
+                <button class="btn sm ghost" type="button" onclick="Channel.openDispatchModal()" title="مشاهده وضعیت و تاریخچه خبرهای ارسال‌شده">📋 گزارش ارسال‌ها</button>
                 <span id="baleNewsBotStatusMsg" style="font-size:12px;margin-inline-start:8px;"></span>
               </div>
               <div id="baleNewsDetectedChats" style="display:none;margin-top:10px;padding:10px 14px;background:var(--wash);border:1px solid var(--rule);border-radius:var(--r1);font-size:12px;"></div>

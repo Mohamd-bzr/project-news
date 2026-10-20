@@ -432,6 +432,14 @@ def compose_post(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         logger.info("compose_post skipped: fewer than 2 usable sentences")
         return None
 
+    if len(filtered_sentences) == 1 and not bullet_groups:
+        single = filtered_sentences[0]
+        if len(single) >= 50:
+            parts = re.split(r"(?<=[،؛])\s+|(?<=\s)(?:زیرا|چرا که|در پی|در حالی که|همزمان|هم‌زمان|اما|با این حال|تا)\s+", single)
+            clean_parts = [p.strip() for p in parts if len(p.strip()) >= 15]
+            if len(clean_parts) >= 2:
+                filtered_sentences = clean_parts[:3]
+
     entities = _load_fa_entities()
 
     # Score sentences
