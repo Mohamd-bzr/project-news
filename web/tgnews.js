@@ -481,6 +481,59 @@ const TgNews = (function () {
         if (status) status.innerHTML = '<span style="color:var(--dn);">❌ خطای ارتباط: ' + esc(e.message) + '</span>';
       }
     },
+    detectBaleNewsChat: async function () {
+      const inpT = el('inpBaleNewsBotToken');
+      const box = el('baleNewsDetectedChats');
+      const token = (inpT ? inpT.value : '').trim();
+      if (box) {
+        box.style.display = 'block';
+        box.innerHTML = '<span class="spinner sm"></span> در حال بررسی کانال‌ها و چت‌های فعال ربات بله...';
+      }
+      try {
+        const r = await fetch('/api/bale/get-chat-id', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token })
+        });
+        const j = await r.json();
+        if (!j || !j.ok) {
+          if (box) box.innerHTML = '<span style="color:var(--dn);">❌ خطا: ' + esc((j && j.error) || 'عدم امکان دریافت اطلاعات ربات') + '</span>';
+          return;
+        }
+        const chats = j.chats || [];
+        if (!chats.length) {
+          const hint = j.hint || 'ربات متصل شد اما چت فعالی ثبت نشده است. ربات را به کانال اضافه کرده و یک پیام بفرستید، سپس مجدداً روی دکمه تشخیص خودکار کلیک کنید.';
+          if (box) box.innerHTML = '<div style="color:var(--ink-2);line-height:1.6;">ℹ️ ' + esc(hint) + '</div>';
+          return;
+        }
+        let html = '<div style="font-weight:600;margin-bottom:8px;color:var(--ink-1);">کانال‌ها و چت‌های فعال متصل به ربات: (روی کانال مقصد کلیک کنید)</div>';
+        html += '<div style="display:flex;flex-direction:column;gap:6px;">';
+        chats.forEach(function (c) {
+          const isChan = (c.type === 'channel');
+          const typeIcon = isChan ? '📢' : '👤';
+          const typeLabel = isChan ? 'کانال' : 'چت خصوصی';
+          const title = c.title || (c.first_name ? (c.first_name + ' ' + (c.last_name || '')).trim() : '') || 'بدون نام';
+          const u = c.username ? ('@' + c.username) : '';
+          const cid = String(c.id);
+          html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--panel);border:1px solid var(--rule);border-radius:var(--r1);gap:8px;flex-wrap:wrap;">';
+          html += '<div><strong>' + typeIcon + ' ' + esc(typeLabel) + ':</strong> ' + esc(title) + ' ' + (u ? '<span style="color:var(--ink-3);font-size:11px;">(' + esc(u) + ')</span>' : '') + ' — <code style="font-size:11px;direction:ltr;display:inline-block;">' + esc(cid) + '</code></div>';
+          html += '<button type="button" class="btn sm" onclick="TgNews.selectDetectedChat(' + jsArg(cid) + ')">✓ انتخاب این مقصد</button>';
+          html += '</div>';
+        });
+        html += '</div>';
+        if (box) box.innerHTML = html;
+      } catch (e) {
+        if (box) box.innerHTML = '<span style="color:var(--dn);">❌ خطا: ' + esc(e.message) + '</span>';
+      }
+    },
+    selectDetectedChat: function (chatId) {
+      const inpC = el('inpBaleNewsBotChat');
+      if (inpC) inpC.value = chatId;
+      TgNews.saveBaleNewsBot();
+      const box = el('baleNewsDetectedChats');
+      if (box) box.style.display = 'none';
+      if (typeof toast === 'function') toast('✅ کانال مقصد با موفقیت انتخاب و ذخیره شد: ' + chatId);
+    },
     loadBaleNewsBotConfig: loadBaleNewsBotConfig,
     _safeHref: safeHref
   };

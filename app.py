@@ -4360,15 +4360,26 @@ def _bale_clean_token(tok):
 
 def _bale_clean_chat(chat):
     chat = str(chat or "").strip().strip('"').strip("'")
-    if chat.startswith("https://ble.ir/"):
-        chat = "@" + chat[len("https://ble.ir/"):].strip("/")
-    elif chat.startswith("ble.ir/"):
-        chat = "@" + chat[len("ble.ir/"):].strip("/")
-    elif chat.startswith("https://bale.ai/"):
-        chat = "@" + chat[len("https://bale.ai/"):].strip("/")
-    elif chat.startswith("bale.ai/"):
-        chat = "@" + chat[len("bale.ai/"):].strip("/")
-    if chat and not chat.startswith(("@", "-")) and not chat.isdigit():
+    if not chat:
+        return ""
+    fa_ar_digits = "۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧۸۹"
+    en_digits = "01234567890123456789"
+    chat = chat.translate(str.maketrans(fa_ar_digits, en_digits)).strip()
+    for prefix in ("https://", "http://"):
+        if chat.lower().startswith(prefix):
+            chat = chat[len(prefix):]
+    for domain in ("ble.ir/", "bale.ai/", "t.me/"):
+        if chat.lower().startswith(domain):
+            chat = chat[len(domain):]
+            break
+    if chat.lower().startswith("s/"):
+        chat = chat[2:]
+    chat = chat.split("?")[0].split("#")[0].strip("/")
+    if chat.startswith("-100") and chat[4:].isdigit():
+        chat = chat[4:]
+    elif chat.startswith("-") and chat[1:].isdigit():
+        chat = chat[1:]
+    if chat and not chat.startswith("@") and not chat.isdigit():
         chat = "@" + chat
     return chat
 
@@ -5621,10 +5632,10 @@ def api_bale_get_chat_id():
 def _balenews_cfg():
     """Bale bot token & destination chat configured specifically for Bale News tab."""
     cfg = CONFIG.get("balenews_bot") or {}
-    token = (cfg.get("token") or "").strip()
-    chat = (cfg.get("chat") or "").strip()
-    if token and chat:
-        return _bale_clean_token(token), _bale_clean_chat(chat)
+    token = _bale_clean_token((cfg.get("token") or "").strip())
+    chat = _bale_clean_chat((cfg.get("chat") or "").strip())
+    if token or chat:
+        return token, chat
     return _bale_cfg()
 
 

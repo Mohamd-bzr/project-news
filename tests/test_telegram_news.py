@@ -413,3 +413,18 @@ def test_balenews_bot_config_and_test_endpoints(monkeypatch):
     assert len(sent_calls) == 1
     assert sent_calls[0][0] == "DEDICATED_BOT_456:DEF"
     assert sent_calls[0][1] == "@dedicated_bale_channel"
+
+
+def test_bale_clean_chat_formats():
+    from app import _bale_clean_chat
+    assert _bale_clean_chat("5544759284") == "5544759284"
+    assert _bale_clean_chat("۵۵۴۴۷۵۹۲۸۴") == "5544759284"
+    assert _bale_clean_chat("@dolar_taala") == "@dolar_taala"
+    assert _bale_clean_chat("dolar_taala") == "@dolar_taala"
+    assert _bale_clean_chat("https://ble.ir/dolar_taala") == "@dolar_taala"
+    assert _bale_clean_chat("https://ble.ir/s/dolar_taala") == "@dolar_taala"
+    assert _bale_clean_chat("ble.ir/s/dolar_taala?test=1") == "@dolar_taala"
+    assert _bale_clean_chat("-1005544759284") == "5544759284"
+    assert _bale_clean_chat("-5544759284") == "5544759284"
+    assert _bale_clean_chat("https://bale.ai/dolar_taala") == "@dolar_taala"
+    assert _bale_clean_chat("") == ""
