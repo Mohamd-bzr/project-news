@@ -647,7 +647,9 @@ def build_custom_patterns(custom_assets: dict) -> dict:
         pats = []
         for k in split_keywords(meta.get("keywords")):
             # a multi-word phrase should tolerate any spacing
-            pats.append(re.sub(r'\s+', r'\\s+', re.escape(k)))
+            words = [re.escape(w) for w in str(k).split() if w]
+            if words:
+                pats.append(r"\s+".join(words))
         if meta.get("keywords_regex"):
             pats.append(meta["keywords_regex"])
         if not pats:

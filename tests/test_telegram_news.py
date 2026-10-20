@@ -456,3 +456,15 @@ def test_ideas_dispatch_status_includes_balenews():
     assert "bale" in data
     assert "telegram" in data
     assert "recent_logs" in data
+
+
+def test_custom_assets_multi_word_keywords():
+    import sources
+    patterns = sources.build_custom_patterns({
+        "BRENT": {"keywords": "brent, brent crude, oil"},
+        "N225": {"keywords": "nikkei 225, jp225, japan stock market"}
+    })
+    found1 = sources.detect_assets("Brent crude oil drops below $108", "", custom=patterns)
+    assert "BRENT" in found1
+    found2 = sources.detect_assets("Nikkei 225 advances in Tokyo trade", "", custom=patterns)
+    assert "N225" in found2
