@@ -65,7 +65,7 @@ def get_sources(extra_sources=None, deleted_sources=None) -> list[dict]:
     return items
 
 TTL_SECONDS = 300        # how long one channel's posts stay fresh in memory
-MAX_POSTS = 20           # what one t.me/s/ page returns
+MAX_POSTS = 60           # retain and display up to 60 posts per channel
 MAX_TEXT_CHARS = 4000    # a post longer than this is truncated with a trailing …
 
 #: Telegram's own username shape (5–32 chars, may not end in _) — also the
@@ -453,20 +453,41 @@ def fetch_source(handle: str, refresh: bool = False, sources: list[dict] | None 
             return hit[1]
 
     fetch_url = f"https://ble.ir/s/{handle}" if stype == "bale" else f"https://t.me/s/{handle}"
+    fresh_posts = []
     try:
         r = requests.get(fetch_url, headers=_HEADERS, timeout=15)
         r.raise_for_status()
         if stype == "bale":
-            posts = parse_bale_channel_page(r.text, handle)
+            fresh_posts = parse_bale_channel_page(r.text, handle)
         else:
-            posts = parse_channel_page(r.text, handle)
+            fresh_posts = parse_channel_page(r.text, handle)
+        if fresh_posts:
+            try:
+                import database
+                database.save_channel_posts(handle, fresh_posts, chan_type=stype, max_keep=MAX_POSTS)
+            except Exception:
+                pass
     except Exception as e:                  # one dead channel, not a dead section
         out["error"] = f"{type(e).__name__}: {e}"[:200]
-        return out
 
-    out.update(ok=True, fetched_at=now, posts=posts)
-    _CACHE[cache_key] = (now, out)
-    return out
+    stored_posts = []
+    try:
+        import database
+        stored_posts = database.get_channel_posts(handle, limit=MAX_POSTS)
+    except Exception:
+        pass
+
+    final_posts = stored_posts if stored_posts else fresh_posts
+    if final_posts:
+        out.update(ok=True, fetched_at=now, posts=final_posts)
+        _CACHE[cache_key] = (now, out)
+        return out
+    elif out["error"]:
+        return out
+    else:
+        out.update(ok=True, fetched_at=now, posts=[])
+        _CACHE[cache_key] = (now, out)
+        return out
 
 
 def fetch_all(refresh: bool = False, extra_sources: list[dict] | None = None, deleted_sources: list[str] | None = None) -> list[dict]:

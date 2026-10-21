@@ -477,3 +477,36 @@ def test_balenews_push_now_endpoint(monkeypatch):
     res = client.post("/api/balenews/push-now")
     assert res.status_code == 200
     assert res.json.get("ok") is True
+
+
+def test_channel_posts_accumulation_up_to_60():
+    import database
+    handle = "test_accum_chan"
+    batch1 = [{
+        "id": f"p_{i}",
+        "url": f"https://ble.ir/s/{handle}/{i}",
+        "title": f"Post {i}",
+        "text": f"Content of post {i}",
+        "time": f"2026-10-21T10:{i:02d}:00+00:00",
+        "views": 100 + i,
+        "media": None,
+    } for i in range(10, 50)]
+    database.save_channel_posts(handle, batch1, chan_type="bale", max_keep=60)
+    saved = database.get_channel_posts(handle, limit=60)
+    assert len(saved) == 40
+    assert saved[0]["id"] == "p_49"
+
+    batch2 = [{
+        "id": f"p_{i}",
+        "url": f"https://ble.ir/s/{handle}/{i}",
+        "title": f"Post {i}",
+        "text": f"Content of post {i}",
+        "time": f"2026-10-21T11:{i-50:02d}:00+00:00",
+        "views": 200 + i,
+        "media": None,
+    } for i in range(50, 80)]
+    database.save_channel_posts(handle, batch2, chan_type="bale", max_keep=60)
+    accumulated = database.get_channel_posts(handle, limit=60)
+    assert len(accumulated) == 60
+    assert accumulated[0]["id"] == "p_79"
+    assert accumulated[-1]["id"] == "p_20"

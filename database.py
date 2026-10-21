@@ -165,6 +165,22 @@ def init_db():
             );
         """)
         conn.execute("CREATE INDEX IF NOT EXISTS idx_messenger_posted_ts ON messenger_posted (posted_ts DESC);")
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS channel_posts (
+                handle TEXT NOT NULL,
+                post_id TEXT NOT NULL,
+                type TEXT NOT NULL DEFAULT 'telegram',
+                url TEXT,
+                title TEXT,
+                text TEXT,
+                time TEXT,
+                views INTEGER,
+                media TEXT,
+                fetched_at REAL,
+                PRIMARY KEY (handle, post_id)
+            );
+        """)
+        conn.execute("CREATE INDEX IF NOT EXISTS idx_channel_posts_handle ON channel_posts (handle, time DESC);")
         conn.commit()
 
 
@@ -602,3 +618,75 @@ def get_messenger_posted_logs(platform: str = None, limit: int = 50) -> list[dic
         pass
     return out
 
+
+
+def save_channel_posts(handle: str, posts: list[dict], chan_type: str = "telegram", max_keep: int = 60) -> int:
+    """Save newly fetched channel posts into SQLite and trim older posts beyond max_keep."""
+    if not handle or not posts:
+        return 0
+    clean_h = handle.strip().lstrip("@").lower()
+    now = time.time()
+    try:
+        with get_connection() as conn:
+            for p in posts:
+                pid = str(p.get("id") or "").strip()
+                if not pid:
+                    continue
+                conn.execute("""
+                    INSERT OR REPLACE INTO channel_posts
+                    (handle, post_id, type, url, title, text, time, views, media, fetched_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (
+                    clean_h,
+                    pid,
+                    chan_type,
+                    str(p.get("url") or ""),
+                    str(p.get("title") or ""),
+                    str(p.get("text") or ""),
+                    str(p.get("time") or ""),
+                    p.get("views"),
+                    str(p.get("media") or "") if p.get("media") else None,
+                    now
+                ))
+            conn.execute("""
+                DELETE FROM channel_posts
+                WHERE handle = ? AND post_id NOT IN (
+                    SELECT post_id FROM channel_posts
+                    WHERE handle = ?
+                    ORDER BY time DESC, fetched_at DESC
+                    LIMIT ?
+                )
+            """, (clean_h, clean_h, int(max_keep)))
+            return len(posts)
+    except Exception:
+        return 0
+
+
+def get_channel_posts(handle: str, limit: int = 60) -> list[dict]:
+    """Retrieve accumulated channel posts for handle, ordered newest first."""
+    if not handle:
+        return []
+    clean_h = handle.strip().lstrip("@").lower()
+    try:
+        with get_connection() as conn:
+            rows = conn.execute("""
+                SELECT post_id, type, url, title, text, time, views, media
+                FROM channel_posts
+                WHERE handle = ?
+                ORDER BY time DESC, fetched_at DESC
+                LIMIT ?
+            """, (clean_h, int(limit))).fetchall()
+            out = []
+            for r in rows:
+                out.append({
+                    "id": r["post_id"],
+                    "url": r["url"] or "",
+                    "title": r["title"] or "",
+                    "text": r["text"] or "",
+                    "time": r["time"] or "",
+                    "views": r["views"],
+                    "media": r["media"],
+                })
+            return out
+    except Exception:
+        return []
