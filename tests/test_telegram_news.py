@@ -540,3 +540,53 @@ def test_ideas_telegram_dispatch_and_platform_push(monkeypatch):
     assert len(sent_msgs) == 1
     assert "TCS" in sent_msgs[0][2]
 
+def test_bale_forbidden_words_filter():
+    import telegram_news
+    # Test blocked words
+    blocked_samples = [
+        ("ویدیو جدید بازار طلا", ""),
+        ("گزارش تحلیلی", "ویدئوی بررسی رمزارزها منتشر شد"),
+        ("تحلیل شهبازی از دلار", "بررسی بازار ارز"),
+        ("شهبازی", "معتقد است روند نزولی است"),
+        ("پادکست صوتی بورس", "بررسی آخرین وضعیت سهام"),
+        ("پست امروز کانال", "نکات مهم معاملاتی"),
+        ("در این پست به بررسی بازار می‌پردازیم", ""),
+        ("ویس تحلیلی درباره اونس", "فایل صوتی"),
+        ("گوش دادن به ویس", "توضیحات تکمیلی"),
+    ]
+    for t, b in blocked_samples:
+        matched, word = telegram_news.has_bale_forbidden_words(t, b)
+        assert matched is True, f"Expected forbidden word match in: {t} {b}"
+        assert word != ""
+
+    # Test allowed words (avoid false positives)
+    allowed_samples = [
+        ("سرویس اقتصاد جهان", "ارائه سرویس‌های جدید"),
+        ("مذاکرات به بن‌بست رسید", "تحلیل شرایط سیاسی"),
+        ("سوئیس نرخ بهره را کاهش داد", "بانک مرکزی سوئیس"),
+        ("سرپرست وزارت اقتصاد اعلام کرد", "رشد تولید ناخالص"),
+        ("شکست خط مقاومت بیت کوین", "صعود به کانال جدید"),
+    ]
+    for t, b in allowed_samples:
+        matched, _ = telegram_news.has_bale_forbidden_words(t, b)
+        assert matched is False, f"Unexpected false positive in: {t} {b}"
+
+
+def test_api_telegram_news_send_blocks_bale_forbidden_words(monkeypatch):
+    import app
+    client = app.app.test_client()
+    monkeypatch.setattr(app, "_balenews_cfg", lambda: ("FAKE_BALE_TOKEN", "5544759284"))
+    
+    # Try sending a post with forbidden word to Bale
+    res = client.post("/api/telegram_news/send", json={
+        "id": "123",
+        "title": "پست امروز کانال درباره بازار",
+        "text": "در این ویدیو نکات مهم را ببینید",
+        "platform": "bale",
+        "from_view": "balenews"
+    })
+    assert res.status_code == 400
+    data = res.json
+    assert data.get("ok") is False
+    assert "فیلترشده" in data.get("error", "")
+

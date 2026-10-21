@@ -4032,6 +4032,14 @@ def api_telegram_news_send():
     if not clean_title and not clean_text:
         return jsonify({"ok": False, "error": "متن یا تیتر خبر ارسال نشده است."}), 400
 
+    if not is_telegram:
+        has_forbidden, matched_w = telegram_news.has_bale_forbidden_words(clean_title, clean_text)
+        if has_forbidden:
+            return jsonify({
+                "ok": False,
+                "error": f"این خبر به دلیل وجود کلمه فیلترشده ({matched_w}) به بله ارسال نمی‌شود."
+            }), 400
+
     title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
     parts = [title_part]
     if clean_text and clean_text != clean_title:
@@ -5146,6 +5154,11 @@ def _post_cycle_tgnews():
                     if not clean_title and not clean_text:
                         continue
 
+                    if not is_telegram:
+                        has_forbidden, _ = telegram_news.has_bale_forbidden_words(clean_title, clean_text)
+                        if has_forbidden:
+                            continue
+
                     title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
                     parts = [title_part]
                     if clean_text and clean_text != clean_title:
@@ -5215,6 +5228,11 @@ def _post_cycle_balenews():
                 title, text, source_title=s.get("title") or "", source_handle=handle
             )
             if not clean_title and not clean_text:
+                continue
+
+            has_forbidden, matched_w = telegram_news.has_bale_forbidden_words(clean_title, clean_text)
+            if has_forbidden:
+                log(f"[balenews] post skipped (forbidden word '{matched_w}'): {key}")
                 continue
 
             title_part = f"*{clean_title}*"

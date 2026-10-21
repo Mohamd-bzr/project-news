@@ -238,6 +238,33 @@ def clean_for_messenger(title: str, text: str, source_title: str = "", source_ha
     return clean_t, clean_b
 
 
+BALE_FORBIDDEN_PATTERN = re.compile(
+    r"(?<![\w؀-ۿ‌])"
+    r"(ویدیو(?:[‌\s]?[ه|ی|های|هایی|ها|یی|ئی]*)?|"
+    r"ویدئو(?:[‌\s]?[ه|ی|های|هایی|ها|یی|ئی]*)?|"
+    r"شهبازی|"
+    r"پادکست(?:[‌\s]?[ه|ی|های|هایی|ها]*)?|"
+    r"پست\s+امروز|"
+    r"پست(?:[‌\s]?[ه|ی|های|هایی|ها|ی]*)?|"
+    r"ویس(?:[‌\s]?[ه|ی|های|هایی|ها|ی]*)?)"
+    r"(?![\w؀-ۿ‌])",
+    re.IGNORECASE
+)
+
+
+def has_bale_forbidden_words(title: str, text: str) -> tuple[bool, str]:
+    """Check if title or text contains forbidden keywords for Bale news dispatching.
+
+    Forbidden: ویدیو, شهبازی, پادکست, پست, پست امروز, ویس (with common Persian suffixes).
+    Uses unicode boundaries to avoid false positives on 'سرویس', 'سوئیس', 'بن‌بست'.
+    """
+    full = f"{title or ''}\n{text or ''}"
+    m = BALE_FORBIDDEN_PATTERN.search(full)
+    if m:
+        return True, m.group(0).strip()
+    return False, ""
+
+
 
 def _parse_views(raw: str):
     """'3.44K views' → 3440, '696 views' → 696; anything unreadable → None.
