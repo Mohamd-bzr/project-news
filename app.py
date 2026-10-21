@@ -4936,7 +4936,7 @@ def _render_content_idea(idea: dict, is_telegram: bool = True) -> str:
     return "\n\n".join(p for p in parts if p).strip()
 
 
-def _post_cycle_ideas():
+def _post_cycle_ideas(force_all: bool = False, target: str = ""):
     """Push the ranked content-ideas board to Telegram AND Bale, automatically.
 
     Immediately after every scraping cycle, the filtered news is ranked into
@@ -4969,10 +4969,16 @@ def _post_cycle_ideas():
     import news_editorial
     from news_editorial import IDEAS_SUMMARY_CHARS
 
-    for platform, cfg_key, cfg_fn, send, lock in (
+    platforms = [
         ("telegram_ideas", "telegram", _telegram_cfg, _tg_send, TG_LOCK),
         ("bale_ideas", "bale", _bale_cfg, _bale_send, BALE_LOCK),
-    ):
+    ]
+    if target in ("telegram", "telegram_ideas"):
+        platforms = [p for p in platforms if p[1] == "telegram"]
+    elif target in ("bale", "bale_ideas"):
+        platforms = [p for p in platforms if p[1] == "bale"]
+
+    for platform, cfg_key, cfg_fn, send, lock in platforms:
         try:
             cfg = dict(CONFIG.get(cfg_key) or {})
             if cfg.get("enabled") is False or cfg.get("send_ideas") is False:
@@ -5029,11 +5035,17 @@ def _post_cycle_ideas():
             skipped = 0
             skipped_summary = 0
             is_telegram = (platform == "telegram_ideas")
+            def _is_persian_title(t: str) -> bool:
+                if is_persian(t):
+                    return True
+                import translate as _tr
+                return bool(_tr._FA_CHAR_RE.search(t or "") and _tr.persian_share(t) >= 0.25)
+
             for idea in candidates:
                 title_fa = str(idea.get("title_fa") or "").strip()
-                if not is_persian(title_fa):
+                if not _is_persian_title(title_fa):
                     title_fa = fixed.get(str(idea.get("title") or "").strip(), "")
-                if not is_persian(title_fa):
+                if not _is_persian_title(title_fa):
                     skipped += 1
                     continue           # strictly Persian title required — skip if English or empty
 
@@ -5064,7 +5076,7 @@ def _post_cycle_ideas():
                     elif _breaker_open(platform):
                         break   # dead API — stop mid-run, resume next cycle
                 _time.sleep(0.5)
-                if CONFIG.get("ideas_post_v2", False):
+                if CONFIG.get("ideas_post_v2", False) and not force_all:
                     max_cycle = int(CONFIG.get("ideas_max_per_cycle") or 3)
                     if sent >= max_cycle:
                         break
@@ -5351,19 +5363,22 @@ def api_ideas_push_now():
         return jsonify({"ok": True, "already_running": True,
                         "hint": "یک پوش در حال اجراست؛ صبر کن تمام شود."})
     _IDEAS_PUSH_RUNNING = True
+    body = request.get_json(silent=True) or {}
+    target_platform = str(body.get("platform") or "").lower().strip()
 
     def _run():
         global _IDEAS_PUSH_RUNNING
         try:
-            _post_cycle_ideas()
+            _post_cycle_ideas(force_all=True, target=target_platform)
         except Exception as e:
             log(f"ideas push-now error: {e}")
         finally:
             _IDEAS_PUSH_RUNNING = False
 
     threading.Thread(target=_run, daemon=True).start()
+    p_label = "تلگرام" if target_platform == "telegram" else ("بله" if target_platform == "bale" else "بله و تلگرام")
     return jsonify({"ok": True, "started": True,
-                    "hint": "ارسال همهٔ ایده‌های نارسیده آغاز شد؛ چند دقیقه طول می‌کشد."})
+                    "hint": f"ارسال همهٔ ایده‌های نارسیده به {p_label} آغاز شد؛ چند دقیقه طول می‌کشد."})
 
 
 @app.route("/api/ideas/dispatch-status")
@@ -5458,17 +5473,20 @@ def api_ideas_send_single():
     import database
     from news_editorial import IDEAS_SUMMARY_CHARS
 
+    import translate as _tr
     title_fa = str(idea.get("title_fa") or "").strip()
-    if not is_persian(title_fa):
+    is_t_fa = is_persian(title_fa) or bool(_tr._FA_CHAR_RE.search(title_fa) and _tr.persian_share(title_fa) >= 0.25)
+    if not is_t_fa:
         src_title = str(idea.get("title") or "").strip()
         if src_title:
             try:
                 trans = translate_many([src_title]) or {}
                 title_fa = trans.get(src_title, "")
+                is_t_fa = is_persian(title_fa) or bool(_tr._FA_CHAR_RE.search(title_fa) and _tr.persian_share(title_fa) >= 0.25)
             except Exception:
                 pass
 
-    if not is_persian(title_fa):
+    if not is_t_fa:
         return jsonify({"ok": False, "error": "تیتر خبر فاقد متن فارسی معتبر است و ترجمه در دسترس نیست."}), 400
 
     clean_title = news_editorial.clean_editorial_title(title_fa)

@@ -780,13 +780,13 @@
                 </div>
               </div>
               <div class="cb-head-actions">
-                <button class="btn sm primary" type="button" id="btnPushBale" onclick="Channel.pushNow()" title="ارسال همه ایده‌های جدید به پیام‌رسان بله">
+                <button class="btn sm primary" type="button" id="btnPushBale" onclick="Channel.pushNow()" title="ارسال فوری همه ایده‌های جدید به پیام‌رسان‌های بله و تلگرام">
                   <svg class="ic"><use href="#i-send"/></svg>
-                  <span>ارسال فوری به بله</span>
+                  <span>ارسال فوری ایده‌ها</span>
                 </button>
                 <button class="btn sm outline" type="button" onclick="Channel.openDispatchModal()" title="مشاهده وضعیت اتصال و تاریخچه ارسال خبرها">
                   <svg class="ic"><use href="#i-file"/></svg>
-                  <span>وضعیت و تاریخچه بله</span>
+                  <span>وضعیت و تاریخچه ارسال</span>
                 </button>
                 <span class="cb-count" id="cbCount">—</span>
                 <button class="btn sm ghost" type="button" id="btnRefreshChannel" onclick="Channel.refresh()" title="غربال دوبارهٔ اخبار" aria-label="غربال دوباره">
@@ -798,9 +798,11 @@
             <div class="cb-bale-status-bar" id="cbBaleStatusBar">
               <div class="stat-left">
                 <span class="dot live"></span>
-                <span>کانال بله: <strong dir="ltr">4683284212</strong></span>
+                <span>بله: <strong dir="ltr">4683284212</strong></span>
                 <span class="sep">•</span>
-                <span>وضعیت: <strong>ارسال بلادرنگ پس از هر چرخه</strong></span>
+                <span>تلگرام: <strong dir="ltr">-1004439487439</strong></span>
+                <span class="sep">•</span>
+                <span>وضعیت: <strong>ارسال خودکار بلادرنگ</strong></span>
               </div>
               <div class="stat-right">
                 <a href="javascript:void(0)" onclick="Channel.openDispatchModal()" class="stat-link">مشاهده گزارش ارسال‌ها ←</a>

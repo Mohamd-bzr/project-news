@@ -510,3 +510,33 @@ def test_channel_posts_accumulation_up_to_60():
     assert len(accumulated) == 60
     assert accumulated[0]["id"] == "p_79"
     assert accumulated[-1]["id"] == "p_20"
+
+def test_ideas_telegram_dispatch_and_platform_push(monkeypatch):
+    import app
+    client = app.app.test_client()
+    # Test push-now with platform telegram
+    res = client.post("/api/ideas/push-now", json={"platform": "telegram"})
+    assert res.status_code == 200
+    data = res.json
+    assert data.get("ok") is True
+    assert "تلگرام" in data.get("hint", "")
+
+    # Test send-single with platform telegram and an article containing Latin tickers
+    fake_idea = {
+        "id": "test_tg_idea_1",
+        "title": "IT stocks rally: TCS, L&T, Wipro, Infosys up",
+        "title_fa": "سهام IT در آتش: بررسی عملکرد TCS، L&T، Wipro، Infosys صعودی است",
+        "summary_fa": "شاخص فناوری اطلاعات با رشد چشمگیر سهام همراه شد و کارشناسان نسبت به آینده خوش‌بین هستند.",
+    }
+    with app.STATE_LOCK:
+        app.STATE["articles"] = [fake_idea]
+    monkeypatch.setattr(app, "_telegram_cfg", lambda: ("FAKE_TOK", "-100123456789"))
+    sent_msgs = []
+    monkeypatch.setattr(app, "_tg_send", lambda tok, chat, txt, **kw: sent_msgs.append((tok, chat, txt)) or True)
+
+    res_single = client.post("/api/ideas/send-single", json={"id": "test_tg_idea_1", "platform": "telegram"})
+    assert res_single.status_code == 200
+    assert res_single.json.get("ok") is True
+    assert len(sent_msgs) == 1
+    assert "TCS" in sent_msgs[0][2]
+

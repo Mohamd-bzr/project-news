@@ -59,12 +59,21 @@ const Channel = (function () {
 
     const isBaleSent = Boolean(it.posted_bale);
     const baleBadge = isBaleSent
-      ? '<span class="badge b-sent" title="این ایده به کانال بله ارسال شده است">✅ ارسال به بله</span>'
-      : '<span class="badge b-pending" title="در صف ارسال خودکار بله">⏳ در صف بله</span>';
+      ? '<span class="badge b-sent" title="این ایده به کانال بله ارسال شده است">✅ بله</span>'
+      : '<span class="badge b-pending" title="در صف ارسال خودکار بله">⏳ بله</span>';
 
-    const sendAction = isBaleSent
-      ? '<button class="b-card-act sent" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'bale\', this)" title="ارسال دوباره به بله">🔄 ارسال مجدد</button>'
-      : '<button class="b-card-act" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'bale\', this)" title="ارسال فوری همین خبر به کانال بله">📤 ارسال به بله</button>';
+    const isTgSent = Boolean(it.posted_telegram);
+    const tgBadge = isTgSent
+      ? '<span class="badge b-sent" title="این ایده به کانال تلگرام ارسال شده است">✅ تلگرام</span>'
+      : '<span class="badge b-pending" title="در صف ارسال خودکار تلگرام">⏳ تلگرام</span>';
+
+    const sendBaleAction = isBaleSent
+      ? '<button class="b-card-act sent" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'bale\', this)" title="ارسال دوباره به بله">🔄 بله</button>'
+      : '<button class="b-card-act" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'bale\', this)" title="ارسال فوری همین خبر به کانال بله">📤 بله</button>';
+
+    const sendTgAction = isTgSent
+      ? '<button class="b-card-act sent" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'telegram\', this)" title="ارسال دوباره به تلگرام">🔄 تلگرام</button>'
+      : '<button class="b-card-act" type="button" onclick="event.stopPropagation(); Channel.sendSingle(' + jsArg(it.id) + ', \'telegram\', this)" title="ارسال فوری همین خبر به کانال تلگرام">📤 تلگرام</button>';
 
     const linkAction = it.link
       ? '<a class="b-card-act link" href="' + attr(safeHref(it.link)) + '" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" title="مشاهده خبر اصلی در وب‌سایت منبع">🔗 منبع خبر</a>'
@@ -77,6 +86,7 @@ const Channel = (function () {
           '<span class="badge b-viral ' + vcls + '" title="احتمال وایرال">🔥 ' + fa(v.toFixed(0)) + '٪</span>' +
           '<span class="badge b-asset">' + esc(tag[0]) + ' ' + esc(tag[1]) + '</span>' +
           baleBadge +
+          tgBadge +
         '</div>' +
         '<div class="ttl">' + esc(title) + '</div>' +
         (summary ? '<div class="summ">' + esc(summary) + '</div>' : '') +
@@ -84,7 +94,8 @@ const Channel = (function () {
           '<span class="src">' + esc(it.source || 'منبع اصلی') + '</span>' +
           '<div style="display:flex;align-items:center;gap:6px;">' +
             linkAction +
-            sendAction +
+            sendBaleAction +
+            sendTgAction +
             '<span class="dt">' + agoText(it.age_hours) + '</span>' +
           '</div>' +
         '</div>' +
@@ -166,17 +177,22 @@ const Channel = (function () {
     }
   }
 
-  async function pushNow() {
+  async function pushNow(platform) {
     const btn = el('btnPushBale');
     if (btn) {
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner sm"></span> در حال ارسال...';
     }
+    const pLabel = platform === 'telegram' ? 'تلگرام' : (platform === 'bale' ? 'بله' : 'بله و تلگرام');
     try {
-      const r = await fetch('/api/ideas/push-now', { method: 'POST' });
+      const r = await fetch('/api/ideas/push-now', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ platform: platform || '' })
+      });
       const j = await r.json();
       if (typeof toast === 'function') {
-        toast(j.hint || (j.ok ? 'ارسال ایده‌ها به بله و تلگرام آغاز شد' : 'خطا در ارسال: ' + (j.error || '')));
+        toast(j.hint || (j.ok ? ('ارسال ایده‌ها به ' + pLabel + ' آغاز شد') : ('خطا در ارسال: ' + (j.error || ''))));
       }
       setTimeout(() => load(true), 2500);
     } catch (e) {
@@ -184,7 +200,7 @@ const Channel = (function () {
     } finally {
       if (btn) {
         btn.disabled = false;
-        btn.innerHTML = '<svg class="ic"><use href="#i-send"/></svg> <span>ارسال فوری به بله</span>';
+        btn.innerHTML = '<svg class="ic"><use href="#i-send"/></svg> <span>ارسال فوری ایده‌ها</span>';
       }
     }
   }
@@ -202,19 +218,24 @@ const Channel = (function () {
       else if (typeof toast === 'function') toast(msg);
       else alert(msg);
     };
+    const p = platform || 'bale';
+    const pName = p === 'telegram' ? 'تلگرام' : 'بله';
     try {
-      notify('در حال ارسال ایده به بله...');
+      notify('در حال ارسال ایده به ' + pName + '...');
       const r = await fetch('/api/ideas/send-single', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: id, platform: platform || 'bale' })
+        body: JSON.stringify({ id: id, platform: p })
       });
       const j = await r.json();
       if (j.ok) {
-        notify('✅ با موفقیت به بله ارسال شد');
+        notify('✅ با موفقیت به ' + pName + ' ارسال شد');
         if (S.feed && S.feed.items) {
           const item = S.feed.items.find(x => x.id === id);
-          if (item) item.posted_bale = true;
+          if (item) {
+            if (p === 'telegram') item.posted_telegram = true;
+            else item.posted_bale = true;
+          }
           render();
         }
       } else {
@@ -289,6 +310,10 @@ const Channel = (function () {
             '<div class="row"><span>وضعیت ربات:</span> <span>' + (tg.configured ? 'آماده ارسال' : 'تنظیم نشده') + '</span></div>' +
             '<div class="row"><span>ارسال‌شده:</span> <strong>' + fa(tg.posted_count || 0) + ' ایده</strong></div>' +
             '<div class="row"><span>در صف ارسال:</span> <strong>' + fa(tg.unsent_count || 0) + ' ایده</strong></div>' +
+            '<div style="margin-top:12px;display:flex;gap:8px;">' +
+              '<button class="btn sm primary" style="flex:1" onclick="Channel.pushNow(\'telegram\'); closeModal(\'ideasDispatchOverlay\');">🚀 ارسال ایده‌های صف تلگرام</button>' +
+              '<button class="btn sm ghost" onclick="Channel.testTgPing()">🧪 تست اتصال</button>' +
+            '</div>' +
           '</div>' +
         '</div>' +
 
@@ -350,6 +375,25 @@ const Channel = (function () {
     }
   }
 
+  async function testTgPing() {
+    try {
+      if (typeof toast === 'function') toast('در حال ارسال پیام تست به تلگرام...');
+      const r = await fetch('/api/telegram/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      });
+      const j = await r.json();
+      if (j.ok) {
+        if (typeof toast === 'function') toast('✅ پیام تست با موفقیت به تلگرام ارسال شد');
+      } else {
+        if (typeof toast === 'function') toast('❌ خطا در تست تلگرام: ' + (j.error || ''));
+      }
+    } catch (e) {
+      if (typeof toast === 'function') toast('خطای اتصال تلگرام: ' + e.message);
+    }
+  }
+
   function openSource(id) {
     if (!id) return;
     if (typeof window.openArticle === 'function') {
@@ -380,6 +424,7 @@ const Channel = (function () {
     sendSingle: sendSingle,
     openDispatchModal: openDispatchModal,
     testBalePing: testBalePing,
+    testTgPing: testTgPing,
     _safeHref: safeHref,
     _s: S
   };
