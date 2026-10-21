@@ -66,7 +66,7 @@ def get_sources(extra_sources=None, deleted_sources=None) -> list[dict]:
 
 TTL_SECONDS = 300        # how long one channel's posts stay fresh in memory
 MAX_POSTS = 20           # what one t.me/s/ page returns
-MAX_TEXT_CHARS = 2000    # a post longer than this is truncated with a trailing …
+MAX_TEXT_CHARS = 4000    # a post longer than this is truncated with a trailing …
 
 #: Telegram's own username shape (5–32 chars, may not end in _) — also the
 #: guard that keeps a caller-supplied handle from becoming part of a URL.
@@ -388,21 +388,28 @@ def parse_bale_channel_page(html: str, handle: str) -> list[dict]:
                 media = kind
                 break
 
-        # Strip reactions and meta info from wrap_copy before extracting text
-        for junk in wrap_copy.find_all(class_=re.compile(
-            r"Reactions_|reaction|Info_|Preview_|NarrowBubble_senderInfo|Thumbnail_|MediaIcon_|date|view", re.I
-        )):
-            junk.decompose()
+        # Strip reactions, metadata, and link preview cards from wrap_copy
+        for junk in list(wrap_copy.find_all(class_=re.compile(
+            r"Reactions_|reaction|Info_|LinkPreview|NarrowBubble_senderInfo|Thumbnail_|MediaIcon_|date|view", re.I
+        ))):
+            if not hasattr(junk, "attrs") or junk.attrs is None:
+                continue
+            classes = junk.get("class") or []
+            # Keep text preview / headline blocks intact
+            if not any("TextPreview" in c or "Text_text" in c for c in classes):
+                junk.decompose()
 
-        # Find the specific text element
-        text_el = wrap_copy.find(class_=re.compile(r"Text_text__|Video_caption|Photo_caption"))
-        if not text_el:
-            for cand in wrap_copy.find_all(class_=re.compile(r"Text_text")):
-                if "textMessage" not in "".join(cand.get("class", [])):
-                    text_el = cand
-                    break
+        # Collect all text elements within the message (headline, preview, captions, body paragraphs)
+        collected_parts = []
+        for cand in wrap_copy.find_all(class_=re.compile(r"Text_text|Video_caption|Photo_caption|TextPreview")):
+            cleaned = _clean_bale_text(cand, handle)
+            if cleaned and cleaned not in collected_parts:
+                if not any(cleaned in existing for existing in collected_parts):
+                    collected_parts.append(cleaned)
 
-        text = _clean_bale_text(text_el, handle)
+        text = "\n\n".join(collected_parts).strip()
+        if not text:
+            text = _clean_bale_text(wrap_copy.find(class_=re.compile(r"Text_text")), handle)
         if not text and not media:
             continue
 

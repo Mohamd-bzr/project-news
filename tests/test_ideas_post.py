@@ -118,7 +118,7 @@ class TestIdeasPost(unittest.TestCase):
             self.assertNotIn("https://", text)
 
             # Length caps
-            self.assertTrue(len(text) <= 1500, f"Text length {len(text)} exceeds hard cap")
+            self.assertTrue(len(text) <= 4000, f"Text length {len(text)} exceeds hard cap")
 
     def test_key_entities_and_numbers_appear(self):
         """Check specific numbers and names in golden outputs."""

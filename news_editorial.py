@@ -203,7 +203,7 @@ def editorial_blocks(summary_text: str) -> Tuple[str, str]:
 
 
 # ── the content-ideas push: 500-1000 chars summary in clean paragraphs ────────
-IDEAS_SUMMARY_CHARS = 1000
+IDEAS_SUMMARY_CHARS = 4000
 
 
 # end-of-thought marks, best first: a sentence end reads finished

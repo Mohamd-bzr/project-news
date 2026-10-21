@@ -4035,7 +4035,7 @@ def api_telegram_news_send():
     title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
     parts = [title_part]
     if clean_text and clean_text != clean_title:
-        body = clean_text[:1200]
+        body = clean_text[:4000]
         parts.append(_tg_escape(body) if is_telegram else body)
 
     final_msg = "\n\n".join(parts).strip()
@@ -5137,7 +5137,7 @@ def _post_cycle_tgnews():
                     title_part = f"<b>{_tg_escape(clean_title)}</b>" if is_telegram else f"*{clean_title}*"
                     parts = [title_part]
                     if clean_text and clean_text != clean_title:
-                        body = clean_text[:1200]
+                        body = clean_text[:4000]
                         parts.append(_tg_escape(body) if is_telegram else body)
 
                     final_msg = "\n\n".join(parts).strip()
@@ -5208,7 +5208,7 @@ def _post_cycle_balenews():
             title_part = f"*{clean_title}*"
             parts = [title_part]
             if clean_text and clean_text != clean_title:
-                parts.append(clean_text[:1200])
+                parts.append(clean_text[:4000])
             final_msg = "\n\n".join(parts).strip()
             if not final_msg:
                 continue

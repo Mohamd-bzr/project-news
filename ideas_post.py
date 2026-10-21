@@ -568,9 +568,9 @@ def compose_post(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
             logger.info(f"compose_post block dropped: unprovenanced number(s) {unmatched}")
             continue
 
-        # Block length <= 260 chars
-        if len(b) > 260 and not ("\n🟡" in b):
-            b = b[:260].rsplit(" ", 1)[0]
+        # Block length <= 800 chars
+        if len(b) > 800 and not ("\n🟡" in b):
+            b = b[:800].rsplit(" ", 1)[0]
             # re-verify ending
             last_w = b.rstrip(".,:؛!؟ ").split()[-1] if b.split() else ""
             if last_w in FUNCTION_WORDS or re.search(r"\d[.,/]$", b):
@@ -593,14 +593,14 @@ def compose_post(item: Dict[str, Any]) -> Optional[Dict[str, Any]]:
 
     # Length cap check
     final_text = f"{cleaned_title}\n\n" + "\n\n".join(valid_blocks)
-    if len(final_text) > 1500:
+    if len(final_text) > 4000:
         # Drop last block(s) until within hard cap
-        while len(final_text) > 1500 and len(valid_blocks) > 2:
+        while len(final_text) > 4000 and len(valid_blocks) > 2:
             valid_blocks.pop()
             final_text = f"{cleaned_title}\n\n" + "\n\n".join(valid_blocks)
 
-    if len(final_text) > 1500:
-        logger.info("compose_post skipped: output exceeds hard cap 1500 chars")
+    if len(final_text) > 4000:
+        logger.info("compose_post skipped: output exceeds hard cap 4000 chars")
         return None
 
     return {

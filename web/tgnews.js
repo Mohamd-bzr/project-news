@@ -48,7 +48,7 @@ const TgNews = (function () {
   }
 
   function postCard(p, src) {
-    const text = String(p.text || '').slice(0, 420);
+    const text = String(p.text || '').slice(0, 4000);
     const safeTitle = esc(p.title || '(بدون تیتر)');
     const safeUrl = attr(safeHref(esc(p.url)));
     const safeHandle = esc(src.handle);
@@ -88,7 +88,7 @@ const TgNews = (function () {
           tgBadge +
         '</div>' +
         '<div class="ttl">' + safeTitle + '</div>' +
-        (text ? '<div class="summ">' + safeText + (p.text && p.text.length > 420 ? '…' : '') + '</div>' : '') +
+        (text ? '<div class="summ">' + safeText + (p.text && p.text.length > 4000 ? '…' : '') + '</div>' : '') +
         '<div class="row2">' +
           '<span class="src">' + esc(src.title || src.handle) + '</span>' +
           '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">' +
