@@ -3989,6 +3989,11 @@ def api_telegram_news_send():
     from_view = str(data.get("from_view") or "").lower().strip()
     src_type = str(data.get("source_type") or "").lower().strip()
     is_telegram = (platform == "telegram")
+    force = bool(data.get("force"))
+    if is_telegram and not CONFIG.get("tgnews_dispatch_enabled", True) and not force:
+        return jsonify({"ok": False, "error": "ارسال اخبار تلگرام در حال حاضر قطع است. ابتدا دکمه وصل ارسال را بزنید."}), 400
+    if not is_telegram and not CONFIG.get("balenews_dispatch_enabled", True) and not force:
+        return jsonify({"ok": False, "error": "ارسال اخبار بله در حال حاضر قطع است. ابتدا دکمه وصل ارسال را بزنید."}), 400
     target_platform = "telegram_ideas" if is_telegram else "bale_ideas"
     if is_telegram:
         cfg_fn = _telegram_cfg
@@ -4945,6 +4950,9 @@ def _render_content_idea(idea: dict, is_telegram: bool = True) -> str:
 
 
 def _post_cycle_ideas(force_all: bool = False, target: str = ""):
+    if not CONFIG.get("ideas_dispatch_enabled", True) and not force_all:
+        log("_post_cycle_ideas: auto-send skipped (ideas dispatch is toggled OFF)")
+        return
     """Push the ranked content-ideas board to Telegram AND Bale, automatically.
 
     Immediately after every scraping cycle, the filtered news is ranked into
@@ -5101,6 +5109,9 @@ def _post_cycle_ideas(force_all: bool = False, target: str = ""):
 
 
 def _post_cycle_tgnews():
+    if not CONFIG.get("tgnews_dispatch_enabled", True):
+        log("_post_cycle_tgnews: skipped (tgnews dispatch is toggled OFF)")
+        return
     if CONFIG.get("messenger_ideas_only", False):
         log("_post_cycle_tgnews: skipped (ideas-only mode)")
         return
@@ -5187,6 +5198,9 @@ def _post_cycle_tgnews():
 
 def _post_cycle_balenews():
     """Automatically dispatch new posts from monitored Bale channels to the dedicated Bale News channel."""
+    if not CONFIG.get("balenews_dispatch_enabled", True):
+        log("_post_cycle_balenews: skipped (balenews dispatch is toggled OFF)")
+        return
     token, chat = _balenews_cfg()
     if not token or not chat:
         return
@@ -5380,8 +5394,10 @@ def api_ideas_push_now():
     if _IDEAS_PUSH_RUNNING:
         return jsonify({"ok": True, "already_running": True,
                         "hint": "یک پوش در حال اجراست؛ صبر کن تمام شود."})
-    _IDEAS_PUSH_RUNNING = True
     body = request.get_json(silent=True) or {}
+    if not CONFIG.get("ideas_dispatch_enabled", True) and not body.get("force"):
+        return jsonify({"ok": False, "error": "ارسال ایده‌های محتوا در حال حاضر قطع است. ابتدا دکمه وصل ارسال را فعال کنید."}), 400
+    _IDEAS_PUSH_RUNNING = True
     target_platform = str(body.get("platform") or "").lower().strip()
 
     def _run():
@@ -5451,6 +5467,9 @@ def api_ideas_dispatch_status():
             "chat": bn_chat,
             "has_token": bool(bn_tok),
         },
+        "ideas_enabled": bool(CONFIG.get("ideas_dispatch_enabled", True)),
+        "tgnews_enabled": bool(CONFIG.get("tgnews_dispatch_enabled", True)),
+        "balenews_enabled": bool(CONFIG.get("balenews_dispatch_enabled", True)),
         "recent_logs": recent_logs,
     })
 
@@ -5463,6 +5482,8 @@ def api_ideas_send_single():
     platform = str(data.get("platform") or "bale").lower().strip()
     if not idea_id:
         return jsonify({"ok": False, "error": "شناسه ایده ارسال نشده است."}), 400
+    if not CONFIG.get("ideas_dispatch_enabled", True) and not data.get("force"):
+        return jsonify({"ok": False, "error": "ارسال ایده‌های محتوا در حال حاضر قطع است. ابتدا دکمه وصل ارسال را فعال کنید."}), 400
 
     board = _channel_board() or {}
     items = list(board.get("items") or [])
@@ -5781,9 +5802,55 @@ def api_balenews_config():
     })
 
 
+@app.route("/api/dispatch/status")
+def api_dispatch_status():
+    """Return on/off status of all dispatch sections."""
+    return jsonify({
+        "ok": True,
+        "ideas": bool(CONFIG.get("ideas_dispatch_enabled", True)),
+        "tgnews": bool(CONFIG.get("tgnews_dispatch_enabled", True)),
+        "balenews": bool(CONFIG.get("balenews_dispatch_enabled", True)),
+    })
+
+
+@app.route("/api/dispatch/toggle", methods=["POST"])
+def api_dispatch_toggle():
+    """Toggle or set on/off status for a dispatch section ('ideas', 'tgnews', 'balenews')."""
+    data = request.get_json(silent=True) or {}
+    section = str(data.get("section") or "").lower().strip()
+    valid_keys = {
+        "ideas": "ideas_dispatch_enabled",
+        "tgnews": "tgnews_dispatch_enabled",
+        "telegram": "tgnews_dispatch_enabled",
+        "balenews": "balenews_dispatch_enabled",
+        "bale": "balenews_dispatch_enabled",
+    }
+    if section not in valid_keys:
+        return jsonify({"ok": False, "error": f"بخش نامعتبر: {section}"}), 400
+
+    cfg_key = valid_keys[section]
+    if "enabled" in data:
+        new_state = bool(data["enabled"])
+    else:
+        new_state = not bool(CONFIG.get(cfg_key, True))
+
+    CONFIG[cfg_key] = new_state
+    save_config()
+    log(f"[dispatch] {section} toggle set to: {'ON' if new_state else 'OFF'}")
+    return jsonify({
+        "ok": True,
+        "section": section,
+        "enabled": new_state,
+        "message": f"ارسال {'وصل' if new_state else 'قطع'} شد."
+    })
+
+
 @app.route("/api/balenews/push-now", methods=["POST"])
 def api_balenews_push_now():
     """Immediately dispatch all unsent posts from Bale channels to the destination channel."""
+    data = request.get_json(silent=True) or {}
+    if not CONFIG.get("balenews_dispatch_enabled", True) and not data.get("force"):
+        return jsonify({"ok": False, "error": "ارسال اخبار بله در حال حاضر قطع است. ابتدا دکمه وصل ارسال را فعال کنید."}), 400
     token, chat = _balenews_cfg()
     if not token or not chat:
         return jsonify({"ok": False, "error": "ربات یا کانال مقصد اخبار بله تنظیم نشده است."}), 400

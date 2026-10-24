@@ -143,6 +143,7 @@ const Channel = (function () {
 
   /* every visit to the tab refetches if the last fetch is older than a minute */
   async function mount() {
+    syncDispatchStatus();
     if (!S.feed || (Date.now() - S.fetchedAt) > 60000) await load(false);
     else render();
   }
@@ -270,6 +271,9 @@ const Channel = (function () {
       const tg = j.telegram || {};
       const bn = j.balenews || {};
       const logs = j.recent_logs || [];
+      const ideasOn = j.ideas_enabled !== false;
+      const tgOn = j.tgnews_enabled !== false;
+      const baleOn = j.balenews_enabled !== false;
 
       let html = '<div class="dispatch-modal-content">' +
         '<div class="dispatch-head" style="margin-bottom:16px;">' +
@@ -284,35 +288,38 @@ const Channel = (function () {
 
         '<div class="dispatch-grid">' +
           '<div class="dispatch-card">' +
-            '<div class="dh"><strong>ایده‌های محتوایی (بله)</strong>' + (b.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + '</div>' +
+            '<div class="dh"><strong>ایده‌های محتوایی</strong>' + (b.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + (ideasOn ? '<span class="status-pill ok" style="margin-right:4px;">ارسال: وصل</span>' : '<span class="status-pill err" style="margin-right:4px;">ارسال: قطع</span>') + '</div>' +
             '<div class="row"><span>کانال مقصد:</span> <code dir="ltr" style="font-weight:bold;color:var(--accent);">' + esc(b.chat || 'تنظیم نشده') + '</code></div>' +
             '<div class="row"><span>وضعیت:</span> <span>' + (b.configured ? 'آماده ارسال' : 'نیازمند توکن و چت') + '</span></div>' +
             '<div class="row"><span>ارسال‌شده در این تخته:</span> <strong>' + fa(b.posted_count || 0) + ' ایده</strong></div>' +
             '<div class="row"><span>در صف ارسال:</span> <strong>' + fa(b.unsent_count || 0) + ' ایده</strong></div>' +
-            '<div style="margin-top:12px;display:flex;gap:8px;">' +
+            '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">' +
               '<button class="btn sm primary" style="flex:1" onclick="Channel.pushNow(); closeModal(\'ideasDispatchOverlay\');">🚀 ارسال ایده‌های در صف</button>' +
               '<button class="btn sm ghost" onclick="Channel.testBalePing()">🧪 تست اتصال</button>' +
+              '<button class="btn sm ' + (ideasOn ? 'outline' : 'primary') + '" style="width:100%;margin-top:4px;" onclick="Channel.toggleDispatchModal(\'ideas\')">' + (ideasOn ? '🛑 قطع ارسال خودکار ایده‌ها' : '▶️ وصل ارسال خودکار ایده‌ها') + '</button>' +
             '</div>' +
           '</div>' +
 
           '<div class="dispatch-card">' +
-            '<div class="dh"><strong>اخبار بله (کانال اختصاصی)</strong>' + (bn.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + '</div>' +
+            '<div class="dh"><strong>اخبار بله (کانال اختصاصی)</strong>' + (bn.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + (baleOn ? '<span class="status-pill ok" style="margin-right:4px;">ارسال: وصل</span>' : '<span class="status-pill err" style="margin-right:4px;">ارسال: قطع</span>') + '</div>' +
             '<div class="row"><span>کانال مقصد:</span> <code dir="ltr" style="font-weight:bold;color:var(--accent);">' + esc(bn.chat || 'تنظیم نشده') + '</code></div>' +
             '<div class="row"><span>وضعیت ربات:</span> <span>' + (bn.configured ? 'آماده ارسال اخبار بله' : 'تنظیم‌نشده') + '</span></div>' +
-            '<div style="margin-top:12px;display:flex;gap:8px;">' +
+            '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">' +
               '<button class="btn sm ghost" style="flex:1" onclick="showView(\'balenews\'); closeModal(\'ideasDispatchOverlay\');">⚙️ رفتن به اخبار بله</button>' +
+              '<button class="btn sm ' + (baleOn ? 'outline' : 'primary') + '" style="flex:1" onclick="Channel.toggleDispatchModal(\'balenews\')">' + (baleOn ? '🛑 قطع ارسال اخبار بله' : '▶️ وصل ارسال اخبار بله') + '</button>' +
             '</div>' +
           '</div>' +
 
           '<div class="dispatch-card">' +
-            '<div class="dh"><strong>پیام‌رسان تلگرام</strong>' + (tg.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + '</div>' +
+            '<div class="dh"><strong>پیام‌رسان تلگرام</strong>' + (tg.configured ? '<span class="status-pill ok">متصل ✅</span>' : '<span class="status-pill err">تنظیم‌نشده ⚠️</span>') + (tgOn ? '<span class="status-pill ok" style="margin-right:4px;">ارسال: وصل</span>' : '<span class="status-pill err" style="margin-right:4px;">ارسال: قطع</span>') + '</div>' +
             '<div class="row"><span>کانال مقصد:</span> <code dir="ltr" style="font-weight:bold;">' + esc(tg.chat || 'تنظیم نشده') + '</code></div>' +
             '<div class="row"><span>وضعیت ربات:</span> <span>' + (tg.configured ? 'آماده ارسال' : 'تنظیم نشده') + '</span></div>' +
             '<div class="row"><span>ارسال‌شده:</span> <strong>' + fa(tg.posted_count || 0) + ' ایده</strong></div>' +
             '<div class="row"><span>در صف ارسال:</span> <strong>' + fa(tg.unsent_count || 0) + ' ایده</strong></div>' +
-            '<div style="margin-top:12px;display:flex;gap:8px;">' +
+            '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">' +
               '<button class="btn sm primary" style="flex:1" onclick="Channel.pushNow(\'telegram\'); closeModal(\'ideasDispatchOverlay\');">🚀 ارسال ایده‌های صف تلگرام</button>' +
               '<button class="btn sm ghost" onclick="Channel.testTgPing()">🧪 تست اتصال</button>' +
+              '<button class="btn sm ' + (tgOn ? 'outline' : 'primary') + '" style="width:100%;margin-top:4px;" onclick="Channel.toggleDispatchModal(\'tgnews\')">' + (tgOn ? '🛑 قطع ارسال اخبار تلگرام' : '▶️ وصل ارسال اخبار تلگرام') + '</button>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -353,6 +360,88 @@ const Channel = (function () {
       body.innerHTML = html;
     } catch (e) {
       body.innerHTML = '<div style="padding:20px;color:var(--err);text-align:center;">خطا در دریافت وضعیت: ' + esc(e.message) + '</div>';
+    }
+  }
+
+  async function syncDispatchStatus() {
+    try {
+      const r = await fetch('/api/dispatch/status');
+      const j = await r.json();
+      if (!j.ok) return;
+      updateHeaderToggle('ideas', j.ideas !== false);
+      updateHeaderToggle('tgnews', j.tgnews !== false);
+      updateHeaderToggle('balenews', j.balenews !== false);
+    } catch (e) {}
+  }
+
+  function updateHeaderToggle(sec, enabled) {
+    if (sec === 'ideas') {
+      const btn = el('btnToggleIdeasSend');
+      const dot = el('dotIdeasToggle');
+      const lbl = el('lblIdeasToggle');
+      if (dot) dot.className = 'dot ' + (enabled ? 'live' : 'dead');
+      if (lbl) lbl.textContent = enabled ? 'ارسال وصل است' : 'ارسال قطع است';
+      if (btn) {
+        btn.title = enabled ? 'قطع ارسال خودکار ایده‌ها (کلیک برای قطع)' : 'وصل ارسال خودکار ایده‌ها (کلیک برای وصل)';
+        btn.classList.toggle('btn-paused', !enabled);
+      }
+    } else if (sec === 'tgnews') {
+      const btn = el('btnToggleTgNewsSend');
+      const dot = el('dotTgNewsToggle');
+      const lbl = el('lblTgNewsToggle');
+      if (dot) dot.className = 'dot ' + (enabled ? 'live' : 'dead');
+      if (lbl) lbl.textContent = enabled ? 'ارسال وصل است' : 'ارسال قطع است';
+      if (btn) {
+        btn.title = enabled ? 'قطع ارسال اخبار تلگرام (کلیک برای قطع)' : 'وصل ارسال اخبار تلگرام (کلیک برای وصل)';
+        btn.classList.toggle('btn-paused', !enabled);
+      }
+    } else if (sec === 'balenews') {
+      const btn = el('btnToggleBaleNewsSend');
+      const dot = el('dotBaleNewsToggle');
+      const lbl = el('lblBaleNewsToggle');
+      if (dot) dot.className = 'dot ' + (enabled ? 'live' : 'dead');
+      if (lbl) lbl.textContent = enabled ? 'ارسال وصل است' : 'ارسال قطع است';
+      if (btn) {
+        btn.title = enabled ? 'قطع ارسال اخبار بله (کلیک برای قطع)' : 'وصل ارسال اخبار بله (کلیک برای وصل)';
+        btn.classList.toggle('btn-paused', !enabled);
+      }
+    }
+  }
+
+  async function toggleDispatch(btnEl) {
+    if (btnEl) btnEl.disabled = true;
+    try {
+      const r = await fetch('/api/dispatch/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ section: 'ideas' })
+      });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || 'خطا در تغییر وضعیت');
+      updateHeaderToggle('ideas', j.enabled);
+      if (typeof toast === 'function') toast(j.enabled ? 'ارسال ایده‌ها وصل شد ✅' : 'ارسال ایده‌ها قطع شد 🛑', j.enabled ? 'ok' : 'warn');
+    } catch (e) {
+      if (typeof toast === 'function') toast(e.message || 'خطا در برقراری ارتباط', 'err');
+    } finally {
+      if (btnEl) btnEl.disabled = false;
+    }
+  }
+
+  async function toggleDispatchModal(sec) {
+    try {
+      const r = await fetch('/api/dispatch/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ section: sec })
+      });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || 'خطا در تغییر وضعیت');
+      updateHeaderToggle(sec, j.enabled);
+      const name = (sec === 'ideas' ? 'ایده‌ها' : (sec === 'tgnews' ? 'اخبار تلگرام' : 'اخبار بله'));
+      if (typeof toast === 'function') toast((j.enabled ? `ارسال ${name} وصل شد ✅` : `ارسال ${name} قطع شد 🛑`), j.enabled ? 'ok' : 'warn');
+      openDispatchModal();
+    } catch (e) {
+      if (typeof toast === 'function') toast(e.message || 'خطا در تغییر وضعیت', 'err');
     }
   }
 
@@ -425,6 +514,10 @@ const Channel = (function () {
     openDispatchModal: openDispatchModal,
     testBalePing: testBalePing,
     testTgPing: testTgPing,
+    syncDispatchStatus: syncDispatchStatus,
+    updateHeaderToggle: updateHeaderToggle,
+    toggleDispatch: toggleDispatch,
+    toggleDispatchModal: toggleDispatchModal,
     _safeHref: safeHref,
     _s: S
   };

@@ -780,6 +780,10 @@
                 </div>
               </div>
               <div class="cb-head-actions">
+                <button class="btn sm" type="button" id="btnToggleIdeasSend" onclick="Channel.toggleDispatch(this)" title="قطع یا وصل ارسال خودکار ایده‌ها">
+                  <span class="dot live" id="dotIdeasToggle"></span>
+                  <span id="lblIdeasToggle">ارسال وصل است</span>
+                </button>
                 <button class="btn sm primary" type="button" id="btnPushBale" onclick="Channel.pushNow()" title="ارسال فوری همه ایده‌های جدید به پیام‌رسان‌های بله و تلگرام">
                   <svg class="ic"><use href="#i-send"/></svg>
                   <span>ارسال فوری ایده‌ها</span>
@@ -827,6 +831,10 @@
               </div>
               <div class="cb-head-actions">
                 <span class="cb-count" id="tgNewsCount">—</span>
+                <button class="btn sm" type="button" id="btnToggleTgNewsSend" onclick="TgNews.toggleDispatch('telegram', this)" title="قطع یا وصل ارسال خودکار اخبار تلگرام">
+                  <span class="dot live" id="dotTgNewsToggle"></span>
+                  <span id="lblTgNewsToggle">ارسال وصل است</span>
+                </button>
                 <button class="btn sm outline" type="button" onclick="Channel.openDispatchModal()" title="مشاهده وضعیت و تاریخچه خبرهای ارسال‌شده">
                   <svg class="ic"><use href="#i-file"/></svg>
                   <span>گزارش ارسال‌ها</span>
@@ -876,6 +884,10 @@
               </div>
               <div class="cb-head-actions">
                 <span class="cb-count" id="baleNewsCount">—</span>
+                <button class="btn sm" type="button" id="btnToggleBaleNewsSend" onclick="TgNews.toggleDispatch('bale', this)" title="قطع یا وصل ارسال خودکار اخبار بله">
+                  <span class="dot live" id="dotBaleNewsToggle"></span>
+                  <span id="lblBaleNewsToggle">ارسال وصل است</span>
+                </button>
                 <button class="btn sm primary" type="button" id="btnPushBaleNews" onclick="TgNews.pushAllBaleNews()" title="ارسال فوری همه اخبار جدید بله به کانال مقصد">
                   <svg class="ic"><use href="#i-send"/></svg>
                   <span>ارسال فوری به کانال بله</span>

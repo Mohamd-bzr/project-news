@@ -336,8 +336,32 @@ const TgNews = (function () {
     }
   }
 
+  async function toggleDispatch(platform, btnEl) {
+    if (btnEl) btnEl.disabled = true;
+    const sec = (platform === 'bale' ? 'balenews' : 'tgnews');
+    try {
+      const r = await fetch('/api/dispatch/toggle', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ section: sec })
+      });
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || 'خطا در تغییر وضعیت');
+      if (window.Channel && typeof Channel.updateHeaderToggle === 'function') {
+        Channel.updateHeaderToggle(sec, j.enabled);
+      }
+      const pName = (platform === 'bale' ? 'اخبار بله' : 'اخبار تلگرام');
+      if (typeof toast === 'function') toast(j.enabled ? `ارسال ${pName} وصل شد ✅` : `ارسال ${pName} قطع شد 🛑`, j.enabled ? 'ok' : 'warn');
+    } catch (e) {
+      if (typeof toast === 'function') toast(e.message || 'خطا در برقراری ارتباط', 'err');
+    } finally {
+      if (btnEl) btnEl.disabled = false;
+    }
+  }
+
   return {
     mount: function (platform) {
+      if (window.Channel && typeof Channel.syncDispatchStatus === 'function') Channel.syncDispatchStatus();
       if (!S.data) load(false, platform);
       else render();
       if (platform === 'bale') loadBaleNewsBotConfig();
@@ -579,6 +603,7 @@ const TgNews = (function () {
         if (typeof toast === 'function') toast('❌ خطای ارتباط: ' + e.message);
       }
     },
+    toggleDispatch: toggleDispatch,
     loadBaleNewsBotConfig: loadBaleNewsBotConfig,
     _safeHref: safeHref
   };

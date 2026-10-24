@@ -590,3 +590,77 @@ def test_api_telegram_news_send_blocks_bale_forbidden_words(monkeypatch):
     assert data.get("ok") is False
     assert "فیلترشده" in data.get("error", "")
 
+def test_dispatch_status_and_toggle(tmp_path, monkeypatch):
+    import app
+    client = app.app.test_client()
+    monkeypatch.setattr(app, "CONFIG_FILE", tmp_path / "settings.json")
+    
+    # Test GET status
+    res = client.get("/api/dispatch/status")
+    assert res.status_code == 200
+    st = res.json
+    assert st.get("ok") is True
+    assert "ideas" in st
+    assert "tgnews" in st
+    assert "balenews" in st
+
+    # Toggle tgnews to False
+    res2 = client.post("/api/dispatch/toggle", json={"section": "tgnews", "enabled": False})
+    assert res2.status_code == 200
+    assert res2.json.get("enabled") is False
+    assert app.CONFIG.get("tgnews_dispatch_enabled") is False
+
+    # Status reflects False
+    res3 = client.get("/api/dispatch/status")
+    assert res3.json.get("tgnews") is False
+
+    # Toggle tgnews without explicit enabled -> flips to True
+    res4 = client.post("/api/dispatch/toggle", json={"section": "tgnews"})
+    assert res4.status_code == 200
+    assert res4.json.get("enabled") is True
+    assert app.CONFIG.get("tgnews_dispatch_enabled") is True
+
+
+def test_dispatch_toggle_blocks_send_endpoints(tmp_path, monkeypatch):
+    import app
+    client = app.app.test_client()
+    monkeypatch.setattr(app, "CONFIG_FILE", tmp_path / "settings.json")
+    monkeypatch.setattr(app, "_telegram_cfg", lambda: ("FAKE_TG_TOKEN", "-10012345"))
+    monkeypatch.setattr(app, "_balenews_cfg", lambda: ("FAKE_BALE_TOKEN", "123456"))
+
+    # Turn off tgnews dispatch
+    app.CONFIG["tgnews_dispatch_enabled"] = False
+    res = client.post("/api/telegram_news/send", json={
+        "id": "1", "title": "تست", "text": "متن", "platform": "telegram"
+    })
+    assert res.status_code == 400
+    assert "قطع است" in res.json.get("error", "")
+
+    # Force allows bypass
+    monkeypatch.setattr(app, "_tg_send", lambda *a, **k: True)
+    res_f = client.post("/api/telegram_news/send", json={
+        "id": "1", "title": "تست", "text": "متن", "platform": "telegram", "force": True
+    })
+    assert res_f.status_code == 200
+
+    # Turn off ideas dispatch
+    app.CONFIG["ideas_dispatch_enabled"] = False
+    res_ideas = client.post("/api/ideas/push-now", json={})
+    assert res_ideas.status_code == 400
+    assert "قطع است" in res_ideas.json.get("error", "")
+
+    res_single = client.post("/api/ideas/send-single", json={"id": "abc"})
+    assert res_single.status_code == 400
+    assert "قطع است" in res_single.json.get("error", "")
+
+    # Turn off balenews dispatch
+    app.CONFIG["balenews_dispatch_enabled"] = False
+    res_bale = client.post("/api/balenews/push-now", json={})
+    assert res_bale.status_code == 400
+    assert "قطع است" in res_bale.json.get("error", "")
+
+    # Re-enable all
+    app.CONFIG["tgnews_dispatch_enabled"] = True
+    app.CONFIG["ideas_dispatch_enabled"] = True
+    app.CONFIG["balenews_dispatch_enabled"] = True
+

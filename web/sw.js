@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 'use strict';
 
-const SW_VERSION = 'v40';        /* v40: Telegram ideas buttons & actions */
+const SW_VERSION = 'v41';        /* v41: Dispatch on/off toggles for Telegram, Bale, and Ideas */
 const SHELL_CACHE = 'mohmd-shell-' + SW_VERSION;
 const API_CACHE = 'mohmd-api-' + SW_VERSION;
 const EXT_CACHE = 'mohmd-ext-' + SW_VERSION;
