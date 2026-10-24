@@ -363,49 +363,77 @@ const Channel = (function () {
     }
   }
 
+  const _dispatchState = { ideas: true, tgnews: true, balenews: true };
+
   async function syncDispatchStatus() {
     try {
       const r = await fetch('/api/dispatch/status');
       const j = await r.json();
       if (!j.ok) return;
-      updateHeaderToggle('ideas', j.ideas !== false);
-      updateHeaderToggle('tgnews', j.tgnews !== false);
-      updateHeaderToggle('balenews', j.balenews !== false);
+      _dispatchState.ideas = (j.ideas !== false);
+      _dispatchState.tgnews = (j.tgnews !== false);
+      _dispatchState.balenews = (j.balenews !== false);
+      updateHeaderToggle('ideas', _dispatchState.ideas);
+      updateHeaderToggle('tgnews', _dispatchState.tgnews);
+      updateHeaderToggle('balenews', _dispatchState.balenews);
+      updateTopbarDispatch();
     } catch (e) {}
   }
 
+  function updateTopbarDispatch() {
+    const btn = el('btnTopbarDispatch');
+    const dot = el('dotTopbarDispatch');
+    const lbl = el('lblTopbarDispatch');
+    if (!btn || !lbl) return;
+    const allOn = _dispatchState.ideas && _dispatchState.tgnews && _dispatchState.balenews;
+    const allOff = !_dispatchState.ideas && !_dispatchState.tgnews && !_dispatchState.balenews;
+    if (dot) dot.className = 'dot ' + (allOn ? 'live' : (allOff ? 'dead' : 'busy'));
+    if (allOn) {
+      lbl.textContent = 'ارسال خبرها: فعال ✅';
+      btn.style.borderColor = 'rgba(34,197,94,0.4)';
+    } else if (allOff) {
+      lbl.textContent = 'ارسال خبرها: کاملاً قطع 🛑';
+      btn.style.borderColor = 'rgba(239,68,68,0.6)';
+    } else {
+      lbl.textContent = 'ارسال خبرها: بخشی قطع ⚠️';
+      btn.style.borderColor = 'rgba(234,179,8,0.6)';
+    }
+  }
+
   function updateHeaderToggle(sec, enabled) {
+    _dispatchState[sec] = Boolean(enabled);
     if (sec === 'ideas') {
       const btn = el('btnToggleIdeasSend');
       const dot = el('dotIdeasToggle');
       const lbl = el('lblIdeasToggle');
       if (dot) dot.className = 'dot ' + (enabled ? 'live' : 'dead');
-      if (lbl) lbl.textContent = enabled ? 'ارسال وصل است' : 'ارسال قطع است';
+      if (lbl) lbl.textContent = enabled ? '🛑 قطع ارسال خودکار ایده‌ها' : '▶️ وصل ارسال ایده‌ها (قطع است)';
       if (btn) {
-        btn.title = enabled ? 'قطع ارسال خودکار ایده‌ها (کلیک برای قطع)' : 'وصل ارسال خودکار ایده‌ها (کلیک برای وصل)';
-        btn.classList.toggle('btn-paused', !enabled);
+        btn.className = 'btn sm ' + (enabled ? 'btn-dispatch-on' : 'btn-dispatch-off');
+        btn.title = enabled ? 'کلیک کنید تا ارسال خودکار ایده‌ها قطع شود' : 'کلیک کنید تا ارسال خودکار ایده‌ها دوباره فعال و وصل شود';
       }
     } else if (sec === 'tgnews') {
       const btn = el('btnToggleTgNewsSend');
       const dot = el('dotTgNewsToggle');
       const lbl = el('lblTgNewsToggle');
       if (dot) dot.className = 'dot ' + (enabled ? 'live' : 'dead');
-      if (lbl) lbl.textContent = enabled ? 'ارسال وصل است' : 'ارسال قطع است';
+      if (lbl) lbl.textContent = enabled ? '🛑 قطع ارسال اخبار تلگرام' : '▶️ وصل ارسال تلگرام (قطع است)';
       if (btn) {
-        btn.title = enabled ? 'قطع ارسال اخبار تلگرام (کلیک برای قطع)' : 'وصل ارسال اخبار تلگرام (کلیک برای وصل)';
-        btn.classList.toggle('btn-paused', !enabled);
+        btn.className = 'btn sm ' + (enabled ? 'btn-dispatch-on' : 'btn-dispatch-off');
+        btn.title = enabled ? 'کلیک کنید تا ارسال اخبار تلگرام قطع شود' : 'کلیک کنید تا ارسال اخبار تلگرام دوباره فعال و وصل شود';
       }
     } else if (sec === 'balenews') {
       const btn = el('btnToggleBaleNewsSend');
       const dot = el('dotBaleNewsToggle');
       const lbl = el('lblBaleNewsToggle');
       if (dot) dot.className = 'dot ' + (enabled ? 'live' : 'dead');
-      if (lbl) lbl.textContent = enabled ? 'ارسال وصل است' : 'ارسال قطع است';
+      if (lbl) lbl.textContent = enabled ? '🛑 قطع ارسال اخبار بله' : '▶️ وصل ارسال بله (قطع است)';
       if (btn) {
-        btn.title = enabled ? 'قطع ارسال اخبار بله (کلیک برای قطع)' : 'وصل ارسال اخبار بله (کلیک برای وصل)';
-        btn.classList.toggle('btn-paused', !enabled);
+        btn.className = 'btn sm ' + (enabled ? 'btn-dispatch-on' : 'btn-dispatch-off');
+        btn.title = enabled ? 'کلیک کنید تا ارسال اخبار بله قطع شود' : 'کلیک کنید تا ارسال اخبار بله دوباره فعال و وصل شود';
       }
     }
+    updateTopbarDispatch();
   }
 
   async function toggleDispatch(btnEl) {
@@ -523,3 +551,10 @@ const Channel = (function () {
   };
 })();
 window.Channel = Channel;
+if (typeof window !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncDispatchStatus);
+  } else {
+    setTimeout(syncDispatchStatus, 50);
+  }
+}

@@ -127,6 +127,10 @@
     </div>
 
     <div class="topbar-actions">
+      <button class="btn sm" id="btnTopbarDispatch" type="button" onclick="Channel.openDispatchModal()" style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;font-size:12px;font-weight:600;border:1px solid var(--rule);border-radius:var(--r1);background:var(--panel-2);cursor:pointer;" title="کلید قطع و وصل ارسال خبرها (ایده‌ها، تلگرام، بله)">
+        <span class="dot live" id="dotTopbarDispatch"></span>
+        <span id="lblTopbarDispatch">ارسال خبرها: فعال</span>
+      </button>
       <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" aria-label="تغییر تم روشن و تیره" title="تم روشن / تیره">
         <svg class="ic" id="themeIcMoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12.6A8.6 8.6 0 0 1 11.4 4a7.1 7.1 0 1 0 8.6 8.6Z"/></svg>
         <svg class="ic" id="themeIcSun" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2.6v2.5M12 18.9v2.5M2.6 12h2.5M18.9 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></svg>
