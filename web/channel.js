@@ -551,7 +551,7 @@ const Channel = (function () {
   };
 })();
 window.Channel = Channel;
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', syncDispatchStatus);
   } else {
