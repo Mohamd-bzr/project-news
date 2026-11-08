@@ -14,30 +14,28 @@ A high-performance, real-time financial market intelligence terminal and news ag
 
 - **194+ Multi-Asset Sources**: Parallel scraping across Macroeconomics, Forex, Commodities, Energy, Industrial Metals, and Cryptocurrency.
 - **Autonomous Multi-Channel Dispatch**: Built-in broadcast pipelines for **Telegram** and **Bale** messengers with channel monitoring, reaction filtering, and dedicated bot integration.
-- **Next-Gen AI & LLM Engine**: Unified AI interface supporting direct **OpenAI** (`gpt-4o-mini`, `gpt-4o`) and **OpenRouter** (`sk-or-...`) with instant access to **Claude 3.5 Sonnet**, **DeepSeek V3 / R1**, **Google Gemini 2.0 Flash**, and **Llama 3.3**.
+- **Optional AI & LLM Add-on**: Optional generative intelligence interface supporting direct **OpenAI** (`gpt-4o-mini`, `gpt-4o`) and **OpenRouter** (`sk-or-...`) for on-demand summaries without altering the standalone, zero-cloud core.
 - **Real-Time Technical Indicators**: Instant computation of RSI, MACD, Bollinger Bands, ATR, and EMA overlays coupled with Yahoo Finance v8 candlestick charts.
 - **Deterministic Persian Translation**: High-throughput automated translation pipeline featuring domain-specific entity preservation, Persian numeral normalization, and Zero-Width Non-Joiner (ZWNJ) orthography.
 - **PWA & Offline First**: Standalone Progressive Web App with Service Worker caching, IndexedDB storage engine, Server-Sent Events (SSE) streaming, and low-latency dark theme UI.
 
 ---
 
-## 🧠 AI & LLM Architecture
+## 🧩 Optional AI / LLM Add-on (افزونه اختیاری هوش مصنوعی)
 
-The terminal features an integrated AI subsystem ([`ai_features.py`](file:///e:/freebuff/ai_features.py)) that bridges automated market ingestion with advanced generative analysis:
+> [!NOTE]
+> **Core Zero-Cloud Philosophy**: The entire news ingestion, quality ranking, Persian translation, indicator computation, and autonomous dispatch pipeline runs **100% locally and deterministically** using pure Python math, algorithms, and regex. The core system operates with complete autonomy and has **zero dependencies on external AI or cloud APIs**.
 
-### 1. Multi-Provider LLM Integration
-- **OpenAI Native**: Plug-and-play with OpenAI API keys (`gpt-4o-mini`, `gpt-4o`).
-- **OpenRouter Gateway**: Seamlessly routes requests through OpenRouter by supplying an API key (`sk-or-...`) or custom endpoint. This unlocks access to state-of-the-art reasoning models:
-  - **Anthropic Claude 3.5 Sonnet**: In-depth institutional macroeconomic reports.
-  - **DeepSeek V3 & DeepSeek R1**: Advanced quantitative reasoning and analytical breakdowns.
-  - **Google Gemini 1.5 / 2.0 Flash**: Ultra-fast latency news summarization.
-  - **Meta Llama 3.3 70B**: High-fidelity open-weights intelligence.
+For users who wish to enable optional generative AI enhancements, the subsystem ([`ai_features.py`](file:///e:/freebuff/ai_features.py)) provides an on-demand bridge to external LLM providers when an API key is configured in settings:
 
-### 2. Intelligent Use Cases
-- **Executive Summaries**: Synthesizes dozens of fragmented news articles into structured market briefs.
-- **"Ask the News" RAG Engine**: Interactive retrieval-augmented question answering over the latest 72-hour news corpus.
-- **Anomaly & Sentiment Corroboration**: Pairs local statistical anomaly detection with LLM validation.
-- **Content Studio Generator**: Composes publish-ready Persian market posts tailored for social networks and channel subscribers.
+### 1. Supported Providers (Optional)
+- **OpenAI API**: Direct plug-and-play with OpenAI API keys (`gpt-4o-mini`, `gpt-4o`).
+- **OpenRouter Gateway**: Connects via OpenRouter (`sk-or-...`) to access modern reasoning models on demand (such as Claude 3.5 Sonnet, DeepSeek V3 / R1, Gemini 2.0 Flash, or Llama 3.3).
+
+### 2. Optional Capabilities (Requires User-Supplied API Key)
+- **On-Demand Asset Summaries**: Generates a 3-bullet executive summary and sentiment snapshot for a specific symbol on demand.
+- **"Ask the News" Q&A**: Interactive retrieval-augmented querying over the recent 72-hour news corpus.
+- **Purely Optional & Graceful Fallback**: If no API key is supplied, this module remains inactive; all core terminal operations, charts, and auto-dispatches continue running smoothly using statistical calculations (Z-score volume anomaly detection and moving average momentum).
 
 ---
 
